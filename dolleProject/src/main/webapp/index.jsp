@@ -14,7 +14,9 @@
 </script>
 </head>
 <body>
-	Hello Spring Projects..
+
+	Hello Dolle..
+
 	<form action="auth/login.do" id='simpleForm' method="get">
 	
 		<input type="button"  

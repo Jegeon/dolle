@@ -3,7 +3,7 @@
 
 <mapper namespace="com.edu.member">
 
-	<resultMap type="com.edu.member.vo.MemberVo"
+	<resultMap type="com.edu.vo.MemberVo"
 		id="memberResultMap">
 		<id column="MNO" property="no" />
 		<result column="MNAME" property="name" />
@@ -42,7 +42,7 @@
 	</update>
 	
 	<insert id="memberInsertOne" 
-		parameterType="com.edu.member.vo.MemberVo">
+		parameterType="com.edu.vo.MemberVo">
 		
 	</insert>
 

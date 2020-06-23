@@ -1,4 +1,4 @@
-package com.edu.member.controller;
+package com.edu.notice.controller;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,10 +19,10 @@ import com.edu.member.vo.MemberVo;
 
 
 @Controller
-public class TeamController {
+public class NoticeController {
 
 	private static final Logger log = 
-			LoggerFactory.getLogger(TeamController.class);
+			LoggerFactory.getLogger(NoticeController.class);
 	
 	@Autowired
 	private MemberService memberService;

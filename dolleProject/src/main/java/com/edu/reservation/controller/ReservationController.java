@@ -1,4 +1,4 @@
-package com.edu.member.controller;
+package com.edu.reservation.controller;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,10 +19,10 @@ import com.edu.member.vo.MemberVo;
 
 
 @Controller
-public class CourseReviewController {
+public class ReservationController {
 
 	private static final Logger log = 
-			LoggerFactory.getLogger(CourseReviewController.class);
+			LoggerFactory.getLogger(ReservationController.class);
 	
 	@Autowired
 	private MemberService memberService;

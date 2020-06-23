@@ -1,4 +1,4 @@
-package com.edu.member.controller;
+package com.edu.team.controller;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,10 +19,10 @@ import com.edu.member.vo.MemberVo;
 
 
 @Controller
-public class ReservationController {
+public class TeamController {
 
 	private static final Logger log = 
-			LoggerFactory.getLogger(ReservationController.class);
+			LoggerFactory.getLogger(TeamController.class);
 	
 	@Autowired
 	private MemberService memberService;

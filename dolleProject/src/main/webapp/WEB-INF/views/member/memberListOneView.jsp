@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>회원정보 조회</title>
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
 <script type="text/javascript">
 	window.onload = function(){
 		var memberNameInputObj = 

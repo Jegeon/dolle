@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>회원 등록</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/Header.jsp" />

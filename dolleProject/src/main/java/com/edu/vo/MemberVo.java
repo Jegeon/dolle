@@ -7,22 +7,37 @@ public class MemberVo {
 	private int no;
 	private String name;
 	private String email;
+	private String nickname;
 	private String password;
+	private String phone;
+	private Date birthdate;
+	private String national;
 	private Date createDate;
 	private Date modifiedDate;
+	private String grade;
+	private String del;
+	private String tempPassword;
 	
-	public MemberVo() {
-		super();
-	}
-
-	public MemberVo(int no, String name, String email, String password, Date createDate, Date modifiedDate) {
+	public MemberVo(int no, String name, String email, String nickname, String password, String phone, Date birthdate,
+			String national, Date createDate, Date modifiedDate, String grade, String del, String tempPassword) {
 		super();
 		this.no = no;
 		this.name = name;
 		this.email = email;
+		this.nickname = nickname;
 		this.password = password;
+		this.phone = phone;
+		this.birthdate = birthdate;
+		this.national = national;
 		this.createDate = createDate;
 		this.modifiedDate = modifiedDate;
+		this.grade = grade;
+		this.del = del;
+		this.tempPassword = tempPassword;
+	}
+
+	public MemberVo() {
+		super();
 	}
 
 	public int getNo() {
@@ -49,12 +64,44 @@ public class MemberVo {
 		this.email = email;
 	}
 
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
 	public String getPassword() {
 		return password;
 	}
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public Date getBirthdate() {
+		return birthdate;
+	}
+
+	public void setBirthdate(Date birthdate) {
+		this.birthdate = birthdate;
+	}
+
+	public String getNational() {
+		return national;
+	}
+
+	public void setNational(String national) {
+		this.national = national;
 	}
 
 	public Date getCreateDate() {
@@ -73,10 +120,36 @@ public class MemberVo {
 		this.modifiedDate = modifiedDate;
 	}
 
+	public String getGrade() {
+		return grade;
+	}
+
+	public void setGrade(String grade) {
+		this.grade = grade;
+	}
+
+	public String getDel() {
+		return del;
+	}
+
+	public void setDel(String del) {
+		this.del = del;
+	}
+
+	public String getTempPassword() {
+		return tempPassword;
+	}
+
+	public void setTempPassword(String tempPassword) {
+		this.tempPassword = tempPassword;
+	}
+
 	@Override
 	public String toString() {
-		return "MemberVo [no=" + no + ", name=" + name + ", email=" + email + ", password=" + password + ", createDate="
-				+ createDate + ", modifiedDate=" + modifiedDate + "]";
+		return "MemberVo [no=" + no + ", name=" + name + ", email=" + email + ", nickname=" + nickname + ", password="
+				+ password + ", phone=" + phone + ", birthdate=" + birthdate + ", national=" + national
+				+ ", createDate=" + createDate + ", modifiedDate=" + modifiedDate + ", grade=" + grade + ", del=" + del
+				+ ", tempPassword=" + tempPassword + "]";
 	}
 	
 }

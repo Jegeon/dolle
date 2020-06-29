@@ -18,7 +18,7 @@ public class CourseReviewCommentVo {
 	}
 
 	public CourseReviewCommentVo(int comment_idx, int review_idx, int member_idx, String comment_content,
-			String comment_emotion, String comment_del_yn, Date comment_cre_date, Date comment_mod_date) {
+			String comment_emotion, String comment_del_yn, Date comment_cre_date, Date comment_mod_date) { 
 		super();
 		this.comment_idx = comment_idx;
 		this.review_idx = review_idx;

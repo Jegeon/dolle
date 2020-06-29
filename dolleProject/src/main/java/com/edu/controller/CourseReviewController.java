@@ -25,6 +25,7 @@ public class CourseReviewController {
 	public String courseReviewBoard(Model model) {
 		log.debug(" **** Welcome courseReviewBoard ****");
 		
+		
 		return "courseReview/courseReviewListView";
 	}
 	

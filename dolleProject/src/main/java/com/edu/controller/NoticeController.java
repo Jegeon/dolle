@@ -26,4 +26,18 @@ public class NoticeController {
 	@Autowired
 	private NoticeService noticeService;
 	
+	@RequestMapping(value="/noticeBoard/list.do", method = RequestMethod.GET)
+	public String noticeBoardListView(Model model) {
+		log.debug(" *** Welcome NoticeBoardListView ***");
+		
+		return "noticeBoard/noticeBoardListView";
+	}
+	
+	@RequestMapping(value="/noticeBoard/detail.do", method = RequestMethod.GET)
+	public String noticeBoardDetailView(Model model) {
+		log.debug(" *** Welcome NoticeBoardDetail View ***");
+		
+		return "noticeBoard/noticeBoardDetailView";
+	}
+	
 }

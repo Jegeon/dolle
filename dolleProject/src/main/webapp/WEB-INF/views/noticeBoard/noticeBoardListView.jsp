@@ -1,0 +1,223 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+
+<title>공지사항 게시판</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
+
+</head>
+<style type="text/css">
+#contentDiv {
+	width: 1260px;
+	height: 850px;
+/* 	border: 1px solid black; */
+	margin: 50px auto 50px auto;
+	box-sizing: border-box;
+}
+
+#megaPhone {
+	width: 40px;
+	height: 40px;
+	box-sizing: border-box;
+}
+
+table, tr, th, td {
+	border-collapse: collapse;
+	vertical-align: middle;
+	text-align: center;
+}
+
+tr {
+	border-top : 1px solid #ddd;
+	border-bottom : 1px solid #ddd;
+}
+
+table {
+	width: 1260px;
+	height: 645px;
+}
+
+th {
+	font-weight: bold;
+	background-color: #F8F4ED;
+	border-top: 2px solid #ddd;
+	border-bottom: 2px solid #ddd;
+}
+
+#tableWrap {
+	width: 1260px;
+	height: 700px;
+	clear: both;
+}
+</style>
+
+
+<body>
+
+	<jsp:include page="/WEB-INF/views/Header.jsp" />
+	
+	<div id='contentDiv'>
+		<img id='megaPhone' alt="megaPhone" src="../resources/images/megaPhone.png">
+		<span style="font-size: 47px; font-family: 대한민국정부상징체;">공지사항</span>
+		<div style="float: right; height: 50px; width: 400px; padding-top: 60px;">
+
+			
+			<select style="width: 140px; padding: 6px 22px; vertical-align: middle; border: 1px solid #B9B9B9; font-size: 14px; font-family: Segoe UI; -webkit-appearance: none; /* 원본 select 버튼 감추기 */ background: url('/dolleProject/resources/images/selectBtn.PNG') no-repeat 95% 50%;">
+				<option>작성자</option>
+				<option>제목</option>
+			</select>
+
+			<div style="width: 250px; height: 31px; display: inline-block; border: 1px solid #B9B9B9; vertical-align: middle;">
+				<input type="text" value=""
+					style="width: 190px; height: 22px; vertical-align: middle; font: normal normal 14px Segoe UI; margin-left: 10px; padding: 2px 0px 1px 10px; border: 0px;">
+				<img id="searchBtn" alt="검색버튼"
+					src="/dolleProject/resources/images/searchBtn.PNG"
+					style="margin-top: 2px; vertical-align: middle;">
+			</div>
+
+		</div>
+		
+		<div id='tableWrap'>
+			<table>
+				<tr>
+					<th style="border-right: 1px solid #ddd; width: 100px;">번호</th>
+					<th style="border-right: 1px solid #ddd; width: 760px;">제목</th>
+					<th style="border-right: 1px solid #ddd; width: 200px;">작성자</th>
+					<th style="width: 200px;">작성일</th>
+				</tr>
+				<tr>
+					<td style="border-right: 1px solid #ddd; color: #0D4371; font-weight: bold; font-size: 17px;">공지</td>
+					<td style="border-right: 1px solid #ddd; text-align: left; padding-left: 15px;">공지사항입니다.</td>
+					<td style="border-right: 1px solid #ddd;">군수</td>
+					<td>2020-06-19</td>
+				</tr>
+				<tr>
+					<td style="border-right: 1px solid #ddd; color: #0D4371; font-weight: bold; font-size: 17px;">공지</td>
+					<td style="border-right: 1px solid #ddd; text-align: left; padding-left: 15px;"></td>
+					<td style="border-right: 1px solid #ddd;"></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td style="border-right: 1px solid #ddd; color: #0D4371; font-weight: bold; font-size: 17px;">공지</td>
+					<td style="border-right: 1px solid #ddd; text-align: left; padding-left: 15px;"></td>
+					<td style="border-right: 1px solid #ddd;"></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td style="border-right: 1px solid #ddd; color: #0D4371; font-weight: bold; font-size: 17px;">공지</td>
+					<td style="border-right: 1px solid #ddd; text-align: left; padding-left: 15px;"></td>
+					<td style="border-right: 1px solid #ddd;"></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td style="border-right: 1px solid #ddd;">73</td>
+					<td style="border-right: 1px solid #ddd; text-align: left; padding-left: 15px;"></td>
+					<td style="border-right: 1px solid #ddd;"></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td style="border-right: 1px solid #ddd;">72</td>
+					<td style="border-right: 1px solid #ddd; text-align: left; padding-left: 15px;"></td>
+					<td style="border-right: 1px solid #ddd;"></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td style="border-right: 1px solid #ddd;">71</td>
+					<td style="border-right: 1px solid #ddd; text-align: left; padding-left: 15px;"></td>
+					<td style="border-right: 1px solid #ddd;"></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td style="border-right: 1px solid #ddd;">70</td>
+					<td style="border-right: 1px solid #ddd; text-align: left; padding-left: 15px;"></td>
+					<td style="border-right: 1px solid #ddd;"></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td style="border-right: 1px solid #ddd;">69</td>
+					<td style="border-right: 1px solid #ddd; text-align: left; padding-left: 15px;"></td>
+					<td style="border-right: 1px solid #ddd;"></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td style="border-right: 1px solid #ddd;">68</td>
+					<td style="border-right: 1px solid #ddd; text-align: left; padding-left: 15px;"></td>
+					<td style="border-right: 1px solid #ddd;"></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td style="border-right: 1px solid #ddd;">67</td>
+					<td style="border-right: 1px solid #ddd; text-align: left; padding-left: 15px;"></td>
+					<td style="border-right: 1px solid #ddd;"></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td style="border-right: 1px solid #ddd;">66</td>
+					<td style="border-right: 1px solid #ddd; text-align: left; padding-left: 15px;"></td>
+					<td style="border-right: 1px solid #ddd;"></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td style="border-right: 1px solid #ddd;">65</td>
+					<td style="border-right: 1px solid #ddd; text-align: left; padding-left: 15px;"></td>
+					<td style="border-right: 1px solid #ddd;"></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td style="border-right: 1px solid #ddd;">64</td>
+					<td style="border-right: 1px solid #ddd; text-align: left; padding-left: 15px;"></td>
+					<td style="border-right: 1px solid #ddd;"></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td style="border-right: 1px solid #ddd;">63</td>
+					<td style="border-right: 1px solid #ddd; text-align: left; padding-left: 15px;"></td>
+					<td style="border-right: 1px solid #ddd;"></td>
+					<td></td>
+				</tr>
+			</table>
+		</div>
+		
+		<div style="width:1260px; height:205px; margin:0 auto; text-align: center; clear: both;">
+			<ul style="width: 600px; display: inline-block;">
+				<li style="width:50px; height:50px; display: inline-block; background: #FFFFFF; border:1px solid #fff; vertical-align: middle;
+					 padding-top:7px; box-sizing: border-box;">
+					<img id="doubledLeftBtn" alt="doubledLeftBtn" src="/dolleProject/resources/images/doubleLeft.PNG" >
+				</li>
+				<li style="width:50px; height:50px; display: inline-block; background: #FFFFFF; border:1px solid #fff; vertical-align: middle;
+					 padding-top:7px; box-sizing: border-box;">
+					<img id="doubledLeftBtn" alt="doubledLeftBtn" src="/dolleProject/resources/images/left.PNG" >
+				</li>
+				<li style="width:50px; height:50px; display: inline-block; background: #0D4371; color:#fff; border:1px solid #707070; vertical-align: middle;
+					font-size: 23px; padding-top:10px; box-sizing: border-box;">1</li>
+				<li style="width:50px; height:50px; display: inline-block; background: #FFFFFF; border:1px solid #707070; vertical-align: middle;
+					font-size: 23px; padding-top:10px; box-sizing: border-box;">2</li>
+				<li style="width:50px; height:50px; display: inline-block; background: #FFFFFF; border:1px solid #707070; vertical-align: middle;
+					font-size: 23px; padding-top:10px; box-sizing: border-box;">3</li>
+				<li style="width:50px; height:50px; display: inline-block; background: #FFFFFF; border:1px solid #707070; vertical-align: middle;
+					font-size: 23px; padding-top:10px; box-sizing: border-box;">4</li>
+				<li style="width:50px; height:50px; display: inline-block; background: #FFFFFF; border:1px solid #707070; vertical-align: middle;
+					font-size: 23px; padding-top:10px; box-sizing: border-box;">5</li>
+				<li style="width:50px; height:50px; display: inline-block; background: #FFFFFF; border:1px solid #fff; vertical-align: middle;
+					 padding-top:7px; box-sizing: border-box;">
+					<img id="doubledLeftBtn" alt="doubledLeftBtn" src="/dolleProject/resources/images/right.PNG" >
+				</li>
+				
+				<li style="width:50px; height:50px; display: inline-block; background: #FFFFFF; border:1px solid #fff; vertical-align: middle;
+					 padding-top:7px; box-sizing: border-box;">
+					<img id="doubledLeftBtn" alt="doubledLeftBtn" src="/dolleProject/resources/images/doubleRight.PNG" >
+				</li>
+			</ul>
+		</div>
+		
+	</div>
+	
+	<jsp:include page="/WEB-INF/views/Tail.jsp" />
+	
+
+</body>
+</html>

@@ -54,125 +54,102 @@
 	
 		<ul style="position: relative;">
 			<li class="reviewList">
-				<div class="fixed_Box" style="width:306px; height:114px; position: absolute; top: 0px; left: 0px;
+				<div class="fixed_Box" style="width:244px; height:90px; position: absolute; top: 0px; left: 0px;
 					background-color: lightgray;">
 				</div>	
-				<span class="innerBox" style="width:306px; height:114px; position: absolute; top: 0px; left: 0px;">		
+				<span class="innerBox" style="width:244px; height:90px; position: absolute; top: 0px; left: 0px;">		
 					<span>1</span>
 				</span>
 			</li>
 			<li class="reviewList">
-				<div class="photo_Box" style="width:306px; height:342px; position: absolute; top: 0px; left: 318px;
+				<div class="photo_Box" style="width:244px; height:267px; position: absolute; top: 0px; left: 254px;
 					background-color: lightgray; ">
 					<img alt="review_photo" src="/dolleProject/resources/images/test.jpg" style="position: relative; height:100%; width:100%;">
 				</div>
-				<span class="innerBox" style="width:306px; height:114px; position: absolute; top: 228px; left: 318px; 
+				<span class="innerBox" style="width:244px; height:90px; position: absolute; top: 177px; left: 254px; 
 					background-color: #000; opacity: 0.3;">			
 				</span>
-				<span class="innerBox_txt" style="width:306px; height:114px; position: absolute;top: 228px; left: 318px; 
-					color:#fff; opacity: 1;">
-					<span style="font: normal bold 22px Segoe UI; margin: 17px 20px 0px; display: block;">
-						제목달거야아~~
-					</span>
-					<span style="font: normal normal 14px Segoe UI; margin: 7px 20px; display: block;">
-						원아름
-					</span>
-					<span style="margin: 10px 20px; display: block; width: 110px;">
-						<img alt="별_full" src="/dolleProject/resources/images/starSolid.png"
-							style="width: 16px;">
-						<img alt="별_full" src="/dolleProject/resources/images/starSolid.png"
-							style="width: 16px;">
-						<img alt="별_full" src="/dolleProject/resources/images/starSolid.png"
-							style="width: 16px;">
-						<img alt="별_full" src="/dolleProject/resources/images/starSolid.png"
-							style="width: 16px;">
-						<img alt="별_full" src="/dolleProject/resources/images/starSolid.png"
-							style="width: 16px;">
-					</span>
-					<span>
-						<img alt="별_full" src="/dolleProject/resources/images/starSolid.png"
-							style="width: 16px;">
-					</span>
-					<span>
-						<img alt="별_full" src="/dolleProject/resources/images/starSolid.png"
-							style="width: 16px;">
-					</span>			
+				<span class="innerBox_txt" style="width:244px; height:90px; position: absolute;top: 177px; left: 254px; 
+					color:#fff; font: normal bold 25px Segoe UI; opacity: 2;">
+					2
 				</span>
 			</li>
 			<li class="reviewList">
-				<div class="fixed_Box" style="width:306px; height:114px; position: absolute; top: 0px; left: 636px;
+				<div class="fixed_Box" style="width:244px; height:90px; position: absolute; top: 0px; left: 508px;
 					background-color: lightgray; ">
 				</div>
-				<span class="innerBox" style="width:306px; height:114px; position: absolute; top: 0px; left: 636px;">		
+				<span class="innerBox" style="width:244px; height:90px; position: absolute; top: 0px; left: 508px;">		
 					<span>3</span>
 				</span>
 			</li>
 			<li class="reviewList">
-				<div class="photo_Box" style="width:306px; height:342px; position: absolute; top: 0px; left: 954px;
+				<div class="photo_Box" style="width:244px; height:267px; position: absolute; top: 0px; left: 762px;
 					background-color: lightgray; ">
 					<img alt="review_photo" src="/dolleProject/resources/images/test.jpg" style="position: relative; height:100%; width:100%;">
 				</div>
-				<span class="innerBox" style="width:306px; height:114px; position: absolute; top: 228px; left: 954px; 
-					background-color: #000; opacity: 0.3;">			
-				</span>
-				<span class="innerBox_txt" style="width:306px; height:114px; position: absolute;top: 228px; left: 954px; 
-					color:#fff; font: normal bold 25px Segoe UI; opacity: 2;">
+				<span class="innerBox" style="width:244px; height:90px; position: absolute; top: 177px; left: 762px;
+					background-color: #000; opacity: 0.3; ">
 					4
 				</span>
 			</li>
-			
-			
-			
 			<li class="reviewList">
-				<div class="photo_Box" style="width:306px; height:342px; position: absolute; top: 126px; left: 0px;
+				<div class="fixed_Box" style="width:244px; height:90px; position: absolute; top: 0px; left: 1016px;
 					background-color: lightgray; ">
-					<img alt="review_photo" src="/dolleProject/resources/images/test.jpg" style="position: relative; height:100%; width:100%;">
 				</div>
-				<span class="innerBox" style="width:306px; height:114px; position: absolute; top: 354px; left: 0px; 
-					background-color: #000; opacity: 0.3;">			
-				</span>
-				<span class="innerBox_txt" style="width:306px; height:114px; position: absolute;top: 354px; left: 0px; 
-					color:#fff; font: normal bold 25px Segoe UI; opacity: 2;">
-					5
+				<span class="innerBox" style="width:244px; height:90px; position: absolute; top: 0px; left: 1016px;">		
+					<span>5</span>
 				</span>
 			</li>
+			
+			
 			<li class="reviewList">
-				<div class="photo_Box" style="width:306px; height:342px; position: absolute; top: 354px; left: 318px;
+				<div class="photo_Box" style="width:244px; height:267px; position: absolute; top: 100px; left: 0px;
 					background-color: lightgray; ">
 					<img alt="review_photo" src="/dolleProject/resources/images/test.jpg" style="position: relative; height:100%; width:100%;">
 				</div>
-				<span class="innerBox" style="width:306px; height:114px; position: absolute; top: 582px; left: 318px; 
-					background-color: #000; opacity: 0.3;">			
-				</span>
-				<span class="innerBox_txt" style="width:306px; height:114px; position: absolute;top: 582px; left: 318px; 
-					color:#fff; font: normal bold 25px Segoe UI; opacity: 2;">
+				<span class="innerBox" style="width:244px; height:90px; position: absolute; top: 277px; left: 0px;
+					background-color: #000; opacity: 0.3; ">
 					6
 				</span>
 			</li>
 			<li class="reviewList">
-				<div class="photo_Box" style="width:306px; height:342px; position: absolute; top: 126px; left: 636px;
+				<div class="photo_Box" style="width:244px; height:267px; position: absolute; top: 277px; left: 254px;
 					background-color: lightgray; ">
 					<img alt="review_photo" src="/dolleProject/resources/images/test.jpg" style="position: relative; height:100%; width:100%;">
 				</div>
-				<span class="innerBox" style="width:306px; height:114px; position: absolute; top: 354px; left: 636px; 
-					background-color: #000; opacity: 0.3;">			
-				</span>
-				<span class="innerBox_txt" style="width:306px; height:114px; position: absolute;top: 354px; left: 636px; 
-					color:#fff; font: normal bold 25px Segoe UI; opacity: 2;">
+				<span class="innerBox" style="width:244px; height:90px; position: absolute; top: 454px; left: 254px;
+					background-color: #000; opacity: 0.3; ">
 					7
 				</span>
 			</li>
 			<li class="reviewList">
-				<div class="photo_Box" style="width:306px; height:342px; position: absolute; top: 354px; left: 954px;
+				<div class="photo_Box" style="width:244px; height:267px; position: absolute; top: 100px; left: 508px;
 					background-color: lightgray; ">
 					<img alt="review_photo" src="/dolleProject/resources/images/test.jpg" style="position: relative; height:100%; width:100%;">
 				</div>
-				<span class="innerBox" style="width:306px; height:114px; position: absolute; top: 582px; left: 954px; 
-					background-color: #000; opacity: 0.3;">			
-				</span>
-				<span class="innerBox_txt" style="width:306px; height:114px; position: absolute;top: 582px; left: 954px; 
-					color:#fff; font: normal bold 25px Segoe UI; opacity: 2;">
+				<span class="innerBox" style="width:244px; height:90px; position: absolute; top: 277px; left: 508px;
+					background-color: #000; opacity: 0.3; ">
 					8
+				</span>
+			</li>
+			<li class="reviewList">
+				<div class="photo_Box" style="width:244px; height:267px; position: absolute; top: 277px; left: 762px;
+					background-color: lightgray; ">
+					<img alt="review_photo" src="/dolleProject/resources/images/test.jpg" style="position: relative; height:100%; width:100%;">
+				</div>
+				<span class="innerBox" style="width:244px; height:90px; position: absolute; top: 454px; left: 762px;
+					background-color: #000; opacity: 0.3; ">
+					9
+				</span>
+			</li>
+			<li class="reviewList">
+				<div class="photo_Box" style="width:244px; height:267px; position: absolute; top: 100px; left: 1016px;
+					background-color: lightgray; ">
+					<img alt="review_photo" src="/dolleProject/resources/images/test.jpg" style="position: relative; height:100%; width:100%;">
+				</div>
+				<span class="innerBox" style="width:244px; height:90px; position: absolute; top: 277px; left: 1016px;
+					background-color: #000; opacity: 0.3; ">
+					10
 				</span>
 			</li>
 		</ul>

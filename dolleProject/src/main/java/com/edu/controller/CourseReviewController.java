@@ -29,5 +29,13 @@ public class CourseReviewController {
 		return "courseReview/courseReviewListView";
 	}
 	
+	@RequestMapping(value="/courseReview2/list.do", method = RequestMethod.GET)
+	public String courseReviewBoard2(Model model) {
+		log.debug(" **** Welcome courseReviewBoard ****");
+		
+		
+		return "courseReview/courseReviewListView2";
+	}
+	
 	
 }

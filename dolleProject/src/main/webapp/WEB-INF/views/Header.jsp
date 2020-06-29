@@ -39,8 +39,8 @@
 	color:#FFFFFF;
 }
 </style>
-<script type="text/javascript"
-	src="/springHome/resources/js/jquery-3.5.1.js"></script>
+<script type="text/javascript" src="/dolleProject/resources/js/jquery-3.5.1.js"></script>
+
 <script type="text/javascript">
    $(document).ready(function() {
    		

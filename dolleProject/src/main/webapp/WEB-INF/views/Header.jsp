@@ -156,8 +156,8 @@
 </script>
 
 
-<div>
-	<div id='headerWrap' style="margin: auto;">
+
+	<div id='headerWrap' style="width: 100%; margin: auto; position: absolute;">
 
 
 		<div
@@ -253,8 +253,11 @@
 			</div>
 		</div>
 
-</div>
+	</div>
 
+	<div style="padding-top: 187px;">
+	
+	</div>
 
 	<!--    배경은 전체에 다 나오는 데? -->
 	<!--    내용만 1260 -->

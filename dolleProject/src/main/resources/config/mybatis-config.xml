@@ -7,6 +7,7 @@
   <typeAliases>
   	<typeAlias type="com.edu.vo.MemberVo" alias="memberVo"/>
   	<typeAlias type="com.edu.vo.NoticeVo" alias="noticeVo"/>
+  	<typeAlias type="com.edu.vo.CourseReviewVo" alias="courseReviewVo"/>
   </typeAliases>
   
 </configuration>

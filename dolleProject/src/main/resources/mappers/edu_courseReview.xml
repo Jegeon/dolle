@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.edu">
+
+	<resultMap type="com.edu.vo.CourseReviewVo" 
+		id="courseReivewMap">
+		<id column="REVIEW_IDX" property="review_idx"/>
+		<result column="MEMBER_IDX" property="member_idx"/>
+		<result column="COURSE_IDX" property="course_idx"/>
+		<result column="REVIEW_TITLE" property="review_title"/>
+		<result column="REVIEW_CONTENT" property="review_content"/>
+		<result column="REVIEW_READ_COUNT" property="review_read_count"/>
+		<result column="REVIEW_LIKE_COUNT" property="review_like_count"/>
+		<result column="REVIEW_RATING" property="review_rating"/>
+		<result column="REVIEW_DEL_YN" property="review_del_yn"/>
+		<result column="REVIEW_CRE_DATE" property="review_cre_date"
+			javaType="java.util.Date"/>
+		<result column="REVIEW_MOD_DATE" property="review_mod_date"
+			javaType="java.util.Date"/>
+	</resultMap>
+
+	<resultMap type="com.edu.vo.CourseReviewMemberCommentFileVo"  
+		id="courseReviewMemberCommentFileMap">
+		<id column="REVIEW_IDX" property="reviewIdx"/>
+		<result column="MEMBER_IDX_R" property="reviewMemberIdx"/>
+		<result column="COURSE_IDX_R" property="reviewCourseIdx"/>
+		<result column="REVIEW_TITLE" property="reviewTitle"/>
+		<result column="REVIEW_CONTENT" property="reviewContent"/>
+		<result column="REVIEW_READ_COUNT" property="reviewReadCount"/>
+		<result column="REVIEW_LIKE_COUNT" property="reviewLikeCount"/>
+		<result column="REVIEW_RATING" property="reviewRating"/>
+		<result column="REVIEW_DEL_YN" property="reviewDelYn"/>
+		<result column="REVIEW_CRE_DATE" property="reviewCreDate"
+			javaType="java.util.Date"/>
+		<result column="REVIEW_MOD_DATE" property="reviewModDate"
+			javaType="java.util.Date"/>
+		
+		<result column="MEMBER_IDX" property="memberIdx"/>
+		<result column="MEMBER_EMAIL" property="memberEmail"/>
+		<result column="MEMBER_NICKNAME" property="memberNickname"/>
+		
+		<result column="COMMENT_IDX" property="commentIdx"/>
+		<result column="REVIEW_IDX_C" property="commentReviewIdx"/>
+		<result column="MEMBER_IDX_C" property="commentMemberIdx"/>
+		<result column="COMMENT_CONTENT" property="commentContent"/>
+		<result column="COMMENT_COUNT" property="commentCount"/>
+		<result column="COMMENT_DEL_YN" property="commentDelYn"/>
+		
+		<result column="REVIEW_FILE_IDX" property="fileIdx"/>
+		<result column="REVIEW_IDX_F" property="fileReviewIdx"/>
+		<result column="REVIEW_ORIGINAL_FILE_NAME" property="fileOriginalName"/>
+		<result column="REVIEW_STORED_FILE_NAME" property="fileStoredName"/>
+	</resultMap> 
+
+	<select id="reviewSelectList" parameterType="map" resultMap="courseReivewMap">
+		SELECT REVIEW_IDX, REVIEW_TITLE 
+		FROM REVIEWBOARD
+	</select>
+	
+
+	<select id="reviewMemComFileList" parameterType="map" resultMap="courseReviewMemberCommentFileMap">
+		SELECT RB.REVIEW_IDX, REVIEW_TITLE, M.MEMBER_NICKNAME, REVIEW_RATING, REVIEW_LIKE_COUNT, C.COMMENT_COUNT, RF.REVIEW_STORED_FILE_NAME
+		FROM REVIEWBOARD RB, MEMBER M
+		    ,(SELECT REVIEW_IDX, COUNT(*) AS COMMENT_COUNT FROM REVIEW_COMMENT GROUP BY REVIEW_IDX) C
+		    ,(SELECT REVIEW_IDX, REVIEW_STORED_FILE_NAME FROM REVIEW_FILE) RF
+		WHERE RB.MEMBER_IDX = M.MEMBER_IDX
+		AND RB.REVIEW_IDX = C.REVIEW_IDX
+		AND RB.REVIEW_IDX = RF.REVIEW_IDX
+	</select> 
+	
+</mapper>

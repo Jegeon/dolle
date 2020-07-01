@@ -2,9 +2,9 @@ package com.edu.dao;
 
 import java.util.List;
 
-import com.edu.vo.NoticeMemberVo;
+import com.edu.vo.NoticeMemberFileVo;
 
 public interface NoticeDao {
 	
-	public List<NoticeMemberVo> noticeMemberList();
+	public List<NoticeMemberFileVo> noticeMemberFileList();
 }

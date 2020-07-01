@@ -1,14 +1,12 @@
 package com.edu.service;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.edu.dao.NoticeDao;
-import com.edu.vo.NoticeMemberVo;
-import com.edu.vo.NoticeVo;
+import com.edu.vo.NoticeMemberFileVo;
 
 @Service
 public class NoticeServiceImpl implements NoticeService{
@@ -18,10 +16,10 @@ public class NoticeServiceImpl implements NoticeService{
 
 
 	@Override
-	public List<NoticeMemberVo> noticeMemberList() {
+	public List<NoticeMemberFileVo> noticeMemberFileList() {
 		// TODO Auto-generated method stub
 		
-		return noticeDao.noticeMemberList();
+		return noticeDao.noticeMemberFileList();
 	}
 	
 }

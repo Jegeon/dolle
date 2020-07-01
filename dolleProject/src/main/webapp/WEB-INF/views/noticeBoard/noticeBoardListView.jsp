@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +17,6 @@
 #contentDiv {
 	width: 1260px;
 	height: 850px;
-/* 	border: 1px solid black; */
 	margin: 50px auto 50px auto;
 	box-sizing: border-box;
 }
@@ -55,6 +55,73 @@ th {
 	height: 700px;
 	clear: both;
 }
+
+#pageTitle{
+	font-size: 47px; 
+	font-family: 대한민국정부상징체;
+}
+
+#searchWrap {
+	float: right; 
+	height: 50px; 
+	width: 400px; 
+	padding-top: 60px;
+}
+
+#searchOptionWrap{
+	width: 140px; 
+	padding: 6px 22px; 
+	vertical-align: middle; 
+	border: 1px solid #B9B9B9; 
+	font-size: 14px; 
+	font-family: Segoe UI; 
+	-webkit-appearance: none; /* 원본 select 버튼 감추기 */ 
+	background: url('/dolleProject/resources/images/selectBtn.PNG') no-repeat 95% 50%;
+}
+
+#serachDiv {
+	width: 250px; 
+	height: 31px; 
+	display: inline-block; 
+	border: 1px solid #B9B9B9; 
+	vertical-align: middle;
+}
+
+#searchInput {
+	width: 190px; 
+	height: 22px; 
+	vertical-align: middle; 
+	font: normal normal 14px Segoe UI; 
+	margin-left: 10px; 
+	padding: 2px 0px 1px 10px; 
+	border: 0px;
+}
+
+#searchBtn {
+	margin-top: 2px; 
+	vertical-align: middle;
+}
+
+.tableLine {
+	border-right: 1px solid #ddd;
+}
+
+.alignPaddingLeft {
+	text-align: left; 
+	padding-left: 15px;
+}
+
+.boldNotice {
+	color: #0D4371; 
+	font-weight: bold; 
+	font-size: 17px;
+}
+
+#clipSize {
+	width: 18px;
+	height: 18px;
+	vertical-align: middle;
+}
 </style>
 <script type="text/javascript" 
 	src="/dolleProject/resources/js/jquery-3.5.1.js"></script>
@@ -69,21 +136,20 @@ th {
 	
 	<div id='contentDiv'>
 		<img id='megaPhone' alt="megaPhone" src="../resources/images/megaPhone.png">
-		<span style="font-size: 47px; font-family: 대한민국정부상징체;">공지사항</span>
-		<div style="float: right; height: 50px; width: 400px; padding-top: 60px;">
+		<span id='pageTitle'>공지사항</span>
+		<div id='searchWrap'>
 
 			
-			<select style="width: 140px; padding: 6px 22px; vertical-align: middle; border: 1px solid #B9B9B9; font-size: 14px; font-family: Segoe UI; -webkit-appearance: none; /* 원본 select 버튼 감추기 */ background: url('/dolleProject/resources/images/selectBtn.PNG') no-repeat 95% 50%;">
+			<select id='searchOptionWrap'>
 				<option>작성자</option>
 				<option>제목</option>
 			</select>
 
-			<div style="width: 250px; height: 31px; display: inline-block; border: 1px solid #B9B9B9; vertical-align: middle;">
-				<input type="text" value=""
-					style="width: 190px; height: 22px; vertical-align: middle; font: normal normal 14px Segoe UI; margin-left: 10px; padding: 2px 0px 1px 10px; border: 0px;">
+			<div id='serachDiv'>
+				<input id='searchInput' type="text" value=""
+					style="">
 				<img id="searchBtn" alt="검색버튼"
-					src="/dolleProject/resources/images/searchBtn.PNG"
-					style="margin-top: 2px; vertical-align: middle;">
+					src="/dolleProject/resources/images/searchBtn.PNG">
 			</div>
 
 		</div>
@@ -91,101 +157,119 @@ th {
 		<div id='tableWrap'>
 			<table>
 				<tr>
-					<th style="border-right: 1px solid #ddd; width: 100px;">번호</th>
-					<th style="border-right: 1px solid #ddd; width: 760px;">제목</th>
-					<th style="border-right: 1px solid #ddd; width: 200px;">작성자</th>
+					<th class='tableLine' style="width: 100px;">번호</th>
+					<th class='tableLine' style="width: 760px;">제목</th>
+					<th class='tableLine' style="width: 200px;">작성자</th>
 					<th style="width: 200px;">작성일</th>
 				</tr>
-				<tr>
-					<td style="border-right: 1px solid #ddd; color: #0D4371; font-weight: bold; font-size: 17px;">${noticeMemberList[0].noticeIdx}</td>
-					<td style="border-right: 1px solid #ddd; text-align: left; padding-left: 15px;">${noticeMemberList[0].noticeTitle}</td>
-					<td style="border-right: 1px solid #ddd;">${noticeMemberList[0].memberNickname}</td>
-					<td><fmt:formatDate value="${noticeMemberList[0].noticeCreDate}" pattern="yyyy-MM-dd"/></td>
-				</tr>
-				<tr>
-					<td style="border-right: 1px solid #ddd; color: #0D4371; font-weight: bold; font-size: 17px;">공지</td>
-					<td style="border-right: 1px solid #ddd; text-align: left; padding-left: 15px;"></td>
-					<td style="border-right: 1px solid #ddd;"></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td style="border-right: 1px solid #ddd; color: #0D4371; font-weight: bold; font-size: 17px;">공지</td>
-					<td style="border-right: 1px solid #ddd; text-align: left; padding-left: 15px;"></td>
-					<td style="border-right: 1px solid #ddd;"></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td style="border-right: 1px solid #ddd; color: #0D4371; font-weight: bold; font-size: 17px;">공지</td>
-					<td style="border-right: 1px solid #ddd; text-align: left; padding-left: 15px;"></td>
-					<td style="border-right: 1px solid #ddd;"></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td style="border-right: 1px solid #ddd;">73</td>
-					<td style="border-right: 1px solid #ddd; text-align: left; padding-left: 15px;"></td>
-					<td style="border-right: 1px solid #ddd;"></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td style="border-right: 1px solid #ddd;">72</td>
-					<td style="border-right: 1px solid #ddd; text-align: left; padding-left: 15px;"></td>
-					<td style="border-right: 1px solid #ddd;"></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td style="border-right: 1px solid #ddd;">71</td>
-					<td style="border-right: 1px solid #ddd; text-align: left; padding-left: 15px;"></td>
-					<td style="border-right: 1px solid #ddd;"></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td style="border-right: 1px solid #ddd;">70</td>
-					<td style="border-right: 1px solid #ddd; text-align: left; padding-left: 15px;"></td>
-					<td style="border-right: 1px solid #ddd;"></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td style="border-right: 1px solid #ddd;">69</td>
-					<td style="border-right: 1px solid #ddd; text-align: left; padding-left: 15px;"></td>
-					<td style="border-right: 1px solid #ddd;"></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td style="border-right: 1px solid #ddd;">68</td>
-					<td style="border-right: 1px solid #ddd; text-align: left; padding-left: 15px;"></td>
-					<td style="border-right: 1px solid #ddd;"></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td style="border-right: 1px solid #ddd;">67</td>
-					<td style="border-right: 1px solid #ddd; text-align: left; padding-left: 15px;"></td>
-					<td style="border-right: 1px solid #ddd;"></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td style="border-right: 1px solid #ddd;">66</td>
-					<td style="border-right: 1px solid #ddd; text-align: left; padding-left: 15px;"></td>
-					<td style="border-right: 1px solid #ddd;"></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td style="border-right: 1px solid #ddd;">65</td>
-					<td style="border-right: 1px solid #ddd; text-align: left; padding-left: 15px;"></td>
-					<td style="border-right: 1px solid #ddd;"></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td style="border-right: 1px solid #ddd;">64</td>
-					<td style="border-right: 1px solid #ddd; text-align: left; padding-left: 15px;"></td>
-					<td style="border-right: 1px solid #ddd;"></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td style="border-right: 1px solid #ddd;">63</td>
-					<td style="border-right: 1px solid #ddd; text-align: left; padding-left: 15px;"></td>
-					<td style="border-right: 1px solid #ddd;"></td>
-					<td></td>
-				</tr>
+				
+<%-- 				<c:forEach> --%>
+				
+				
+<%-- 				</c:forEach> --%>
+				
+<!-- 				<tr> -->
+<!-- 					<td class='tableLine boldNotice'> -->
+<%-- 						<c:if test="${noticeMemberFileList[1].noticeFixed eq 'fixed'}"> --%>
+<!-- 							공지 -->
+<%-- 						</c:if> --%>
+<%-- 						<c:if test="${noticeMemberFileList[1].noticeFixed eq 'none'}"> --%>
+<%-- 							${noticeMemberFileList[1].noticeIdx} --%>
+<%-- 						</c:if> --%>
+<!-- 					</td> -->
+<!-- 					<td class='tableLine alignPaddingLeft'> -->
+<%-- 						${noticeMemberFileList[1].noticeTitle} --%>
+<%-- 						<c:if test="${noticeMemberFileList[1].fileExist eq 1}"> --%>
+<!-- 							<img id='clipSize' alt='clip' src='/dolleProject/resources/images/fileClip.png'> -->
+<%-- 						</c:if> --%>
+<!-- 					</td> -->
+<%-- 					<td class='tableLine'>${noticeMemberFileList[1].memberNickname}</td> --%>
+<%-- 					<td><fmt:formatDate value="${noticeMemberFileList[1].noticeCreDate}" pattern="yyyy-MM-dd"/></td> --%>
+<!-- 				</tr> -->
+<!-- 				<tr> -->
+<!-- 					<td class='tableLine boldNotice'>공지</td> -->
+<!-- 					<td class='tableLine alignPaddingLeft'></td> -->
+<!-- 					<td class='tableLine'></td> -->
+<!-- 					<td></td> -->
+<!-- 				</tr> -->
+<!-- 				<tr> -->
+<!-- 					<td class='tableLine boldNotice'>공지</td> -->
+<!-- 					<td class='tableLine alignPaddingLeft'></td> -->
+<!-- 					<td class='tableLine'></td> -->
+<!-- 					<td></td> -->
+<!-- 				</tr> -->
+<!-- 				<tr> -->
+<!-- 					<td class='tableLine boldNotice'>공지</td> -->
+<!-- 					<td class='tableLine alignPaddingLeft'></td> -->
+<!-- 					<td class='tableLine'></td> -->
+<!-- 					<td></td> -->
+<!-- 				</tr> -->
+<!-- 				<tr> -->
+<!-- 					<td class='tableLine'>73</td> -->
+<!-- 					<td class='tableLine alignPaddingLeft'></td> -->
+<!-- 					<td class='tableLine'></td> -->
+<!-- 					<td></td>   -->
+<!-- 				</tr>           -->
+<!-- 				<tr>            -->
+<!-- 					<td class='tableLine'>72</td>  -->
+<!-- 					<td class='tableLine alignPaddingLeft'></td> -->
+<!-- 					<td class='tableLine'></td> -->
+<!-- 					<td></td>   -->
+<!-- 				</tr>           -->
+<!-- 				<tr>            -->
+<!-- 					<td class='tableLine'>71</td> -->
+<!-- 					<td class='tableLine alignPaddingLeft'></td> -->
+<!-- 					<td class='tableLine'></td> -->
+<!-- 					<td></td>   -->
+<!-- 				</tr>           -->
+<!-- 				<tr>            -->
+<!-- 					<td class='tableLine'>70</td> -->
+<!-- 					<td class='tableLine alignPaddingLeft'></td> -->
+<!-- 					<td class='tableLine'></td> -->
+<!-- 					<td></td>   -->
+<!-- 				</tr>           -->
+<!-- 				<tr>            -->
+<!-- 					<td class='tableLine'>69</td> -->
+<!-- 					<td class='tableLine alignPaddingLeft'></td> -->
+<!-- 					<td class='tableLine'></td> -->
+<!-- 					<td></td>   -->
+<!-- 				</tr>           -->
+<!-- 				<tr>            -->
+<!-- 					<td class='tableLine'>68</td> -->
+<!-- 					<td class='tableLine alignPaddingLeft'></td> -->
+<!-- 					<td class='tableLine'></td> -->
+<!-- 					<td></td>   -->
+<!-- 				</tr>           -->
+<!-- 				<tr>            -->
+<!-- 					<td class='tableLine'>67</td> -->
+<!-- 					<td class='tableLine alignPaddingLeft'></td> -->
+<!-- 					<td class='tableLine'></td> -->
+<!-- 					<td></td> -->
+<!-- 				</tr> -->
+<!-- 				<tr> -->
+<!-- 					<td class='tableLine'>66</td> -->
+<!-- 					<td class='tableLine alignPaddingLeft'></td> -->
+<!-- 					<td class='tableLine'></td> -->
+<!-- 					<td></td>   -->
+<!-- 				</tr>           -->
+<!-- 				<tr>            -->
+<!-- 					<td class='tableLine'>65</td> -->
+<!-- 					<td class='tableLine alignPaddingLeft'></td> -->
+<!-- 					<td class='tableLine'></td> -->
+<!-- 					<td></td>   -->
+<!-- 				</tr>           -->
+<!-- 				<tr>            -->
+<!-- 					<td class='tableLine'>64</td> -->
+<!-- 					<td class='tableLine alignPaddingLeft'></td> -->
+<!-- 					<td class='tableLine'></td> -->
+<!-- 					<td></td>   -->
+<!-- 				</tr>           -->
+<!-- 				<tr>            -->
+<!-- 					<td class='tableLine'>63</td> -->
+<!-- 					<td class='tableLine alignPaddingLeft'></td> -->
+<!-- 					<td class='tableLine'></td> -->
+<!-- 					<td></td> -->
+<!-- 				</tr> -->
 			</table>
 		</div>
 		

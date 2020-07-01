@@ -1,10 +1,11 @@
 package com.edu.dao;
 
 import java.util.List;
-import java.util.Map;
 
+import com.edu.vo.CourseReviewMemberCommentFileVo;
 import com.edu.vo.CourseReviewVo;
 
 public interface CourseReviewDao {
 
+	public List<CourseReviewMemberCommentFileVo> reviewSelectList();
 }

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.edu.service.NoticeService;
-import com.edu.vo.NoticeMemberVo;
+import com.edu.vo.NoticeMemberFileVo;
 
 @Controller
 public class NoticeController {
@@ -35,9 +35,9 @@ public class NoticeController {
 	public String NoticeList(Model model) {
 		log.info("Welcome NoticeList! " );
 		
-		List<NoticeMemberVo> noticeMemberList = noticeService.noticeMemberList();
+		List<NoticeMemberFileVo> noticeMemberFileList = noticeService.noticeMemberFileList();
 		
-		model.addAttribute("noticeMemberList",noticeMemberList);
+		model.addAttribute("noticeMemberFileList",noticeMemberFileList);
 		
 		
 		return "noticeBoard/noticeBoardListView";

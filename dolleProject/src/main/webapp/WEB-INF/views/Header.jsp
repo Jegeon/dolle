@@ -156,8 +156,8 @@
 </script>
 
 
-<div>
-	<div id='headerWrap' style="margin: auto;">
+
+	<div id='headerWrap' style="width: 100%; margin: auto; position: absolute;">
 
 
 		<div
@@ -227,7 +227,7 @@
 			<div style="width: 1260px; margin: 0px auto;">
 				<div
 					style="height: 40px; width: 252px; background-color: #EFEAE2; text-align: center; padding-top: 14px; box-sizing: border-box; margin-left: 504px;">
-					<span style="padding: 0px 7px 0px 7px;"> <a class='blackLink' href='#'>투어 예약</a>
+					<span style="padding: 0px 7px 0px 7px;"> <a class='blackLink' href='../reservation/list.do'>투어 예약</a>
 					</span>
 				</div>
 			</div>
@@ -253,8 +253,11 @@
 			</div>
 		</div>
 
-</div>
+	</div>
 
+	<div style="padding-top: 187px;">
+	
+	</div>
 
 	<!--    배경은 전체에 다 나오는 데? -->
 	<!--    내용만 1260 -->

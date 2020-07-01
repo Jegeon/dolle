@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.edu.reservation">
+
+	<resultMap type="com.edu.vo.ReservationVo" id="reservationResultMap">
+		<id column="RESERVE_IDX" property="reserveNo" />
+		<result column="TOUR_IDX" property="tourNo" />
+		<result column="MEMBER_IDX" property="memberNo" />
+		<result column="CLOSED_IDX" property="closedNo" />
+		<result column="RESERVE_TOUR_DATE" property="reserveTourDate" javaType="java.util.Date" />
+		<result column="RESERVE_APPLY_NUM" property="reserveApplyNum" />
+		<result column="RESERVE_PRICE" property="reservePrice" />
+		<result column="RESERVE_APPLY_DATE" property="reserveApplyDate" javaType="java.util.Date" />
+		<result column="RESERVE_DEPOSIT_DATE" property="reserveDepositDate" javaType="java.util.Date" />
+		<result column="RESERVE_DEPOSIT_STATE" property="reserveDepositState" />
+	</resultMap>
+	
+	<resultMap type="com.edu.vo.TourVo" id="tourResultMap">
+		<id column="TOUR_IDX" property="tourNo" />
+		<result column="TOWN_IDX" property="townNo" />
+		<result column="TOUR_NAME" property="tourName" />
+		<result column="TOUR_START_DATE" property="tourStartDate" javaType="java.util.Date" />
+		<result column="TOUR_END_DATE" property="tourEndDate" javaType="java.util.Date" />
+		<result column="TOUR_START_TIME" property="tourStartTime" />
+		<result column="TOUR_END_TIME" property="tourEndTime" />
+		<result column="TOUR_PRICE" property="tourPrice" />
+		<result column="TOUR_PEOPLE_NUM" property="tourPeopleNum" />
+		<result column="TOUR_STARTING_POINT" property="tourStartingPoint" />
+		<result column="TOUR_CONTENT" property="tourContent" />
+		<result column="TOUR_CRE_DATE" property="tourCreDate" javaType="java.util.Date" />
+		<result column="TOUR_MOD_DATE" property="tourModDate" javaType="java.util.Date" />
+		<result column="TOUR_DEL_YN" property="tourDel" />
+		<result column="TOUR_POSSIBLE_NUM" property="tourPossibleNum" />
+	</resultMap>   
+	
+	<select id="tourSelectList" parameterType="map" resultMap="tourResultMap">
+		SELECT TOUR_IDX, TOWN_IDX, TOUR_NAME, TOUR_START_DATE,
+		TOUR_END_DATE, TOUR_START_TIME, TOUR_END_TIME, TOUR_PRICE,
+		TOUR_PEOPLE_NUM, TOUR_STARTING_POINT, TOUR_CONTENT, TOUR_CRE_DATE,
+		TOUR_MOD_DATE, TOUR_DEL_YN
+		FROM TOUR
+	</select>
+	
+	<select id="tourSelectOne" parameterType="int" resultMap="tourResultMap">
+		SELECT TOUR_IDX, TOWN_IDX, TOUR_NAME, TOUR_START_DATE,
+		TOUR_END_DATE, TOUR_START_TIME, TOUR_END_TIME, TOUR_PRICE,
+		TOUR_PEOPLE_NUM, TOUR_STARTING_POINT, TOUR_CONTENT, TOUR_CRE_DATE,
+		TOUR_MOD_DATE, TOUR_DEL_YN
+		FROM TOUR
+		WHERE TOUR_IDX = #{tourNo}	
+	</select>
+	
+	<select id="tourSelectAllFromOne" parameterType="int" resultMap="tourResultMap">
+		SELECT TOUR_IDX, TOWN_IDX, TOUR_NAME, TOUR_START_DATE,
+		TOUR_END_DATE, TOUR_START_TIME, TOUR_END_TIME, TOUR_PRICE,
+		TOUR_PEOPLE_NUM, TOUR_STARTING_POINT, TOUR_CONTENT, TOUR_CRE_DATE,
+		TOUR_MOD_DATE, TOUR_DEL_YN
+		FROM TOUR
+		WHERE TOUR_IDX = #{tourNo}	
+	</select>
+	
+	<select id="tourAndReservationSelectAllFromOne" parameterType="map" resultMap="tourResultMap">
+		SELECT TOUR_IDX, TOWN_IDX, TOUR_NAME, TOUR_START_DATE,
+		TOUR_END_DATE, TOUR_START_TIME, TOUR_END_TIME, TOUR_PRICE,
+		TOUR_PEOPLE_NUM, TOUR_STARTING_POINT, TOUR_CONTENT, TOUR_CRE_DATE,
+		TOUR_MOD_DATE, TOUR_DEL_YN, (SELECT TOUR_PEOPLE_NUM - (SELECT SUM(RESERVE_APPLY_NUM)
+																FROM RESERVE
+																WHERE RESERVE_TOUR_DATE = #{reserveTourDate}
+																GROUP BY TOUR_IDX
+																HAVING TOUR_IDX = #{tourNo})
+																FROM TOUR) AS TOUR_POSSIBLE_NUM
+		FROM TOUR
+	</select>
+
+</mapper>

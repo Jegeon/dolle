@@ -8,11 +8,32 @@ import org.springframework.stereotype.Service;
 
 import com.edu.dao.ReservationDao;
 import com.edu.vo.ReservationVo;
+import com.edu.vo.TourVo;
 
 @Service
 public class ReservationServiceImpl implements ReservationService{
 
 	@Autowired
 	public ReservationDao reservationDao;
+
+	@Override
+	public List<TourVo> tourSelectList() {
+		return reservationDao.tourSelectList();
+	}
+
+	@Override
+	public TourVo tourSelectOne(int tourNo) {
+		return reservationDao.tourSelectOne(tourNo);
+	}
+
+	@Override
+	public TourVo tourReservation(int tourNo) {
+		return reservationDao.tourSelectAllFromOne(tourNo);
+	}
+
+	@Override
+	public TourVo tourReservation(Map<String, Object> paramMap) {
+		return reservationDao.tourAndReservationSelectAllFromOne(paramMap);
+	}
 	
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +9,7 @@
 
 <title>공지사항 게시판</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
+
 
 </head>
 <style type="text/css">
@@ -54,6 +56,11 @@ th {
 	clear: both;
 }
 </style>
+<script type="text/javascript" 
+	src="/dolleProject/resources/js/jquery-3.5.1.js"></script>
+<script type="text/javascript">
+
+</script>
 
 
 <body>
@@ -90,10 +97,10 @@ th {
 					<th style="width: 200px;">작성일</th>
 				</tr>
 				<tr>
-					<td style="border-right: 1px solid #ddd; color: #0D4371; font-weight: bold; font-size: 17px;">공지</td>
-					<td style="border-right: 1px solid #ddd; text-align: left; padding-left: 15px;">공지사항입니다.</td>
-					<td style="border-right: 1px solid #ddd;">군수</td>
-					<td>2020-06-19</td>
+					<td style="border-right: 1px solid #ddd; color: #0D4371; font-weight: bold; font-size: 17px;">${noticeMemberList[0].noticeIdx}</td>
+					<td style="border-right: 1px solid #ddd; text-align: left; padding-left: 15px;">${noticeMemberList[0].noticeTitle}</td>
+					<td style="border-right: 1px solid #ddd;">${noticeMemberList[0].memberNickname}</td>
+					<td><fmt:formatDate value="${noticeMemberList[0].noticeCreDate}" pattern="yyyy-MM-dd"/></td>
 				</tr>
 				<tr>
 					<td style="border-right: 1px solid #ddd; color: #0D4371; font-weight: bold; font-size: 17px;">공지</td>

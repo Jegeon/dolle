@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.edu">
+
+	<resultMap type="com.edu.vo.NoticeVo" 
+		id="noticeResultMap">
+		<id column="NOTICE_IDX" 			property="noticeIdx"/>
+		<result column="MEMBER_IDX" 		property="noticeMemberIdx"/>
+		<result column="NOTICE_TITLE" 		property="noticeTitle"/>
+		<result column="NOTICE_CONTENT" 	property="noticeContent"/>
+		<result column="NOTICE_CRE_DATE" 	property="noticeCreDate"
+			javaType="java.util.Date"/>
+		<result column="NOTICE_MOD_DATE" 	property="noticeModDate"
+			javaType="java.util.Date"/>
+		<result column="NOTICE_FIXED" 		property="noticeFixed"/>
+		<result column="NOTICE_DEL_FLAG" 	property="noticeDelYn"/>
+	</resultMap>
+	
+	<resultMap type="com.edu.vo.NoticeMemberVo"
+		id="noticeMemberResultMap">
+		<id column="NOTICE_IDX" 			property="noticeIdx"/>
+		<result column="MEMBER_IDX_N" 		property="noticeMemberIdx"/>
+		<result column="NOTICE_TITLE" 		property="noticeTitle"/>
+		<result column="NOTICE_CONTENT" 	property="noticeContent"/>
+		<result column="NOTICE_CRE_DATE" 	property="noticeCreDate"
+			javaType="java.util.Date"/>
+		<result column="NOTICE_MOD_DATE" 	property="noticeModDate"
+			javaType="java.util.Date"/>
+		<result column="NOTICE_FIXED" 		property="noticeFixed"/>
+		<result column="NOTICE_DEL_FLAG" 	property="noticeDelYn"/>
+		
+		<result column="MEMBER_IDX" 		property="memberIdx"/>
+		<result column="MEMBER_NAME" 		property="memberName"/>
+		<result column="MEMBER_EMAIL" 		property="memberEmail"/>
+		<result column="MEMBER_NICKNAME" 	property="memberNickname"/>
+		<result column="MEMBER_PASSWORD" 	property="memberPassword"/>
+		<result column="MEMBER_PHONE" 		property="memberPhone"/>
+		<result column="MEMBER_BIRTHDATE" 	property="memberBirthdate"/>
+		<result column="MEMBER_NATIONAL" 	property="memberNational"/>
+		<result column="MEMBER_CRE_DATE" 	property="memberCreDate"/>
+		<result column="MEMBER_MOD_DATE" 	property="memberModDate"/>
+		<result column="MEMBER_GRADE" 		property="memberGrade"/>
+		<result column="MEMBER_DEL_YN" 		property="memberDelYn"/>
+		<result column="MEMBER_TEMP_PWD" 	property="memberTempPwd"/>
+	</resultMap>
+	
+	<select id="noticeList" parameterType="map"
+		resultMap="noticeResultMap">
+		SELECT NOTICE_IDX, NOTICE_TITLE, NOTICE_CRE_DATE
+		FROM NOTICEBOARD
+		WHERE NOTICE_IDX = 1
+	</select>
+
+	<select id="noticeMemberList" parameterType="map"
+		resultMap="noticeMemberResultMap">
+		SELECT N.NOTICE_IDX, N.NOTICE_TITLE, N.NOTICE_CRE_DATE, M.MEMBER_NICKNAME
+		FROM NOTICEBOARD N, MEMBER M
+		WHERE N.MEMBER_IDX = M.MEMBER_IDX
+		AND N.NOTICE_IDX = 1
+		ORDER BY N.NOTICE_IDX DESC
+	</select>
+</mapper>

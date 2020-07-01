@@ -21,5 +21,13 @@ public class NoticeServiceImpl implements NoticeService{
 		
 		return noticeDao.noticeMemberFileList();
 	}
+
+
+	@Override
+	public List<NoticeMemberFileVo> noticeMemberFileFixedList() {
+		// TODO Auto-generated method stub
+		
+		return noticeDao.noticeMemberFileFixedList();
+	}
 	
 }

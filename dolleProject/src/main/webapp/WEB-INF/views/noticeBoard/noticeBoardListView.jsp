@@ -122,6 +122,15 @@ th {
 	height: 18px;
 	vertical-align: middle;
 }
+
+.noneColorNotice {
+	font-size: 17px;
+}
+
+.boldTitle {
+	font-weight: bold;
+	font-size: 17px;
+}
 </style>
 <script type="text/javascript" 
 	src="/dolleProject/resources/js/jquery-3.5.1.js"></script>
@@ -163,113 +172,35 @@ th {
 					<th style="width: 200px;">작성일</th>
 				</tr>
 				
-<%-- 				<c:forEach> --%>
+				<c:forEach var="noticeMemberFileVo" items="${noticeMemberFileFixedList}">
+				<tr>
+					<td class='tableLine boldNotice'>
+						공지
+					</td>
+					<td class='tableLine alignPaddingLeft boldTitle'>
+						${noticeMemberFileVo.noticeTitle}
+						<c:if test="${noticeMemberFileVo.fileExist eq 1}">
+							<img id='clipSize' alt='clip' src='/dolleProject/resources/images/fileClip.png'>
+						</c:if>
+					</td>
+					<td class='tableLine'>${noticeMemberFileVo.memberNickname}</td>
+					<td><fmt:formatDate value="${noticeMemberFileVo.noticeCreDate}" pattern="yyyy-MM-dd"/></td>
+					</tr>
+				</c:forEach>
 				
-				
-<%-- 				</c:forEach> --%>
-				
-<!-- 				<tr> -->
-<!-- 					<td class='tableLine boldNotice'> -->
-<%-- 						<c:if test="${noticeMemberFileList[1].noticeFixed eq 'fixed'}"> --%>
-<!-- 							공지 -->
-<%-- 						</c:if> --%>
-<%-- 						<c:if test="${noticeMemberFileList[1].noticeFixed eq 'none'}"> --%>
-<%-- 							${noticeMemberFileList[1].noticeIdx} --%>
-<%-- 						</c:if> --%>
-<!-- 					</td> -->
-<!-- 					<td class='tableLine alignPaddingLeft'> -->
-<%-- 						${noticeMemberFileList[1].noticeTitle} --%>
-<%-- 						<c:if test="${noticeMemberFileList[1].fileExist eq 1}"> --%>
-<!-- 							<img id='clipSize' alt='clip' src='/dolleProject/resources/images/fileClip.png'> -->
-<%-- 						</c:if> --%>
-<!-- 					</td> -->
-<%-- 					<td class='tableLine'>${noticeMemberFileList[1].memberNickname}</td> --%>
-<%-- 					<td><fmt:formatDate value="${noticeMemberFileList[1].noticeCreDate}" pattern="yyyy-MM-dd"/></td> --%>
-<!-- 				</tr> -->
-<!-- 				<tr> -->
-<!-- 					<td class='tableLine boldNotice'>공지</td> -->
-<!-- 					<td class='tableLine alignPaddingLeft'></td> -->
-<!-- 					<td class='tableLine'></td> -->
-<!-- 					<td></td> -->
-<!-- 				</tr> -->
-<!-- 				<tr> -->
-<!-- 					<td class='tableLine boldNotice'>공지</td> -->
-<!-- 					<td class='tableLine alignPaddingLeft'></td> -->
-<!-- 					<td class='tableLine'></td> -->
-<!-- 					<td></td> -->
-<!-- 				</tr> -->
-<!-- 				<tr> -->
-<!-- 					<td class='tableLine boldNotice'>공지</td> -->
-<!-- 					<td class='tableLine alignPaddingLeft'></td> -->
-<!-- 					<td class='tableLine'></td> -->
-<!-- 					<td></td> -->
-<!-- 				</tr> -->
-<!-- 				<tr> -->
-<!-- 					<td class='tableLine'>73</td> -->
-<!-- 					<td class='tableLine alignPaddingLeft'></td> -->
-<!-- 					<td class='tableLine'></td> -->
-<!-- 					<td></td>   -->
-<!-- 				</tr>           -->
-<!-- 				<tr>            -->
-<!-- 					<td class='tableLine'>72</td>  -->
-<!-- 					<td class='tableLine alignPaddingLeft'></td> -->
-<!-- 					<td class='tableLine'></td> -->
-<!-- 					<td></td>   -->
-<!-- 				</tr>           -->
-<!-- 				<tr>            -->
-<!-- 					<td class='tableLine'>71</td> -->
-<!-- 					<td class='tableLine alignPaddingLeft'></td> -->
-<!-- 					<td class='tableLine'></td> -->
-<!-- 					<td></td>   -->
-<!-- 				</tr>           -->
-<!-- 				<tr>            -->
-<!-- 					<td class='tableLine'>70</td> -->
-<!-- 					<td class='tableLine alignPaddingLeft'></td> -->
-<!-- 					<td class='tableLine'></td> -->
-<!-- 					<td></td>   -->
-<!-- 				</tr>           -->
-<!-- 				<tr>            -->
-<!-- 					<td class='tableLine'>69</td> -->
-<!-- 					<td class='tableLine alignPaddingLeft'></td> -->
-<!-- 					<td class='tableLine'></td> -->
-<!-- 					<td></td>   -->
-<!-- 				</tr>           -->
-<!-- 				<tr>            -->
-<!-- 					<td class='tableLine'>68</td> -->
-<!-- 					<td class='tableLine alignPaddingLeft'></td> -->
-<!-- 					<td class='tableLine'></td> -->
-<!-- 					<td></td>   -->
-<!-- 				</tr>           -->
-<!-- 				<tr>            -->
-<!-- 					<td class='tableLine'>67</td> -->
-<!-- 					<td class='tableLine alignPaddingLeft'></td> -->
-<!-- 					<td class='tableLine'></td> -->
-<!-- 					<td></td> -->
-<!-- 				</tr> -->
-<!-- 				<tr> -->
-<!-- 					<td class='tableLine'>66</td> -->
-<!-- 					<td class='tableLine alignPaddingLeft'></td> -->
-<!-- 					<td class='tableLine'></td> -->
-<!-- 					<td></td>   -->
-<!-- 				</tr>           -->
-<!-- 				<tr>            -->
-<!-- 					<td class='tableLine'>65</td> -->
-<!-- 					<td class='tableLine alignPaddingLeft'></td> -->
-<!-- 					<td class='tableLine'></td> -->
-<!-- 					<td></td>   -->
-<!-- 				</tr>           -->
-<!-- 				<tr>            -->
-<!-- 					<td class='tableLine'>64</td> -->
-<!-- 					<td class='tableLine alignPaddingLeft'></td> -->
-<!-- 					<td class='tableLine'></td> -->
-<!-- 					<td></td>   -->
-<!-- 				</tr>           -->
-<!-- 				<tr>            -->
-<!-- 					<td class='tableLine'>63</td> -->
-<!-- 					<td class='tableLine alignPaddingLeft'></td> -->
-<!-- 					<td class='tableLine'></td> -->
-<!-- 					<td></td> -->
-<!-- 				</tr> -->
+				<c:forEach var="noticeMemberFileVo" items="${noticeMemberFileList}">
+					<tr>
+						<td class='tableLine noneColorNotice'>${noticeMemberFileVo.noticeIdx}</td>
+						<td class='tableLine alignPaddingLeft'>
+							${noticeMemberFileVo.noticeTitle}
+							<c:if test="${noticeMemberFileVo.fileExist eq 1}">
+								<img id='clipSize' alt='clip' src='/dolleProject/resources/images/fileClip.png'>
+							</c:if>
+						</td>
+						<td class='tableLine'>${noticeMemberFileVo.memberNickname}</td>
+						<td><fmt:formatDate value="${noticeMemberFileVo.noticeCreDate}" pattern="yyyy-MM-dd"/></td>
+					</tr>
+				</c:forEach>
 			</table>
 		</div>
 		

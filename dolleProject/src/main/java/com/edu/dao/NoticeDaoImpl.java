@@ -24,5 +24,13 @@ public class NoticeDaoImpl implements NoticeDao{
 		
 		return sqlSession.selectList(namespace + "noticeMemberFileList");
 	}
+
+
+	@Override
+	public List<NoticeMemberFileVo> noticeMemberFileFixedList() {
+		// TODO Auto-generated method stub
+		
+		return sqlSession.selectList(namespace + "noticeMemberFileFixedList");
+	}
 	
 }

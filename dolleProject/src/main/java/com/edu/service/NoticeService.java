@@ -7,4 +7,5 @@ import com.edu.vo.NoticeMemberFileVo;
 public interface NoticeService {
 
 	public List<NoticeMemberFileVo> noticeMemberFileList();
+	public List<NoticeMemberFileVo> noticeMemberFileFixedList();
 }

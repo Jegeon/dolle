@@ -1,5 +1,6 @@
 package com.edu.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -36,8 +37,21 @@ public class NoticeController {
 		log.info("Welcome NoticeList! " );
 		
 		List<NoticeMemberFileVo> noticeMemberFileList = noticeService.noticeMemberFileList();
+		List<NoticeMemberFileVo> noticeMemberFileFixedList = noticeService.noticeMemberFileFixedList();
+		
+		// tempList에 고정으로 띄울 최신글 4개를 저장하고 tempList만 보내서 따로 거르는 과정
+		int fixedListCount = noticeMemberFileFixedList.size();
+		int limitNum = 4;
+		List<NoticeMemberFileVo> tempList = new ArrayList<NoticeMemberFileVo>();
+		if(fixedListCount > limitNum) {
+			for(int i=0; i<limitNum; i++) {
+				tempList.add(noticeMemberFileFixedList.get(i));
+			}
+		}
 		
 		model.addAttribute("noticeMemberFileList",noticeMemberFileList);
+		model.addAttribute("noticeMemberFileFixedList", tempList);
+		
 		
 		
 		return "noticeBoard/noticeBoardListView";

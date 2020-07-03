@@ -65,7 +65,7 @@ public class MemberController {
 		
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("email", email);
-		paramMap.put("pwd", password);
+		paramMap.put("password", password);
 		
 		MemberVo memberVo = memberService.memberExist(paramMap);
 		
@@ -98,6 +98,7 @@ public class MemberController {
 	public String memberAdd(Model model) {
 		log.debug("Welcome MemberController memberAdd 페이지 이동! ");
 		
+		
 		return "member/memberForm";
 	}
 
@@ -110,6 +111,26 @@ public class MemberController {
 		memberService.memberInsertOne(memberVo);
 		
 		return "redirect:/member/list.do";
+	}
+	
+	@RequestMapping(value="/member/nick.do", method=RequestMethod.GET)
+	public String memberCheck(@RequestParam(defaultValue ="0" ) int result, 
+			@RequestParam(defaultValue ="" )String nickname ,Model model) {
+		model.addAttribute("result",result);
+		model.addAttribute("nickname", nickname);
+		return "member/emailCheckForm";
+	}
+	
+	@RequestMapping(value="/member/nickCtr.do", method = RequestMethod.GET)
+	public String memberCheck(String nickname, Model model) {
+		
+		int result = memberService.memberNickNameList(nickname);
+		
+		model.addAttribute("result",result);
+		model.addAttribute("nickname", nickname);
+		
+		
+		return "redirect:nick.do";
 	}
 	
 	@RequestMapping(value="/member/update.do")

@@ -1,5 +1,6 @@
 package com.edu.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,6 +28,7 @@ public class MemberDaoImpl implements MemberDao{
 	@Override
 	public MemberVo memberExist(Map<String, Object> paramMap) {
 		// TODO Auto-generated method stub
+		
 		return sqlSession.selectOne(namespace + "memberExist", paramMap);
 
 	}
@@ -58,6 +60,19 @@ public class MemberDaoImpl implements MemberDao{
 		// TODO Auto-generated method stub
 		return sqlSession.delete(namespace + "memberDelete"
 				, no);
+	}
+
+	@Override
+	public int memberNickNameList(String nickname) {
+		// TODO Auto-generated method stub
+		System.out.println("닉네임 중복체크" + nickname);
+		
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("nickname", nickname);
+		
+		int result = sqlSession.selectOne(namespace + "memberNickNameList", paramMap);
+		System.out.println("닉네임 중복체크 끝");
+		return result;
 	}
 
 }

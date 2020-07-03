@@ -32,6 +32,8 @@
 		<result column="TOUR_MOD_DATE" property="tourModDate" javaType="java.util.Date" />
 		<result column="TOUR_DEL_YN" property="tourDel" />
 		<result column="TOUR_POSSIBLE_NUM" property="tourPossibleNum" />
+		<result column="TOUR_RESERVED_NUM" property="tourReservedNum" />
+		<result column="TOUR_ACCOUNT_NUM" property="tourAccountNum" />
 	</resultMap>   
 	
 	<select id="tourSelectList" parameterType="map" resultMap="tourResultMap">
@@ -67,10 +69,39 @@
 		TOUR_MOD_DATE, TOUR_DEL_YN, (SELECT TOUR_PEOPLE_NUM - (SELECT SUM(RESERVE_APPLY_NUM)
 																FROM RESERVE
 																WHERE RESERVE_TOUR_DATE = #{reserveTourDate}
+																AND RESERVE_DEPOSIT_STATE = 'active'
 																GROUP BY TOUR_IDX
 																HAVING TOUR_IDX = #{tourNo})
-																FROM TOUR) AS TOUR_POSSIBLE_NUM
+																FROM TOUR) AS TOUR_POSSIBLE_NUM, (SELECT SUM(RESERVE_APPLY_NUM)
+																									FROM RESERVE
+																									WHERE RESERVE_TOUR_DATE = #{reserveTourDate}
+																									AND RESERVE_DEPOSIT_STATE = 'active'
+																									GROUP BY TOUR_IDX
+																									HAVING TOUR_IDX = #{tourNo}
+																									) AS TOUR_RESERVED_NUM, (SELECT A1.ACC_ACCOUNT_NUM
+																															FROM TOUR T1, ACCOUNT_MANAGEMENT A1
+																															WHERE T1.TOWN_IDX = A1.TOWN_IDX) AS TOUR_ACCOUNT_NUM			
 		FROM TOUR
+	</select>
+	
+	<insert id="reservationInsertOne" parameterType="map">
+		INSERT INTO RESERVE
+		(RESERVE_IDX, TOUR_IDX, MEMBER_IDX, CLOSED_IDX,       
+		RESERVE_TOUR_DATE, RESERVE_APPLY_NUM, RESERVE_PRICE, RESERVE_APPLY_DATE,
+		RESERVE_DEPOSIT_DATE)
+		VALUES
+		(SEQ_RESERVE_NO.NEXTVAL, #{tourNo}, #{memberNo}, 1,
+		#{reserveTourDate}, #{reserveApplyNum}, #{reserveApplyNum}, SYSDATE,
+		NULL)
+	</insert>
+	
+	<select id="reservationSelectNewestOne" parameterType="map" resultMap="reservationResultMap">
+		SELECT RESERVE_IDX, TOUR_IDX, MEMBER_IDX, CLOSED_IDX,       
+		RESERVE_TOUR_DATE, RESERVE_APPLY_NUM, RESERVE_PRICE, RESERVE_APPLY_DATE,
+		RESERVE_DEPOSIT_DATE, RESERVE_DEPOSIT_STATE
+		FROM RESERVE
+		WHERE RESERVE_IDX = (SELECT MAX(RESERVE_IDX)
+							FROM RESERVE)
 	</select>
 
 </mapper>

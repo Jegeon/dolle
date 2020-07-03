@@ -13,11 +13,11 @@ public class ReservationVo {
 	private int reservePrice;
 	private Date reserveApplyDate;
 	private Date reserveDepositDate;
-	private Date reserveDepositState;
+	private String reserveDepositState;
 	
 	public ReservationVo(int reserveNo, int tourNo, int memberNo, int closedNo, Date reserveTourDate,
 			int reserveApplyNum, int reservePrice, Date reserveApplyDate, Date reserveDepositDate,
-			Date reserveDepositState) {
+			String reserveDepositState) {
 		super();
 		this.reserveNo = reserveNo;
 		this.tourNo = tourNo;
@@ -30,91 +30,71 @@ public class ReservationVo {
 		this.reserveDepositDate = reserveDepositDate;
 		this.reserveDepositState = reserveDepositState;
 	}
-
+	
 	public ReservationVo() {
 		super();
 	}
-
 	public int getReserveNo() {
 		return reserveNo;
 	}
-
 	public void setReserveNo(int reserveNo) {
 		this.reserveNo = reserveNo;
 	}
-
 	public int getTourNo() {
 		return tourNo;
 	}
-
 	public void setTourNo(int tourNo) {
 		this.tourNo = tourNo;
 	}
-
 	public int getMemberNo() {
 		return memberNo;
 	}
-
 	public void setMemberNo(int memberNo) {
 		this.memberNo = memberNo;
 	}
-
 	public int getClosedNo() {
 		return closedNo;
 	}
-
 	public void setClosedNo(int closedNo) {
 		this.closedNo = closedNo;
 	}
-
 	public Date getReserveTourDate() {
 		return reserveTourDate;
 	}
-
 	public void setReserveTourDate(Date reserveTourDate) {
 		this.reserveTourDate = reserveTourDate;
 	}
-
 	public int getReserveApplyNum() {
 		return reserveApplyNum;
 	}
-
 	public void setReserveApplyNum(int reserveApplyNum) {
 		this.reserveApplyNum = reserveApplyNum;
 	}
-
 	public int getReservePrice() {
 		return reservePrice;
 	}
-
 	public void setReservePrice(int reservePrice) {
 		this.reservePrice = reservePrice;
 	}
-
 	public Date getReserveApplyDate() {
 		return reserveApplyDate;
 	}
-
 	public void setReserveApplyDate(Date reserveApplyDate) {
 		this.reserveApplyDate = reserveApplyDate;
 	}
-
 	public Date getReserveDepositDate() {
 		return reserveDepositDate;
 	}
-
 	public void setReserveDepositDate(Date reserveDepositDate) {
 		this.reserveDepositDate = reserveDepositDate;
 	}
-
-	public Date getReserveDepositState() {
+	public String getReserveDepositState() {
 		return reserveDepositState;
 	}
-
-	public void setReserveDepositState(Date reserveDepositState) {
+	public void setReserveDepositState(String reserveDepositState) {
 		this.reserveDepositState = reserveDepositState;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "ReservationVo [reserveNo=" + reserveNo + ", tourNo=" + tourNo + ", memberNo=" + memberNo + ", closedNo="

@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.edu.service.ReservationService;
+import com.edu.user.service.ReservationService;
 import com.edu.vo.MemberVo;
-import com.edu.vo.ReservationVo;
-import com.edu.vo.TourVo;
+import com.edu.user.vo.ReservationVo;
+import com.edu.user.vo.TourVo;
 
 @Controller
 public class ReservationController {

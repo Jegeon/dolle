@@ -6,9 +6,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.edu.dao.ReservationDao;
-import com.edu.vo.ReservationVo;
-import com.edu.vo.TourVo;
+import com.edu.user.dao.ReservationDao;
+import com.edu.user.vo.ReservationVo;
+import com.edu.user.vo.TourVo;
 
 @Service
 public class ReservationServiceImpl implements ReservationService{

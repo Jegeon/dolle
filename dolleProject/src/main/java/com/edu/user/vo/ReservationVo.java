@@ -1,4 +1,4 @@
-package com.edu.vo;
+package com.edu.user.vo;
 
 import java.util.Date;
 

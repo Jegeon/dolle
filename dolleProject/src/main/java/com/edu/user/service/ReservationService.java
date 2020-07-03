@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.edu.vo.MemberVo;
-import com.edu.vo.ReservationVo;
-import com.edu.vo.TourVo;
+import com.edu.user.vo.ReservationVo;
+import com.edu.user.vo.TourVo;
 
 public interface ReservationService {
 

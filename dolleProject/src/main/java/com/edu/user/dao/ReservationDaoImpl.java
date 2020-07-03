@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.edu.vo.MemberVo;
-import com.edu.vo.ReservationVo;
-import com.edu.vo.TourVo;
+import com.edu.user.vo.ReservationVo;
+import com.edu.user.vo.TourVo;
 
 @Repository
 public class ReservationDaoImpl implements ReservationDao{

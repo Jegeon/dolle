@@ -3,7 +3,7 @@
 
 <mapper namespace="com.edu.reservation">
 
-	<resultMap type="com.edu.user.vo.ReservationVo" id="reservationResultMap">
+	<resultMap type="com.edu.reservation.vo.ReservationVo" id="reservationResultMap">
 		<id column="RESERVE_IDX" property="reserveNo" />
 		<result column="TOUR_IDX" property="tourNo" />
 		<result column="MEMBER_IDX" property="memberNo" />
@@ -16,7 +16,7 @@
 		<result column="RESERVE_DEPOSIT_STATE" property="reserveDepositState" />
 	</resultMap>
 	
-	<resultMap type="com.edu.user.vo.TourVo" id="tourResultMap">
+	<resultMap type="com.edu.reservation.vo.TourVo" id="tourResultMap">
 		<id column="TOUR_IDX" property="tourNo" />
 		<result column="TOWN_IDX" property="townNo" />
 		<result column="TOUR_NAME" property="tourName" />

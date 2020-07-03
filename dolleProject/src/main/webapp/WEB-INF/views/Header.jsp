@@ -247,7 +247,7 @@
 			<div style="width: 1260px; margin: 0px auto;">
 				<div
 					style="height: 40px; width: 252px; background-color: #EFEAE2; text-align: center; padding-top: 14px; box-sizing: border-box; margin-left: 1008px;">
-					<span style="padding: 0px 7px 0px 7px;"> <a class='blackLink' href='#'>공지 사항</a>
+					<span style="padding: 0px 7px 0px 7px;"> <a class='blackLink' href='../noticeBoard/list.do'>공지 사항</a>
 					</span>
 				</div>
 			</div>
@@ -255,7 +255,7 @@
 
 	</div>
 
-	<div style="padding-top: 187px;">
+	<div style="padding-top: 227px;">
 	
 	</div>
 

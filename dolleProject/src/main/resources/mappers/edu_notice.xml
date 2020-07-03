@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.edu">
+<mapper namespace="com.edu.noticeBoard">
 
-	<resultMap type="com.edu.vo.NoticeVo" 
+	<resultMap type="com.edu.noticeBoard.vo.NoticeVo" 
 		id="noticeResultMap">
 		<id column="NOTICE_IDX" 			property="noticeIdx"/>
 		<result column="MEMBER_IDX" 		property="noticeMemberIdx"/>
@@ -17,7 +17,7 @@
 		<result column="NOTICE_DEL_FLAG" 	property="noticeDelYn"/>
 	</resultMap>
 	
-	<resultMap type="com.edu.vo.NoticeMemberFileVo"
+	<resultMap type="com.edu.noticeBoard.vo.NoticeMemberFileVo"
 		id="noticeMemberFileResultMap">
 		<id 	column="NOTICE_IDX"			property="noticeIdx"/>
 		<result column="MEMBER_IDX" 		property="memberIdx"/>

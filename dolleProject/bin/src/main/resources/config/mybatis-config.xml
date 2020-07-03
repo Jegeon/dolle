@@ -5,7 +5,7 @@
 <configuration>
   
   <typeAliases>
-  	<typeAlias type="com.edu.vo.MemberVo" alias="memberVo"/>
+  	<typeAlias type="com.edu.member.vo.MemberVo" alias="memberVo"/>
   </typeAliases>
   
 </configuration>

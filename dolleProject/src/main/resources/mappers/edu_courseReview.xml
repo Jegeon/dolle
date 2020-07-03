@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.edu">
+<mapper namespace="com.edu.courseReview">
 
-	<resultMap type="com.edu.vo.CourseReviewVo" 
+	<resultMap type="com.edu.courseReview.vo.CourseReviewVo" 
 		id="courseReivewMap">
 		<id column="REVIEW_IDX" property="review_idx"/>
 		<result column="MEMBER_IDX" property="member_idx"/>
@@ -20,7 +20,7 @@
 			javaType="java.util.Date"/>
 	</resultMap>
 
-	<resultMap type="com.edu.vo.CourseReviewMemberCommentFileVo"  
+	<resultMap type="com.edu.courseReview.vo.CourseReviewMemberCommentFileVo"  
 		id="courseReviewMemberCommentFileMap">
 		<id column="REVIEW_IDX" property="reviewIdx"/>
 		<result column="MEMBER_IDX_R" property="reviewMemberIdx"/>
@@ -65,8 +65,9 @@
 		    ,(SELECT REVIEW_IDX, COUNT(*) AS COMMENT_COUNT FROM REVIEW_COMMENT GROUP BY REVIEW_IDX) C
 		    ,(SELECT REVIEW_IDX, REVIEW_STORED_FILE_NAME FROM REVIEW_FILE) RF
 		WHERE RB.MEMBER_IDX = M.MEMBER_IDX
-		AND RB.REVIEW_IDX = C.REVIEW_IDX
-		AND RB.REVIEW_IDX = RF.REVIEW_IDX
+		AND RB.REVIEW_IDX = C.REVIEW_IDX(+)
+		AND RB.REVIEW_IDX = RF.REVIEW_IDX(+)
+		ORDER BY RB.REVIEW_IDX DESC
 	</select> 
 	
 </mapper>

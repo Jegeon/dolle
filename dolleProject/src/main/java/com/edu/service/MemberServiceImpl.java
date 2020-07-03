@@ -37,17 +37,23 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public int memberInsertOne(MemberVo memberVo) {
 		// TODO Auto-generated method stub
-		return 0;
+		return memberDao.memberInsertOne(memberVo);
 	}
 	
 	@Override
 	public MemberVo memberSelectOne(int no) {
-		return null;
+		return memberDao.memberSelectOne(no);
 	}
 	
 	@Override
 	public int memberDelete(int no) {
 		return memberDao.memberDelete(no);
+	}
+
+	@Override
+	public int memberNickNameList(String nickname) {
+		// TODO Auto-generated method stub
+		return memberDao.memberNickNameList(nickname);
 	}
 
 }

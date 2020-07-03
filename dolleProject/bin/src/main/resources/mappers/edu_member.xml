@@ -5,29 +5,33 @@
 
 	<resultMap type="com.edu.vo.MemberVo"
 		id="memberResultMap">
-		<id column="MNO" property="no" />
-		<result column="MNAME" property="name" />
-		<result column="EMAIL" property="email" />
-		<result column="PWD" property="password" />
-		<result column="CRE_DATE" property="createDate"
-			javaType="java.util.Date" />
-		<result column="MOD_DATE" property="modifiedDate"
-			javaType="java.util.Date" />
+		<id column="MEMBER_IDX" property="no" />
+		<result column="MEMBER_NAME" property="name" />
+		<result column="MEMBER_NICKNAME" property="nickname" />
+		<result column="MEMBER_EMAIL" property="email" />
+		<result column="MEMBER_PASSWORD" property="password" />
+		<result column="MEMBER_PHONE" property="phone" />
+		<result column="MEMBER_BIRTHDATE" property="birthdate" javaType="java.util.Date" />
+		<result column="MEMBER_NATIONAL" property="national" />
+		<result column="MEMBER_CRE_DATE" property="createDate" javaType="java.util.Date" />
+		<result column="MEMBER_MOD_DATE" property="modifiedDate" javaType="java.util.Date" />
+		<result column="MEMBER_GRADE" property="grade" />
+		<result column="MEMBER_DEL_YN" property="del" />
+		<result column="MEMBER_TEMP_PWD" property="tempPassword" />
 	</resultMap>
 
-	<select id="memberSelectList" parameterType="map"
-		resultMap="memberResultMap">
-		SELECT MNO, MNAME, EMAIL, CRE_DATE
+	<select id="memberSelectList" parameterType="map" resultMap="memberResultMap">
+		SELECT MEMBER_IDX, MEMBER_NAME, MEMBER_EMAIL, MEMBER_CRE_DATE
 		FROM MEMBER
-		ORDER BY MNO
+		ORDER BY MEMBER_IDX
 		DESC
 	</select>
 
 	<select id="memberExist" parameterType="map"
 		resultMap="memberResultMap">
-		SELECT MNO, MNAME, EMAIL
+		SELECT MEMBER_IDX, MEMBER_NAME, MEMBER_EMAIL
 		FROM MEMBER
-		WHERE EMAIL = #{email} AND PWD = #{pwd}
+		WHERE MEMBER_EMAIL = #{email} AND MEMBER_PASSWORD = #{pwd}
 	</select>
 	
 	<update id="memberUpdateOne" parameterType="memberVo">
@@ -48,7 +52,9 @@
 
 	<select id="memberSelectOne" parameterType="int"
 		resultMap="memberResultMap">
-		
+		SELECT MEMBER_IDX, MEMBER_NAME, MEMBER_NICKNAME, MEMBER_EMAIL, MEMBER_PHONE, MEMBER_PASSWORD
+		FROM MEMBER
+		WHERE MEMBER_IDX = #{no}
 	</select>
 	
 	<delete id="memberDelete" parameterType="int">

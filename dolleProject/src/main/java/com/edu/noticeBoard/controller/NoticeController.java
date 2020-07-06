@@ -24,6 +24,14 @@ public class NoticeController {
 	private NoticeService noticeService;
 	
 	
+	@RequestMapping(value="/noticeBoard/adminList.do", method = RequestMethod.GET)
+	public String adminNoticeBoardListView(Model model) {
+		
+		
+		
+		return "noticeBoard/adminNoticeBoardListView";
+	}
+	
 	@RequestMapping(value="/noticeBoard/detail.do", method = RequestMethod.GET)
 	public String noticeBoardDetailView(Model model
 			, int noticeIdx) {

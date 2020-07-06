@@ -12,6 +12,7 @@ public class NoticeMemberFileVo {
 	private String noticeDelYn;
 	private Date noticeCreDate;
 	private Date noticeModDate;
+	private int rNum;
 	
 	private int memberIdx;
 	private String memberName;
@@ -43,7 +44,7 @@ public class NoticeMemberFileVo {
 
 
 	public NoticeMemberFileVo(int noticeIdx, int noticeMemberIdx, String noticeTitle, String noticeContent,
-			String noticeFixed, String noticeDelYn, Date noticeCreDate, Date noticeModDate, int memberIdx,
+			String noticeFixed, String noticeDelYn, Date noticeCreDate, Date noticeModDate, int rNum, int memberIdx,
 			String memberName, String memberEmail, String memberNickname, String memberPassword, String memberPhone,
 			Date memberBirthdate, String memberNational, Date memberCreDate, Date memberModDate, String memberGrade,
 			String memberDelYn, String memberTempPwd, int fileIdx, int fileNoticeIdx, String fileNoticeOriginalName,
@@ -58,6 +59,7 @@ public class NoticeMemberFileVo {
 		this.noticeDelYn = noticeDelYn;
 		this.noticeCreDate = noticeCreDate;
 		this.noticeModDate = noticeModDate;
+		this.rNum = rNum;
 		this.memberIdx = memberIdx;
 		this.memberName = memberName;
 		this.memberEmail = memberEmail;
@@ -159,6 +161,16 @@ public class NoticeMemberFileVo {
 
 	public void setNoticeModDate(Date noticeModDate) {
 		this.noticeModDate = noticeModDate;
+	}
+
+
+	public int getrNum() {
+		return rNum;
+	}
+
+
+	public void setrNum(int rNum) {
+		this.rNum = rNum;
 	}
 
 
@@ -376,17 +388,19 @@ public class NoticeMemberFileVo {
 	public String toString() {
 		return "NoticeMemberFileVo [noticeIdx=" + noticeIdx + ", noticeMemberIdx=" + noticeMemberIdx + ", noticeTitle="
 				+ noticeTitle + ", noticeContent=" + noticeContent + ", noticeFixed=" + noticeFixed + ", noticeDelYn="
-				+ noticeDelYn + ", noticeCreDate=" + noticeCreDate + ", noticeModDate=" + noticeModDate + ", memberIdx="
-				+ memberIdx + ", memberName=" + memberName + ", memberEmail=" + memberEmail + ", memberNickname="
-				+ memberNickname + ", memberPassword=" + memberPassword + ", memberPhone=" + memberPhone
-				+ ", memberBirthdate=" + memberBirthdate + ", memberNational=" + memberNational + ", memberCreDate="
-				+ memberCreDate + ", memberModDate=" + memberModDate + ", memberGrade=" + memberGrade + ", memberDelYn="
-				+ memberDelYn + ", memberTempPwd=" + memberTempPwd + ", fileIdx=" + fileIdx + ", fileNoticeIdx="
-				+ fileNoticeIdx + ", fileNoticeOriginalName=" + fileNoticeOriginalName + ", fileNoticeStoredName="
-				+ fileNoticeStoredName + ", fileNoticeSize=" + fileNoticeSize + ", fileNoticeCreDate="
-				+ fileNoticeCreDate + ", fileNoticeModDate=" + fileNoticeModDate + ", fileExist=" + fileExist + "]";
+				+ noticeDelYn + ", noticeCreDate=" + noticeCreDate + ", noticeModDate=" + noticeModDate + ", rNum="
+				+ rNum + ", memberIdx=" + memberIdx + ", memberName=" + memberName + ", memberEmail=" + memberEmail
+				+ ", memberNickname=" + memberNickname + ", memberPassword=" + memberPassword + ", memberPhone="
+				+ memberPhone + ", memberBirthdate=" + memberBirthdate + ", memberNational=" + memberNational
+				+ ", memberCreDate=" + memberCreDate + ", memberModDate=" + memberModDate + ", memberGrade="
+				+ memberGrade + ", memberDelYn=" + memberDelYn + ", memberTempPwd=" + memberTempPwd + ", fileIdx="
+				+ fileIdx + ", fileNoticeIdx=" + fileNoticeIdx + ", fileNoticeOriginalName=" + fileNoticeOriginalName
+				+ ", fileNoticeStoredName=" + fileNoticeStoredName + ", fileNoticeSize=" + fileNoticeSize
+				+ ", fileNoticeCreDate=" + fileNoticeCreDate + ", fileNoticeModDate=" + fileNoticeModDate
+				+ ", fileExist=" + fileExist + "]";
 	}
-	
+
+
 	
 	
 }

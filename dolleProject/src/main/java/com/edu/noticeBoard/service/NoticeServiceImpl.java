@@ -29,5 +29,45 @@ public class NoticeServiceImpl implements NoticeService{
 		
 		return noticeDao.noticeMemberFileFixedList();
 	}
+
+
+	@Override
+	public NoticeMemberFileVo noticeDetailSelectOne(int noticeIdx) {
+		// TODO Auto-generated method stub
+		
+		return noticeDao.noticeDetailSelectOne(noticeIdx);
+	}
+
+
+	@Override
+	public int noticeFindUpIdx(int noticeIdx) {
+		// TODO Auto-generated method stub
+		
+		int upIdx = noticeDao.noticeFindUpIdx(noticeIdx);
+		
+		return upIdx;
+	}
+
+
+	@Override
+	public int noticeFindDownIdx(int noticeIdx) {
+		// TODO Auto-generated method stub
+		
+		int downIdx = noticeDao.noticeFindDownIdx(noticeIdx);
+		
+		return downIdx;
+	}
+
+
+	@Override
+	public int noticeFindCurrentRow(int noticeIdx) {
+		// TODO Auto-generated method stub
+		
+		int rNum = noticeDao.noticeFindCurrentRow(noticeIdx);
+		
+		return rNum;
+	}
+	
+	
 	
 }

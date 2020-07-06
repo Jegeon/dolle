@@ -32,5 +32,43 @@ public class NoticeDaoImpl implements NoticeDao{
 		
 		return sqlSession.selectList(namespace + "noticeMemberFileFixedList");
 	}
+
+
+	@Override
+	public NoticeMemberFileVo noticeDetailSelectOne(int noticeIdx) {
+		// TODO Auto-generated method stub
+		
+		return sqlSession.selectOne(namespace + "noticeDetailSelectOne", noticeIdx);
+	}
+
+
+	@Override
+	public int noticeFindUpIdx(int noticeIdx) {
+		// TODO Auto-generated method stub
+		
+		int upIdx = sqlSession.selectOne(namespace + "noticeFindUpIdx", noticeIdx);
+		
+		return upIdx;
+	}
+
+
+	@Override
+	public int noticeFindDownIdx(int noticeIdx) {
+		// TODO Auto-generated method stub
+		
+		int downIdx = sqlSession.selectOne(namespace + "noticeFindDownIdx", noticeIdx);
+		
+		return downIdx;
+	}
+
+
+	@Override
+	public int noticeFindCurrentRow(int noticeIdx) {
+		// TODO Auto-generated method stub
+		
+		int rNum = sqlSession.selectOne(namespace + "noticeFindCurrentRow", noticeIdx);
+		
+		return rNum;
+	}
 	
 }

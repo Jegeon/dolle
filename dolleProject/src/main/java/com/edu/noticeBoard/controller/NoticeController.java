@@ -25,8 +25,37 @@ public class NoticeController {
 	
 	
 	@RequestMapping(value="/noticeBoard/detail.do", method = RequestMethod.GET)
-	public String noticeBoardDetailView(Model model) {
-		log.debug(" *** Welcome NoticeBoardDetail View ***");
+	public String noticeBoardDetailView(Model model
+			, int noticeIdx) {
+		log.debug(" *** Welcome NoticeBoardDetail View {}***", noticeIdx);
+		
+		NoticeMemberFileVo noticeVo = noticeService.noticeDetailSelectOne(noticeIdx);
+		
+		int rNum = noticeService.noticeFindCurrentRow(noticeIdx);
+		
+		int topIdx = noticeService.noticeFindUpIdx(2);
+		int listSize = noticeService.noticeMemberFileList().size();
+		int bottomIdx = noticeService.noticeFindUpIdx(listSize+1);
+		
+		int upIdx = topIdx;
+		int downIdx = bottomIdx;
+		
+		if(rNum == topIdx) {
+			upIdx = noticeService.noticeFindUpIdx(rNum);
+		}
+
+		if(rNum == 1) {
+			downIdx	= noticeService.noticeFindDownIdx(rNum);
+		}
+		
+		
+		if(upIdx > topIdx) {
+			upIdx = -1;
+		}
+		
+		model.addAttribute("noticeVo", noticeVo);
+		model.addAttribute("upIdx", upIdx);
+		model.addAttribute("downIdx", downIdx);
 		
 		return "noticeBoard/noticeBoardDetailView";
 	}
@@ -45,6 +74,10 @@ public class NoticeController {
 		List<NoticeMemberFileVo> tempList = new ArrayList<NoticeMemberFileVo>();
 		if(fixedListCount > limitNum) {
 			for(int i=0; i<limitNum; i++) {
+				tempList.add(noticeMemberFileFixedList.get(i));
+			}
+		}else {
+			for(int i=0; i<noticeMemberFileFixedList.size(); i++) {
 				tempList.add(noticeMemberFileFixedList.get(i));
 			}
 		}

@@ -8,4 +8,8 @@ public interface NoticeDao {
 	
 	public List<NoticeMemberFileVo> noticeMemberFileList();
 	public List<NoticeMemberFileVo> noticeMemberFileFixedList();
+	public NoticeMemberFileVo noticeDetailSelectOne(int noticeIdx);
+	public int noticeFindUpIdx(int noticeIdx);
+	public int noticeFindDownIdx(int noticeIdx);
+	public int noticeFindCurrentRow(int noticeIdx);
 }

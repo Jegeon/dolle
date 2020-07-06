@@ -111,12 +111,6 @@ th {
 	padding-left: 15px;
 }
 
-.boldNotice {
-	color: #0D4371; 
-	font-weight: bold; 
-	font-size: 17px;
-}
-
 #clipSize {
 	width: 18px;
 	height: 18px;
@@ -131,6 +125,16 @@ th {
 	font-weight: bold;
 	font-size: 17px;
 }
+
+.blackLink {
+	text-decoration: none;
+}
+
+.boldNotice {
+	color: #0D4371; 
+	font-weight: bold; 
+	font-size: 17px;
+}
 </style>
 <script type="text/javascript" 
 	src="/dolleProject/resources/js/jquery-3.5.1.js"></script>
@@ -140,7 +144,6 @@ th {
 
 
 <body>
-
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
 	
 	<div id='contentDiv'>
@@ -155,8 +158,7 @@ th {
 			</select>
 
 			<div id='serachDiv'>
-				<input id='searchInput' type="text" value=""
-					style="">
+				<input id='searchInput' type="text" value="">
 				<img id="searchBtn" alt="검색버튼"
 					src="/dolleProject/resources/images/searchBtn.PNG">
 			</div>
@@ -173,18 +175,21 @@ th {
 				</tr>
 				
 				<c:forEach var="noticeMemberFileVo" items="${noticeMemberFileFixedList}">
-				<tr>
-					<td class='tableLine boldNotice'>
-						공지
-					</td>
-					<td class='tableLine alignPaddingLeft boldTitle'>
-						${noticeMemberFileVo.noticeTitle}
-						<c:if test="${noticeMemberFileVo.fileExist eq 1}">
-							<img id='clipSize' alt='clip' src='/dolleProject/resources/images/fileClip.png'>
-						</c:if>
-					</td>
-					<td class='tableLine'>${noticeMemberFileVo.memberNickname}</td>
-					<td><fmt:formatDate value="${noticeMemberFileVo.noticeCreDate}" pattern="yyyy-MM-dd"/></td>
+					<tr>
+						<td class='tableLine boldNotice'>
+							공지
+						</td>
+						<td class='tableLine alignPaddingLeft boldTitle'>
+							<a class='blackLink' style="color: #0D4371;" href='./detail.do?noticeIdx=${noticeMemberFileVo.noticeIdx}'>${noticeMemberFileVo.noticeTitle}
+								<c:if test="${noticeMemberFileVo.fileExist eq 1}">
+									<img id='clipSize' alt='clip' src='/dolleProject/resources/images/fileClip.png'>
+								</c:if>
+							</a>
+						</td>
+						<td class='tableLine'>${noticeMemberFileVo.memberNickname}</td>
+						<td>
+							<fmt:formatDate value="${noticeMemberFileVo.noticeCreDate}" pattern="yyyy-MM-dd"/>
+						</td>
 					</tr>
 				</c:forEach>
 				
@@ -192,10 +197,11 @@ th {
 					<tr>
 						<td class='tableLine noneColorNotice'>${noticeMemberFileVo.noticeIdx}</td>
 						<td class='tableLine alignPaddingLeft'>
-							${noticeMemberFileVo.noticeTitle}
-							<c:if test="${noticeMemberFileVo.fileExist eq 1}">
-								<img id='clipSize' alt='clip' src='/dolleProject/resources/images/fileClip.png'>
-							</c:if>
+							<a class='blackLink' href='./detail.do?noticeIdx=${noticeMemberFileVo.noticeIdx}'>${noticeMemberFileVo.noticeTitle}
+								<c:if test="${noticeMemberFileVo.fileExist eq 1}">
+									<img id='clipSize' alt='clip' src='/dolleProject/resources/images/fileClip.png'>
+								</c:if>
+							</a>
 						</td>
 						<td class='tableLine'>${noticeMemberFileVo.memberNickname}</td>
 						<td><fmt:formatDate value="${noticeMemberFileVo.noticeCreDate}" pattern="yyyy-MM-dd"/></td>

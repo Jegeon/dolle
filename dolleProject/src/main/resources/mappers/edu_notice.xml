@@ -19,16 +19,19 @@
 	
 	<resultMap type="com.edu.noticeBoard.vo.NoticeMemberFileVo"
 		id="noticeMemberFileResultMap">
-		<id 	column="NOTICE_IDX"			property="noticeIdx"/>
-		<result column="MEMBER_IDX" 		property="memberIdx"/>
-		<result column="NOTICE_TITLE" 		property="noticeTitle"/>
-		<result column="NOTICE_CRE_DATE" 	property="noticeCreDate"
+		<id 	column="NOTICE_IDX"					property="noticeIdx"/>
+		<result column="MEMBER_IDX" 				property="memberIdx"/>
+		<result column="NOTICE_TITLE" 				property="noticeTitle"/>
+		<result column="NOTICE_CRE_DATE" 			property="noticeCreDate"
 			javaType="java.util.Date"/>
-		<result column="NOITCE_FIXED"		property="noticeFixed"/>
+		<result column="NOITCE_FIXED"				property="noticeFixed"/>
+		<result column="NOTICE_CONTENT"				property="noticeContent"/>
+		<result column="RNUM"						property="rNum"/>
 			
-		<result column="MEMBER_NICKNAME" 	property="memberNickname"/>
+		<result column="MEMBER_NICKNAME" 			property="memberNickname"/>
 		
-		<result column="FILE_EXIST"			property="fileExist"/>
+		<result column="FILE_EXIST"					property="fileExist"/>
+		<result column="NOTICE_STORED_FILE_NAME"	property="fileNoticeStoredName"/>
 	</resultMap>
 	
 	<select id="noticeMemberFileList" parameterType="map"
@@ -50,5 +53,52 @@
 		ORDER BY NB.NOTICE_IDX DESC
 	</select>
 	
+	<select id='noticeDetailSelectOne' parameterType="map"
+		resultMap="noticeMemberFileResultMap">
+		
+		SELECT NB.NOTICE_IDX, NB.NOTICE_TITLE, M.MEMBER_NICKNAME, NB.NOTICE_CRE_DATE, NF.NOTICE_STORED_FILE_NAME, NB.NOTICE_CONTENT
+			FROM NOTICEBOARD NB, MEMBER M, NOTICE_FILE NF
+			WHERE NB.MEMBER_IDX = M.MEMBER_IDX
+			AND NB.NOTICE_IDX = NF.NOTICE_IDX(+)
+			AND NB.NOTICE_IDX = #{noticeIdx} 
+			ORDER BY NB.NOTICE_IDX DESC
+			
+	</select>
+	
+	<select id='noticeFindUpIdx' parameterType="int"
+		resultType="int">
+		SELECT NIDX AS FINDIDX
+		FROM(SELECT ROWNUM RNUM, NIDX 
+		     FROM(SELECT NB.NOTICE_IDX AS NIDX
+		                FROM NOTICEBOARD NB, MEMBER M, NOTICE_FILE NF
+		                WHERE NB.MEMBER_IDX = M.MEMBER_IDX
+		                AND NB.NOTICE_IDX = NF.NOTICE_IDX(+)
+		                ORDER BY NIDX DESC))
+		WHERE RNUM = #{rNum}-1
+	</select>
+	
+	<select id='noticeFindDownIdx' parameterType="int"
+		resultType="int">
+		SELECT NIDX AS FINDIDX
+		FROM(SELECT ROWNUM RNUM, NIDX 
+		     FROM(SELECT NB.NOTICE_IDX AS NIDX
+		                FROM NOTICEBOARD NB, MEMBER M, NOTICE_FILE NF
+		                WHERE NB.MEMBER_IDX = M.MEMBER_IDX
+		                AND NB.NOTICE_IDX = NF.NOTICE_IDX(+)
+		                ORDER BY NIDX DESC))
+		WHERE RNUM = #{rNum}+1	
+	</select>
+	
+	<select id='noticeFindCurrentRow' parameterType="int"
+		resultType="int">
+		SELECT RNUM AS FINDROW
+		FROM(SELECT ROWNUM RNUM, NIDX 
+		     FROM(SELECT NB.NOTICE_IDX AS NIDX
+		                FROM NOTICEBOARD NB, MEMBER M, NOTICE_FILE NF
+		                WHERE NB.MEMBER_IDX = M.MEMBER_IDX
+		                AND NB.NOTICE_IDX = NF.NOTICE_IDX(+)
+		                ORDER BY NIDX DESC))
+		WHERE NIDX = #{noticeIdx}
+	</select>	
 	
 </mapper>

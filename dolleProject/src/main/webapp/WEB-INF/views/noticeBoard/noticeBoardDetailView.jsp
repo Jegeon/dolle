@@ -184,7 +184,6 @@ body {
 	}
 </script>
 <body>
-	<jsp:include page="/WEB-INF/views/AdminSideHeader.jsp" />
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
 	
 	<div id='contentWrap'>

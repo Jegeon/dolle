@@ -9,9 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.edu.courseReview.service.CourseReviewService;
 import com.edu.courseReview.vo.CourseReviewMemberCommentFileVo;
+import com.edu.courseReview.vo.CourseReviewVo;
 
 @Controller
 public class CourseReviewController {
@@ -39,14 +41,37 @@ public class CourseReviewController {
 		return "courseReview/courseReviewListView";
 	}
 	
-	//코스리뷰 작성
 	@RequestMapping(value="/courseReview/add.do", method = RequestMethod.GET)
 	public String courseReviewAdd(Model model) {
-		log.debug(" **** Welcome courseReviewAdd ****");
-
-
+		log.debug(" **** Welcome courseReviewForm ****");
 		
 		return "courseReview/courseReviewForm";
+	}
+	
+	@RequestMapping(value="/courseReview/addCtr.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public String courseReviewAdd(CourseReviewVo reviewVo
+			, MultipartHttpServletRequest mulRequest
+			, Model model) {
+		log.debug(" **** Welcome courseReviewForm 등록 성공 ****");
+		
+		courseReviewService.courseReviewInsertOne(reviewVo, mulRequest);
+		
+		return "redirect:/courseReview/list.do";
+	}
+	
+	
+	@RequestMapping(value="/courseReview/update.do", method = RequestMethod.GET)
+	public String courseReviewUpdate(Model model) {
+		log.debug(" **** Welcome courseReviewUpdate ****");
+		
+		return "courseReview/courseReviewUpdateForm";
+	}
+	
+	@RequestMapping(value="/courseReview/delete.do", method = RequestMethod.GET)
+	public String courseReviewDelete(Model model) {
+		log.debug(" **** Welcome courseReviewDelete ****");
+		
+		return "redirect:/courseReview/list.do";
 	}
 	
 }

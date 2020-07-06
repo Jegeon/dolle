@@ -109,8 +109,8 @@
 	
 	//클릭시 input ratingNum의 값이 바뀜
 	function ratingFnc(num){
-		$("#ratingNum").val(num);
-		var starNum = $("#ratingNum").val();
+		$("#reviewRating").val(num);
+		var starNum = $("#reviewRating").val();
 		var blankNum  = 5 - starNum;
 		
 		//별점을 선택하세요 안내 문구 삭제 
@@ -133,11 +133,13 @@
 					+'src="/dolleProject/resources/images/starBlank.png"'
 					+'style="width:20px; height:20px; padding:0px 2px;"></img>');
 		}
+		
+		
 	}
 	
 	//유효성 체크
 	function validCheckFnc(){
-		var noChoise  = $("#ratingNum").val();
+		var noChoise  = $("#reviewRating").val();
 		
 		$("#choiseTxt").remove();
 		if(noChoise == 0){
@@ -146,41 +148,72 @@
 			return false;
 		}
 		
-		var title  = $("#writeTitle").val();
+		var title  = $("#reviewTitle").val();
 		if(title == null || title.trim() == "" || title.length == 0){
-			$("#writeTitle").css("border", "1px solid red");
-			$("#writeTitle").attr("class","validTitle");
+			$("#reviewTitle").css("border", "1px solid red");
+			$("#reviewTitle").attr("class","validTitle");
 			return false;
 		}
 		
-		var content  = $("#writeContent").val();
+		var content  = $("#reivewContent").val();
 		if(content == null || content.trim() == "" || content.length == 0){
-			$("#writeContent").css("border", "1px solid red");
-			$("#writeContent").attr("class","validContent");
+			$("#reivewContent").css("border", "1px solid red");
+			$("#reivewContent").attr("class","validContent");
 			return false;
 		}
+		
+		return true;
 	}
 	
 	
-	//변경시 테두리 원래대로 
-	function clearFnc(objTxt){
-// 		alert("a"+objTxt);
-		if(objTxt != null && objTxt.trim() != "" && objTxt.length != 0){
-			$("#writeTitle").val("aa");
-		}
+	//input[type="file"] 미리보기 제공하기 
+	var sel_file;
+	var sel_files = [];
+	$(document).ready(function(){
+		$("#fileBtn").on("change", handleImgFileSelect);
+	});
+	
+	function handleImgFileSelect(e){
+		var files = e.target.files;
+		var filesArr = Array.prototype.slice.call(files);
 		
-		
-
+		filesArr.forEach(function(f){
+			if(!f.type.match("image.*")){
+				alert(" 이미지만 올릴 수 있습니다.");
+				return;
+			}
+			
+			sel_file = f;
+			
+			var reader = new FileReader();
+			reader.onload = function(e){
+				$("#uploadImg").attr("src", e.target.result);
+				$("#uploadImg").attr("style", "height:583px;");
+			}
+			reader.readAsDataURL(f);
+			
+		});
 	}
+	
 	
 	
 	
 	function addFormFnc(){
-		if(validCheckFnc()){
+		if(validCheckFnc() == true){
 			$("#addForm").submit();
 		}
 	}
 	
+	function movePageListFnc(){
+		location.href="./list.do"
+	}
+	
+	function movePageUpdateFnc(){
+		location.href="./update.do"
+	}
+	function deleteFnc(){
+		location.href="./delete.do"
+	}
 	
 </script>
 </head>
@@ -197,15 +230,16 @@
 			<h1>혜화 명륜 마을</h1>
 		</div>
 		
-		<form id="addForm" action="/courseReview/list.do" method="post">
-			<div id="uploadImageBox" class="basicBox">	
-				<img alt="upload_image" src="/dolleProject/resources/images/test.jpg"
+		<form id="addForm" action="./addCtr.do" method="post" enctype="multipart/form-data">
+			<div id="uploadImageBox" class="basicBox" style="text-align: center;">	
+				<img id="uploadImg" alt="upload_image" src="/dolleProject/resources/images/test.jpg"
 					style="width:100%;">
 			</div>
 			
 			<div class="floatRight" style="margin: 10px 190px 40px;">
 				<span style="margin-right:10px; font-size:12px;">기본 사진으로 변경</span>
-				<button id="changePhotoBtn">사진 변경하기</button>
+<!-- 				<button id="changePhotoBtn" onclick="">사진 변경하기</button> -->
+				<input id="fileBtn" type="file" name="file">
 			</div>
 			
 			<div id="ratingBox" class="basicBox floatClear" style="padding-bottom: 20px;">
@@ -214,10 +248,10 @@
 				</div>
 				
 				<!-- 클릭한 평점 -->
-				<input id="ratingNum" type="hidden" value="0">
+				<input id="reviewRating" name="reviewRating" type="hidden" value="0">
 				
 				<div class="dropdown">
-					<button class="dropbtn">
+					<button class="dropbtn" type="button">
 						<span id="ratingStar" style="padding-top:3px; padding-left:10px; box-sizing:border-box; 
 									display:inline-block; vertical-align:middle;">
 						<c:forEach begin="1" end="5">
@@ -288,7 +322,7 @@
 				<div class="inputTitle" style="padding-bottom:5px;">
 					<span>제목</span>
 				</div>
-				<input id="writeTitle" type="text"  onchange="clearFnc(this.value);"
+				<input id="reviewTitle" name="reviewTitle" type="text"  onchange="clearFnc(this.value);"
 					placeholder="제목을 입력해주세요." style="width:900px; height:45px; font-size:16px; 
 						padding:10px 50px; box-sizing:border-box;">
 			</div>
@@ -297,15 +331,20 @@
 				<div class="inputTitle" style="padding-bottom:5px;">
 					<span>내용</span>
 				</div>
-				<textarea id="writeContent" rows="" cols="" placeholder="내용을 입력해주세요." style="width:900px; height:470px; font-size:17px; padding:50px; box-sizing:border-box;"></textarea>
+				<textarea id="reivewContent" name="reviewContent" rows="" cols="" placeholder="내용을 입력해주세요." style="width:900px; height:470px; font-size:17px; padding:50px; box-sizing:border-box;"></textarea>
 			</div>
 			
 			<div class="basicBox" style="text-align: center;">
-				<input class="inputBtn" type="button" value="목록으로">
+				<input class="inputBtn" type="button" onclick="movePageListFnc();" value="목록으로">
 				<input class="inputBtn" type="button" onclick="addFormFnc();" value="등록">
 				<input class="inputBtn" type="button" value="다시 쓰기">	
 			</div>
 			
+			<div>테스트용</div>
+			<div>
+				<input class="inputBtn" type="button" onclick="movePageUpdateFnc();" value="수정">
+				<input class="inputBtn" type="button" onclick="deleteFnc();" value="삭제">
+			</div>
 			
 		</form>
 		

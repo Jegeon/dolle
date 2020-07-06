@@ -14,6 +14,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.edu.member.service.MemberService;
 import com.edu.member.vo.MemberVo;
@@ -26,6 +37,9 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private JavaMailSender mailSender;
 	
 	// 회원 목록 조회 화면으로
 	@RequestMapping(value="/member/list.do", method=RequestMethod.GET)
@@ -99,7 +113,6 @@ public class MemberController {
 	public String memberAdd(Model model) {
 		log.debug("Welcome MemberController memberAdd 페이지 이동! ");
 		
-		
 		return "member/memberForm";
 	}
 
@@ -111,7 +124,7 @@ public class MemberController {
 		
 		memberService.memberInsertOne(memberVo);
 		
-		return "redirect:/member/list.do";
+		return "redirect:/auth/login.do";
 	}
 	
 	@RequestMapping(value="/member/nick.do", method=RequestMethod.GET)
@@ -119,7 +132,7 @@ public class MemberController {
 			@RequestParam(defaultValue ="" )String nickname ,Model model) {
 		model.addAttribute("result",result);
 		model.addAttribute("nickname", nickname);
-		return "member/emailCheckForm";
+		return "member/nickCheckForm";
 	}
 	
 	@RequestMapping(value="/member/nickCtr.do", method = RequestMethod.GET)
@@ -199,5 +212,36 @@ public class MemberController {
 		memberService.memberDelete(no);
 		
 		return "redirect:/member/list.do";
+	}
+	
+	// mailSending 코드
+	@ResponseBody
+	@RequestMapping(value = "/mail/mailSending.do"
+			, method = {RequestMethod.GET, RequestMethod.POST})
+	public int mailSending(String tomail, HttpServletRequest request
+				, Model model) {
+
+		String setfrom = "javacatch5@gmail.com";
+		
+		int rndNum = (int)(Math.random() * 8999) + 1001;
+		
+		String title = "인증번호 확인 메일입니다."; // 제목
+		String content = "인증번호는 " + Integer.toString(rndNum) + "입니다."; // 내용
+
+		try {
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+
+			messageHelper.setFrom(setfrom); // 보내는사람 생략하거나 하면 정상작동을 안함
+			messageHelper.setTo(tomail); // 받는사람 이메일
+			messageHelper.setSubject(title); // 메일제목은 생략이 가능하다
+			messageHelper.setText(content); // 메일 내용
+			
+			mailSender.send(message);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+		return rndNum;
 	}
 }

@@ -107,7 +107,6 @@
 <body>
 
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
-
 	<div id='mainBorder'>
 		<div>
 			<span class='spanCss'>로그인</span>
@@ -149,7 +148,7 @@
 						<td>
 							<a class='aCss' href=''>이메일 찾기</a>/
 							<a class='aCss' href=''>비밀번호 찾기</a>
-							<a class='aCss' href=''>회원가입</a>
+							<a class='aCss' href='../member/add.do'>회원가입</a>
 						</td>
 					</tr>
 				</table>

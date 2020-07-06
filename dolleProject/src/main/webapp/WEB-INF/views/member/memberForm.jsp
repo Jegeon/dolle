@@ -1,11 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>회원 등록</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
+<!-- Bootstrap -->
+<%-- <link href='<c:url value="/css/bootstrap.min.css" />' rel="stylesheet"> --%>
+<%-- <link href='<c:url value="/css/kfonts2.css" />' rel="stylesheet"> --%>
 <style type="text/css">
 	#mainBorder {
 		text-align: center;
@@ -75,6 +79,10 @@
 	}
 	
 </style>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script type="text/javascript" src="\dolleProject\resources\js\jquery-3.5.1.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<%-- <script src='<c:url value="/js/bootstrap.min.js"  />'></script> --%>
 <script type="text/javascript">
 	var addMemberBtn = '';
 	var windwoObject = null;
@@ -101,6 +109,7 @@
 	var emailCheck = '';
 	var localCheck = '';
 	var cerCheck = '';
+	var cerNum = '';
 	var passCheck = '';
 	var passCheckCheck = '';
 	var agreeCheck = '';
@@ -124,6 +133,7 @@
 	function completedFnc() {
 		addMemberBtn = document.addMemberBtn;
 		checking = document.getElementById('checking');
+		cerNum = document.getElementById('cerNum');
 		
 		nameObj = document.getElementById('nameObj');
 		phonObj = document.getElementById('phonObj');
@@ -323,11 +333,21 @@
 		var bir = document.getElementsByName('birthdate');
 		bir[0].value = getFormatDateFnc(birthd);
 		
+		// 인증번호 체크
+		if (cerNum.value != cerObj.value) {
+			cerCheck.innerHTML = '인증번호가 다릅니다. 다시 확인해주세요.';
+			cerObj.focus();
+			return false;
+		} else {
+			
+		}
+		
 		// 가입성공
 		alert('축하합니다. 드디어 가입했습니다. (와.....)');
 		addMemberBtn.submit();
 	}
 	
+	// 생년월일 가공
 	function getFormatDateFnc(date){
 	    var year = date.getFullYear();          //yyyy
 	    var month = (1 + date.getMonth());          //M
@@ -337,6 +357,7 @@
 	    return  year + '/' + month + '/' + day;       //'-' 추가하여 yyyy-mm-dd 형태 생성 가능
 	}
 	
+	// 중복확인
 	function sameNickFnc() {
 		overlap = document.overlap;
 		
@@ -347,7 +368,7 @@
 	    
 
 		window.name = 'overlapCheck';
-		window.open('nick.do'
+		winObject = window.open('nick.do'
 				, nickNameObj.value, 'width=' + _width + 'px, height= ' + _height + 'px, left=' + _left + ', top=' + _top +', resizable = no, scrollbars = no');
 		
 		winObject.document.all.nickname.value = document.all.nickname.value;
@@ -355,7 +376,22 @@
 
 	}
 	
+	// 이메일 전송
 	function cerNumFnc() {
+		emailObj = document.getElementById('emailObj');
+		cerNum = document.getElementById('cerNum');
+		
+		$.ajax({
+			url : "../mail/mailSending.do",
+			type: "POST",
+			data: "tomail=" + emailObj.value,
+			success:function(data){
+				$('#cerNum').val(data);
+			},
+			error: function(){
+				alert("error");
+			}
+		});			
 		
 	}
 	
@@ -474,7 +510,8 @@
 				<tr>
 					<td>
 						<input id='cerObj' type='text' size='7' placeholder='인증번호를 입력해주세요.'>
-						<input class='btnCss' type="button" onclick='cerNumFnc();' value='인증번호 발송'>
+						<input id='cerNumBtn' class='btnCss' type="button" onclick='cerNumFnc();' value='인증번호 발송'>
+						<input id='cerNum' type='hidden' value=''>
 					</td>
 					<td rowspan='6'>
 						<div style='border: 1px solid black;'>

@@ -46,6 +46,7 @@
 		padding: 8px;
 	}
 </style>
+<script type="text/javascript" src="\dolleProject\resources\js\jquery-3.5.1.js"></script>
 <script type="text/javascript">
 	var nickCheck = '';
 
@@ -115,6 +116,13 @@
 	}
 	
 	window.onload = function() {
+
+		$('#nicknameObj').val($('#saveNick').val());
+		
+		if($('#saveNick').val() == "") {
+			document.all.nickname.value = opener.document.all.nickname.value;
+		}
+		
 		sameNick = document.getElementById('sameNick');
 		saveNick = document.getElementById('saveNick');
 		
@@ -134,12 +142,12 @@
 
 	<h2>중복 확인</h2>
 	
-	<form name='nickCheck' action="nickCtr.do" method="get">
+	<form id='nickCheck' name='nickCheck' action="nickCtr.do" method="get">
 		<table>
 			<tr>
 				<td>
 					<input id='nicknameObj' name="nickname" type='text' size='10'
-						maxlength='6' value='${nickname}'>
+						maxlength='6' value=''>
 					<input id='sameNick' type='hidden' value='${result}'>
 					<input id='saveNick' type='hidden' value='${nickname}'>
 				</td>

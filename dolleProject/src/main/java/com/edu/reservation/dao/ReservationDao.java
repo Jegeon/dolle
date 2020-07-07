@@ -12,7 +12,7 @@ public interface ReservationDao {
 	public TourVo tourSelectOne(int tourNo);
 	public TourVo tourSelectAllFromOne(int tourNo);
 	public TourVo tourAndReservationSelectAllFromOne(Map<String, Object> paramMap);
-	public int reservationInsertOne(Map<String, Object> paramMap);
+	public int tourReservationInsertOne(Map<String, Object> paramMap);
 	public ReservationVo reservationSelectNewestOne();
 
 }

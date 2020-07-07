@@ -13,7 +13,17 @@
 		location.href = "list.do";
 	}
 	function pageMoveReservationFnc(){
-		location.href = "reservation.do?tourNo=${tourVo.tourNo}";
+		var hiddenMemberNoInputValue = document.getElementById("hiddenMemberNoInput").value;
+		if(hiddenMemberNoInputValue != "") {
+			location.href = "reservation.do?tourNo=${tourVo.tourNo}";
+		}else {
+			alert("예약을 위해 로그인이 필요합니다");
+			var confirmStr = "";
+			confirmStr = confirm("로그인 페이지로 이동하시겠습니까?");
+			if(confirmStr) {
+				location.href = "../auth/login.do";	
+			}
+		}
 	}
 </script>
 <style type="text/css">
@@ -31,6 +41,10 @@
 
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
 
+	<!-- 로그인 체크 hidden input 시작 -->
+	<input type="hidden" id="hiddenMemberNoInput" value="${sessionScope._memberVo_.no}">
+	<!-- 로그인 체크 hidden input 끝 -->
+	
 	<h1>가이드 투어 예약 상세</h1>
 	<br/>
 	<div style="width: 740px; height: 300px; border: 1px solid black; margin: auto;">
@@ -78,6 +92,7 @@
 			background-color: #0D4371; border:0px;" onclick="pageMoveReservationFnc();">예약하기</button>
 		</div>
 	</div>
+	
 	<jsp:include page="/WEB-INF/views/Tail.jsp" />
 	
 </body>

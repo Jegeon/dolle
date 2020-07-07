@@ -29,6 +29,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.edu.member.service.MemberService;
 import com.edu.member.vo.MemberVo;
+import com.edu.reservation.vo.ReservationVo;
+import com.edu.reservation.vo.TourVo;
 
 @Controller
 public class MemberController {
@@ -67,12 +69,34 @@ public class MemberController {
 		return "member/memberListOneView";
 	}
 	
-	@RequestMapping(value="/member/payment.do")
-	public String memberPayment(Model model) {
+	// 마이페이지 - 입금화면으로 이동
+	@RequestMapping(value="/member/payment.do", method=RequestMethod.GET)
+	public String memberPayment(int reserveIdx, Model model) {
+		log.debug("Welcome memberPayment enter! - {}", reserveIdx);
 		
-		
+		MemberVo memberVo = memberService.memberPaymentSelectOne(reserveIdx);
+		model.addAttribute("memberVo", memberVo);
+		model.addAttribute("reserveIdx", reserveIdx);
 		
 		return "member/paymentForm";
+	}
+	
+	// 마이페이지 - 입금화면 - 결제완료
+	@RequestMapping(value="/member/paymentCtr.do", method=RequestMethod.GET)
+	public String memberPaymentCtr(int reserveIdx, Model model) {
+		log.debug("Welcome memberPaymentCtr enter! - {}", reserveIdx);
+		
+		memberService.memberPaymentUpdateOne(reserveIdx);
+		
+		return "redirect:/member/paymentCompleteShow.do";
+	}
+	
+	// 마이페이지 - 입금화면 - 결제완료 화면
+	@RequestMapping(value="/member/paymentCompleteShow.do", method=RequestMethod.GET)
+	public String memberPaymentClear(Model model) {
+		log.debug("Welcome memberPayment완료화면 enter!");
+		
+		return "member/paymentCompleteView";
 	}
 	
 	@RequestMapping(value="/auth/login.do", method=RequestMethod.GET)

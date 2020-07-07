@@ -81,4 +81,18 @@ public class MemberDaoImpl implements MemberDao{
 		return sqlSession.selectList(namespace + "memberReservationOne", no);
 	}
 
+	@Override
+	public MemberVo memberPaymentSelectOne(int reserveIdx) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace + "memberPaymentSelectOne",
+				reserveIdx);
+	}
+
+	@Override
+	public int memberPaymentUpdateOne(int reserveIdx) {
+		// TODO Auto-generated method stub
+		return sqlSession.update(namespace + "memberPaymentUpdateOne",
+				reserveIdx);
+	}
+
 }

@@ -39,8 +39,8 @@ public class ReservationDaoImpl implements ReservationDao{
 	}
 
 	@Override
-	public int reservationInsertOne(Map<String, Object> paramMap) {
-		return sqlSession.insert(namespace + "reservationInsertOne", paramMap);
+	public int tourReservationInsertOne(Map<String, Object> paramMap) {
+		return sqlSession.insert(namespace + "tourReservationInsertOne", paramMap);
 	}
 
 	@Override

@@ -15,4 +15,6 @@ public interface MemberService {
 	public int memberNickNameList(String nickname);
 	public int memberUpdateOne(MemberVo memberVo);
 	public int memberDelete(int no);
+	public MemberVo memberPaymentSelectOne(int reserveIdx);
+	public int memberPaymentUpdateOne(int reserveIdx);
 }

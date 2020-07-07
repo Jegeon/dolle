@@ -24,6 +24,9 @@
 		<result column="RESERVE_APPLY_DATE" property="reserveApplyDate" javaType="java.util.Date" />
 		<result column="RESERVE_DEPOSIT_DATE" property="reserveDepositDate" javaType="java.util.Date" />
 		<result column="RESERVE_DEPOSIT_STATE" property="reserveDepositState" />
+		<result column="RESERVE_APPLY_NUM" property="reserveApplyNum" />
+		<result column="RESERVE_PRICE" property="reservePrice" />
+		<result column="TOUR_ACCOUNT_NUM" property="tourAccountNum" />
 	</resultMap>
 
 	<select id="memberSelectList" parameterType="map" resultMap="memberResultMap">
@@ -35,8 +38,8 @@
 	
 	<select id="memberReservationOne" parameterType="map" resultMap="memberResultMap">
 		SELECT R.RESERVE_IDX, T.TOUR_NAME, R.RESERVE_APPLY_DATE, R.RESERVE_DEPOSIT_STATE
-		FROM RESERVE R, TOUR T, MEMBER M
-		WHERE M.MEMBER_IDX = #{no}
+		FROM RESERVE R, TOUR T
+		WHERE R.MEMBER_IDX = #{no}
 	</select>
 
 	<select id="memberExist" parameterType="map"
@@ -88,4 +91,19 @@
 		WHERE MEMBER_IDX = #{no}
 	</delete>
 
+	<select id="memberPaymentSelectOne" parameterType="int"
+		resultMap="memberResultMap">
+		SELECT RESERVE_APPLY_NUM, RESERVE_PRICE, (SELECT A1.ACC_ACCOUNT_NUM
+                                        FROM TOUR T1, ACCOUNT_MANAGEMENT A1
+                                        WHERE T1.TOWN_IDX = A1.TOWN_IDX) AS TOUR_ACCOUNT_NUM
+		FROM RESERVE
+		WHERE RESERVE_IDX = #{reserveIdx}
+	</select>
+	
+	<update id="memberPaymentUpdateOne" parameterType="int">
+		UPDATE RESERVE
+		SET
+		RESERVE_DEPOSIT_STATE = 'paid'
+		WHERE RESERVE_IDX = #{reserveIdx}
+	</update>
 </mapper>

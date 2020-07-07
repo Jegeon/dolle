@@ -9,7 +9,9 @@
 <title>투어 예약 완료</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
 <script type="text/javascript">
-
+	function pageMoveListFnc(){
+		location.href = "list.do";
+	}
 </script>
 <style type="text/css">
 	.ahreum {

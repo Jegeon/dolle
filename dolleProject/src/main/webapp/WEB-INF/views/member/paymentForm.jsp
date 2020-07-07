@@ -14,6 +14,9 @@
    function pageMoveListFnc(){
       location.href = "list.do";
    }
+   function paymentFnc() {
+	   location.href = "paymentCtr.do?reserveIdx=${reserveIdx}";
+   }
 </script>
 <style type="text/css">
 .ahreum {
@@ -41,7 +44,7 @@
 					<tr>
 						<td class="ahreum">입금 계좌</td>
 						<td>
-							계좌 들어갈 곳
+							${memberVo.tourAccountNum}
 						</td>
 					</tr>
 					<tr>
@@ -65,7 +68,7 @@
 							인원 수
 						</td>
 						<td>
-							<input type='text'>
+							${memberVo.reserveApplyNum}
 						</td>
 					</tr>
 					<tr>
@@ -73,7 +76,7 @@
 							결제 가격
 						</td>
 						<td>
-							<input type='text' readonly='readonly'>
+							${memberVo.reservePrice}
 						</td>
 					</tr>
 				</table>
@@ -81,7 +84,8 @@
 		</div>
 		<div style="text-align: center;">
 			<div style="margin-top: 20px;">
-				<button class="ahreum" onclick="">결제하기</button>
+				테스트용3 ${reserveIdx}
+				<button class="ahreum" onclick="paymentFnc();">결제하기</button>
 				<button class="ahreum" onclick="">취소하기</button>
 			</div>
 		</div>

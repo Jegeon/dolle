@@ -7,7 +7,6 @@ public class ReservationVo {
 	private int reserveNo;
 	private int tourNo;
 	private int memberNo;
-	private int closedNo;
 	private Date reserveTourDate;
 	private int reserveApplyNum;
 	private int reservePrice;
@@ -15,14 +14,13 @@ public class ReservationVo {
 	private Date reserveDepositDate;
 	private String reserveDepositState;
 	
-	public ReservationVo(int reserveNo, int tourNo, int memberNo, int closedNo, Date reserveTourDate,
+	public ReservationVo(int reserveNo, int tourNo, int memberNo, Date reserveTourDate,
 			int reserveApplyNum, int reservePrice, Date reserveApplyDate, Date reserveDepositDate,
 			String reserveDepositState) {
 		super();
 		this.reserveNo = reserveNo;
 		this.tourNo = tourNo;
 		this.memberNo = memberNo;
-		this.closedNo = closedNo;
 		this.reserveTourDate = reserveTourDate;
 		this.reserveApplyNum = reserveApplyNum;
 		this.reservePrice = reservePrice;
@@ -51,12 +49,6 @@ public class ReservationVo {
 	}
 	public void setMemberNo(int memberNo) {
 		this.memberNo = memberNo;
-	}
-	public int getClosedNo() {
-		return closedNo;
-	}
-	public void setClosedNo(int closedNo) {
-		this.closedNo = closedNo;
 	}
 	public Date getReserveTourDate() {
 		return reserveTourDate;
@@ -97,8 +89,8 @@ public class ReservationVo {
 	
 	@Override
 	public String toString() {
-		return "ReservationVo [reserveNo=" + reserveNo + ", tourNo=" + tourNo + ", memberNo=" + memberNo + ", closedNo="
-				+ closedNo + ", reserveTourDate=" + reserveTourDate + ", reserveApplyNum=" + reserveApplyNum
+		return "ReservationVo [reserveNo=" + reserveNo + ", tourNo=" + tourNo + ", memberNo=" + memberNo
+				+ ", reserveTourDate=" + reserveTourDate + ", reserveApplyNum=" + reserveApplyNum
 				+ ", reservePrice=" + reservePrice + ", reserveApplyDate=" + reserveApplyDate + ", reserveDepositDate="
 				+ reserveDepositDate + ", reserveDepositState=" + reserveDepositState + "]";
 	}

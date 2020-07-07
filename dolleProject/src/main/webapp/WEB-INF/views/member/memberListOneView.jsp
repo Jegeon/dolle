@@ -127,11 +127,23 @@
 		myWriting.style.display = 'table';
 	}
 	
-	function testFnc() {
-		var idxNum = document.getElementsByClassName('idxNum');
-		var testIdx = document.getElementById('testIdx').value;
+	function testFnc(data) {
 		
-		location.href = './payment.do?reserveIdx=' + idxNum[testIdx - 1].value;
+// 		var idxNumData = document.getElementsByClassName("idxNum");
+// 		for (var i = 0; i < idxNumData.length; i++) {
+// 			alert(idxNumData[i].textContent.replace(/(\s*)/g, ""));
+// 		}
+		
+// 		string = string.replace(/(\s*)/g, "");
+		
+// 		var idxNumArr = new Array();
+		
+// 		var idxNum = document.getElementsByClassName('idxNum')[i];
+		
+// 		var testIdxArr = new Array();
+// 		var testIdx = document.getElementsByName("testIdx")[i];
+		
+		location.href = './payment.do?reserveIdx=' + data;
 	}
 	
 </script>
@@ -222,17 +234,26 @@
 						<tr class='resCss'>
 							<td class='resCss idxNum'>
 								${memberVo.reserveIdx}
-								<input id='testIdx' type='hidden' value=''>
+<%-- 								<input name='testIdx' type='hidden' value='${memberVo.reserveIdx}'> --%>
 							</td>
 							<td class='resCss'>
 								${memberVo.tourName}
 							</td>
 							<td class='resCss'>
-								${memberVo.reserveApplyDate}
+								<fmt:formatDate value="${memberVo.reserveApplyDate}" pattern="yyyy-MM-dd" />
 							</td>
 							<td class='resCss'>
 								<c:if test="${memberVo.reserveDepositState == 'standby'}">
-									<button type="button" onclick='testFnc();'>입금</button>
+									<button type="button" onclick='testFnc(${memberVo.reserveIdx});'>입금 하기</button>
+								</c:if>
+								<c:if test="${memberVo.reserveDepositState == 'paid'}">
+									승인 대기
+								</c:if>
+								<c:if test="${memberVo.reserveDepositState == 'active'}">
+									예약 완료
+								</c:if>
+								<c:if test="${memberVo.reserveDepositState == 'canceled'}">
+									예약 취소
 								</c:if>
 							</td>
 						</tr>

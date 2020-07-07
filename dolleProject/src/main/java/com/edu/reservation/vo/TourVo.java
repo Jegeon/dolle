@@ -9,6 +9,12 @@ public class TourVo {
 	private String tourName;
 	private Date tourStartDate;
 	private Date tourEndDate;
+	
+	// 휴무일 테이블에서 가져온 내용 시작
+	private Date tourClosedStartDate;
+	private Date tourClosedEndDate;
+	// 휴무일 테이블에서 가져온 내용 끝
+	
 	private String tourStartTime;
 	private String tourEndTime;
 	private int tourPrice;
@@ -21,6 +27,44 @@ public class TourVo {
 	private int tourPossibleNum;
 	private int tourReservedNum;
 	private String tourAccountNum;
+	
+	// memberNo, reserveTourDate 관련 부분 시작
+	private int memberNo;
+	private String reserveTourDate;
+	private int reserveApplyNum;
+	
+	
+	public int getReserveApplyNum() {
+		return reserveApplyNum;
+	}
+
+	public void setReserveApplyNum(int reserveApplyNum) {
+		this.reserveApplyNum = reserveApplyNum;
+	}
+
+	
+	public String getReserveTourDate() {
+		return reserveTourDate;
+	}
+
+	public void setReserveTourDate(String reserveTourDate) {
+		this.reserveTourDate = reserveTourDate;
+	}
+
+	public TourVo(String reserveTourDate) {
+		super();
+		this.reserveTourDate = reserveTourDate;
+	}
+	
+	public int getMemberNo() {
+		return memberNo;
+	}
+	// memberNo, reserveTourDate 관련 부분 끝
+	
+	public void setMemberNo(int memberNo) {
+		this.memberNo = memberNo;
+	}
+
 	public TourVo(int tourNo, int townNo, String tourName, Date tourStartDate, Date tourEndDate, String tourStartTime,
 			String tourEndTime, int tourPrice, int tourPeopleNum, String tourStartingPoint, String tourContent,
 			Date tourCreDate, Date tourModDate, String tourDel, int tourPossibleNum, int tourReservedNum,
@@ -47,6 +91,7 @@ public class TourVo {
 	public TourVo() {
 		super();
 	}
+	
 	public int getTourNo() {
 		return tourNo;
 	}
@@ -149,14 +194,35 @@ public class TourVo {
 	public void setTourAccountNum(String tourAccountNum) {
 		this.tourAccountNum = tourAccountNum;
 	}
+
+	// 휴무일 테이블에서 가져온 내용 getter/setter 시작
+	public Date getTourClosedStartDate() {
+		return tourClosedStartDate;
+	}
+
+	public void setTourClosedStartDate(Date tourClosedStartDate) {
+		this.tourClosedStartDate = tourClosedStartDate;
+	}
+
+	public Date getTourClosedEndDate() {
+		return tourClosedEndDate;
+	}
+
+	public void setTourClosedEndDate(Date tourClosedEndDate) {
+		this.tourClosedEndDate = tourClosedEndDate;
+	}
+	// 휴무일 테이블에서 가져온 내용 getter/setter 끝
+
 	@Override
 	public String toString() {
 		return "TourVo [tourNo=" + tourNo + ", townNo=" + townNo + ", tourName=" + tourName + ", tourStartDate="
-				+ tourStartDate + ", tourEndDate=" + tourEndDate + ", tourStartTime=" + tourStartTime + ", tourEndTime="
+				+ tourStartDate + ", tourEndDate=" + tourEndDate + ", tourClosedStartDate=" + tourClosedStartDate
+				+ ", tourClosedEndDate=" + tourClosedEndDate + ", tourStartTime=" + tourStartTime + ", tourEndTime="
 				+ tourEndTime + ", tourPrice=" + tourPrice + ", tourPeopleNum=" + tourPeopleNum + ", tourStartingPoint="
 				+ tourStartingPoint + ", tourContent=" + tourContent + ", tourCreDate=" + tourCreDate + ", tourModDate="
 				+ tourModDate + ", tourDel=" + tourDel + ", tourPossibleNum=" + tourPossibleNum + ", tourReservedNum="
-				+ tourReservedNum + ", tourAccountNum=" + tourAccountNum + "]";
+				+ tourReservedNum + ", tourAccountNum=" + tourAccountNum + ", memberNo=" + memberNo
+				+ ", reserveTourDate=" + reserveTourDate + ", reserveApplyNum=" + reserveApplyNum + "]";
 	}
 	
 }

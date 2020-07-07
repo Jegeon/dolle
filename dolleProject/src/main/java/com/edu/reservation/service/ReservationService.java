@@ -12,6 +12,6 @@ public interface ReservationService {
 	public TourVo tourSelectOne(int tourNo);
 	public TourVo tourReservation(int tourNo);
 	public TourVo tourReservation(Map<String, Object> paramMap);
-	public int tourReservationClear(Map<String, Object> paramMap);
+	public int tourReservationInsertOne(Map<String, Object> paramMap);
 	public ReservationVo reservationSelectNewestOne();
 }	

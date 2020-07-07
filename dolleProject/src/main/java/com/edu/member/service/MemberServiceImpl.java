@@ -62,4 +62,16 @@ public class MemberServiceImpl implements MemberService{
 		return memberDao.memberReservationOne(no);
 	}
 
+	@Override
+	public MemberVo memberPaymentSelectOne(int reserveIdx) {
+		// TODO Auto-generated method stub
+		return memberDao.memberPaymentSelectOne(reserveIdx);
+	}
+
+	@Override
+	public int memberPaymentUpdateOne(int reserveIdx) {
+		// TODO Auto-generated method stub
+		return memberDao.memberPaymentUpdateOne(reserveIdx);
+	}
+
 }

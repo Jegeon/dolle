@@ -7,7 +7,6 @@
 		<id column="RESERVE_IDX" property="reserveNo" />
 		<result column="TOUR_IDX" property="tourNo" />
 		<result column="MEMBER_IDX" property="memberNo" />
-		<result column="CLOSED_IDX" property="closedNo" />
 		<result column="RESERVE_TOUR_DATE" property="reserveTourDate" javaType="java.util.Date" />
 		<result column="RESERVE_APPLY_NUM" property="reserveApplyNum" />
 		<result column="RESERVE_PRICE" property="reservePrice" />
@@ -22,6 +21,8 @@
 		<result column="TOUR_NAME" property="tourName" />
 		<result column="TOUR_START_DATE" property="tourStartDate" javaType="java.util.Date" />
 		<result column="TOUR_END_DATE" property="tourEndDate" javaType="java.util.Date" />
+		<result column="TOUR_CLOSED_START_DATE" property="tourClosedStartDate" javaType="java.util.Date" />
+		<result column="TOUR_CLOSED_END_DATE" property="tourClosedEndDate" javaType="java.util.Date" />
 		<result column="TOUR_START_TIME" property="tourStartTime" />
 		<result column="TOUR_END_TIME" property="tourEndTime" />
 		<result column="TOUR_PRICE" property="tourPrice" />
@@ -54,17 +55,29 @@
 	</select>
 	
 	<select id="tourSelectAllFromOne" parameterType="int" resultMap="tourResultMap">
-		SELECT TOUR_IDX, TOWN_IDX, TOUR_NAME, TOUR_START_DATE,
-		TOUR_END_DATE, TOUR_START_TIME, TOUR_END_TIME, TOUR_PRICE,
+		SELECT TOUR_IDX, TOWN_IDX, TOUR_NAME, TOUR_START_DATE, TOUR_END_DATE, 
+        (SELECT CLOSED_START_DATE
+        FROM CLOSED_DAY
+        WHERE TOUR_IDX = #{tourNo}) AS TOUR_CLOSED_START_DATE,
+        (SELECT CLOSED_END_DATE
+        FROM CLOSED_DAY
+        WHERE TOUR_IDX = #{tourNo}) AS TOUR_CLOSED_END_DATE,
+        TOUR_START_TIME, TOUR_END_TIME, TOUR_PRICE,
 		TOUR_PEOPLE_NUM, TOUR_STARTING_POINT, TOUR_CONTENT, TOUR_CRE_DATE,
 		TOUR_MOD_DATE, TOUR_DEL_YN
 		FROM TOUR
-		WHERE TOUR_IDX = #{tourNo}	
+		WHERE TOUR_IDX = #{tourNo}
 	</select>
 	
 	<select id="tourAndReservationSelectAllFromOne" parameterType="map" resultMap="tourResultMap">
-		SELECT TOUR_IDX, TOWN_IDX, TOUR_NAME, TOUR_START_DATE,
-		TOUR_END_DATE, TOUR_START_TIME, TOUR_END_TIME, TOUR_PRICE,
+		SELECT TOUR_IDX, TOWN_IDX, TOUR_NAME, TOUR_START_DATE, TOUR_END_DATE,
+		(SELECT CLOSED_START_DATE
+        FROM CLOSED_DAY
+        WHERE TOUR_IDX = #{tourNo}) AS TOUR_CLOSED_START_DATE,
+        (SELECT CLOSED_END_DATE
+        FROM CLOSED_DAY
+        WHERE TOUR_IDX = #{tourNo}) AS TOUR_CLOSED_END_DATE,
+		TOUR_START_TIME, TOUR_END_TIME, TOUR_PRICE,
 		TOUR_PEOPLE_NUM, TOUR_STARTING_POINT, TOUR_CONTENT, TOUR_CRE_DATE,
 		TOUR_MOD_DATE, TOUR_DEL_YN, (SELECT TOUR_PEOPLE_NUM - (SELECT SUM(RESERVE_APPLY_NUM)
 																FROM RESERVE
@@ -84,19 +97,19 @@
 		FROM TOUR
 	</select>
 	
-	<insert id="reservationInsertOne" parameterType="map">
+	<insert id="tourReservationInsertOne" parameterType="map">
 		INSERT INTO RESERVE
-		(RESERVE_IDX, TOUR_IDX, MEMBER_IDX, CLOSED_IDX,       
+		(RESERVE_IDX, TOUR_IDX, MEMBER_IDX,       
 		RESERVE_TOUR_DATE, RESERVE_APPLY_NUM, RESERVE_PRICE, RESERVE_APPLY_DATE,
 		RESERVE_DEPOSIT_DATE)
 		VALUES
-		(SEQ_RESERVE_NO.NEXTVAL, #{tourNo}, #{memberNo}, 1,
-		#{reserveTourDate}, #{reserveApplyNum}, #{reserveApplyNum}, SYSDATE,
+		(SEQ_RESERVE_NO.NEXTVAL, #{tourNo}, #{memberNo},
+		#{reserveTourDate}, #{reserveApplyNum}, #{reservePrice}, SYSDATE,
 		NULL)
 	</insert>
 	
 	<select id="reservationSelectNewestOne" parameterType="map" resultMap="reservationResultMap">
-		SELECT RESERVE_IDX, TOUR_IDX, MEMBER_IDX, CLOSED_IDX,       
+		SELECT RESERVE_IDX, TOUR_IDX, MEMBER_IDX,       
 		RESERVE_TOUR_DATE, RESERVE_APPLY_NUM, RESERVE_PRICE, RESERVE_APPLY_DATE,
 		RESERVE_DEPOSIT_DATE, RESERVE_DEPOSIT_STATE
 		FROM RESERVE

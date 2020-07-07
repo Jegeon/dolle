@@ -8,33 +8,80 @@
 <meta charset="UTF-8">
 <title>투어 예약 게시판</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
-<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    $(function () {
     	var date = new Date(); 
 		var dateRawStr = document.getElementById("tourEndDateStr").childNodes[0].nodeValue;
 		var dateStr = dateRawStr.replace(/(\s*)/g, "");
 		var endYear = dateStr.substring(0, 4);
 		var endMonth = dateStr.substring(5, 7);
 		var endDay = dateStr.substring(8, 10);
+		
+		var date1Input = document.getElementById("tourClosedStartDateInput").value;
+		var date2Input = document.getElementById("tourClosedEndDateInput").value;
+		var date1Str = date1Input;
+		var date2Str = date2Input;
+		var date1 = new Date(date1Str);
+		var date2 = new Date(date2Str);
+		var diffDay = (date2.getTime() - date1.getTime()) / (1000*60*60*24);
+		// 	alert("날짜 차이 " + diffDay + " 배열 길이 " + (diffDay + 1));
+		disabledDaysArray = new Array(diffDay + 1);
+		// 2020-0-00 문자열 형태로 변환
+		for (var i = 0; i < disabledDaysArray.length; i++) {
+			disabledDaysArray[i] = date1.getFullYear() + "-" + (date1.getMonth()+1) + "-" + (date1.getDate()+i);
+			// alert(disabledDaysArray[i]);
+		}
+		disabledDays = disabledDaysArray;
+		
 		$("#datepicker").datepicker({ 
 			dateFormat: "yy-mm-dd",
 			maxDate: new Date(endYear, endMonth-1, endDay),
-			minDate: 1
+			minDate: 1,
+			monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'],                 
+            monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'], 
+            dayNamesMin: ['일','월','화','수','목','금','토'],
+            beforeShowDay : disableRange
 		});
     });
+    
+    // 제외할 날짜 배열
+	var disabledDays = new Array();
+
+	function disableRange(date) {
+		var year = date.getFullYear();
+		var month = date.getMonth();
+		var dates = date.getDate();
+		
+		// disabledDays에 해당하면 false를 담아 return -1은 없을 때
+		for (var i = 0; i < disabledDays.length; i++) {
+			if($.inArray(year + '-' + (month + 1) + '-' + dates, disabledDays) != -1) {
+				return [false];
+			}
+		}
+		// 해당하지 않는 날짜는 표시한다.
+	    return [true];
+	}
+ 	// 제외 날짜 설정 로직 끝
+	
     function calculateFnc() {
     	document.getElementById("predictedTotal").value = document.getElementById("selectedTourPeopleNum").value * ${tourVo.tourPrice};
     }
 	function pageMoveListOneFnc(){
 		location.href = "listOne.do?tourNo=${tourVo.tourNo}";
 	}
-	function testFnc() {
+	
+	function moveByCalendarFnc() {
 		var hereInput = document.getElementById("here");
 		hereInput.value = $("#datepicker").val();
 		location.href = "reservationWithDate.do?tourNo=${tourVo.tourNo}&reserveTourDate=" + $("#datepicker").val();
+	}
+	
+	function failAlertFnc() {
+		alert("먼저 달력에서 날짜를 선택해주세요");
 	}
 </script>
 <style type="text/css">
@@ -116,8 +163,13 @@
 			<!-- 달력 구현 부분 -->
 			<tr>
 				<td colspan="2">
-					<div id="datepicker" onchange="testFnc();"></div>
+					<div id="datepicker" onchange="moveByCalendarFnc();"></div>
 					<input id="here" name="here" type="text" value="">
+					<br/>
+					<fmt:formatDate value="${tourVo.tourClosedStartDate}" pattern="yyyy-MM-dd" />부터
+					<fmt:formatDate value="${tourVo.tourClosedEndDate}" pattern="yyyy-MM-dd" />까지 휴무입니다.
+					<input type="hidden" id="tourClosedStartDateInput" value="<fmt:formatDate value="${tourVo.tourClosedStartDate}" pattern="yyyy-MM-dd" />">
+					<input type="hidden" id="tourClosedEndDateInput" value="<fmt:formatDate value="${tourVo.tourClosedEndDate}" pattern="yyyy-MM-dd" />">
 				</td>
 			</tr>
 			<tr>
@@ -156,7 +208,7 @@
 						background-color: #0D4371; border:0px;">결제 예상 금액
 					</button>
 				</td>
-				<td id="test"><input id="predictedTotal" type="text" value=""> 원</td>
+				<td id="test"><input id="predictedTotal" type="text" value="" disabled="disabled"> 원</td>
 			</tr>
 			<tr>
 				<td>
@@ -173,7 +225,7 @@
 		<div style="margin-top: 20px;">
 			<button style="width:220px; height:50px;
 			font:normal bold 18px Segoe UI; color:white; 
-			background-color: #0D4371; border:0px;">예약 신청 하기</button>
+			background-color: #0D4371; border:0px;" onclick="failAlertFnc();">예약 신청 하기</button>
 			<button style="width:220px; height:50px;
 			font:normal bold 18px Segoe UI; color:white; 
 			background-color: #0D4371; border:0px;" onclick="pageMoveListOneFnc();">뒤로 가기</button>

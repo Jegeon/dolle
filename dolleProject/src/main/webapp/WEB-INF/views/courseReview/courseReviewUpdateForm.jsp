@@ -107,6 +107,11 @@
 <script type="text/javascript" src="/dolleProject/resources/js/jquery-3.5.1.js"></script>
 <script type="text/javascript">
 	
+	$(document).ready(function() {
+// 		alert($("#reviewRating").val());
+		ratingFnc($("#reviewRating").val());
+	});
+	
 	//클릭시 input ratingNum의 값이 바뀜
 	function ratingFnc(num){
 		$("#reviewRating").val(num);
@@ -133,19 +138,12 @@
 					+'src="/dolleProject/resources/images/starBlank.png"'
 					+'style="width:20px; height:20px; padding:0px 2px;"></img>');
 		}
-		
-		
 	}
 	
 	//유효성 체크
 	function validCheckFnc(){
-		var loginUser = $("#reviewMemberIdx").val();
-		if(loginUser == null || loginUser.trim() == "" || loginUser.length == 0){
-			alert("로그인 후 작성해주세요.");
-			location.href="../auth/login.do"
-		}
-		
 		var noChoise  = $("#reviewRating").val();
+		
 		$("#choiseTxt").remove();
 		if(noChoise == 0){
 			$("#ratingBox").append('<span id="choiseTxt" style="color:red; font-size:14px; margin-left:15px;">'
@@ -185,14 +183,6 @@
 		filesArr.forEach(function(f){
 			if(!f.type.match("image.*")){
 				alert(" 이미지만 올릴 수 있습니다.");
-
-				if (/(MSIE|Trident)/.test(navigator.userAgent)) { 
-					// ie 일때 input[type=file] init. 
-					$("#fileBtn").replaceWith( $("#fileBtn").clone(true) );
-				} else {
-					// other browser 일때 input[type=file] init. 
-					$("#fileBtn").val(""); 
-				}
 				return;
 			}
 			
@@ -209,18 +199,38 @@
 	}
 	
 	
+	function changeBasicFnc(){
+		$("#uploadImg").attr("src", "<c:url value='/img/test.jpg'/>");
+// 		$("#fileBtn").file = '/img/test.jpg';
+			
+// 		$('input[type=file]')[0].files[0].name            
+//      $('input[type=file]')[0].files[0].name.type      
+//      $('input[type=file]')[0].files[0].name.size	
+	}
 	
 	
-	function addFormFnc(){
+	function updateFormFnc(){
 		if(validCheckFnc() == true){
-			$("#addForm").submit();
+			$("#updateForm").submit();
 		}
 	}
 	
 	function movePageListFnc(){
 		location.href="./list.do"
 	}
-
+	
+	function deleteFnc(reviewIdx){
+		var check = confirm("정말 삭제하시겠습니까?");
+		if(check == true){
+			location.href="./delete.do?reviewIdx="+reviewIdx;
+		}
+	}
+	
+	//다시 쓰기
+	function clearFnc(){
+		$("#reviewTitle").val("");
+		$("#reivewContent").val("");
+	}
 	
 </script>
 </head>
@@ -237,16 +247,18 @@
 			<h1>혜화 명륜 마을</h1>
 		</div>
 		
-		<form id="addForm" action="./addCtr.do" method="post" enctype="multipart/form-data">
+		<form id="updateForm" action="./updateCtr.do" method="post" enctype="multipart/form-data">
+			<input name="reviewIdx" type="hidden" value="${reviewMCFVo.reviewIdx}">
+			
 			<div id="uploadImageBox" class="basicBox" style="text-align: center;">	
-				<img id="uploadImg" alt="upload_image" src="/dolleProject/resources/images/test.jpg"
-					style="width:100%;">
+				<img id="uploadImg" alt="upload_image" src="<c:url value='/img/${reviewMCFVo.fileStoredName}'/>"
+					style="height:583px;">
 			</div>
 			
 			<div class="floatRight" style="margin: 10px 190px 40px;">
-				<span style="margin-right:10px; font-size:12px;">기본 사진으로 변경</span>
+				<span style="margin-right:10px; font-size:12px;" onclick="changeBasicFnc();">기본 사진으로 변경</span>
 <!-- 				<button id="changePhotoBtn" onclick="">사진 변경하기</button> -->
-				<input id="fileBtn" type="file" name="file">
+				<input id="fileBtn" type="file" name="file" >
 			</div>
 			
 			<div id="ratingBox" class="basicBox floatClear" style="padding-bottom: 20px;">
@@ -255,8 +267,7 @@
 				</div>
 				
 				<!-- 클릭한 평점 -->
-				<input id="reviewRating" name="reviewRating" type="hidden" value="0">
-				<input id="reviewMemberIdx" name="reviewMemberIdx" type="hidden" value="${_memberVo_.no}">
+				<input id="reviewRating" name="reviewRating" type="hidden" value="${reviewMCFVo.reviewRating}">
 				
 				<div class="dropdown">
 					<button class="dropbtn" type="button">
@@ -330,7 +341,8 @@
 				<div class="inputTitle" style="padding-bottom:5px;">
 					<span>제목</span>
 				</div>
-				<input id="reviewTitle" name="reviewTitle" type="text"  onchange="clearFnc(this.value);"
+				<input id="reviewTitle" name="reviewTitle" type="text" 
+					value="${reviewMCFVo.reviewTitle}" 
 					placeholder="제목을 입력해주세요." style="width:900px; height:45px; font-size:16px; 
 						padding:10px 50px; box-sizing:border-box;">
 			</div>
@@ -339,13 +351,16 @@
 				<div class="inputTitle" style="padding-bottom:5px;">
 					<span>내용</span>
 				</div>
-				<textarea id="reivewContent" name="reviewContent" rows="" cols="" placeholder="내용을 입력해주세요." style="width:900px; height:470px; font-size:17px; padding:50px; box-sizing:border-box;"></textarea>
+				<textarea id="reivewContent" name="reviewContent" rows="" cols="" placeholder="내용을 입력해주세요."
+				 style="width:900px; height:470px; font-size:17px; padding:50px;
+				 box-sizing:border-box;">${reviewMCFVo.reviewContent}</textarea>
 			</div>
 			
 			<div class="basicBox" style="text-align: center;">
 				<input class="inputBtn" type="button" onclick="movePageListFnc();" value="목록으로">
-				<input class="inputBtn" type="button" onclick="addFormFnc();" value="등록">
-				<input class="inputBtn" type="button" value="다시 쓰기">	
+				<input class="inputBtn" type="submit" value="수정">
+				<input class="inputBtn" type="button" onclick="deleteFnc(${reviewMCFVo.reviewIdx});" value="삭제">
+				<input class="inputBtn" type="button" onclick="clearFnc();" value="다시 쓰기">	
 			</div>
 			
 		</form>

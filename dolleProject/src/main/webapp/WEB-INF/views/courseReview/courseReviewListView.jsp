@@ -72,7 +72,18 @@
 <script type="text/javascript">
 	
 	function pageMoveFnc(){
-		location.href="./add.do";
+		var loginUser = $("#reviewMemberIdx").val();
+		if(loginUser == null || loginUser.trim() == "" || loginUser.length == 0){
+			alert("로그인 후 작성해주세요.");
+			location.href="../auth/login.do"
+		}else{
+			location.href="./add.do";
+		}
+	}
+	
+	function detailPageFnc(reviewIdx){
+// 		alert(reviewIdx);
+		location.href="./detail.do?reviewIdx="+reviewIdx;
 	}
 	
 </script>
@@ -80,7 +91,7 @@
 
 <body>
 
-	<jsp:include page="/WEB-INF/views/Header.jsp" />
+	<jsp:include page="/WEB-INF/views/AdminHeader.jsp" />
 
 	<div style="width:1260px; height:130px; margin:0 auto;">
 		<h1 style="font-size:30px; font-family: 대한민국정부상징체 ; margin: 55px 0px 20px 82px;">코스 후기 게시판</h1>
@@ -191,9 +202,10 @@
 					</c:if> 
 					
 					
-					<li class="reviewList_li">
-						<div class="photo_Box" style="width:306px; height:342px; position: absolute; top:${TopPosition1}px; left:${leftPosition}px;
-							background-color: lightgray; ">
+					<li class="reviewList_li" onclick="detailPageFnc(${reviewVo.reviewIdx});">
+						<div class="photo_Box"
+							style="width:306px; height:342px; position: absolute; top:${TopPosition1}px; left:${leftPosition}px;
+							background-color: lightgray;">
 							<img alt="review_photo" src="<c:url value='/img/${reviewVo.fileStoredName}'/>" style="position: relative; height:100%; width:100%;">
 						</div>
 						<span class="innerBox" style="width:306px; height:114px; position: absolute; top:${TopPosition2}px; left:${leftPosition}px; 
@@ -275,6 +287,7 @@
 					style="width: 55%;">
 			</li>
 		</ul>
+		<input id="reviewMemberIdx" type="hidden" value="${_memberVo_.no}">
 		<button onclick="pageMoveFnc();"
 			style="width:200px; height:45px; font:normal bold 18px Segoe UI; color:white; 
 			background-color: #0D4371; float:right; border:0px; margin-right: 20px;">

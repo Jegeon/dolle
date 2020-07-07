@@ -28,6 +28,12 @@ public class CourseReviewServiceImpl implements CourseReviewService{
 		// TODO Auto-generated method stub
 		return courseReviewDao.reviewSelectList();
 	}
+	
+	@Override
+	public CourseReviewMemberCommentFileVo reviewSelectOne(int reviewIdx) {
+		// TODO Auto-generated method stub
+		return courseReviewDao.reviewSelectOne(reviewIdx);
+	}
 
 	
 	@Override
@@ -64,6 +70,101 @@ public class CourseReviewServiceImpl implements CourseReviewService{
 		// TODO Auto-generated method stub
 		return courseReviewDao.reviewNewestSelectIdx();
 	}
+	
+	
+	
+	@Override
+	public void courseReviewUpdateOne(CourseReviewVo reviewVo
+			, MultipartHttpServletRequest multipartHttpServletRequest
+			, int fileIdx) {
+		// TODO Auto-generated method stub
+		
+		
+		int reviewIdx = reviewVo.getReviewIdx();
+		System.out.println("**************reviewIdx"+reviewIdx+"************");
+		try {
+			Map<String, Object> tempFileMap 
+			= courseReviewDao.fileSelectStoredName(reviewIdx);
+			
+			System.out.println(tempFileMap.get("REVIEW_STORED_FILE_NAME"));
+			
+			List<Map<String, Object>> fileList = 
+				reviewFileUtils.parseInsertFileInfo(reviewIdx
+					, multipartHttpServletRequest);
+			
+			// 오로지 하나만 관리 수정
+			if(fileList.isEmpty() == false) {
+				System.out.println("0");
+				
+				
+				if(tempFileMap != null) {
+					System.out.println("1");
+					courseReviewDao.fileDeleteOne(reviewIdx);
+					
+					for (Map<String, Object> map : fileList) {
+						System.out.println("4");
+						courseReviewDao.fileInsertOne(map);
+					}
+					
+					System.out.println("5");
+					reviewFileUtils.parseUpdateFileInfo(tempFileMap);
+					System.out.println("6");
+				}
+				
+			}else if(fileIdx == -1) {
+				System.out.println("2");
+				if(tempFileMap != null) {
+					System.out.println("3");
+//					courseReviewDao.fileDeleteOne(reviewIdx);
+					
+					//파일입력이 없으면 기본 사진
+//					List<Map<String, Object>> basicFile = 
+//							reviewFileUtils.parseInsertFileInfo(reviewIdx
+//								, multipartHttpServletRequest);
+//					courseReviewDao.fileInsertOne(basicFile.get(0));
+//					reviewFileUtils.parseUpdateFileInfo(tempFileMap);
+					
+					System.out.println(tempFileMap.get("REVIEW_STORED_FILE_NAME"));
+				}
+			}
+			courseReviewDao.courseReviewUpdateOne(reviewVo);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("문제 생기면 처리할꺼 정하자");
+			System.out.println("일단 여긴 파일 처리 중 문제 발생한 거야");
+			e.printStackTrace();
+		}
+	}
+	
+	@Override
+	public int fileUpdateOne(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return courseReviewDao.fileUpdateOne(map);
+	}
+	
+	
+	
+	@Override
+	public void courseReviewDeleteOne(int reviewIdx) {
+		// TODO Auto-generated method stub
+		courseReviewDao.fileDeleteOne(reviewIdx);
+		courseReviewDao.courseReviewDeleteOne(reviewIdx);
+	}
+
+	@Override
+	public Map<String, Object> fileSelectStoredName(int reviewIdx) {
+		// TODO Auto-generated method stub
+		return courseReviewDao.fileSelectStoredName(reviewIdx);
+	}
+
+
+	
+	
+	
+	
+
+	
 
 	
 }

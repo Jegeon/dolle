@@ -2,6 +2,8 @@ package com.edu.courseReview.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +11,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.edu.courseReview.service.CourseReviewService;
 import com.edu.courseReview.vo.CourseReviewMemberCommentFileVo;
 import com.edu.courseReview.vo.CourseReviewVo;
+import com.edu.member.vo.MemberVo;
 
 @Controller
 public class CourseReviewController {
@@ -54,22 +58,57 @@ public class CourseReviewController {
 			, Model model) {
 		log.debug(" **** Welcome courseReviewForm 등록 성공 ****");
 		
+		System.out.println("=====memberIdx"+reviewVo.getReviewMemberIdx());
 		courseReviewService.courseReviewInsertOne(reviewVo, mulRequest);
 		
 		return "redirect:/courseReview/list.do";
 	}
 	
 	
+	@RequestMapping(value="/courseReview/detail.do", method = RequestMethod.GET)
+	public String courseReviewDetail(int reviewIdx, Model model) {
+		log.debug(" **** Welcome courseReviewDetail ****");
+		
+		CourseReviewMemberCommentFileVo reviewMCFVo
+		 = courseReviewService.reviewSelectOne(reviewIdx);
+		
+		model.addAttribute("reviewMCFVo",reviewMCFVo);
+		
+		return "courseReview/courseReviewDetailView";
+	}
+	
+	
 	@RequestMapping(value="/courseReview/update.do", method = RequestMethod.GET)
-	public String courseReviewUpdate(Model model) {
-		log.debug(" **** Welcome courseReviewUpdate ****");
+	public String courseReviewUpdate(int reviewIdx, Model model) {
+		log.debug(" **** Welcome courseReviewUpdate - { } ****", reviewIdx);
+		
+		CourseReviewMemberCommentFileVo reviewMCFVo
+		 = courseReviewService.reviewSelectOne(reviewIdx);
+		
+		model.addAttribute("reviewMCFVo",reviewMCFVo);
 		
 		return "courseReview/courseReviewUpdateForm";
 	}
 	
+	@RequestMapping(value="/courseReview/updateCtr.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public String courseReviewUpdate(CourseReviewVo reviewVo
+			, @RequestParam(value="fileIdx", defaultValue = "-1") int fileIdx
+			, MultipartHttpServletRequest mulRequest, Model model) {
+		log.debug(" **** Welcome courseReviewUpdate POST****");
+		log.debug(" **** Welcome courseReviewUpdate POST****" + reviewVo.getReviewIdx(), reviewVo.getReviewTitle()
+				,reviewVo.getReviewRating());
+		
+		courseReviewService.courseReviewUpdateOne(reviewVo, mulRequest, fileIdx);
+		
+		return "redirect:/courseReview/list.do";
+	}
+	
+	
 	@RequestMapping(value="/courseReview/delete.do", method = RequestMethod.GET)
-	public String courseReviewDelete(Model model) {
+	public String courseReviewDelete(int reviewIdx, Model model) {
 		log.debug(" **** Welcome courseReviewDelete ****");
+		
+		courseReviewService.courseReviewDeleteOne(reviewIdx);
 		
 		return "redirect:/courseReview/list.do";
 	}

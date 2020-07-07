@@ -72,8 +72,8 @@
 	
 	<insert id="reviewInsertOne" parameterType="CourseReviewVo">
 		INSERT INTO REVIEWBOARD
-		(REVIEW_IDX, MEMBER_IDX, COURSE_IDX, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_RATING, REVIEW_DEL_YN)
-		VALUES(SEQ_REVIEW_NO.NEXTVAL, 1, 1, #{reviewTitle}, #{reviewContent}, #{reviewRating} , 'n')
+		(REVIEW_IDX, MEMBER_IDX, COURSE_IDX, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_RATING)
+		VALUES(SEQ_REVIEW_NO.NEXTVAL, #{reviewMemberIdx}, 1, #{reviewTitle}, #{reviewContent}, #{reviewRating})
 	</insert>
 	
 	<insert id="fileInsertOne" parameterType="map">
@@ -82,7 +82,7 @@
 		VALUES(SEQ_REVIEW_FILE_NO.NEXTVAL, #{review_idx}, #{review_original_file_name},
 			 #{review_stored_file_name}, #{review_file_size})
 	</insert>
-	
+	<!-- 파일 insert시 사용 -->
 	<select id="reviewNewestSelectIdx" resultType="int">
 		SELECT REVIEW_IDX 
 		FROM (SELECT ROWNUM, REVIEW_IDX
@@ -90,5 +90,53 @@
 				ORDER BY REVIEW_IDX DESC)
 		WHERE ROWNUM = 1
 	</select>
+	
+	
+	<select id="reviewSelectOne" parameterType="int" 
+		resultMap="courseReviewMemberCommentFileMap">
+		SELECT RB.REVIEW_IDX, M.MEMBER_NICKNAME, RB.REVIEW_TITLE, RB.REVIEW_CONTENT, RB.REVIEW_RATING, RB.REVIEW_LIKE_COUNT
+			, RB.REVIEW_READ_COUNT, RF.REVIEW_STORED_FILE_NAME, RB.REVIEW_CRE_DATE, RB.REVIEW_MOD_DATE
+		FROM REVIEWBOARD RB, MEMBER M	
+		    ,(SELECT REVIEW_IDX, COUNT(*) AS COMMENT_COUNT FROM REVIEW_COMMENT GROUP BY REVIEW_IDX) C
+		    ,(SELECT REVIEW_IDX, REVIEW_STORED_FILE_NAME FROM REVIEW_FILE) RF
+		WHERE RB.MEMBER_IDX = M.MEMBER_IDX
+		AND RB.REVIEW_IDX = C.REVIEW_IDX(+)
+		AND RB.REVIEW_IDX = RF.REVIEW_IDX(+)
+		AND RB.REVIEW_IDX = #{review_idx}
+	</select>
+	
+	
+	<update id="reviewUpdateOne" parameterType="CourseReviewVo">
+		UPDATE REVIEWBOARD
+		SET REVIEW_TITLE = #{reviewTitle}, REVIEW_CONTENT = #{reviewContent}
+		, REVIEW_RATING = #{reviewRating}, REVIEW_MOD_DATE = SYSDATE
+		WHERE REVIEW_IDX = #{reviewIdx}
+	</update>
+	
+	<update id="fileUpdateOne" parameterType="map">
+		UPDATE REVIEW_FILE
+		SET REVIEW_ORIGINAL_FILE_NAME = #{review_original_file_name}
+		, REVIEW_STORED_FILE_NAME = #{review_stored_file_name}
+		, REVIEW_FILE_SIZE = #{review_file_size}
+		WHERE REVIEW_IDX = #{review_idx}
+	</update>
+	
+	<select id="fileSelectStoredName" parameterType="int"
+		resultType="map">
+		SELECT REVIEW_FILE_IDX, REVIEW_STORED_FILE_NAME
+		FROM REVIEW_FILE
+		WHERE REVIEW_IDX = #{review_idx}
+	</select>
+	
+	
+	<delete id="reviewDeleteOne" parameterType="int">
+		DELETE FROM REVIEWBOARD
+		WHERE REVIEW_IDX = #{review_idx}
+	</delete>
+	
+	<delete id="fileDeleteOne" parameterType="int">
+		DELETE FROM REVIEW_FILE
+		WHERE REVIEW_IDX = #{review_idx}
+	</delete>
 	
 </mapper>

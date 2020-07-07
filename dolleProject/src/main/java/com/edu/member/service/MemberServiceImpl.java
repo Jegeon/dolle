@@ -56,4 +56,10 @@ public class MemberServiceImpl implements MemberService{
 		return memberDao.memberNickNameList(nickname);
 	}
 
+	@Override
+	public List<MemberVo> memberReservationOne() {
+		// TODO Auto-generated method stub
+		return memberDao.memberReservationOne();
+	}
+
 }

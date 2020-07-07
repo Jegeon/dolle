@@ -14,6 +14,10 @@
 		margin: auto;
 	}
 	
+	#backBord {
+		background-color: #EBEBEB;
+	}
+	
 	table {
 		text-align: center;
 		margin: auto;
@@ -24,6 +28,10 @@
 		text-align: left;
 		font-size: 5px;
 		padding: 10px;
+	}
+	
+	.resCss {
+		border: 1px solid black;
 	}
 	
 	.inputBtn {
@@ -56,10 +64,6 @@
 		font-size: 12px;
 	}
 	
-	#backBord {
-		background-color: #EBEBEB;
-	}
-	
 	.btnCss {
 		background-color: #0D4371;
 		color: #FFFFFF;
@@ -70,6 +74,12 @@
 </style>
 <script type="text/javascript">
 	var updateMove = '';
+	
+	var subInfo = '';
+	var reservation = '';
+	var myWriting = '';
+	
+	var subTest = '';
 
 	function updateMoveFnc() {
 		updateMove = document.updateMove;
@@ -79,6 +89,44 @@
 
 	function pageMoveListFnc(){
 		location.href = "list.do";
+	}
+	
+	function subInfoFnc() {
+		subTest = document.getElementById('subTest');
+		
+		subInfo = document.getElementById('subInfo');
+		reservation = document.getElementById('reservation');
+		myWriting = document.getElementById('myWriting');
+		
+		subInfo.style.display = 'table';
+		reservation.style.display = 'none';
+		myWriting.style.display = 'none';
+		
+		location.href = './listOne.do?no=' + subTest.value;
+	}
+	
+	function reservationFnc() {
+		subTest = document.getElementById('subTest');
+		
+		subInfo = document.getElementById('subInfo');
+		reservation = document.getElementById('reservation');
+		myWriting = document.getElementById('myWriting');
+		
+		subInfo.style.display = 'none';
+		reservation.style.display = 'table';
+		myWriting.style.display = 'none';
+		
+		location.href = './resOne.do?no=' + subTest.value
+	}
+	
+	function myWritingFnc() {
+		subInfo = document.getElementById('subInfo');
+		reservation = document.getElementById('reservation');
+		myWriting = document.getElementById('myWriting');
+		
+		subInfo.style.display = 'none';
+		reservation.style.display = 'none';
+		myWriting.style.display = 'table';
 	}
 	
 </script>
@@ -94,20 +142,24 @@
 		<table>
 			<tr>
 				<td>
-					<input class='inputBtn' type='button' value='가입 정보'>
+					<input class='inputBtn' type='button'
+						onclick='subInfoFnc();'	value='가입 정보'>
+					<input id='subTest' type='hidden' value='${memberVo.no}'>
 				</td>
 				<td>
-					<input class='inputBtn' type='button' value='예약 현황'>
+					<input class='inputBtn' type='button'
+						onclick='reservationFnc();'	value='예약 현황'>
 				</td>
 				<td>
-					<input class='inputBtn' type='button' value='내가 쓴 글'>
+					<input class='inputBtn' type='button'
+						onclick='myWritingFnc();' value='내가 쓴 글'>
 				</td>
 			</tr>
 		</table>
 		<div id='backBord'>
 			<form name='updateMove' action="./update.do" method="get">
 				<input type="hidden" name='no' value='${memberVo.no}'>
-				<table>
+				<table id='subInfo' class='tableCenter'>
 					<tr>
 						<td>
 							<span class='secondSpanCss'>이름</span> 
@@ -142,6 +194,45 @@
 						<td>
 							<input class='inputCss' type='text' name='phone'
 							 	value='${memberVo.phone}' readonly='readonly'>
+						</td>
+					</tr>
+				</table>
+				<table id='reservation' class='tableCenter' class=''
+					style='display: none; border: 1px solid black; border-collapse: collapse;'>
+					<tr class='resCss'>
+						<th class='resCss'>
+							예약신청번호
+						</th>
+						<th class='resCss'>
+							투어이름
+						</th>
+						<th class='resCss'>
+							신청일
+						</th>
+						<th class='resCss'>
+							예약/입금
+						</th>
+					</tr>
+<%-- 					<c:forEach items='tourList' var='tourVo'> --%>
+						<tr class='resCss'>
+							<td class='resCss'>
+								${tourVo.tourNo}
+							</td>
+							<td class='resCss'>
+								${tourVo.tourName}
+							</td>
+							<td class='resCss'>
+								${tourVo.tourCreDate}
+							</td>
+							<td class='resCss'>
+								<input type='button'>
+							</td>
+						</tr>
+<%-- 					</c:forEach> --%>
+				</table>
+				<table id='myWriting' class='tableCenter' style='display: none;'>
+					<tr>
+						<td>
 						</td>
 					</tr>
 				</table>

@@ -1,5 +1,6 @@
 package com.edu.member.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -59,7 +60,18 @@ public class MemberController {
 		log.debug("Welcome memberListOne enter! - {}", no);
 		
 		MemberVo memberVo = memberService.memberSelectOne(no);
+		model.addAttribute("memberVo", memberVo);
 		
+		return "member/memberListOneView";
+	}
+	
+	@RequestMapping(value="/member/resOne.do")
+	public String memberResOne(int no, Model model) {
+		
+		List<MemberVo> reservationList = memberService.memberReservationOne();
+		MemberVo memberVo = memberService.memberSelectOne(no);
+		
+		model.addAttribute("reservationList", reservationList);
 		model.addAttribute("memberVo", memberVo);
 		
 		return "member/memberListOneView";
@@ -74,6 +86,7 @@ public class MemberController {
 	
 	@RequestMapping(value="/auth/loginCtr.do", method=RequestMethod.POST)
 	public String loginCtr(String email, String password,
+			String nickname, String phone, Date birthdate, String grade,
 			HttpSession session, Model model) {
 		log.debug("Welcome MemberController loginCtr! " 
 			+ email + ", " + password);
@@ -81,6 +94,10 @@ public class MemberController {
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("email", email);
 		paramMap.put("password", password);
+		paramMap.put("nickname", nickname);
+		paramMap.put("phone", phone);
+		paramMap.put("birthdate", birthdate);
+		paramMap.put("grade", grade);
 		
 		MemberVo memberVo = memberService.memberExist(paramMap);
 		
@@ -94,7 +111,6 @@ public class MemberController {
 		}else {
 			viewUrl = "/auth/loginFail";
 		}
-		
 		
 		return viewUrl;
 	}

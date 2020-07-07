@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>로그인</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
 <style type="text/css">
 	#mainBorder {
 		text-align: center;
@@ -20,6 +21,7 @@
 		color: red;
 		text-align: left;
 		font-size: 5px;
+		padding: 3px;
 	}
 	
 	input:focus {

@@ -75,4 +75,10 @@ public class MemberDaoImpl implements MemberDao{
 		return result;
 	}
 
+	@Override
+	public List<MemberVo> memberReservationOne() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace + "memberReservationOne");
+	}
+
 }

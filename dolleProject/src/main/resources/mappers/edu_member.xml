@@ -18,6 +18,12 @@
 		<result column="MEMBER_GRADE" property="grade" />
 		<result column="MEMBER_DEL_YN" property="del" />
 		<result column="MEMBER_TEMP_PWD" property="tempPassword" />
+		<result column="TOUR_IDX" property="tourIdx" />
+		<result column="TOUR_NAME" property="tourName" />
+		<result column="RESERVE_IDX" property="reserveIdx" />
+		<result column="RESERVE_APPLY_DATE" property="reserveApplyDate" javaType="java.util.Date" />
+		<result column="RESERVE_DEPOSIT_DATE" property="reserveDepositDate" javaType="java.util.Date" />
+		<result column="RESERVE_DEPOSIT_STATE" property="reserveDepositState" />
 	</resultMap>
 
 	<select id="memberSelectList" parameterType="map" resultMap="memberResultMap">
@@ -26,10 +32,16 @@
 		ORDER BY MEMBER_IDX
 		DESC
 	</select>
+	
+	<select id="memberReservationOne" parameterType="map" resultMap="memberResultMap">
+		SELECT R.RESERVE_IDX, T.TOUR_NAME, R.RESERVE_APPLY_DATE, R.RESERVE_DEPOSIT_STATE
+		FROM RESERVE R, TOUR T, MEMBER M
+		WHERE M.MEMBER_IDX = #{no}
+	</select>
 
 	<select id="memberExist" parameterType="map"
 		resultMap="memberResultMap">
-		SELECT MEMBER_IDX, MEMBER_NAME, MEMBER_EMAIL
+		SELECT MEMBER_IDX, MEMBER_NAME, MEMBER_EMAIL, MEMBER_PHONE, MEMBER_BIRTHDATE, MEMBER_GRADE, MEMBER_NICKNAME
 		FROM MEMBER
 		WHERE MEMBER_EMAIL = #{email} AND MEMBER_PASSWORD = #{password}
 	</select>
@@ -59,11 +71,9 @@
 	</insert>
 	
 	<select id="memberNickNameList" parameterType="map" resultType="Integer">
-	
 		SELECT count(*)
 		FROM MEMBER
 		WHERE MEMBER_NICKNAME = #{nickname}
-		
 	</select>
 
 	<select id="memberSelectOne" parameterType="int"

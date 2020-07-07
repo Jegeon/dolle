@@ -17,9 +17,17 @@ public class MemberVo {
 	private String grade;
 	private String del;
 	private String tempPassword;
+	private int tourIdx;
+	private String tourName;
+	private Date reserveApplyDate;
+	private Date reserveDepositDate;
+	private String reserveDepositState;
+	private int reserveIdx;
 	
 	public MemberVo(int no, String name, String email, String nickname, String password, String phone, Date birthdate,
-			String national, Date createDate, Date modifiedDate, String grade, String del, String tempPassword) {
+			String national, Date createDate, Date modifiedDate, String grade, String del, String tempPassword,
+			int tourIdx, String tourName, Date reserveApplyDate, Date reserveDepositDate, String reserveDepositState,
+			int reserveIdx) {
 		super();
 		this.no = no;
 		this.name = name;
@@ -34,6 +42,12 @@ public class MemberVo {
 		this.grade = grade;
 		this.del = del;
 		this.tempPassword = tempPassword;
+		this.tourIdx = tourIdx;
+		this.tourName = tourName;
+		this.reserveApplyDate = reserveApplyDate;
+		this.reserveDepositDate = reserveDepositDate;
+		this.reserveDepositState = reserveDepositState;
+		this.reserveIdx = reserveIdx;
 	}
 
 	public MemberVo() {
@@ -142,6 +156,54 @@ public class MemberVo {
 
 	public void setTempPassword(String tempPassword) {
 		this.tempPassword = tempPassword;
+	}
+	
+	public int getTourIdx() {
+		return tourIdx;
+	}
+
+	public void setTourIdx(int tourIdx) {
+		this.tourIdx = tourIdx;
+	}
+
+	public String getTourName() {
+		return tourName;
+	}
+
+	public void setTourName(String tourName) {
+		this.tourName = tourName;
+	}
+
+	public Date getReserveApplyDate() {
+		return reserveApplyDate;
+	}
+
+	public void setReserveApplyDate(Date reserveApplyDate) {
+		this.reserveApplyDate = reserveApplyDate;
+	}
+
+	public Date getReserveDepositDate() {
+		return reserveDepositDate;
+	}
+
+	public void setReserveDepositDate(Date reserveDepositDate) {
+		this.reserveDepositDate = reserveDepositDate;
+	}
+
+	public String getReserveDepositState() {
+		return reserveDepositState;
+	}
+
+	public void setReserveDepositState(String reserveDepositState) {
+		this.reserveDepositState = reserveDepositState;
+	}
+
+	public int getReserveIdx() {
+		return reserveIdx;
+	}
+
+	public void setReserveIdx(int reserveIdx) {
+		this.reserveIdx = reserveIdx;
 	}
 
 	@Override

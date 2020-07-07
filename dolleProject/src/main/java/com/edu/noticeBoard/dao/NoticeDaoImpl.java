@@ -5,6 +5,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.edu.noticeBoard.vo.NoticeMemberFileVo;
 
@@ -70,5 +71,20 @@ public class NoticeDaoImpl implements NoticeDao{
 		
 		return rNum;
 	}
+
+
+	@Override
+	public void noticeInsertOne(NoticeMemberFileVo noticeMemberFileVo) {
+		// TODO Auto-generated method stub
+		
+		sqlSession.insert(namespace + "noticeInsertOne", noticeMemberFileVo);
+	}
+
+
+
+
+
+
+	
 	
 }

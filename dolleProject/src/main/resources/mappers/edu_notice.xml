@@ -24,6 +24,8 @@
 		<result column="NOTICE_TITLE" 				property="noticeTitle"/>
 		<result column="NOTICE_CRE_DATE" 			property="noticeCreDate"
 			javaType="java.util.Date"/>
+		<result column="NOTICE_MOD_DATE"			property="noticeModDate"
+			javaType="java.util.Date"/>
 		<result column="NOITCE_FIXED"				property="noticeFixed"/>
 		<result column="NOTICE_CONTENT"				property="noticeContent"/>
 		<result column="RNUM"						property="rNum"/>
@@ -101,4 +103,13 @@
 		WHERE NIDX = #{noticeIdx}
 	</select>	
 	
+	<insert id='noticeInsertOne' parameterType="com.edu.noticeBoard.vo.NoticeMemberFileVo">
+		INSERT INTO NOTICEBOARD
+		VALUE(NOTICE_IDX, MEMBER_IDX
+			, NOTICE_TITLE, NOTICE_CONTENT, NOTICE_CRE_DATE
+			, NOTICE_MOD_DATE, NOTICE_FIXED)
+		VALUES(SEQ_NOTICE_NO.NEXTVAL, 1
+			, #{memberIdx}, #{noticeContent}, SYSDATE
+			, SYSDATE, #{noticeFixed})
+	</insert>
 </mapper>

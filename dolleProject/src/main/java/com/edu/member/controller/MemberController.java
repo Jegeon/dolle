@@ -60,21 +60,19 @@ public class MemberController {
 		log.debug("Welcome memberListOne enter! - {}", no);
 		
 		MemberVo memberVo = memberService.memberSelectOne(no);
+		List<MemberVo> reservationList = memberService.memberReservationOne(no);
 		model.addAttribute("memberVo", memberVo);
+		model.addAttribute("reservationList", reservationList);
 		
 		return "member/memberListOneView";
 	}
 	
-	@RequestMapping(value="/member/resOne.do")
-	public String memberResOne(int no, Model model) {
+	@RequestMapping(value="/member/payment.do")
+	public String memberPayment(Model model) {
 		
-		List<MemberVo> reservationList = memberService.memberReservationOne();
-		MemberVo memberVo = memberService.memberSelectOne(no);
 		
-		model.addAttribute("reservationList", reservationList);
-		model.addAttribute("memberVo", memberVo);
 		
-		return "member/memberListOneView";
+		return "member/paymentForm";
 	}
 	
 	@RequestMapping(value="/auth/login.do", method=RequestMethod.GET)

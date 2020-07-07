@@ -57,9 +57,9 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public List<MemberVo> memberReservationOne() {
+	public List<MemberVo> memberReservationOne(int no) {
 		// TODO Auto-generated method stub
-		return memberDao.memberReservationOne();
+		return memberDao.memberReservationOne(no);
 	}
 
 }

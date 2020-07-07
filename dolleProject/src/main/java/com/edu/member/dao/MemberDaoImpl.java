@@ -76,9 +76,9 @@ public class MemberDaoImpl implements MemberDao{
 	}
 
 	@Override
-	public List<MemberVo> memberReservationOne() {
+	public List<MemberVo> memberReservationOne(int no) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne(namespace + "memberReservationOne");
+		return sqlSession.selectList(namespace + "memberReservationOne", no);
 	}
 
 }

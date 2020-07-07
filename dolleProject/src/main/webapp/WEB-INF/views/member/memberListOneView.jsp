@@ -102,7 +102,6 @@
 		reservation.style.display = 'none';
 		myWriting.style.display = 'none';
 		
-		location.href = './listOne.do?no=' + subTest.value;
 	}
 	
 	function reservationFnc() {
@@ -116,7 +115,6 @@
 		reservation.style.display = 'table';
 		myWriting.style.display = 'none';
 		
-		location.href = './resOne.do?no=' + subTest.value
 	}
 	
 	function myWritingFnc() {
@@ -127,6 +125,13 @@
 		subInfo.style.display = 'none';
 		reservation.style.display = 'none';
 		myWriting.style.display = 'table';
+	}
+	
+	function testFnc() {
+		var idxNum = document.getElementsByClassName('idxNum');
+		var testIdx = document.getElementById('testIdx').value;
+		
+		location.href = './payment.do?reserveIdx=' + idxNum[testIdx - 1].value;
 	}
 	
 </script>
@@ -197,7 +202,7 @@
 						</td>
 					</tr>
 				</table>
-				<table id='reservation' class='tableCenter' class=''
+				<table id='reservation' class='tableCenter'
 					style='display: none; border: 1px solid black; border-collapse: collapse;'>
 					<tr class='resCss'>
 						<th class='resCss'>
@@ -213,22 +218,25 @@
 							예약/입금
 						</th>
 					</tr>
-<%-- 					<c:forEach items='tourList' var='tourVo'> --%>
+					<c:forEach var='memberVo' items='${reservationList}'>
 						<tr class='resCss'>
-							<td class='resCss'>
-								${tourVo.tourNo}
+							<td class='resCss idxNum'>
+								${memberVo.reserveIdx}
+								<input id='testIdx' type='hidden' value=''>
 							</td>
 							<td class='resCss'>
-								${tourVo.tourName}
+								${memberVo.tourName}
 							</td>
 							<td class='resCss'>
-								${tourVo.tourCreDate}
+								${memberVo.reserveApplyDate}
 							</td>
 							<td class='resCss'>
-								<input type='button'>
+								<c:if test="${memberVo.reserveDepositState == 'standby'}">
+									<button type="button" onclick='testFnc();'>입금</button>
+								</c:if>
 							</td>
 						</tr>
-<%-- 					</c:forEach> --%>
+					</c:forEach>
 				</table>
 				<table id='myWriting' class='tableCenter' style='display: none;'>
 					<tr>

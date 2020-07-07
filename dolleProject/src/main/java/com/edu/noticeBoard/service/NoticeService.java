@@ -2,6 +2,8 @@ package com.edu.noticeBoard.service;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 import com.edu.noticeBoard.vo.NoticeMemberFileVo;
 
 public interface NoticeService {
@@ -12,4 +14,5 @@ public interface NoticeService {
 	public int noticeFindUpIdx(int noticeIdx);
 	public int noticeFindDownIdx(int noticeIdx);
 	public int noticeFindCurrentRow(int noticeIdx);
+	public void noticeInsertOne(NoticeMemberFileVo noticeMemberFileVo);
 }

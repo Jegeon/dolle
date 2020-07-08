@@ -79,6 +79,17 @@
 		pagingForm.submit();
 	}
 	
+	function orderPageFnc(){
+		$('#orderOptionSel option:selected').each(function() {
+	        alert($(this).val());
+// 	        $(this).attr("selected","selected");
+// 	        $("#orderOption").val($(this).val());
+	   });
+		
+		var pagingForm = $('#orderForm');
+		pagingForm.submit();
+	}
+	
 	function pageMoveFnc(){
 		var loginUser = $("#reviewMemberIdx").val();
 		if(loginUser == null || loginUser.trim() == "" || loginUser.length == 0){
@@ -107,19 +118,38 @@
 		margin-left:300px; padding-bottom:4px; display: inline-block;">
 			<span style="font: normal bold 22px Segoe UI">혜화 명륜 마을</span>
 		</div>
+		
 		<!-- 정렬선택과 검색창 -->
-		<div style="float:right; height:50px; width:530px; padding-top:40px;">
-
-				<select id="orderOption" name="orderOption" onchange=""
+		<form id='orderForm' action="./list.do" method="post">
+			<div style="float:right; height:50px; width:530px;">
+<!-- 				<input id="orderOption" type="hidden" value="newest"> -->
+				<select id="orderOption" name="orderOption" onchange="orderPageFnc();"
 					style="width:120px; padding: 6px 22px; vertical-align: middle;
 						border: 1px solid #B9B9B9; 
 						font-size:14px; font-family: Segoe UI;
 						-webkit-appearance: none; /* 원본 select 버튼 감추기 */
 						background: url('/dolleProject/resources/images/selectBtn.PNG') no-repeat 95% 50%;">
-					<option value="newest">최신순</option>
-					<option value="starNum">별점순</option>
-					<option value="readCnt">조회순</option>
+					
+					<c:choose>
+						<c:when test="${orderOption eq 'newest'}">
+							<option value="newest" selected="selected">최신순</option>
+							<option value="starNum">별점순</option>
+							<option value="readCnt">조회순</option>
+						</c:when>
+						<c:when test="${orderOption eq 'starNum'}">
+							<option value="newest">최신순</option>
+							<option value="starNum" selected="selected">별점순</option>
+							<option value="readCnt">조회순</option>
+						</c:when>
+						<c:when test="${orderOption eq 'readCnt'}">
+							<option value="newest">최신순</option>
+							<option value="starNum">별점순</option>
+							<option value="readCnt" selected="selected">조회순</option>
+						</c:when>
+					</c:choose>		
+					
 				</select>
+			
 				<select id="searchOption" name="searchOption"  
 					style="width:140px; padding: 6px 22px; vertical-align: middle;
 						border: 1px solid #B9B9B9; 
@@ -132,14 +162,16 @@
 					<option value="writer">작성자</option>
 				</select>
 
-			<div style="width:250px; height:31px; display:inline-block; border: 1px solid #B9B9B9; vertical-align: middle;">
-				<input type="text" value="" style="width:190px; height:22px; vertical-align: middle;
-						font: normal normal 14px Segoe UI; margin-left:10px; padding: 2px 0px 1px 10px;
-						border: 0px;">
-				<img id="searchBtn" alt="검색버튼" src="/dolleProject/resources/images/searchBtn.PNG" style="margin-top:2px; vertical-align: middle;"> 
-			</div>
+				<div style="width:250px; height:31px; display:inline-block; border: 1px solid #B9B9B9; vertical-align: middle;">
+					<input type="text" value="" style="width:190px; height:22px; vertical-align: middle;
+							font: normal normal 14px Segoe UI; margin-left:10px; padding: 2px 0px 1px 10px;
+							border: 0px;">
+					<img id="searchBtn" alt="검색버튼" src="/dolleProject/resources/images/searchBtn.PNG" style="margin-top:2px; vertical-align: middle;"> 
+				</div>
 			
-		</div>
+			</div>
+		</form>
+			
 	</div>
 	
 	

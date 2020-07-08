@@ -31,7 +31,7 @@ public class CourseReviewController {
 	
 	//코스리뷰 전체 조회 화면
 	@RequestMapping(value="/courseReview/list.do"
-			, method = RequestMethod.GET)
+			, method = {RequestMethod.GET, RequestMethod.POST})
 	public String courseReviewBoard(Model model
 			,@RequestParam(defaultValue = "1") int curPage
 			,@RequestParam(defaultValue = "newest") String orderOption) {
@@ -47,6 +47,9 @@ public class CourseReviewController {
 		List<CourseReviewMemberCommentFileVo> reviewList 
 			= courseReviewService.reviewSelectList(orderOption, start, end);
 		int listSize = reviewList.size();
+		
+		//정렬
+		model.addAttribute("orderOption",orderOption);
 		
 		// 페이징
 		Map<String, Object> pagingMap = new HashMap<>();

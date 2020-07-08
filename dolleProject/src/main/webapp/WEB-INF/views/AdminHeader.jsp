@@ -232,7 +232,7 @@
 				<div style="font-size: 50px;">둘레길</div>
 				<div style="padding-bottom: 15px;">
 					<div style="float: right;">
-						<a class='blackLink' href='#'>로그인</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a class='blackLink' href='#'>회원가입</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<a class='blackLink' href='../auth/login.do'>로그인</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a class='blackLink' href='../member/add.do'>회원가입</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					</div>
 				</div>
 			</div>

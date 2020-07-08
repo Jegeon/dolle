@@ -34,6 +34,8 @@
 		
 		<result column="FILE_EXIST"					property="fileExist"/>
 		<result column="NOTICE_STORED_FILE_NAME"	property="fileNoticeStoredName"/>
+		<result column="NOTICE_ORIGINAL_FILE_NAME"	property="fileNoticeOriginalName"/>
+		<result column="NOTICE_FILE_SIZE"			property="fileNoticeSize"/>
 	</resultMap>
 	
 	<select id="noticeMemberFileList" parameterType="map"
@@ -104,12 +106,16 @@
 		WHERE NIDX = #{noticeIdx}
 	</select>	
 	
-	<insert id='noticeInsertOne' parameterType="com.edu.noticeBoard.vo.NoticeVo">
+	<insert id='noticeInsertOne' parameterType="com.edu.noticeBoard.vo.NoticeMemberFileVo"
+		useGeneratedKeys="true" keyProperty="noticeIdx">
+		<selectKey keyProperty="noticeIdx" resultType="int" order="BEFORE">
+			SELECT SEQ_NOTICE_NO.NEXTVAL FROM DUAL
+		</selectKey>
 		INSERT INTO NOTICEBOARD
 		VALUE(NOTICE_IDX, MEMBER_IDX
 			, NOTICE_TITLE, NOTICE_CONTENT, NOTICE_CRE_DATE
 			, NOTICE_MOD_DATE, NOTICE_FIXED)
-		VALUES(SEQ_NOTICE_NO.NEXTVAL, 1
+		VALUES(#{noticeIdx}, 1
 			, #{noticeTitle}, #{noticeContent}, SYSDATE
 			, SYSDATE, #{noticeFixed})
 	</insert>
@@ -129,4 +135,14 @@
 		DELETE FROM NOTICEBOARD
 		WHERE NOTICE_IDX = #{noticeIdx}
 	</delete>
+	
+	<insert id="insertFile" parameterType="map">
+		INSERT INTO NOTICE_FILE
+			(NOTICE_FILE_IDX, NOTICE_IDX, NOTICE_ORIGINAL_FILE_NAME,
+			NOTICE_STORED_FILE_NAME, NOTICE_FILE_SIZE, NOTICE_FILE_CRE_DATE)
+		VALUES(
+			SEQ_NOTICE_FILE_NO.NEXTVAL, #{noticeIdx}, #{noticeOriginalFileName},
+			#{noticeStoredFileName}, #{noticeFileSize}, SYSDATE
+		)
+	</insert>
 </mapper>

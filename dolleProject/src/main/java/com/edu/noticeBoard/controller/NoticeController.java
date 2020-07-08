@@ -2,7 +2,6 @@ package com.edu.noticeBoard.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.edu.noticeBoard.service.NoticeService;
 import com.edu.noticeBoard.vo.NoticeMemberFileVo;
@@ -133,12 +133,13 @@ public class NoticeController {
 	@RequestMapping(value = "/noticeBoard/AdminNoticeAddCtr.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String adminNoticeAdd(Model model
 			, NoticeMemberFileVo noticeMemberFileVo
+			, MultipartHttpServletRequest mulRequest
 			, @RequestParam(defaultValue = "none") String fixed) {
-		log.info("에러찾기 쉽지만 쓰기는 귀찮다");
+		log.info("call adminNoticeAdd_Ctr! {}", noticeMemberFileVo);
 		
 		noticeMemberFileVo.setNoticeFixed(fixed);
 		
-		noticeService.noticeInsertOne(noticeMemberFileVo);
+		noticeService.noticeInsertOne(noticeMemberFileVo, mulRequest);
 		
 		return "redirect:/noticeBoard/adminList.do";
 	}

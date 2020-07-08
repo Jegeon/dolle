@@ -1,6 +1,7 @@
 package com.edu.noticeBoard.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,6 +94,14 @@ public class NoticeDaoImpl implements NoticeDao{
 		// TODO Auto-generated method stub
 		
 		sqlSession.delete(namespace + "noticeDeleteOne", noticeIdx);
+	}
+
+
+	@Override
+	public void insertfile(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		
+		sqlSession.insert(namespace + "insertFile", map);
 	}
 
 

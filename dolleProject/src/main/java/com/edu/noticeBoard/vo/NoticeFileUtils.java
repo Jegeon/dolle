@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.edu.util.CommonUtils;
 
 @Component("noticeFileUtils")
-public class noticeFileUtils {
+public class NoticeFileUtils {
 	
 	private static final String FILE_PATH = "D:\\upload";
 	
@@ -58,10 +58,10 @@ public class noticeFileUtils {
 				multipartFile.transferTo(file);
 				
 				fileInfoMap = new HashMap<String, Object>();
-				fileInfoMap.put("notice_idx", noticeIdx);
-				fileInfoMap.put("notice_original_file_name", noticeOriginalFileName);
-				fileInfoMap.put("notice_stored_file_name", noticeStoredFileName);
-				fileInfoMap.put("notice_file_size", multipartFile.getSize());
+				fileInfoMap.put("noticeIdx", noticeIdx);
+				fileInfoMap.put("noticeOriginalFileName", noticeOriginalFileName);
+				fileInfoMap.put("noticeStoredFileName", noticeStoredFileName);
+				fileInfoMap.put("noticeFileSize", multipartFile.getSize());
 				
 				fileList.add(fileInfoMap);
 			}
@@ -69,6 +69,22 @@ public class noticeFileUtils {
 		
 		return fileList;
 		
+	}
+	
+	public void parseUpdateFileInfo(Map<String, Object> tempFileMap)
+		throws Exception{
+		
+		String noticeStoredFileName
+			= (String)tempFileMap.get("NOTICE_STORED_FILE_NAME");
+		
+		File file = new File(FILE_PATH + "/" + noticeStoredFileName);
+		
+		if (file.exists()) {
+			file.delete();
+		}else {
+			System.out.println("파일이 존재하지 않습니다.");
+			throw new Exception();
+		}
 	}
 	
 }

@@ -190,7 +190,8 @@
 					</div>
 				</div>
 				
-				<form name='inputForm' action='./AdminNoticeAddCtr.do' method='post'>
+				<form name='inputForm' action='./AdminNoticeAddCtr.do' method='post'
+					enctype="multipart/form-data">
 					<div id='InputWrap'>
 						<div id='titleInputDiv'>
 							<input type="text" name='noticeTitle' id='titleInput' placeholder="제목을 입력해주세요.">
@@ -203,7 +204,7 @@
 						</div>
 						
 						<div id='fileAddDiv'>
-							<button type="button">파일 추가</button>
+							<input type="file" name="file" value="파일 추가">
 						</div>
 						
 						<div id='contentDiv'>

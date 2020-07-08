@@ -1,6 +1,7 @@
 package com.edu.noticeBoard.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -17,4 +18,5 @@ public interface NoticeDao {
 	public void noticeInsertOne(NoticeMemberFileVo noticeMemberFileVo);
 	public void noticeUpdateOne(NoticeMemberFileVo noticeMemberFileVo);
 	public void noticeDeleteOne(int noticeIdx);
+	public void insertfile(Map<String, Object> map);
 }

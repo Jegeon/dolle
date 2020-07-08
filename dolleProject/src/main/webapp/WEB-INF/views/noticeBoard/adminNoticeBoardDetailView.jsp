@@ -84,8 +84,9 @@ body {
 }
 
 #previewDiv {
-	width: 1160px; 
-	height: 765px;
+	width: 760px; 
+	height: 570px;
+	margin:auto;
 }
 
 #previewImg {
@@ -234,7 +235,7 @@ body {
 					onclick="downFnc();">
 					
 			</div>
-			
+
 			<c:choose>
 				<c:when test="${empty noticeVo.fileNoticeStoredName}">
 					

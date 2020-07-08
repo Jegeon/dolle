@@ -222,7 +222,7 @@
 								<input type="checkbox" name='fixed' value='fixed' checked="checked">
 							</c:if>
 
-							<c:if test="${noticeVo.noticeFixed eq 'none'}">
+							<c:if test="${noticeVo.noticeFixed ne 'fixed'}">
 								<input type="checkbox" name='fixed' value='fixed'>
 							</c:if>
 							

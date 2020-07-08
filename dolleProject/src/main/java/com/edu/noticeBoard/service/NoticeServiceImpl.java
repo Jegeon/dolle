@@ -1,21 +1,33 @@
 package com.edu.noticeBoard.service;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
+import javax.annotation.Resource;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.edu.noticeBoard.dao.NoticeDao;
+import com.edu.noticeBoard.vo.NoticeFileUtils;
 import com.edu.noticeBoard.vo.NoticeMemberFileVo;
 
 @Service
 public class NoticeServiceImpl implements NoticeService{
-
+	
+	private static final Logger log =
+			LoggerFactory.getLogger(NoticeServiceImpl.class);
+	
 	@Autowired
 	public NoticeDao noticeDao;
 
-
+	@Resource(name="noticeFileUtils")
+	private NoticeFileUtils noticeFileUtils; 
+	
 	@Override
 	public List<NoticeMemberFileVo> noticeMemberFileList() {
 		// TODO Auto-generated method stub
@@ -71,10 +83,32 @@ public class NoticeServiceImpl implements NoticeService{
 
 
 	@Override
-	public void noticeInsertOne(NoticeMemberFileVo noticeMemberFileVo) {
+	public void noticeInsertOne(NoticeMemberFileVo noticeMemberFileVo
+		, MultipartHttpServletRequest mulRequest) {
 		// TODO Auto-generated method stub
 		
 		noticeDao.noticeInsertOne(noticeMemberFileVo);
+		
+		
+		int noticeIdx = noticeMemberFileVo.getNoticeIdx();
+		
+		try {
+			List<Map<String, Object>> fileList;
+			fileList = noticeFileUtils.parseInsertFileInfo(noticeIdx
+				, mulRequest);
+			for (int i = 0; i < fileList.size(); i++) {
+				log.info("----------------------------------------");
+				log.info(fileList.toString());
+				log.info("----------------------------------------");
+				noticeDao.insertfile(fileList.get(i));
+			}
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 

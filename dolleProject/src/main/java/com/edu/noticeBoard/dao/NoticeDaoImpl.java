@@ -76,8 +76,23 @@ public class NoticeDaoImpl implements NoticeDao{
 	@Override
 	public void noticeInsertOne(NoticeMemberFileVo noticeMemberFileVo) {
 		// TODO Auto-generated method stub
-		
 		sqlSession.insert(namespace + "noticeInsertOne", noticeMemberFileVo);
+	}
+
+
+	@Override
+	public void noticeUpdateOne(NoticeMemberFileVo noticeMemberFileVo) {
+		// TODO Auto-generated method stub		
+		sqlSession.update(namespace + "noticeUpdateOne", noticeMemberFileVo);
+		
+	}
+
+
+	@Override
+	public void noticeDeleteOne(int noticeIdx) {
+		// TODO Auto-generated method stub
+		
+		sqlSession.delete(namespace + "noticeDeleteOne", noticeIdx);
 	}
 
 

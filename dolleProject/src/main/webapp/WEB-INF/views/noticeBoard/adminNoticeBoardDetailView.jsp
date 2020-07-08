@@ -183,6 +183,11 @@ body {
 		location.href = './list.do';
 	}
 	
+	function pageMoveUpdateFnc(noticeIdx) {
+		
+		location.href = './adminUpdate.do?noticeIdx='+noticeIdx;
+	}
+	
 	
 </script>
 <body>
@@ -255,15 +260,18 @@ body {
 			
 			
 			<textarea id='noticeTextarea' rows="25" cols="160" readonly="readonly">${noticeVo.noticeContent}</textarea>
-			
+		
+<%-- 			<input type="hidden" name="noticeIdx" value="${noticeVo.noticeIdx}">		 --%>
 			<div id='listBtnDiv'>
 				<input id='listBtnInput' class='btnPointer' value='목록으로'
 					onclick='pageMoveListFnc();'>
+				<input id='listBtnInput' class='btnPointer' value='수정하기'
+					onclick='pageMoveUpdateFnc(${noticeVo.noticeIdx});'>
 			</div>
 			
 		</div>
 	</div>
-	
+		
 	<jsp:include page="/WEB-INF/views/Tail.jsp" />
 	
 </body>

@@ -2,8 +2,7 @@ package com.edu.noticeBoard.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,9 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.edu.member.vo.MemberVo;
 import com.edu.noticeBoard.service.NoticeService;
 import com.edu.noticeBoard.vo.NoticeMemberFileVo;
 
@@ -125,19 +122,10 @@ public class NoticeController {
 	}
 	
 	@RequestMapping(value = "/noticeBoard/AdminNoticeAdd.do", method = {RequestMethod.GET})
-	public String adminNoticeAdd(HttpSession session, Model model) {
+	public String adminNoticeAdd(Model model) {
 		
 		log.info("call AdminNoticeAdd!");
 		
-		MemberVo sessionMemberVo = 
-				(MemberVo)session.getAttribute("_memberVo_");
-		String noticeNickname = sessionMemberVo.getNickname();
-		
-//		model.addAttribute(noticeNickname);
-		
-		log.info("------------------------------");
-		log.info(sessionMemberVo.toString());
-		log.info("------------------------------");
 		
 		return "/noticeBoard/adminNoticeBoardAddView";
 	}
@@ -152,8 +140,80 @@ public class NoticeController {
 		
 		noticeService.noticeInsertOne(noticeMemberFileVo);
 		
+		return "redirect:/noticeBoard/adminList.do";
+	}
+	
+	@RequestMapping(value = "/noticeBoard/adminDetail.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public String adminNoticeDetailView(Model model
+			,int noticeIdx) {
+		log.info("call adminNoticeDetailView!");
 		
-		return "redirect:/noticeBoard/AdminList.do";
+		NoticeMemberFileVo noticeVo = noticeService.noticeDetailSelectOne(noticeIdx);
+		
+		int rNum = noticeService.noticeFindCurrentRow(noticeIdx);
+		
+		int topIdx = noticeService.noticeFindUpIdx(2);
+		int listSize = noticeService.noticeMemberFileList().size();
+		int bottomIdx = noticeService.noticeFindUpIdx(listSize+1);
+		
+		int upIdx = topIdx;
+		int downIdx = bottomIdx;
+		
+		if(rNum == topIdx) {
+			upIdx = noticeService.noticeFindUpIdx(rNum);
+		}
+
+		if(rNum == 1) {
+			downIdx	= noticeService.noticeFindDownIdx(rNum);
+		}
+		
+		
+		if(upIdx > topIdx) {
+			upIdx = -1;
+		}
+		
+		model.addAttribute("noticeVo", noticeVo);
+		model.addAttribute("upIdx", upIdx);
+		model.addAttribute("downIdx", downIdx);
+		
+		
+		return "/noticeBoard/adminNoticeBoardDetailView";
+	}
+	
+	@RequestMapping(value = "/noticeBoard/adminUpdate.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public String adminNoticeUpdate(Model model
+			, int noticeIdx) {
+		log.info("call adminNoticeUpdate!");
+		
+		NoticeMemberFileVo noticeVo = noticeService.noticeDetailSelectOne(noticeIdx);
+		System.out.println(noticeVo.getNoticeFixed()+"++++++++++++");
+		
+		model.addAttribute("noticeVo", noticeVo);
+		
+		return "/noticeBoard/adminNoticeBoardUpdateView";
+	}
+	
+	@RequestMapping(value = "/noticeBoard/adminUpdateCtr.do", method = {RequestMethod.POST})
+	public String adminNoticeUpdate(Model model,@RequestParam(defaultValue = "none") String fixed
+			, NoticeMemberFileVo noticeMemberFileVo) {
+		log.info("call adminNoticeUpdateCtr!!!!!!!!!!!!!!!!!!", noticeMemberFileVo, fixed);
+		
+		
+		noticeMemberFileVo.setNoticeFixed(fixed);
+		noticeService.noticeUpdateOne(noticeMemberFileVo);
+		
+		
+		return "redirect:/noticeBoard/adminList.do";
+		
+	}
+	
+	@RequestMapping(value = "/noticeBoard/adminNoticeDeleteCtr.do", method = {RequestMethod.GET})
+	public String adminNoticeDelete(int noticeIdx, Model model) {
+		log.info("call adminNoticeDeleteCtr! " + noticeIdx);
+		
+		noticeService.noticeDeleteOne(noticeIdx);
+		
+		return "redirect:/noticeBoard/adminList.do";
 	}
 	
 	

@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
 
 <meta charset="UTF-8">
 
-<title>공지사항 추가</title>
+<title>공지사항 수정</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
 </head>
 
@@ -56,7 +57,7 @@
 }
 
 .addUnderBtn {
-	width: 140px;
+	width: 105px;
 	height: 28px;
 	margin-right: 40px;
 }
@@ -165,6 +166,26 @@
 		
 	}
 	
+	function noticeBoardResetFnc() {
+		
+		var titleInput = $('#titleInput');
+		var contentTextArea = $('#contentTextArea');
+		
+		titleInput.val('');
+		contentTextArea.val('');
+		
+		
+	}
+	
+	function noticeBoardDeleteFnc(noticeIdx) {
+		
+		
+		if(confirm("정말로 삭제하시겠습니까?")){
+			location.href = './adminNoticeDeleteCtr.do?noticeIdx=' + noticeIdx;
+		}
+		
+	}
+	
 
 </script>
 <body>
@@ -190,16 +211,25 @@
 					</div>
 				</div>
 				
-				<form name='inputForm' action='./AdminNoticeAddCtr.do' method='post'>
+				<form name='inputForm' action='./adminUpdateCtr.do' method='post'>
+					<input type="hidden" name="noticeIdx" value="${noticeVo.noticeIdx}">
 					<div id='InputWrap'>
 						<div id='titleInputDiv'>
-							<input type="text" name='noticeTitle' id='titleInput' placeholder="제목을 입력해주세요.">
+							<input type="text" name='noticeTitle' id='titleInput' value='${noticeVo.noticeTitle}' placeholder="제목을 입력해주세요.">
 							<span id='checkSpan'>상단고정</span>
-							<input type="checkbox" name='fixed' value='fixed'>
+							
+							<c:if test="${noticeVo.noticeFixed eq 'fixed'}">
+								<input type="checkbox" name='fixed' value='fixed' checked="checked">
+							</c:if>
+
+							<c:if test="${noticeVo.noticeFixed eq 'none'}">
+								<input type="checkbox" name='fixed' value='fixed'>
+							</c:if>
+							
 						</div>
 						
 						<div id='nicknameDiv'>
-							<span>${_memberVo_.nickname}</span>
+							<span>${noticeVo.memberNickname}</span>
 						</div>
 						
 						<div id='fileAddDiv'>
@@ -207,15 +237,16 @@
 						</div>
 						
 						<div id='contentDiv'>
-							<textarea id='contentTextArea' name='noticeContent' placeholder="내용을 입력해주세요." rows="20" cols="80"></textarea>
+							<textarea id='contentTextArea' name='noticeContent' placeholder="내용을 입력해주세요." rows="20" cols="80">${noticeVo.noticeContent}</textarea>
 						</div>
 					</div>
 					
 					<div id='btnWrap'>
 						<div id='btnSmallWrap'>
 							<button class='addUnderBtn' id='addUnderBtnMargin' type="button" onclick='pageMoveAdminListFnc();'>목록으로</button>
-							<button class='addUnderBtn' type="button" onclick='noticeBoardValidationFnc();'>추가</button>
-							<button class='addUnderBtn' type="reset">다시쓰기</button>
+							<button class='addUnderBtn' type="button" onclick='noticeBoardValidationFnc();'>수정</button>
+							<button class='addUnderBtn' type="button" onclick='noticeBoardDeleteFnc(${noticeVo.noticeIdx});'>삭제</button>
+							<button class='addUnderBtn' type="button" onclick='noticeBoardResetFnc();'>다시쓰기</button>
 						</div>
 					</div>
 				</form>

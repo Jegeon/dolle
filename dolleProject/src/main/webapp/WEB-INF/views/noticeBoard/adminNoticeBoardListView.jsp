@@ -209,7 +209,7 @@ th {
 							공지
 						</td>
 						<td class='tableLine alignPaddingLeft boldTitle'>
-							<a class='blackLink' style="color: #0D4371;" href='./detail.do?noticeIdx=${noticeMemberFileVo.noticeIdx}'>${noticeMemberFileVo.noticeTitle}
+							<a class='blackLink' style="color: #0D4371;" href='./adminDetail.do?noticeIdx=${noticeMemberFileVo.noticeIdx}'>${noticeMemberFileVo.noticeTitle}
 								<c:if test="${noticeMemberFileVo.fileExist eq 1}">
 									<img id='clipSize' alt='clip' src='/dolleProject/resources/images/fileClip.png'>
 								</c:if>
@@ -226,7 +226,7 @@ th {
 					<tr>
 						<td class='tableLine noneColorNotice'>${noticeMemberFileVo.noticeIdx}</td>
 						<td class='tableLine alignPaddingLeft'>
-							<a class='blackLink' href='./detail.do?noticeIdx=${noticeMemberFileVo.noticeIdx}'>${noticeMemberFileVo.noticeTitle}
+							<a class='blackLink' href='./adminDetail.do?noticeIdx=${noticeMemberFileVo.noticeIdx}'>${noticeMemberFileVo.noticeTitle}
 								<c:if test="${noticeMemberFileVo.fileExist eq 1}">
 									<img id='clipSize' alt='clip' src='/dolleProject/resources/images/fileClip.png'>
 								</c:if>

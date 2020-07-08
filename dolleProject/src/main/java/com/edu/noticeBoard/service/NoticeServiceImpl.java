@@ -78,6 +78,24 @@ public class NoticeServiceImpl implements NoticeService{
 	}
 
 
+	@Override
+	public void noticeUpdateOne(NoticeMemberFileVo noticeMemberFileVo) {
+		// TODO Auto-generated method stub
+		
+		noticeDao.noticeUpdateOne(noticeMemberFileVo);
+		
+	}
+
+
+	@Override
+	public void noticeDeleteOne(int noticeIdx) {
+		// TODO Auto-generated method stub
+		
+		noticeDao.noticeDeleteOne(noticeIdx);
+		
+	}
+
+
 
 
 	

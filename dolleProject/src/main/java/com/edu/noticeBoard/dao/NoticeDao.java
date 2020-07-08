@@ -15,4 +15,6 @@ public interface NoticeDao {
 	public int noticeFindDownIdx(int noticeIdx);
 	public int noticeFindCurrentRow(int noticeIdx);
 	public void noticeInsertOne(NoticeMemberFileVo noticeMemberFileVo);
+	public void noticeUpdateOne(NoticeMemberFileVo noticeMemberFileVo);
+	public void noticeDeleteOne(int noticeIdx);
 }

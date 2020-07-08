@@ -8,11 +8,14 @@ import com.edu.courseReview.vo.CourseReviewVo;
 
 public interface CourseReviewDao {
 
-	public List<CourseReviewMemberCommentFileVo> reviewSelectList();
+	public List<CourseReviewMemberCommentFileVo> reviewSelectList(String orderOption, int start, int end);
 	public CourseReviewMemberCommentFileVo reviewSelectOne(int reviewIdx);
 	public int courseReviewInsertOne(CourseReviewVo reviewVo);
 	public int fileInsertOne(Map<String, Object> map);
+	
 	public int reviewNewestSelectIdx();
+	public int reviewSelectTotalCount();
+	public int reviewIncreaseReadCount(int reviewIdx);
 	
 	public Map<String, Object> fileSelectStoredName(int reviewIdx);
 	public int courseReviewUpdateOne(CourseReviewVo reviewVo);

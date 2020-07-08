@@ -71,6 +71,14 @@
 <script type="text/javascript" src="/dolleProject/resources/js/jquery-3.5.1.js"></script>
 <script type="text/javascript">
 	
+	function goPageFnc(pageNum){
+		var curPage = $('#curPage');
+		curPage.val(pageNum);
+		
+		var pagingForm = $('#pagingForm');
+		pagingForm.submit();
+	}
+	
 	function pageMoveFnc(){
 		var loginUser = $("#reviewMemberIdx").val();
 		if(loginUser == null || loginUser.trim() == "" || loginUser.length == 0){
@@ -102,19 +110,26 @@
 		<!-- 정렬선택과 검색창 -->
 		<div style="float:right; height:50px; width:530px; padding-top:40px;">
 
-				<select style="width:120px; padding: 6px 22px; vertical-align: middle;
+				<select id="orderOption" name="orderOption" onchange=""
+					style="width:120px; padding: 6px 22px; vertical-align: middle;
 						border: 1px solid #B9B9B9; 
 						font-size:14px; font-family: Segoe UI;
 						-webkit-appearance: none; /* 원본 select 버튼 감추기 */
 						background: url('/dolleProject/resources/images/selectBtn.PNG') no-repeat 95% 50%;">
-					<option>최신순</option>
+					<option value="newest">최신순</option>
+					<option value="starNum">별점순</option>
+					<option value="readCnt">조회순</option>
 				</select>
-				<select style="width:140px; padding: 6px 22px; vertical-align: middle;
+				<select id="searchOption" name="searchOption"  
+					style="width:140px; padding: 6px 22px; vertical-align: middle;
 						border: 1px solid #B9B9B9; 
 						font-size:14px; font-family: Segoe UI;
 						-webkit-appearance: none; /* 원본 select 버튼 감추기 */
 						background: url('/dolleProject/resources/images/selectBtn.PNG') no-repeat 95% 50%;">
-					<option>제목+내용</option>
+					<option value="both">제목+내용</option>
+					<option value="title">제목</option>
+					<option value="content">내용</option>
+					<option value="writer">작성자</option>
 				</select>
 
 			<div style="width:250px; height:31px; display:inline-block; border: 1px solid #B9B9B9; vertical-align: middle;">
@@ -178,6 +193,9 @@
 					</c:if>
 					<c:if test="${listIndex.count >= 13 and listIndex.count <= 16}">
 						<c:set var="rowNum" value="4"/>
+					</c:if>
+					<c:if test="${listIndex.count >= 17 and listIndex.count <= 20}">
+						<c:set var="rowNum" value="5"/>
 					</c:if>
 					
 					<c:if test="${listIndex.count % 4 == 1}">
@@ -256,32 +274,46 @@
 	<div style="width:1260px; height:205px; margin:0 auto; text-align: center; 
 		padding-top: 30px; box-sizing: border-box;">
 		<ul id="paging_group" style="width: 600px; display: inline-block; margin-left: 165px;">
-			<li class="paging_img" style="width:40px; height:40px; display: inline-block; background: #FFFFFF; border:1px solid #fff; vertical-align: middle;
+			<li class="paging_img" onclick="goPageFnc(1);"
+				 style="width:40px; height:40px; display: inline-block; background: #FFFFFF; border:1px solid #fff; vertical-align: middle;
 				 padding-top:7px; box-sizing: border-box;">
 				<img id="doubledLeftBtn" alt="doubledLeftBtn" src="/dolleProject/resources/images/doubleLeft.PNG" 
 					style="width: 55%;">
 			</li>
-			<li class="paging_img" style="width:40px; height:40px; display: inline-block; background: #FFFFFF; border:1px solid #fff; vertical-align: middle;
+			<li class="paging_img" onclick="goPageFnc(${pagingMap.reviewPaging.prevPage});"
+				 style="width:40px; height:40px; display: inline-block; background: #FFFFFF; border:1px solid #fff; vertical-align: middle;
 				 padding-top:7px; box-sizing: border-box;">
 				<img id="doubledLeftBtn" alt="doubledLeftBtn" src="/dolleProject/resources/images/left.PNG" 
 					style="width: 40%;">
 			</li>
-			<li class="paging_num" style="width:40px; height:40px; display: inline-block; background: #0D4371; color:#fff; border:1px solid #707070; vertical-align: middle;
-				font-size: 20px; padding-top:8px; box-sizing: border-box;">1</li>
-			<li class="paging_num" style="width:40px; height:40px; display: inline-block; background: #FFFFFF; border:1px solid #707070; vertical-align: middle;
-				font-size: 20px; padding-top:8px; box-sizing: border-box;">2</li>
-			<li class="paging_num" style="width:40px; height:40px; display: inline-block; background: #FFFFFF; border:1px solid #707070; vertical-align: middle;
-				font-size: 20px; padding-top:8px; box-sizing: border-box;">3</li>
-			<li class="paging_num" style="width:40px; height:40px; display: inline-block; background: #FFFFFF; border:1px solid #707070; vertical-align: middle;
-				font-size: 20px; padding-top:8px; box-sizing: border-box;">4</li>
-			<li class="paging_num" style="width:40px; height:40px; display: inline-block; background: #FFFFFF; border:1px solid #707070; vertical-align: middle;
-				font-size: 20px; padding-top:8px; box-sizing: border-box;">5</li>
-			<li class="paging_img" style="width:40px; height:40px; display: inline-block; background: #FFFFFF; border:1px solid #fff; vertical-align: middle;
+			<c:forEach var="num" 
+				begin="${pagingMap.reviewPaging.blockBegin}" 
+				end="${pagingMap.reviewPaging.blockEnd}">
+				
+				<c:if test="${pagingMap.reviewPaging.curPage eq num}">
+					<li class="paging_num" onclick="goPageFnc(${num});"
+						style="width:40px; height:40px; display:inline-block; background: #0D4371; color:#fff; border:1px solid #707070; vertical-align: middle; 
+						font-size: 20px; padding-top:8px; box-sizing: border-box;">
+						<c:out value="${num}"/>
+					</li>
+				</c:if>
+				<c:if test="${pagingMap.reviewPaging.curPage ne num}">
+					<li class="paging_num" onclick="goPageFnc(${num});"
+						 style="width:40px; height:40px; display: inline-block; background: #FFFFFF; border:1px solid #707070; vertical-align: middle;
+						font-size: 20px; padding-top:8px; box-sizing: border-box;">
+						<c:out value="${num}"/>
+					</li>
+				</c:if>
+			</c:forEach>
+
+			<li class="paging_img" onclick="goPageFnc(${pagingMap.reviewPaging.nextPage});"
+			 style="width:40px; height:40px; display: inline-block; background: #FFFFFF; border:1px solid #fff; vertical-align: middle;
 				 padding-top:7px; box-sizing: border-box;">
 				<img id="doubledLeftBtn" alt="doubledLeftBtn" src="/dolleProject/resources/images/right.PNG" 
 					style="width: 42%;">
 			</li>
-			<li class="paging_img" style="width:40px; height:40px; display: inline-block; background: #FFFFFF; border:1px solid #fff; vertical-align: middle;
+			<li class="paging_img" onclick="goPageFnc(${pagingMap.reviewPaging.totPage});"
+				 style="width:40px; height:40px; display: inline-block; background: #FFFFFF; border:1px solid #fff; vertical-align: middle;
 				 padding-top:7px; box-sizing: border-box;">
 				<img id="doubledLeftBtn" alt="doubledLeftBtn" src="/dolleProject/resources/images/doubleRight.PNG" 
 					style="width: 55%;">
@@ -293,6 +325,12 @@
 			background-color: #0D4371; float:right; border:0px; margin-right: 20px;">
 			글쓰기
 		</button>
+		
+		<!-- 페이징정보 전달 -->
+		<form action="./list.do" id='pagingForm' method="get">
+			<input type="hidden" id='curPage' name='curPage' 
+				value="${pagingMap.reviewPaging.curPage}">
+		</form>
 	</div>
 	
 	<jsp:include page="/WEB-INF/views/Tail.jsp" />

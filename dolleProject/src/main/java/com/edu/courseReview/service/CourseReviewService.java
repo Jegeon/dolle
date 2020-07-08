@@ -10,12 +10,14 @@ import com.edu.courseReview.vo.CourseReviewVo;
 
 public interface CourseReviewService {
 
-	public List<CourseReviewMemberCommentFileVo> reviewSelectList();
+	public List<CourseReviewMemberCommentFileVo> reviewSelectList(String orderOption, int start, int end);
 	public CourseReviewMemberCommentFileVo reviewSelectOne(int reviewIdx);
 	public void courseReviewInsertOne(CourseReviewVo reviewVo
 			, MultipartHttpServletRequest mulRequest);
 	
 	public int reviewNewestSelectIdx();
+	public int reviewSelectTotalCount();
+//	public int reviewIncreaseReadCount(int reviewIdx);
 	
 	public void courseReviewUpdateOne(CourseReviewVo reviewVo
 			, MultipartHttpServletRequest mulRequest, int fileIdx);

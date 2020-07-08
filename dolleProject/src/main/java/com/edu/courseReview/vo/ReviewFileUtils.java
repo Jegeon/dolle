@@ -19,6 +19,39 @@ public class ReviewFileUtils {
 
 	private static final String FILE_PATH = "D:\\upload";	
 	
+//	public List<Map<String, Object>> parseInsertDefaultFileInfo(){
+//		
+//		String fileOriginalName = null;
+//		String fileOriginalExtension = null;
+//		String fileStoredName = null;
+//		
+//		File file = new File(FILE_PATH);
+//		
+//		if(file.exists() == false) {
+//			file.mkdirs();
+//		}
+//		
+//		fileOriginalName = "";//확장자 포함
+//		fileOriginalExtension = 
+//				fileOriginalName.substring(
+//						fileOriginalName.lastIndexOf("."));
+//		fileStoredName = CommonUtils.getRandomString() 
+//				+ fileOriginalExtension;
+//		 
+//		file = new File(FILE_PATH, fileStoredName);
+//		
+//		fileInfoMap = new HashMap<String, Object>();
+//		fileInfoMap.put("review_idx", reviewIdx);
+//		fileInfoMap.put("review_original_file_name", fileOriginalName);
+//		fileInfoMap.put("review_stored_file_name", fileStoredName);
+//		fileInfoMap.put("review_file_size", multipartFile.getSize());
+//		
+//		fileList.add(fileInfoMap);
+//			
+//		return null;
+//		
+//	}
+	
 	public List<Map<String, Object>> parseInsertFileInfo(int reviewIdx,
 			MultipartHttpServletRequest multipartHttpServletRequest) 
 				throws IllegalStateException, IOException{

@@ -3,6 +3,23 @@
 
 <mapper namespace="com.edu.courseReview">
 
+	<sql id="orderBy">
+		<choose>
+        	<!-- 최신순일 경우  -->
+        	<when test="orderOption == 'newest'">
+        		ORDER BY RB.REVIEW_IDX DESC
+        	</when>
+        	<!-- 별점순일 경우  -->
+        	<when test="orderOption == 'starNum'">
+        		ORDER BY RB.REVIEW_RATING DESC, RB.REVIEW_IDX DESC 
+        	</when>
+        	<!-- 정렬순일 경우  -->
+        	<when test="orderOption == 'readCnt'">
+        		ORDER BY RB.REVIEW_IDX DESC, RB.REVIEW_IDX DESC
+        	</when>
+        </choose>
+	</sql>
+	
 	<resultMap type="com.edu.courseReview.vo.CourseReviewVo" 
 		id="courseReivewMap">
 		<id column="REVIEW_IDX" property="reviewIdx"/>
@@ -58,17 +75,27 @@
 		FROM REVIEWBOARD
 	</select>
 
-	<select id="reviewMemComFileList" parameterType="map" resultMap="courseReviewMemberCommentFileMap">
-		SELECT RB.REVIEW_IDX, REVIEW_TITLE, M.MEMBER_NICKNAME, REVIEW_RATING, REVIEW_LIKE_COUNT, C.COMMENT_COUNT, RF.REVIEW_STORED_FILE_NAME
-		FROM REVIEWBOARD RB, MEMBER M
-		    ,(SELECT REVIEW_IDX, COUNT(*) AS COMMENT_COUNT FROM REVIEW_COMMENT GROUP BY REVIEW_IDX) C
-		    ,(SELECT REVIEW_IDX, REVIEW_STORED_FILE_NAME FROM REVIEW_FILE) RF
-		WHERE RB.MEMBER_IDX = M.MEMBER_IDX
-		AND RB.REVIEW_IDX = C.REVIEW_IDX(+)
-		AND RB.REVIEW_IDX = RF.REVIEW_IDX(+)
-		ORDER BY RB.REVIEW_IDX DESC
+	<select id="reviewMemComFileList" parameterType="map"
+		 resultMap="courseReviewMemberCommentFileMap">
+		SELECT * 
+		FROM (SELECT ROWNUM RNUM, RBMCF.*
+				FROM( SELECT RB.REVIEW_IDX, REVIEW_TITLE, M.MEMBER_NICKNAME, REVIEW_READ_COUNT, REVIEW_RATING, REVIEW_LIKE_COUNT, C.COMMENT_COUNT, RF.REVIEW_STORED_FILE_NAME
+						FROM REVIEWBOARD RB, MEMBER M
+						    ,(SELECT REVIEW_IDX, COUNT(*) AS COMMENT_COUNT FROM REVIEW_COMMENT GROUP BY REVIEW_IDX) C
+						    ,(SELECT REVIEW_IDX, REVIEW_STORED_FILE_NAME FROM REVIEW_FILE) RF
+						WHERE RB.MEMBER_IDX = M.MEMBER_IDX
+						AND RB.REVIEW_IDX = C.REVIEW_IDX(+)
+						AND RB.REVIEW_IDX = RF.REVIEW_IDX(+)
+<!-- 						ORDER BY RB.REVIEW_IDX DESC) RBMCF ) -->
+						<include refid="orderBy"></include>) RBMCF )
+		WHERE RNUM BETWEEN #{start} AND #{end}
 	</select> 
 	
+	<select id="reviewSelectTotalCount" resultType="int">
+		SELECT COUNT(*)
+		FROM REVIEWBOARD
+<!-- 		<include refid="search"></include> -->
+	</select>
 	
 	<insert id="reviewInsertOne" parameterType="CourseReviewVo">
 		INSERT INTO REVIEWBOARD
@@ -104,6 +131,14 @@
 		AND RB.REVIEW_IDX = RF.REVIEW_IDX(+)
 		AND RB.REVIEW_IDX = #{review_idx}
 	</select>
+	
+	
+	
+	<update id="increaseReadCount" parameterType="int">
+		UPDATE REVIEWBOARD
+		SET REVIEW_READ_COUNT = (REVIEW_READ_COUNT + 1)
+		WHERE REVIEW_IDX = #{reviewIdx}
+	</update>
 	
 	
 	<update id="reviewUpdateOne" parameterType="CourseReviewVo">

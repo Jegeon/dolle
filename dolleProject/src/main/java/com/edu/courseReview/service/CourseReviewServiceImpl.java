@@ -24,14 +24,18 @@ public class CourseReviewServiceImpl implements CourseReviewService{
 	private ReviewFileUtils reviewFileUtils;
 		
 	@Override
-	public List<CourseReviewMemberCommentFileVo> reviewSelectList() {
+	public List<CourseReviewMemberCommentFileVo> reviewSelectList(String orderOption, int start, int end) {
 		// TODO Auto-generated method stub
-		return courseReviewDao.reviewSelectList();
+		System.out.println("orderOption : "+orderOption);
+		return courseReviewDao.reviewSelectList(orderOption, start, end);
 	}
 	
 	@Override
 	public CourseReviewMemberCommentFileVo reviewSelectOne(int reviewIdx) {
 		// TODO Auto-generated method stub
+		//조회 수 증가 
+		courseReviewDao.reviewIncreaseReadCount(reviewIdx);
+		
 		return courseReviewDao.reviewSelectOne(reviewIdx);
 	}
 
@@ -158,7 +162,13 @@ public class CourseReviewServiceImpl implements CourseReviewService{
 		return courseReviewDao.fileSelectStoredName(reviewIdx);
 	}
 
+	@Override
+	public int reviewSelectTotalCount() {
+		// TODO Auto-generated method stub
+		return courseReviewDao.reviewSelectTotalCount();
+	}
 
+	
 	
 	
 	

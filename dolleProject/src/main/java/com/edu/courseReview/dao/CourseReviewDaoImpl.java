@@ -7,7 +7,6 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.edu.courseReview.vo.CourseReviewMemberCommentFileVo;
 import com.edu.courseReview.vo.CourseReviewVo;
@@ -21,9 +20,14 @@ public class CourseReviewDaoImpl implements CourseReviewDao{
 	String namespace = "com.edu.courseReview.";
 	
 	@Override
-	public List<CourseReviewMemberCommentFileVo> reviewSelectList() {
+	public List<CourseReviewMemberCommentFileVo> reviewSelectList(String orderOption, int start, int end) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList(namespace + "reviewMemComFileList");
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("start", String.valueOf(start));
+		map.put("end", String.valueOf(end));
+		map.put("orderOption", orderOption);
+		
+		return sqlSession.selectList(namespace + "reviewMemComFileList", map);
 	}
 	
 	@Override
@@ -78,6 +82,18 @@ public class CourseReviewDaoImpl implements CourseReviewDao{
 	public Map<String, Object> fileSelectStoredName(int reviewIdx) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(namespace + "fileSelectStoredName", reviewIdx);
+	}
+
+	@Override
+	public int reviewSelectTotalCount() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace + "reviewSelectTotalCount");
+	}
+
+	@Override
+	public int reviewIncreaseReadCount(int reviewIdx) {
+		// TODO Auto-generated method stub
+		return sqlSession.update(namespace + "increaseReadCount", reviewIdx);
 	}
 
 	

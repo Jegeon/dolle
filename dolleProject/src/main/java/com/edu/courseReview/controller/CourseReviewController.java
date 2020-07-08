@@ -1,8 +1,8 @@
 package com.edu.courseReview.controller;
 
+import java.util.HashMap;
 import java.util.List;
-
-import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.edu.courseReview.service.CourseReviewService;
+import com.edu.courseReview.util.ReviewPaging;
 import com.edu.courseReview.vo.CourseReviewMemberCommentFileVo;
 import com.edu.courseReview.vo.CourseReviewVo;
-import com.edu.member.vo.MemberVo;
 
 @Controller
 public class CourseReviewController {
@@ -30,14 +30,29 @@ public class CourseReviewController {
 	
 	
 	//코스리뷰 전체 조회 화면
-	@RequestMapping(value="/courseReview/list.do", method = RequestMethod.GET)
-	public String courseReviewBoard(Model model) {
-		log.debug(" **** Welcome courseReviewBoard ****");
+	@RequestMapping(value="/courseReview/list.do"
+			, method = RequestMethod.GET)
+	public String courseReviewBoard(Model model
+			,@RequestParam(defaultValue = "1") int curPage
+			,@RequestParam(defaultValue = "newest") String orderOption) {
+		log.debug(" **** Welcome courseReviewBoard {}****", curPage);
 		
-//		List<CourseReviewVo> reviewList = courseReviewService.reviewSelectList();
-		List<CourseReviewMemberCommentFileVo> reviewList = courseReviewService.reviewSelectList();
+		int totalCount = courseReviewService.reviewSelectTotalCount();
 		
+		ReviewPaging reviewPaging = new ReviewPaging(totalCount, curPage);
+		int start = reviewPaging.getPageBegin();
+		int end = reviewPaging.getPageEnd();
+		
+		System.out.println("======start"+start+"end"+end);
+		List<CourseReviewMemberCommentFileVo> reviewList 
+			= courseReviewService.reviewSelectList(orderOption, start, end);
 		int listSize = reviewList.size();
+		
+		// 페이징
+		Map<String, Object> pagingMap = new HashMap<>();
+		pagingMap.put("totalCount", totalCount);
+		pagingMap.put("reviewPaging", reviewPaging);
+		model.addAttribute("pagingMap",pagingMap);
 		
 		model.addAttribute("reviewList",reviewList);
 		model.addAttribute("listSize",listSize);
@@ -69,6 +84,9 @@ public class CourseReviewController {
 	public String courseReviewDetail(int reviewIdx, Model model) {
 		log.debug(" **** Welcome courseReviewDetail ****");
 		
+		//조회수 증가
+//		courseReviewService.reviewIncreaseLikeCount(reviewIdx);
+
 		CourseReviewMemberCommentFileVo reviewMCFVo
 		 = courseReviewService.reviewSelectOne(reviewIdx);
 		

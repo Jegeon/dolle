@@ -33,6 +33,21 @@
 	table, tr, td {
 		border: 1px solid black;
 		border-collapse: collapse;
+		vertical-align: middle;
+	}
+	.daehanFont {
+		font-size: 30px; 
+		font-family: 대한민국정부상징체 ; 
+	}
+	.ahreum {
+		width:220px; 
+		height:50px;
+		font:normal bold 18px Segoe UI; 
+		color:white; 
+		background-color: #0D4371;
+		border:0px;
+		text-align: center;
+		vertical-align: middle;
 	}
 </style>
 </head>
@@ -45,20 +60,20 @@
 	<input type="hidden" id="hiddenMemberNoInput" value="${sessionScope._memberVo_.no}">
 	<!-- 로그인 체크 hidden input 끝 -->
 	
-	<h1>가이드 투어 예약 상세</h1>
+	<h1 class="daehanFont" style="margin: 10px 0px 10px 82px;">가이드 투어 예약 상세</h1>
 	<br/>
-	<div style="width: 740px; height: 300px; border: 1px solid black; margin: auto;">
-		<div style="width: 240px; height: 180px; border: 1px solid black; float: left;">
+	<div style="width: 740px; height: 460px; margin: auto;">
+		<div style="width: 240px; height: 380px; border: 1px solid black; float: left;">
 			<div style="cursor:pointer;">이미지 넣을 예정</div>
 		</div>
-		<div style="width: 496px; height: 180px; border: 1px solid black; float: left;">
+		<div style="width: 496px; height: 380px; border: 1px solid black; float: left;">
 			<div>
-				<table style="width: 496px; height: 180px;">
+				<table style="width: 496px; height: 380px;">
 					<tr>
-						<td colspan="2" style="text-align: center;">${tourVo.tourName}</td>
+						<td class="daehanFont" colspan="2" style="text-align: center;">${tourVo.tourName}</td>
 					</tr>
 					<tr>
-						<td>기간</td>
+						<td class="ahreum">기간</td>
 						<td>
 							<fmt:formatDate value="${tourVo.tourStartDate}" pattern="yyyy-MM-dd" />
 							~
@@ -66,16 +81,16 @@
 						</td>
 					</tr>
 					<tr>
-						<td>시간</td><td>${tourVo.tourStartTime} ~ ${tourVo.tourEndTime}</td>
+						<td class="ahreum">시간</td><td>${tourVo.tourStartTime} ~ ${tourVo.tourEndTime}</td>
 					</tr>
 					<tr>
-						<td>모집 인원</td><td>${tourVo.tourPeopleNum}</td>
+						<td class="ahreum">모집 인원</td><td>${tourVo.tourPeopleNum}</td>
 					</tr>
 					<tr>
-						<td>인당 가격</td><td>${tourVo.tourPrice}원 / 1인</td>
+						<td class="ahreum">인당 가격</td><td>${tourVo.tourPrice}원 / 1인</td>
 					</tr>
 					<tr>
-						<td>출발지</td><td>${tourVo.tourStartingPoint}</td>
+						<td class="ahreum">출발지</td><td>${tourVo.tourStartingPoint}</td>
 					</tr>
 					<tr>
 						<td colspan="2">${tourVo.tourContent}</td>
@@ -83,13 +98,9 @@
 				</table>
 			</div>
 		</div>
-		<div style="margin-top: 20px;">
-			<button style="width:220px; height:50px;
-			font:normal bold 18px Segoe UI; color:white; 
-			background-color: #0D4371; border:0px;" onclick="pageMoveListFnc();">목록으로</button>
-			<button style="width:220px; height:50px;
-			font:normal bold 18px Segoe UI; color:white; 
-			background-color: #0D4371; border:0px;" onclick="pageMoveReservationFnc();">예약하기</button>
+		<div style="margin: auto; clear:both; width: 496px; text-align: center;">
+			<button class="ahreum" onclick="pageMoveListFnc();">목록으로</button>
+			<button class="ahreum" onclick="pageMoveReservationFnc();">예약하기</button>
 		</div>
 	</div>
 	

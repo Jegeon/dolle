@@ -88,30 +88,58 @@
 	table, tr, td {
 		border: 1px solid black;
 		border-collapse: collapse;
+		vertical-align: middle;
 	}
+
+	.ui-datepicker{ font-size: 20px; width: 400px; }
 
     .ui-datepicker-calendar > tbody td.ui-datepicker-week-end:first-child a { color: red; }
 	.ui-datepicker-calendar > tbody td.ui-datepicker-week-end:last-child a { color: blue; }
-
+	
+	.daehanFont {
+		font-size: 30px; 
+		font-family: 대한민국정부상징체 ; 
+	}
+	.ahreum {
+		width:220px; 
+		height:50px;
+		font:normal bold 18px Segoe UI; 
+		color:white; 
+		background-color: #0D4371;
+		border:0px;
+		text-align: center;
+		vertical-align: middle;
+	}
+	.tdLeftWidthLimit {
+		width:220px;
+		border-right: none;
+	}
+	.tdRightWidthLimit {
+		width:276px;
+		border-left: none;
+	}
 </style>
 </head>
 
 <body>
+	<!-- 달력때문에 include가 잘안되서 임시로 붙여놓은 곳 시작 -->
 	<div style="height: 220px; background-color: grey;"></div>
-	<h1>가이드 투어 예약 상세</h1>
+	<!-- 달력때문에 include가 잘안되서 임시로 붙여놓은 곳 끝 -->
+	
+	<h1 class="daehanFont" style="margin: 10px 0px 10px 82px;">가이드 투어 예약 상세 날짜 선택</h1>
 	<br/>
-	<div style="width: 740px; height: 300px; border: 1px solid black; margin: auto;">
-		<div style="width: 240px; height: 180px; border: 1px solid black; float: left;">
+	<div style="width: 740px; height: 460px; margin: auto;">
+		<div style="width: 240px; height: 380px; border: 1px solid black; float: left;">
 			<div style="cursor:pointer;">이미지 넣을 예정</div>
 		</div>
-		<div style="width: 496px; height: 180px; border: 1px solid black; float: left;">
+		<div style="width: 496px; height: 380px; border: 1px solid black; float: left;">
 			<div>
-				<table style="width: 496px; height: 180px;">
+				<table style="width: 496px; height: 380px;">
 					<tr>
-						<td colspan="2" style="text-align: center;">${tourVo.tourName}</td>
+						<td class="daehanFont" colspan="2" style="text-align: center;">${tourVo.tourName}</td>
 					</tr>
 					<tr>
-						<td>기간</td>
+						<td class="ahreum">기간</td>
 						<td>
 							<a>
 								<fmt:formatDate value="${tourVo.tourStartDate}" pattern="yyyy-MM-dd" />
@@ -123,16 +151,16 @@
 						</td>
 					</tr>
 					<tr>
-						<td>시간</td><td>${tourVo.tourStartTime} ~ ${tourVo.tourEndTime}</td>
+						<td class="ahreum">시간</td><td>${tourVo.tourStartTime} ~ ${tourVo.tourEndTime}</td>
 					</tr>
 					<tr>
-						<td>모집 인원</td><td>${tourVo.tourPeopleNum}</td>
+						<td class="ahreum">모집 인원</td><td>${tourVo.tourPeopleNum}</td>
 					</tr>
 					<tr>
-						<td>인당 가격</td><td>${tourVo.tourPrice}원 / 1인</td>
+						<td class="ahreum">인당 가격</td><td>${tourVo.tourPrice}원 / 1인</td>
 					</tr>
 					<tr>
-						<td>출발지</td><td>${tourVo.tourStartingPoint}</td>
+						<td class="ahreum">출발지</td><td>${tourVo.tourStartingPoint}</td>
 					</tr>
 					<tr>
 						<td colspan="2">${tourVo.tourContent}</td>
@@ -141,30 +169,28 @@
 			</div>
 		</div>
 	</div>
-	<div style="width: 740px; height: 700px; background-color: lime; margin: auto;">
+	<div style="width: 740px; height: 700px; margin: auto;">
 		<table style="width: 496px; margin: auto;">
 			<tr>
-				<td>
-					<button style="width:220px; height:50px;
-						font:normal bold 18px Segoe UI; color:white; 
-						background-color: #0D4371; border:0px;">선택한 투어
+				<td class="tdLeftWidthLimit">
+					<button class="ahreum">선택한 투어
 					</button>
 				</td>
-				<td>${tourVo.tourName}</td>
+				<td class="tdRightWidthLimit">${tourVo.tourName}</td>
 			</tr>
 			<tr>
 				<td colspan="2">
-					<button style="width:220px; height:50px;
-						font:normal bold 18px Segoe UI; color:white; 
-						background-color: #0D4371; border:0px;">투어 날짜
+					<button class="ahreum">투어 날짜
 					</button>
 				</td>
 			</tr>
 			<!-- 달력 구현 부분 -->
 			<tr>
-				<td colspan="2">
-					<div id="datepicker" onchange="moveByCalendarFnc();"></div>
-					<input id="here" name="here" type="text" value="">
+				<td style="text-align: center;" colspan="2">
+					<div style="width: 400px; margin: auto;">
+						<div id="datepicker" onchange="moveByCalendarFnc();"></div>
+					</div>
+					<input id="here" name="here" type="hidden" value="">
 					<br/>
 					<fmt:formatDate value="${tourVo.tourClosedStartDate}" pattern="yyyy-MM-dd" />부터
 					<fmt:formatDate value="${tourVo.tourClosedEndDate}" pattern="yyyy-MM-dd" />까지 휴무입니다.
@@ -174,18 +200,14 @@
 			</tr>
 			<tr>
 				<td>
-					<button style="width:220px; height:50px;
-						font:normal bold 18px Segoe UI; color:white; 
-						background-color: #0D4371; border:0px;">예약 현황
+					<button class="ahreum">예약 현황
 					</button>
 				</td>
 				<td>달력에서 날짜를 선택해주세요</td>
 			</tr>
 			<tr>
 				<td>
-					<button style="width:220px; height:50px;
-						font:normal bold 18px Segoe UI; color:white; 
-						background-color: #0D4371; border:0px;">투어 인원
+					<button class="ahreum">투어 인원
 					</button>
 				</td>
 				<td>
@@ -194,27 +216,21 @@
 			</tr>
 			<tr>
 				<td>
-					<button style="width:220px; height:50px;
-						font:normal bold 18px Segoe UI; color:white; 
-						background-color: #0D4371; border:0px;">결제 방법
+					<button class="ahreum">결제 방법
 					</button>
 				</td>
 				<td>계좌이체</td>
 			</tr>
 			<tr>
 				<td>
-					<button style="width:220px; height:50px;
-						font:normal bold 18px Segoe UI; color:white; 
-						background-color: #0D4371; border:0px;">결제 예상 금액
+					<button class="ahreum">결제 예상 금액
 					</button>
 				</td>
 				<td id="test"><input id="predictedTotal" type="text" value="" disabled="disabled"> 원</td>
 			</tr>
 			<tr>
 				<td>
-					<button style="width:220px; height:50px;
-						font:normal bold 18px Segoe UI; color:white; 
-						background-color: #0D4371; border:0px;">결제 계좌
+					<button class="ahreum">결제 계좌
 					</button>
 				</td>
 				<td>${tourVo.tourStartingPoint}</td>
@@ -223,12 +239,8 @@
 	</div>
 	<div style="text-align: center;">
 		<div style="margin-top: 20px;">
-			<button style="width:220px; height:50px;
-			font:normal bold 18px Segoe UI; color:white; 
-			background-color: #0D4371; border:0px;" onclick="failAlertFnc();">예약 신청 하기</button>
-			<button style="width:220px; height:50px;
-			font:normal bold 18px Segoe UI; color:white; 
-			background-color: #0D4371; border:0px;" onclick="pageMoveListOneFnc();">뒤로 가기</button>
+			<button class="ahreum" onclick="failAlertFnc();">예약 신청 하기</button>
+			<button class="ahreum" onclick="pageMoveListOneFnc();">뒤로 가기</button>
 		</div>
 	</div>
 	<jsp:include page="/WEB-INF/views/Tail.jsp" />

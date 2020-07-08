@@ -93,11 +93,18 @@
 	table, tr, td {
 		border: 1px solid black;
 		border-collapse: collapse;
+		vertical-align: middle;
 	}
 
+	.ui-datepicker{ font-size: 20px; width: 400px; }
+	
     .ui-datepicker-calendar > tbody td.ui-datepicker-week-end:first-child a { color: red; }
 	.ui-datepicker-calendar > tbody td.ui-datepicker-week-end:last-child a { color: blue; }
 
+	.daehanFont {
+		font-size: 30px; 
+		font-family: 대한민국정부상징체 ; 
+	}
 	.ahreum {
 		width:220px; 
 		height:50px;
@@ -106,27 +113,39 @@
 		background-color: #0D4371;
 		border:0px;
 		text-align: center;
+		vertical-align: middle;
+	}
+	.tdLeftWidthLimit {
+		width:220px;
+		border-right: none;
+	}
+	.tdRightWidthLimit {
+		width:276px;
+		border-left: none;
 	}
 </style>
 </head>
 
 <body>
+	<!-- 달력때문에 include가 잘안되서 임시로 붙여놓은 곳 시작 -->
 	<div style="height: 220px; background-color: grey;"></div>
-	<h1>가이드 투어 예약 상세</h1>
+	<!-- 달력때문에 include가 잘안되서 임시로 붙여놓은 곳 끝 -->
+	
+	<h1 class="daehanFont" style="margin: 10px 0px 10px 82px;">가이드 투어 예약 상세 날짜 선택</h1>
 	<br/>
 	<!-- 여기 div 는 투어 상세 정보가 뜨는 곳 시작 -->
-	<div style="width: 740px; height: 300px; border: 1px solid black; margin: auto;">
-		<div style="width: 240px; height: 180px; border: 1px solid black; float: left;">
+	<div style="width: 740px; height: 460px; margin: auto;">
+		<div style="width: 240px; height: 380px; border: 1px solid black; float: left;">
 			<div style="cursor:pointer;">이미지 넣을 예정</div>
 		</div>
-		<div style="width: 496px; height: 180px; border: 1px solid black; float: left;">
+		<div style="width: 496px; height: 380px; border: 1px solid black; float: left;">
 			<div>
-				<table style="width: 496px; height: 180px;">
+				<table style="width: 496px; height: 380px;">
 					<tr>
-						<td colspan="2" style="text-align: center;">${tourVo.tourName}</td>
+						<td class="daehanFont" colspan="2" style="text-align: center;">${tourVo.tourName}</td>
 					</tr>
 					<tr>
-						<td>기간</td>
+						<td class="ahreum">기간</td>
 						<td>
 							<a>
 								<fmt:formatDate value="${tourVo.tourStartDate}" pattern="yyyy-MM-dd" />
@@ -138,16 +157,16 @@
 						</td>
 					</tr>
 					<tr>
-						<td>시간</td><td>${tourVo.tourStartTime} ~ ${tourVo.tourEndTime}</td>
+						<td class="ahreum">시간</td><td>${tourVo.tourStartTime} ~ ${tourVo.tourEndTime}</td>
 					</tr>
 					<tr>
-						<td>모집 인원</td><td>${tourVo.tourPeopleNum}</td>
+						<td class="ahreum">모집 인원</td><td>${tourVo.tourPeopleNum}</td>
 					</tr>
 					<tr>
-						<td>인당 가격</td><td>${tourVo.tourPrice}원 / 1인</td>
+						<td class="ahreum">인당 가격</td><td>${tourVo.tourPrice}원 / 1인</td>
 					</tr>
 					<tr>
-						<td>출발지</td><td>${tourVo.tourStartingPoint}</td>
+						<td class="ahreum">출발지</td><td>${tourVo.tourStartingPoint}</td>
 					</tr>
 					<tr>
 						<td colspan="2">${tourVo.tourContent}</td>
@@ -160,15 +179,15 @@
 	
 	<form action="./reservationForm.do" method="post" onsubmit='return validationFnc();'>
 		<!-- 여기 div 는 사용자 입력 (날짜, 투어 인원)을 받는 부분 시작 -->
-		<div style="width: 740px; height: 700px; background-color: lime; margin: auto;">
+		<div style="width: 740px; height: 700px; margin: auto;">
 			<table style="width: 496px; margin: auto;">
 				<tr>
-					<td>
+					<td class="tdLeftWidthLimit">
 						<button class="ahreum" disabled="disabled">
 							선택한 투어
 						</button>
 					</td>
-					<td>${tourVo.tourName}</td>
+					<td class="tdRightWidthLimit">${tourVo.tourName}</td>
 				</tr>
 				<tr>
 					<td colspan="2">
@@ -178,14 +197,16 @@
 				</tr>
 				<!-- 달력 구현 부분 -->
 				<tr>
-					<td colspan="2">
-						<div id="datepicker" onchange="testFnc();"></div>
+					<td style="text-align: center;" colspan="2">
+						<div style="width: 400px; margin: auto;">
+							<div id="datepicker" onchange="testFnc();"></div>
+						</div>
 						<input id="selectedDateInput" name="reserveTourDate" type="text" value="">
 						<br/>
-					<fmt:formatDate value="${tourVo.tourClosedStartDate}" pattern="yyyy-MM-dd" />부터
-					<fmt:formatDate value="${tourVo.tourClosedEndDate}" pattern="yyyy-MM-dd" />까지 휴무입니다.
-					<input type="hidden" id="tourClosedStartDateInput" value="<fmt:formatDate value="${tourVo.tourClosedStartDate}" pattern="yyyy-MM-dd" />">
-					<input type="hidden" id="tourClosedEndDateInput" value="<fmt:formatDate value="${tourVo.tourClosedEndDate}" pattern="yyyy-MM-dd" />">
+						<fmt:formatDate value="${tourVo.tourClosedStartDate}" pattern="yyyy-MM-dd" />부터
+						<fmt:formatDate value="${tourVo.tourClosedEndDate}" pattern="yyyy-MM-dd" />까지 휴무입니다.
+						<input type="hidden" id="tourClosedStartDateInput" value="<fmt:formatDate value="${tourVo.tourClosedStartDate}" pattern="yyyy-MM-dd" />">
+						<input type="hidden" id="tourClosedEndDateInput" value="<fmt:formatDate value="${tourVo.tourClosedEndDate}" pattern="yyyy-MM-dd" />">
 					</td>
 				</tr>
 				<tr>

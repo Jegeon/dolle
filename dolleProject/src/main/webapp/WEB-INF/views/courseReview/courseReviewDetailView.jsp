@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>  
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -93,8 +94,8 @@
 			</div>
 			
 			<div class="basicBox" style="padding-bottom: 20px;">
-				${reviewMCFVo.reviewCreDate} 
-				${reviewMCFVo.reviewModDate} 
+				등록일 <fmt:formatDate value="${reviewMCFVo.reviewCreDate}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
+				수정일 <fmt:formatDate value="${reviewMCFVo.reviewModDate}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate> 
 			</div>
 			
 			<div class="basicBox" style="padding-bottom: 20px;">
@@ -105,13 +106,28 @@
 				<input class="inputBtn" type="button" onclick="movePageListFnc();" value="목록으로">
 				<input class="inputBtn" type="button" onclick="movePageUpdateFnc(${reviewMCFVo.reviewIdx});" value="수정">
 			</div>
-			
-			<div>댓글쓰기</div>
-			<div>
-				
-			</div>
-			
 		</form>
+			
+		<div>댓글쓰기</div>
+		<hr>
+		<div id="commentWrap">
+		</div>
+		
+		<!-- 댓글쓰기 -->
+		<form id="commentForm" action="./addComment.do" method="post">
+			<div id="choiseIcon">
+			<span>이모티콘 선택</span>
+			<ul id="iconList">
+			</ul> 
+			</div>
+		<div>
+			<textarea id="writeComment" placeholder="댓글을 작성해주세요."></textarea>
+		</div>
+		<div>댓글 작성</div>
+		</form>
+			
+			
+		
 		
 	</div>
 

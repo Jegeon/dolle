@@ -24,9 +24,10 @@ public class CourseReviewServiceImpl implements CourseReviewService{
 	private ReviewFileUtils reviewFileUtils;
 		
 	@Override
-	public List<CourseReviewMemberCommentFileVo> reviewSelectList(String orderOption, int start, int end) {
+	public List<CourseReviewMemberCommentFileVo> reviewSelectList(String orderOption
+			, String searchOption, String keyword, int start, int end) {
 		// TODO Auto-generated method stub
-		return courseReviewDao.reviewSelectList(orderOption, start, end);
+		return courseReviewDao.reviewSelectList(orderOption, searchOption, keyword, start, end);
 	}
 	
 	@Override
@@ -97,7 +98,6 @@ public class CourseReviewServiceImpl implements CourseReviewService{
 			
 			// 오로지 하나만 관리 수정
 			if(fileList.isEmpty() == false) {
-//			if(fileList != null) {
 				System.out.println("0");
 				
 				if(tempFileMap != null) {

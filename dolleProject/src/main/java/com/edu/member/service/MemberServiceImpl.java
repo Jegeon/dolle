@@ -86,4 +86,16 @@ public class MemberServiceImpl implements MemberService{
 		return memberDao.memberPwdOne(paramMap);
 	}
 
+	@Override
+	public List<MemberVo> memberTourOne(int no) {
+		// TODO Auto-generated method stub
+		return memberDao.memberTourOne(no);
+	}
+
+	@Override
+	public List<MemberVo> adminSelectList() {
+		// TODO Auto-generated method stub
+		return memberDao.adminSelectList();
+	}
+
 }

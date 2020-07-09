@@ -108,4 +108,16 @@ public class MemberDaoImpl implements MemberDao{
 				paramMap);
 	}
 
+	@Override
+	public List<MemberVo> memberTourOne(int no) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace + "memberTourOne", no);
+	}
+
+	@Override
+	public List<MemberVo> adminSelectList() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace + "adminSelectList");
+	}
+
 }

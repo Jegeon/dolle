@@ -129,20 +129,6 @@
 	
 	function testFnc(data) {
 		
-// 		var idxNumData = document.getElementsByClassName("idxNum");
-// 		for (var i = 0; i < idxNumData.length; i++) {
-// 			alert(idxNumData[i].textContent.replace(/(\s*)/g, ""));
-// 		}
-		
-// 		string = string.replace(/(\s*)/g, "");
-		
-// 		var idxNumArr = new Array();
-		
-// 		var idxNum = document.getElementsByClassName('idxNum')[i];
-		
-// 		var testIdxArr = new Array();
-// 		var testIdx = document.getElementsByName("testIdx")[i];
-		
 		location.href = './payment.do?reserveIdx=' + data;
 	}
 	
@@ -259,11 +245,63 @@
 						</tr>
 					</c:forEach>
 				</table>
-				<table id='myWriting' class='tableCenter' style='display: none;'>
-					<tr>
-						<td>
-						</td>
+				<table id='myWriting' class='tableCenter'
+					style='display: none; border: 1px solid black; border-collapse: collapse;'>
+					<tr class='resCss'>
+						<th class='resCss'>
+							번호
+						</th>
+						<th class='resCss'>
+							제목
+						</th>
+						<th class='resCss'>
+							작성자
+						</th>
+						<th class='resCss'>
+							작성일
+						</th>
+						<th class='resCss'>
+							별점
+						</th>
+						<th class='resCss'>
+							조회수
+						</th>
+						<th class='resCss'>
+							댓글수
+						</th>
 					</tr>
+					<c:forEach var='memberVo' items='${tourReviewList}'>
+						<tr class='resCss'>
+							<th class='resCss'>
+								${memberVo.reviewIdx}
+							</th>
+							<th class='resCss'>
+								${memberVo.reviewTitle}
+							</th>
+							<th class='resCss'>
+								${memberVo.nickname}
+							</th>
+							<th class='resCss'>
+								<fmt:formatDate value="${memberVo.reviewCreDate}" pattern="yyyy-MM-dd" />
+							</th>
+							<th>
+								<c:forEach begin='1' end="${memberVo.reviewRating}">
+									<img alt="별_full" src="/dolleProject/resources/images/starSolid.png" 
+												style="width:18px; height:16.5px;">
+								</c:forEach>
+								<c:forEach begin="${memberVo.reviewRating}" end='4'>
+									<img alt="별_blank" src="/dolleProject/resources/images/starBlank.png"
+									 style="width:18px; height:16.5px; vertical-align: middle;">
+								</c:forEach>
+							</th>
+							<th class='resCss'>
+								${memberVo.reviewReadCount}
+							</th>
+							<th class='resCss'>
+								${memberVo.reviewLikeCount}
+							</th>
+						</tr>
+					</c:forEach>
 				</table>
 				<input class='btnCss' type="button" value="수정하기"
 					onclick='updateMoveFnc();'>

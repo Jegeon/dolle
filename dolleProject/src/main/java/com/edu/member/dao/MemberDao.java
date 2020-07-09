@@ -8,10 +8,12 @@ import com.edu.member.vo.MemberVo;
 public interface MemberDao {
 
 	public List<MemberVo> memberSelectList();
+	public List<MemberVo> adminSelectList();
 	public MemberVo memberExist(Map<String, Object> paramMap);
 	public int memberInsertOne(MemberVo memberVo);
 	public MemberVo memberSelectOne(int no);
 	public List<MemberVo> memberReservationOne(int no);
+	public List<MemberVo> memberTourOne(int no);
 	public MemberVo memberEmailOne(Map<String, Object> paramMap);
 	public MemberVo memberPwdOne(Map<String, Object> paramMap);
 	public int memberNickNameList(String nickname);

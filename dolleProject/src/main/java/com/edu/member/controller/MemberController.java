@@ -50,6 +50,16 @@ public class MemberController {
 		return "member/memberListView";
 	}
 	
+	// 관리자 목록 조회 화면으로
+	@RequestMapping(value="/member/adminlist.do")
+	public String adminList(Model model) {
+		List<MemberVo> adminList = memberService.adminSelectList();
+		
+		model.addAttribute("adminList", adminList);
+		
+		return "member/adminListView";
+	}
+	
 	// 마이 페이지 이동
 	@RequestMapping(value="/member/listOne.do")
 	public String memberListOne(int no, Model model) {
@@ -57,8 +67,10 @@ public class MemberController {
 		
 		MemberVo memberVo = memberService.memberSelectOne(no);
 		List<MemberVo> reservationList = memberService.memberReservationOne(no);
+		List<MemberVo> tourReviewList = memberService.memberTourOne(no);
 		model.addAttribute("memberVo", memberVo);
 		model.addAttribute("reservationList", reservationList);
+		model.addAttribute("tourReviewList", tourReviewList);
 		
 		return "member/memberListOneView";
 	}
@@ -103,7 +115,7 @@ public class MemberController {
 	
 	// 로그인 세션
 	@RequestMapping(value="/auth/loginCtr.do", method=RequestMethod.POST)
-	public String loginCtr(String email, String password,
+	public String loginCtr(String email, String password, Date createDate,
 			String nickname, String phone, Date birthdate, String grade,
 			HttpSession session, Model model) {
 		log.debug("Welcome MemberController loginCtr! " 
@@ -112,6 +124,7 @@ public class MemberController {
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("email", email);
 		paramMap.put("password", password);
+		paramMap.put("createDate", createDate);
 		paramMap.put("nickname", nickname);
 		paramMap.put("phone", phone);
 		paramMap.put("birthdate", birthdate);
@@ -179,24 +192,24 @@ public class MemberController {
 		return "auth/pwdForm";
 	}
 	
-	// 이메일 찾기
-		@RequestMapping(value="/auth/pwdfind.do")
-		public String pwdFind(String email, String name, String password,
-					Model model) {
-			
-			Map<String, Object> paramMap = new HashMap<>();
-			paramMap.put("email", email);
-			paramMap.put("name", name);
-			log.info("----------------------------------");
-			log.info(paramMap.toString());
-			log.info("----------------------------------");
-			
-			MemberVo memberVo = memberService.memberPwdOne(paramMap);
-			
-			model.addAttribute(memberVo);
-			
-			return "auth/pwdFind";
-		}
+	// 비밀번호 찾기
+	@RequestMapping(value="/auth/pwdfind.do")
+	public String pwdFind(String email, String name, String password,
+				Model model) {
+		
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("email", email);
+		paramMap.put("name", name);
+		log.info("----------------------------------");
+		log.info(paramMap.toString());
+		log.info("----------------------------------");
+		
+		MemberVo memberVo = memberService.memberPwdOne(paramMap);
+		
+		model.addAttribute(memberVo);
+		
+		return "auth/pwdFind";
+	}
 	
 	// 회원가입 이동
 	@RequestMapping(value="/member/add.do", method=RequestMethod.GET)

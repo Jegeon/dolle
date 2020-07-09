@@ -27,12 +27,31 @@
 		<result column="RESERVE_APPLY_NUM" property="reserveApplyNum" />
 		<result column="RESERVE_PRICE" property="reservePrice" />
 		<result column="TOUR_ACCOUNT_NUM" property="tourAccountNum" />
+		<result column="REVIEW_IDX" property="reviewIdx" />
+		<result column="REVIEW_TITLE" property="reviewTitle" />
+		<result column="REVIEW_CONTENT" property="reviewContent" />
+		<result column="REVIEW_CRE_DATE" property="reviewCreDate" javaType="java.util.Date" />
+		<result column="REVIEW_MOD_DATE" property="reviewModDate" javaType="java.util.Date" />
+		<result column="REVIEW_READ_COUNT" property="reviewReadCount" />
+		<result column="REVIEW_LIKE_COUNT" property="reviewLikeCount" />
+		<result column="REVIEW_RATING" property="reviewRating" />
+		<result column="TOWN_NAME" property="townName" />
 	</resultMap>
 
 	<select id="memberSelectList" parameterType="map" resultMap="memberResultMap">
-		SELECT MEMBER_IDX, MEMBER_NAME, MEMBER_EMAIL, MEMBER_CRE_DATE
+		SELECT MEMBER_IDX, MEMBER_NAME, MEMBER_EMAIL, MEMBER_CRE_DATE, MEMBER_NICKNAME, MEMBER_PHONE, MEMBER_BIRTHDATE, MEMBER_GRADE
 		FROM MEMBER
 		ORDER BY MEMBER_IDX
+		DESC
+	</select>
+	
+	<select id="adminSelectList" parameterType="map" resultMap="memberResultMap">
+		SELECT M.MEMBER_IDX, M.MEMBER_EMAIL, M.MEMBER_NAME, M.MEMBER_NICKNAME, M.MEMBER_PHONE, M.MEMBER_BIRTHDATE, TMT.TOWN_NAME, M.MEMBER_GRADE
+		FROM MEMBER M, (SELECT MEMBER_IDX, MANAGE_GRADE, T.TOWN_IDX, TOWN_NAME, TOWN_ADDRESS
+    	FROM TOWN_MANAGEMENT TM, TOWN T
+    	WHERE TM.TOWN_IDX = T.TOWN_IDX    
+    	) TMT
+		ORDER BY M.MEMBER_IDX
 		DESC
 	</select>
 	
@@ -41,6 +60,12 @@
 		FROM RESERVE R, TOUR T
 		WHERE R.TOUR_IDX = T.TOUR_IDX
 		AND R.MEMBER_IDX = #{no}
+	</select>
+	
+	<select id="memberTourOne" parameterType="map" resultMap="memberResultMap">
+		SELECT R.REVIEW_IDX, R.REVIEW_TITLE, M.MEMBER_NICKNAME ,R.REVIEW_CONTENT, R.REVIEW_CRE_DATE, R.REVIEW_MOD_DATE, R.REVIEW_READ_COUNT, R.REVIEW_LIKE_COUNT, R.REVIEW_RATING
+		FROM MEMBER M, REVIEWBOARD R
+		WHERE M.MEMBER_IDX = #{no}
 	</select>
 
 	<select id="memberExist" parameterType="map"

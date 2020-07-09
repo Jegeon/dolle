@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원 목록</title>
+<title>관리자 목록</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
 <style type="text/css">
 	table {
@@ -38,7 +38,7 @@
 
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
 	<div style='padding: 10px;'>
-		<h1>회원목록</h1>
+		<h1>관리자 목록</h1>
 	</div>
 	<form name='deletForm' action='../member/deleteCtr.do?mno='>
 	<div style='padding: 10px;'>
@@ -47,10 +47,10 @@
 				<th>선택</th><th>이메일</th>
 				<th>이름</th>	<th>닉네임</th>
 				<th>핸드폰</th><td>생년월일</td>
-				<th>가입일</th>
+				<th>담당마을</th>
 			</tr>
-			<c:forEach var="memberVo" items="${memberList}">
-			<c:if test="${memberVo.grade == 'user' || memberVo.grade != 'admin'}">
+			<c:forEach var="memberVo" items="${adminList}">
+			<c:if test="${memberVo.grade == 'admin'}">
 				<tr>
 					<td>
 						<input type='checkbox' name='checkNo' value='${memberVo.no}'>
@@ -72,8 +72,7 @@
 							pattern="yyyy-MM-dd"/>
 					</td>
 					<td>
-						<fmt:formatDate value="${memberVo.birthdate}"
-							pattern="yyyy-MM-dd"/>
+						${memberVo.townName}
 					</td>
 				</tr>
 			</c:if>

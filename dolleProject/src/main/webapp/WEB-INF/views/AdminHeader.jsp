@@ -266,10 +266,10 @@
 		            
 		            <span id="popManageUser">
 		            	<span id="popUser" style="padding: 0px 7px 0px 7px;">
-					       <a class='blackLink detailLink' href='#'>회원</a>
+					       <a class='blackLink detailLink' href='../member/list.do'>회원</a>
 						</span>
 						<span id="popAdmin" style="padding: 0px 7px 0px 7px;">
-						       <a class='blackLink detailLink' href='#'>관리자</a>
+						       <a class='blackLink detailLink' href='../member/adminlist.do'>관리자</a>
 						</span>
 		            </span>
 		            

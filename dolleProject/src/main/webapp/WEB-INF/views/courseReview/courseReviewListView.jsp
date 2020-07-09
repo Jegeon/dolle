@@ -79,14 +79,12 @@
 		pagingForm.submit();
 	}
 	
-	function orderPageFnc(){
-		$('#orderOptionSel option:selected').each(function() {
-	        alert($(this).val());
-// 	        $(this).attr("selected","selected");
-// 	        $("#orderOption").val($(this).val());
-	   });
+	function submitFnc(){
+// 		$('#orderOption option:selected').each(function() {
+// 	        alert($(this).val());
+// 	   });
 		
-		var pagingForm = $('#orderForm');
+		var pagingForm = $('#orderSearchForm');
 		pagingForm.submit();
 	}
 	
@@ -94,7 +92,8 @@
 		var loginUser = $("#reviewMemberIdx").val();
 		if(loginUser == null || loginUser.trim() == "" || loginUser.length == 0){
 			alert("로그인 후 작성해주세요.");
-			location.href="../auth/login.do"
+ 			//관련없는것들은 절대경로로 
+			location.href="<%=request.getContextPath()%>/auth/login.do" 
 		}else{
 			location.href="./add.do";
 		}
@@ -112,7 +111,7 @@
 
 	<jsp:include page="/WEB-INF/views/AdminHeader.jsp" />
 
-	<div style="width:1260px; height:130px; margin:0 auto;">
+	<div style="width:1260px; height:130px; margin:0 auto;" >
 		<h1 style="font-size:30px; font-family: 대한민국정부상징체 ; margin: 55px 0px 20px 82px;">코스 후기 게시판</h1>
 		<div style="width:200px; border-bottom: 4px solid #FFCC00; text-align: center; 
 		margin-left:300px; padding-bottom:4px; display: inline-block;">
@@ -120,10 +119,9 @@
 		</div>
 		
 		<!-- 정렬선택과 검색창 -->
-		<form id='orderForm' action="./list.do" method="post">
-			<div style="float:right; height:50px; width:530px;">
-<!-- 				<input id="orderOption" type="hidden" value="newest"> -->
-				<select id="orderOption" name="orderOption" onchange="orderPageFnc();"
+		<div style="float:right; height:50px; width:530px; padding-top:40px;">
+			<form id='orderSearchForm' action="./list.do" method="post">
+				<select id="orderOption" name="orderOption" onchange="submitFnc();"
 					style="width:120px; padding: 6px 22px; vertical-align: middle;
 						border: 1px solid #B9B9B9; 
 						font-size:14px; font-family: Segoe UI;
@@ -149,28 +147,54 @@
 					</c:choose>		
 					
 				</select>
-			
+
 				<select id="searchOption" name="searchOption"  
 					style="width:140px; padding: 6px 22px; vertical-align: middle;
 						border: 1px solid #B9B9B9; 
 						font-size:14px; font-family: Segoe UI;
 						-webkit-appearance: none; /* 원본 select 버튼 감추기 */
 						background: url('/dolleProject/resources/images/selectBtn.PNG') no-repeat 95% 50%;">
-					<option value="both">제목+내용</option>
-					<option value="title">제목</option>
-					<option value="content">내용</option>
-					<option value="writer">작성자</option>
+					<c:choose>
+						<c:when test="${searchOption eq 'both'}">
+							<option value="both" selected="selected">제목+내용</option>
+							<option value="title">제목</option>
+							<option value="content">내용</option>
+							<option value="writer">작성자</option>
+						</c:when>
+						<c:when test="${searchOption eq 'title'}">
+							<option value="both">제목+내용</option>
+							<option value="title" selected="selected">제목</option>
+							<option value="content">내용</option>
+							<option value="writer">작성자</option>
+						</c:when>
+						<c:when test="${searchOption eq 'content'}">
+							<option value="both">제목+내용</option>
+							<option value="title">제목</option>
+							<option value="content" selected="selected">내용</option>
+							<option value="writer">작성자</option>
+						</c:when>
+						<c:when test="${searchOption eq 'writer'}">
+							<option value="both">제목+내용</option>
+							<option value="title">제목</option>
+							<option value="content">내용</option>
+							<option value="writer" selected="selected">작성자</option>
+						</c:when>
+					</c:choose>		
 				</select>
-
-				<div style="width:250px; height:31px; display:inline-block; border: 1px solid #B9B9B9; vertical-align: middle;">
-					<input type="text" value="" style="width:190px; height:22px; vertical-align: middle;
-							font: normal normal 14px Segoe UI; margin-left:10px; padding: 2px 0px 1px 10px;
-							border: 0px;">
-					<img id="searchBtn" alt="검색버튼" src="/dolleProject/resources/images/searchBtn.PNG" style="margin-top:2px; vertical-align: middle;"> 
-				</div>
 			
-			</div>
-		</form>
+				<div style="width:250px; height:31px; display:inline-block;
+					 border:1px solid #B9B9B9; vertical-align:middle;">
+					<input id="keyword" name="keyword" type="text" value="${keyword}"
+						 style="width:190px; height:22px; vertical-align: middle;
+							font: normal normal 14px Segoe UI; margin-left:10px;
+							padding: 2px 0px 1px 10px; border: 0px;">
+					<img id="searchBtn" alt="검색버튼" onclick="submitFnc();"
+					 src="/dolleProject/resources/images/searchBtn.PNG"
+					 style="margin-top:2px; vertical-align: middle;"> 
+				</div>
+			</form>
+		</div>
+		
 			
 	</div>
 	
@@ -190,17 +214,27 @@
 	<c:if test="${listSize / 4 <= 5 and listSize / 4 > 4}">
 		<c:set var="listHeight" value="1930"/>
 	</c:if>
-	<div style="width:1260px; height:${listHeight}px; margin:0 auto;">
 	
+	<div style="width:1260px; height:${listHeight}px; margin:0 auto;">
+		
+		<!-- 검색결과가 없는 경우 -->
+		<c:if test="${listSize == 0 }">
+			<div style="width:1260px; height:514px; background-color:#EBEBEB ; text-align: center;">
+				<h1 style="font: normal normal 40px 대한민국정부상징체;">검색된 결과가 없습니다.</h1>
+			</div>
+		</c:if>
+		
 		<ul id="reviewList" style="position: relative;">
 			<!-- 고정 박스  -->
-			<li class="reviewList_li">
-				<div class="fixedBox firstCol firstRow"> 
-				</div>	
-				<span class="innerBox firstCol firstRow">	
-				</span>
-			</li>
-			<c:if test="${listSize > 2}">
+			<c:if test="${listSize >= 1}">
+				<li class="reviewList_li">
+					<div class="fixedBox firstCol firstRow"> 
+					</div>	
+					<span class="innerBox firstCol firstRow">	
+					</span>
+				</li>
+			</c:if>
+			<c:if test="${listSize >= 3}">
 				<li class="reviewList_li">
 					<div class="fixedBox thirdCol firstRow">
 					</div>
@@ -305,15 +339,17 @@
 	<!-- 페이징 버튼 -->
 	<div style="width:1260px; height:205px; margin:0 auto; text-align: center; 
 		padding-top: 30px; box-sizing: border-box;">
-		<ul id="paging_group" style="width: 600px; display: inline-block; margin-left: 165px;">
-			<li class="paging_img" onclick="goPageFnc(1);"
-				 style="width:40px; height:40px; display: inline-block; background: #FFFFFF; border:1px solid #fff; vertical-align: middle;
+		<ul id="pagingGroup" style="width: 600px; display: inline-block; margin-left: 165px;">
+			<li class="pagingImg" onclick="goPageFnc(1);"
+				 style="cursor: pointer; width:40px; height:40px; display: inline-block; 
+				 background: #FFFFFF; border:1px solid #fff; vertical-align: middle;
 				 padding-top:7px; box-sizing: border-box;">
 				<img id="doubledLeftBtn" alt="doubledLeftBtn" src="/dolleProject/resources/images/doubleLeft.PNG" 
 					style="width: 55%;">
 			</li>
-			<li class="paging_img" onclick="goPageFnc(${pagingMap.reviewPaging.prevPage});"
-				 style="width:40px; height:40px; display: inline-block; background: #FFFFFF; border:1px solid #fff; vertical-align: middle;
+			<li class="pagingImg" onclick="goPageFnc(${pagingMap.reviewPaging.prevPage});"
+				 style="cursor: pointer; width:40px; height:40px; display: inline-block; 
+				 background: #FFFFFF; border:1px solid #fff; vertical-align: middle;
 				 padding-top:7px; box-sizing: border-box;">
 				<img id="doubledLeftBtn" alt="doubledLeftBtn" src="/dolleProject/resources/images/left.PNG" 
 					style="width: 40%;">
@@ -323,29 +359,33 @@
 				end="${pagingMap.reviewPaging.blockEnd}">
 				
 				<c:if test="${pagingMap.reviewPaging.curPage eq num}">
-					<li class="paging_num" onclick="goPageFnc(${num});"
-						style="width:40px; height:40px; display:inline-block; background: #0D4371; color:#fff; border:1px solid #707070; vertical-align: middle; 
+					<li class="pagingNum" onclick="goPageFnc(${num});"
+						style="cursor: pointer; width:40px; height:40px; display:inline-block; 
+						background: #0D4371; color:#fff; border:1px solid #707070; vertical-align: middle; 
 						font-size: 20px; padding-top:8px; box-sizing: border-box;">
 						<c:out value="${num}"/>
 					</li>
 				</c:if>
 				<c:if test="${pagingMap.reviewPaging.curPage ne num}">
-					<li class="paging_num" onclick="goPageFnc(${num});"
-						 style="width:40px; height:40px; display: inline-block; background: #FFFFFF; border:1px solid #707070; vertical-align: middle;
+					<li class="pagingNum" onclick="goPageFnc(${num});"
+						 style="cursor: pointer; width:40px; height:40px; display: inline-block; 
+						 background: #FFFFFF; border:1px solid #707070; vertical-align: middle;
 						font-size: 20px; padding-top:8px; box-sizing: border-box;">
 						<c:out value="${num}"/>
 					</li>
 				</c:if>
 			</c:forEach>
 
-			<li class="paging_img" onclick="goPageFnc(${pagingMap.reviewPaging.nextPage});"
-			 style="width:40px; height:40px; display: inline-block; background: #FFFFFF; border:1px solid #fff; vertical-align: middle;
+			<li class="pagingImg" onclick="goPageFnc(${pagingMap.reviewPaging.nextPage});"
+			 style="cursor: pointer; width:40px; height:40px; display: inline-block; 
+			 background: #FFFFFF; border:1px solid #fff; vertical-align: middle;
 				 padding-top:7px; box-sizing: border-box;">
 				<img id="doubledLeftBtn" alt="doubledLeftBtn" src="/dolleProject/resources/images/right.PNG" 
 					style="width: 42%;">
 			</li>
-			<li class="paging_img" onclick="goPageFnc(${pagingMap.reviewPaging.totPage});"
-				 style="width:40px; height:40px; display: inline-block; background: #FFFFFF; border:1px solid #fff; vertical-align: middle;
+			<li class="pagingImg" onclick="goPageFnc(${pagingMap.reviewPaging.totPage});"
+				 style="cursor: pointer; width:40px; height:40px; display: inline-block; 
+				 background: #FFFFFF; border:1px solid #fff; vertical-align: middle;
 				 padding-top:7px; box-sizing: border-box;">
 				<img id="doubledLeftBtn" alt="doubledLeftBtn" src="/dolleProject/resources/images/doubleRight.PNG" 
 					style="width: 55%;">

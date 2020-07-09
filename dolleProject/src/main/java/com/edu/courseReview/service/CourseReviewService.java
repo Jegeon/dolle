@@ -10,7 +10,8 @@ import com.edu.courseReview.vo.CourseReviewVo;
 
 public interface CourseReviewService {
 
-	public List<CourseReviewMemberCommentFileVo> reviewSelectList(String orderOption, int start, int end);
+	public List<CourseReviewMemberCommentFileVo> reviewSelectList(String orderOption
+			, String searchOption, String keyword, int start, int end);
 	public CourseReviewMemberCommentFileVo reviewSelectOne(int reviewIdx);
 	public void courseReviewInsertOne(CourseReviewVo reviewVo
 			, MultipartHttpServletRequest mulRequest);

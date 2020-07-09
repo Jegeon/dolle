@@ -6,9 +6,12 @@
 	<resultMap type="com.edu.reservation.vo.ReservationVo" id="reservationResultMap">
 		<id column="RESERVE_IDX" property="reserveNo" />
 		<result column="TOUR_IDX" property="tourNo" />
+		<result column="TOUR_NAME" property="tourName" />
 		<result column="MEMBER_IDX" property="memberNo" />
 		<result column="RESERVE_TOUR_DATE" property="reserveTourDate" javaType="java.util.Date" />
+		<result column="RESERVE_TOUR_DAY" property="reserveTourDay" />
 		<result column="RESERVE_APPLY_NUM" property="reserveApplyNum" />
+		<result column="RESERVE_APPLY_NUM_SUM" property="reserveApplyNumSum" />
 		<result column="RESERVE_PRICE" property="reservePrice" />
 		<result column="RESERVE_APPLY_DATE" property="reserveApplyDate" javaType="java.util.Date" />
 		<result column="RESERVE_DEPOSIT_DATE" property="reserveDepositDate" javaType="java.util.Date" />
@@ -70,31 +73,35 @@
 	</select>
 	
 	<select id="tourAndReservationSelectAllFromOne" parameterType="map" resultMap="tourResultMap">
-		SELECT TOUR_IDX, TOWN_IDX, TOUR_NAME, TOUR_START_DATE, TOUR_END_DATE,
-		(SELECT CLOSED_START_DATE
-        FROM CLOSED_DAY
-        WHERE TOUR_IDX = #{tourNo}) AS TOUR_CLOSED_START_DATE,
-        (SELECT CLOSED_END_DATE
-        FROM CLOSED_DAY
-        WHERE TOUR_IDX = #{tourNo}) AS TOUR_CLOSED_END_DATE,
-		TOUR_START_TIME, TOUR_END_TIME, TOUR_PRICE,
-		TOUR_PEOPLE_NUM, TOUR_STARTING_POINT, TOUR_CONTENT, TOUR_CRE_DATE,
-		TOUR_MOD_DATE, TOUR_DEL_YN, (SELECT TOUR_PEOPLE_NUM - (SELECT SUM(RESERVE_APPLY_NUM)
-																FROM RESERVE
-																WHERE RESERVE_TOUR_DATE = #{reserveTourDate}
-																AND RESERVE_DEPOSIT_STATE = 'active'
-																GROUP BY TOUR_IDX
-																HAVING TOUR_IDX = #{tourNo})
-																FROM TOUR) AS TOUR_POSSIBLE_NUM, (SELECT SUM(RESERVE_APPLY_NUM)
-																									FROM RESERVE
-																									WHERE RESERVE_TOUR_DATE = #{reserveTourDate}
-																									AND RESERVE_DEPOSIT_STATE = 'active'
-																									GROUP BY TOUR_IDX
-																									HAVING TOUR_IDX = #{tourNo}
-																									) AS TOUR_RESERVED_NUM, (SELECT A1.ACC_ACCOUNT_NUM
-																															FROM TOUR T1, ACCOUNT_MANAGEMENT A1
-																															WHERE T1.TOWN_IDX = A1.TOWN_IDX) AS TOUR_ACCOUNT_NUM			
-		FROM TOUR
+	SELECT T.TOUR_IDX AS TOUR_IDX, TOWN_IDX, TOUR_NAME, TOUR_START_DATE, TOUR_END_DATE, 
+    C.CLOSED_START_DATE AS TOUR_CLOSED_START_DATE,
+    C.CLOSED_END_DATE AS TOUR_CLOSED_END_DATE,
+    (SELECT SUM(R.RESERVE_APPLY_NUM)
+    FROM RESERVE R, TOUR T
+    WHERE R.TOUR_IDX = T.TOUR_IDX
+    AND R.RESERVE_TOUR_DATE = #{reserveTourDate}
+    AND R.RESERVE_DEPOSIT_STATE = 'active'
+    GROUP BY R.TOUR_IDX
+    HAVING R.TOUR_IDX = #{tourNo}) as TOUR_RESERVED_NUM,
+    (T.TOUR_PEOPLE_NUM - (SELECT SUM(R.RESERVE_APPLY_NUM)
+    FROM RESERVE R, TOUR T
+    WHERE R.TOUR_IDX = T.TOUR_IDX
+    AND R.RESERVE_TOUR_DATE = #{reserveTourDate}
+    AND R.RESERVE_DEPOSIT_STATE = 'active'
+    GROUP BY R.TOUR_IDX
+    HAVING R.TOUR_IDX = #{tourNo})) AS TOUR_POSSIBLE_NUM,
+    (SELECT A1.ACC_ACCOUNT_NUM
+    FROM TOUR T1, ACCOUNT_MANAGEMENT A1
+    WHERE T1.TOWN_IDX = A1.TOWN_IDX
+    AND T1.TOUR_IDX = #{tourNo}) AS TOUR_ACCOUNT_NUM,
+    
+    TOUR_START_TIME, TOUR_END_TIME, TOUR_PRICE,
+	TOUR_PEOPLE_NUM, TOUR_STARTING_POINT, TOUR_CONTENT, TOUR_CRE_DATE,
+	TOUR_MOD_DATE, TOUR_DEL_YN
+    
+    FROM TOUR T, CLOSED_DAY C
+    WHERE C.TOUR_IDX = T.TOUR_IDX
+    AND T.TOUR_IDX = #{tourNo}
 	</select>
 	
 	<insert id="tourReservationInsertOne" parameterType="map">
@@ -115,6 +122,25 @@
 		FROM RESERVE
 		WHERE RESERVE_IDX = (SELECT MAX(RESERVE_IDX)
 							FROM RESERVE)
+	</select>
+	
+	<select id="tourReservationSelectList" parameterType="map" resultMap="reservationResultMap">
+		SELECT RESERVE_TOUR_DATE, (SELECT TOUR_NAME
+									FROM TOUR
+									WHERE TOUR_IDX = 1) AS TOUR_NAME,
+		TO_CHAR(RESERVE_TOUR_DATE, 'DY') AS RESERVE_TOUR_DAY, SUM(RESERVE_APPLY_NUM) AS RESERVE_APPLY_NUM_SUM
+		FROM RESERVE
+		WHERE RESERVE_DEPOSIT_STATE = 'active'
+		AND TOUR_IDX = 1
+		AND RESERVE_TOUR_DATE BETWEEN '20200701' AND '20200731'
+		GROUP BY RESERVE_TOUR_DATE
+        ORDER BY RESERVE_TOUR_DATE ASC
+	</select>
+	
+	<select id="tourReservationSelectListAll" parameterType="map" resultMap="reservationResultMap">
+		SELECT R.RESERVE_IDX, T.TOUR_NAME, R.RESERVE_APPLY_DATE, R.RESERVE_DEPOSIT_STATE
+		FROM RESERVE R, TOUR T
+		WHERE R.TOUR_IDX = T.TOUR_IDX
 	</select>
 
 </mapper>

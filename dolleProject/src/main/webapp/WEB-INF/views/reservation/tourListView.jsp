@@ -13,7 +13,7 @@
 </script>
 <style type="text/css">
 	button {
-		width : 74px;
+		width : 150px;
 	}
 	table, tr, td {
 		border: 1px solid black;
@@ -41,6 +41,13 @@
 
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
 
+	관리자용 예약 관리 테스트 링크 이동 버튼
+	<button onclick="location.href='../reservation/reservationSchedule.do'">예약일정</button>adminReservationScheduleView<br>
+	<button onclick="location.href='../reservation/reservationListAll.do'">예약현황(전체)</button>adminReservationListAllView<br>
+	<button onclick="location.href='../reservation/reservationListStandby.do'">예약현황(미입금자)</button>adminReservationListStandbyView<br>
+	<button onclick="location.href='../reservation/reservationListCanceled.do'">예약현황(취소자)</button>adminReservationListCanceledView<br>
+	<button onclick="location.href='../reservation/reservationSchedule.do'">예약페이지 관리</button>adminReservationPageView<br>
+	
 	<h1 class="daehanFont" style="margin: 10px 0px 10px 82px;">가이드 투어 예약</h1>
 	<br/>
 	<c:forEach var="tourVo" items="${tourList}">

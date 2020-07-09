@@ -63,7 +63,9 @@ public class ReservationController {
 		paramMap.put("tourNo", tourNo);
 		paramMap.put("reserveTourDate", reserveTourDate);
 		TourVo tourVo = reservationService.tourReservation(paramMap);
+		
 		model.addAttribute("tourVo", tourVo);
+		
 		return "reservation/tourReservationWithDateView";
 	}
 	
@@ -79,11 +81,12 @@ public class ReservationController {
 		paramMap.put("reserveTourDate", reserveTourDate);
 		paramMap.put("reserveApplyNum", reserveApplyNum);
 		paramMap.put("reservePrice", reservePrice);
+		
 		reservationService.tourReservationInsertOne(paramMap);
 		
 		model.addAttribute("tourNo",tourNo);
 		model.addAttribute("memberNo",memberNo);
-		model.addAttribute("reserveTourDate",reserveTourDate);
+		model.addAttribute("reserveTourDate", reserveTourDate);
 		model.addAttribute("reserveApplyNum",reserveApplyNum);
 		model.addAttribute("reservePrice",reservePrice);
 		
@@ -105,4 +108,28 @@ public class ReservationController {
 		
 		return "reservation/tourReservationCompleteShowView";
 	}
+	
+	// 여기부터 관리자 영역
+	// [관리자] 투어 예약 일정 조회 달력 화면
+	@RequestMapping(value="/reservation/reservationSchedule.do", method=RequestMethod.GET)
+	public String tourReservationSchedule(Model model) {
+		log.debug("Welcome reservation tourReservationSchedule");
+		List<TourVo> tourReservationList = reservationService.tourReservationSelectList();
+		model.addAttribute("tourReservationList", tourReservationList);
+		
+		// 투어 시간을 가져오기 위해 tourSelectList() 재사용
+		List<TourVo> tourList = reservationService.tourSelectList();
+		model.addAttribute("tourList", tourList);
+		return "reservation/adminReservationScheduleView";
+	} 
+	
+	// [관리자] 투어 예약 현황 전체 조회 화면
+	@RequestMapping(value="/reservation/reservationListAll.do", method=RequestMethod.GET)
+	public String tourReservationListAll(Model model) {
+		log.debug("Welcome reservation tourReservationListAll");
+		List<TourVo> tourReservationListAll = reservationService.tourReservationSelectListAll();
+		
+		model.addAttribute("tourReservationListAll", tourReservationListAll);
+		return "reservation/adminReservationListAllView";
+	} 
 }

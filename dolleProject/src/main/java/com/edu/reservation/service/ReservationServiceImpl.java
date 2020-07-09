@@ -45,5 +45,15 @@ public class ReservationServiceImpl implements ReservationService{
 	public ReservationVo reservationSelectNewestOne() {
 		return reservationDao.reservationSelectNewestOne();
 	}
+
+	@Override
+	public List<TourVo> tourReservationSelectList() {
+		return reservationDao.tourReservationSelectList();
+	}
+
+	@Override
+	public List<TourVo> tourReservationSelectListAll() {
+		return reservationDao.tourReservationSelectListAll();
+	}
 	
 }

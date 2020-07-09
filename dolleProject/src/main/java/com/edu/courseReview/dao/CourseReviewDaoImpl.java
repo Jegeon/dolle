@@ -20,12 +20,15 @@ public class CourseReviewDaoImpl implements CourseReviewDao{
 	String namespace = "com.edu.courseReview.";
 	
 	@Override
-	public List<CourseReviewMemberCommentFileVo> reviewSelectList(String orderOption, int start, int end) {
+	public List<CourseReviewMemberCommentFileVo> reviewSelectList(String orderOption
+			, String searchOption, String keyword, int start, int end) {
 		// TODO Auto-generated method stub
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("start", String.valueOf(start));
 		map.put("end", String.valueOf(end));
 		map.put("orderOption", orderOption);
+		map.put("searchOption", searchOption);
+		map.put("keyword", keyword);
 		
 		return sqlSession.selectList(namespace + "reviewMemComFileList", map);
 	}

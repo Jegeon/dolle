@@ -47,5 +47,15 @@ public class ReservationDaoImpl implements ReservationDao{
 	public ReservationVo reservationSelectNewestOne() {
 		return sqlSession.selectOne(namespace + "reservationSelectNewestOne");
 	}
+
+	@Override
+	public List<TourVo> tourReservationSelectList() {
+		return sqlSession.selectList(namespace + "tourReservationSelectList");
+	}
+
+	@Override
+	public List<TourVo> tourReservationSelectListAll() {
+		return sqlSession.selectList(namespace + "tourReservationSelectListAll");
+	}
 	
 }

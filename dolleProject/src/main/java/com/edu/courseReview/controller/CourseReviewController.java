@@ -34,8 +34,10 @@ public class CourseReviewController {
 			, method = {RequestMethod.GET, RequestMethod.POST})
 	public String courseReviewBoard(Model model
 			,@RequestParam(defaultValue = "1") int curPage
-			,@RequestParam(defaultValue = "newest") String orderOption) {
-		log.debug(" **** Welcome courseReviewBoard {}****", curPage);
+			,@RequestParam(defaultValue = "newest") String orderOption
+			,@RequestParam(defaultValue = "both") String searchOption
+			,@RequestParam(defaultValue = "") String keyword) {
+		log.debug(" **** Welcome courseReviewBoard ***"+ curPage+ orderOption+ searchOption);
 		
 		int totalCount = courseReviewService.reviewSelectTotalCount();
 		
@@ -45,11 +47,16 @@ public class CourseReviewController {
 		
 		System.out.println("======start"+start+"end"+end);
 		List<CourseReviewMemberCommentFileVo> reviewList 
-			= courseReviewService.reviewSelectList(orderOption, start, end);
+			= courseReviewService.reviewSelectList(orderOption, searchOption, keyword, start, end);
 		int listSize = reviewList.size();
+		
 		
 		//정렬
 		model.addAttribute("orderOption",orderOption);
+		
+		//검색
+		model.addAttribute("searchOption",searchOption);
+		model.addAttribute("keyword",keyword);
 		
 		// 페이징
 		Map<String, Object> pagingMap = new HashMap<>();

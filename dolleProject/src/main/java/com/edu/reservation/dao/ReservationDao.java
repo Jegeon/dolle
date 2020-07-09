@@ -14,5 +14,9 @@ public interface ReservationDao {
 	public TourVo tourAndReservationSelectAllFromOne(Map<String, Object> paramMap);
 	public int tourReservationInsertOne(Map<String, Object> paramMap);
 	public ReservationVo reservationSelectNewestOne();
+	
+	// 관리자 전용 시작
+	public List<TourVo> tourReservationSelectList();
+	public List<TourVo> tourReservationSelectListAll();
 
 }

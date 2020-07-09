@@ -94,11 +94,11 @@
   font-weight: bold;
 }
 .validContent::-webkit-input-placeholder {
-  color: blue;
+  color: red;
   font-weight: bold;
 }
 .validContent:-ms-input-placeholder {
-  color: blue;
+  color: red;
   font-weight: bold;
 }
 	
@@ -164,6 +164,12 @@
 		if(content == null || content.trim() == "" || content.length == 0){
 			$("#reivewContent").css("border", "1px solid red");
 			$("#reivewContent").attr("class","validContent");
+			return false;
+		}
+		
+		var file = $("#fileBtn").val();
+		if(file == null || file.trim() == "" || file.length == 0){
+			alert("파일을 선택해주세요.");
 			return false;
 		}
 		

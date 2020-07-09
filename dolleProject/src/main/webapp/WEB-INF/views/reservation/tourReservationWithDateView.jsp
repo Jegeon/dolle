@@ -86,7 +86,7 @@
 	function testFnc() {
 		var hereInput = document.getElementById("selectedDateInput");
 		hereInput.value = $("#datepicker").val();
-// 		location.href = "reservationWithDate.do?tourNo=${tourVo.tourNo}&reserveTourDate=" + $("#datepicker").val();
+		location.href = "reservationWithDate.do?tourNo=${tourVo.tourNo}&reserveTourDate=" + $("#datepicker").val();
 	}
 </script>
 <style type="text/css">

@@ -6,29 +6,33 @@ public class ReservationVo {
 	
 	private int reserveNo;
 	private int tourNo;
+	private String tourName;
 	private int memberNo;
 	private Date reserveTourDate;
+	private String reserveTourDay;
 	private int reserveApplyNum;
+	private int reserveApplyNumSum;
 	private int reservePrice;
 	private Date reserveApplyDate;
 	private Date reserveDepositDate;
 	private String reserveDepositState;
-	
-	public ReservationVo(int reserveNo, int tourNo, int memberNo, Date reserveTourDate,
-			int reserveApplyNum, int reservePrice, Date reserveApplyDate, Date reserveDepositDate,
-			String reserveDepositState) {
+	public ReservationVo(int reserveNo, int tourNo, String tourName, int memberNo, Date reserveTourDate,
+			String reserveTourDay, int reserveApplyNum, int reserveApplyNumSum, int reservePrice, Date reserveApplyDate,
+			Date reserveDepositDate, String reserveDepositState) {
 		super();
 		this.reserveNo = reserveNo;
 		this.tourNo = tourNo;
+		this.tourName = tourName;
 		this.memberNo = memberNo;
 		this.reserveTourDate = reserveTourDate;
+		this.reserveTourDay = reserveTourDay;
 		this.reserveApplyNum = reserveApplyNum;
+		this.reserveApplyNumSum = reserveApplyNumSum;
 		this.reservePrice = reservePrice;
 		this.reserveApplyDate = reserveApplyDate;
 		this.reserveDepositDate = reserveDepositDate;
 		this.reserveDepositState = reserveDepositState;
 	}
-	
 	public ReservationVo() {
 		super();
 	}
@@ -44,6 +48,12 @@ public class ReservationVo {
 	public void setTourNo(int tourNo) {
 		this.tourNo = tourNo;
 	}
+	public String getTourName() {
+		return tourName;
+	}
+	public void setTourName(String tourName) {
+		this.tourName = tourName;
+	}
 	public int getMemberNo() {
 		return memberNo;
 	}
@@ -56,11 +66,23 @@ public class ReservationVo {
 	public void setReserveTourDate(Date reserveTourDate) {
 		this.reserveTourDate = reserveTourDate;
 	}
+	public String getReserveTourDay() {
+		return reserveTourDay;
+	}
+	public void setReserveTourDay(String reserveTourDay) {
+		this.reserveTourDay = reserveTourDay;
+	}
 	public int getReserveApplyNum() {
 		return reserveApplyNum;
 	}
 	public void setReserveApplyNum(int reserveApplyNum) {
 		this.reserveApplyNum = reserveApplyNum;
+	}
+	public int getReserveApplyNumSum() {
+		return reserveApplyNumSum;
+	}
+	public void setReserveApplyNumSum(int reserveApplyNumSum) {
+		this.reserveApplyNumSum = reserveApplyNumSum;
 	}
 	public int getReservePrice() {
 		return reservePrice;
@@ -86,13 +108,15 @@ public class ReservationVo {
 	public void setReserveDepositState(String reserveDepositState) {
 		this.reserveDepositState = reserveDepositState;
 	}
-	
 	@Override
 	public String toString() {
-		return "ReservationVo [reserveNo=" + reserveNo + ", tourNo=" + tourNo + ", memberNo=" + memberNo
-				+ ", reserveTourDate=" + reserveTourDate + ", reserveApplyNum=" + reserveApplyNum
+		return "ReservationVo [reserveNo=" + reserveNo + ", tourNo=" + tourNo + ", tourName=" + tourName + ", memberNo="
+				+ memberNo + ", reserveTourDate=" + reserveTourDate + ", reserveTourDay=" + reserveTourDay
+				+ ", reserveApplyNum=" + reserveApplyNum + ", reserveApplyNumSum=" + reserveApplyNumSum
 				+ ", reservePrice=" + reservePrice + ", reserveApplyDate=" + reserveApplyDate + ", reserveDepositDate="
 				+ reserveDepositDate + ", reserveDepositState=" + reserveDepositState + "]";
 	}
+
+	
 	
 }

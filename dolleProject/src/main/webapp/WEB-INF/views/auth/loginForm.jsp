@@ -148,8 +148,8 @@
 					</tr>
 					<tr>
 						<td>
-							<a class='aCss' href=''>이메일 찾기</a>/
-							<a class='aCss' href=''>비밀번호 찾기</a>
+							<a class='aCss' href='../auth/emailform.do'>이메일 찾기</a>/
+							<a class='aCss' href='../auth/pwdform.do'>비밀번호 찾기</a>
 							<a class='aCss' href='../member/add.do'>회원가입</a>
 						</td>
 					</tr>

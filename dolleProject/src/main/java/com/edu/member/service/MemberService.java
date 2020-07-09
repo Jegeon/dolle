@@ -12,6 +12,8 @@ public interface MemberService {
 	public int memberInsertOne(MemberVo memberVo);
 	public MemberVo memberSelectOne(int no);
 	public List<MemberVo> memberReservationOne(int no);
+	public MemberVo memberEmailOne(Map<String, Object> paramMap);
+	public MemberVo memberPwdOne(Map<String, Object> paramMap);
 	public int memberNickNameList(String nickname);
 	public int memberUpdateOne(MemberVo memberVo);
 	public int memberDelete(int no);

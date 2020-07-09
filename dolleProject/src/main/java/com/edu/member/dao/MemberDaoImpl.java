@@ -71,7 +71,6 @@ public class MemberDaoImpl implements MemberDao{
 		paramMap.put("nickname", nickname);
 		
 		int result = sqlSession.selectOne(namespace + "memberNickNameList", paramMap);
-		System.out.println("닉네임 중복체크 끝");
 		return result;
 	}
 
@@ -93,6 +92,20 @@ public class MemberDaoImpl implements MemberDao{
 		// TODO Auto-generated method stub
 		return sqlSession.update(namespace + "memberPaymentUpdateOne",
 				reserveIdx);
+	}
+
+	@Override
+	public MemberVo memberEmailOne(Map<String, Object> paramMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace + "memberEmailOne",
+				paramMap);
+	}
+
+	@Override
+	public MemberVo memberPwdOne(Map<String, Object> paramMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace + "memberPwdOne",
+				paramMap);
 	}
 
 }

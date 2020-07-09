@@ -9,7 +9,6 @@
 	#mainBorder {
 		text-align: center;
 		margin: auto;
-		width: 1260px;
 	}
 	
 	table {
@@ -51,20 +50,52 @@
 	}
 </style>
 <script type="text/javascript">
-	var name = '';
-	var phone = '';
-	var birthdate = '';
-	var emailBtn = '';
-
-	function emilFindFnc() {
-		name = document.name;
-		phone = document.phone;
-		birthdate = document.birthdate;
-		emailBtn = document.emailBtn;
+	var emailPost = ''
+	
+	var yearObj = '';
+	var dayObj = '';
+	var monthCheck = '';
+	
+	function emailFindFnc() {
+		emailPost = document.emailPost;
 		
-		window.name='emailFind';
-		window.open('../member/emailCheckForm.jsp'
-				, 'emailForm', 'width=500px, height=300px, resizable = no, scrollbars = no');
+		yearObj = document.getElementById('yearObj');
+		dayObj = document.getElementById('dayObj');
+		monthCheck = document.getElementById('monthCheck');
+		
+		var birthd = new Date(yearObj.value, monthCheck.value, dayObj.value);
+		var birObj = document.getElementsByName('birthdate')[0];
+		birObj.value = getFormatDateFnc(birthd);
+		alert(birObj.value);
+		
+		var _width = 500;
+		var _height = 300;
+	    var _left = Math.ceil(( document.body.offsetWidth - _width )/2);
+	    var _top = Math.ceil(( document.body.offsetHeight - _height )/2);
+	    
+	    var email_title = 'emailFind';
+	    
+		window.open(''
+				,email_title , 'width=' + _width + 'px, height= ' + _height + 'px, left=' + _left + ', top=' + _top +', resizable = no, scrollbars = no');
+		
+		emailPost.target = email_title;
+		emailPost.action = 'emailfind.do';
+		
+		emailPost.submit();
+	}
+	
+	// 생년월일 가공
+	function getFormatDateFnc(date){
+	    var year = date.getFullYear();          //yyyy
+	    var month = date.getMonth();          //M
+	    month = month >= 10 ? month : '0' + month;  //month 두자리로 저장
+	    var day = date.getDate();                   //d
+	    day = day >= 10 ? day : '0' + day;          //day 두자리로 저장
+	    return  year + "-" + month + "-" + day;       //'-' 추가하여 yyyy-mm-dd 형태 생성 가능
+	}
+	
+	function loginPageFnc() {
+		location.href = '../auth/login.do';
 	}
 </script>
 </head>
@@ -76,6 +107,7 @@
 			<span class='spanCss'>이메일 찾기</span>
 		</div>
 		<div id='backBord'>
+		<form name='emailPost' method="post">
 			<table>
 				<tr>
 					<td>
@@ -104,8 +136,9 @@
 				</tr>
 				<tr>
 					<td>
-						<input type='text' name='year' placeholder='년(자)' size='4' maxlength='4'>
-						<select name='month'>
+						<input id='yearObj' type='text' name='year' placeholder='년(자)' size='4'
+						 maxlength='4' value=''>
+						<select id='monthCheck' name='month'>
 							<option>1</option>
 							<option>2</option>
 							<option>3</option>
@@ -119,17 +152,19 @@
 							<option>11</option>
 							<option>12</option>
 						</select>
-						<input type='text' name='day' placeholder='일' size='2' maxlength='2'>
+						<input id='dayObj' type='text' name='day' placeholder='일' size='2' maxlength='2'
+							value=''>
 						<input type='hidden' name='birthdate' value=''>
 					</td>
 				</tr>
 				<tr>
 					<td colspan='2' style='text-align:center;'>
-						<input class='btnCss' type='button' onclick='emilFindFnc();' value='이메일 찾기'>
-						<input class='btnCss' type='button' value='<-'>
+						<input class='btnCss' type='button' onclick='emailFindFnc();' value='이메일 찾기'>
+						<input class='btnCss' type='button' onclick='loginPageFnc();' value='<-'>
 					</td>
 				</tr>
 			</table>
+		</form>
 		</div>
 	</div>
 	<jsp:include page="/WEB-INF/views/Tail.jsp"/>

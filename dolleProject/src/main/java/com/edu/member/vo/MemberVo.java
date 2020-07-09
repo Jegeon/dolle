@@ -2,6 +2,8 @@ package com.edu.member.vo;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class MemberVo {
 
 	private int no;
@@ -26,6 +28,7 @@ public class MemberVo {
 	private int reserveApplyNum;
 	private int reservePrice;
 	private String tourAccountNum;
+	
 	public MemberVo(int no, String name, String email, String nickname, String password, String phone, Date birthdate,
 			String national, Date createDate, Date modifiedDate, String grade, String del, String tempPassword,
 			int tourIdx, String tourName, Date reserveApplyDate, Date reserveDepositDate, String reserveDepositState,
@@ -54,6 +57,7 @@ public class MemberVo {
 		this.reservePrice = reservePrice;
 		this.tourAccountNum = tourAccountNum;
 	}
+	
 	public MemberVo() {
 		super();
 	}

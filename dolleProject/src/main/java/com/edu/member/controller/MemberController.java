@@ -5,11 +5,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,20 +22,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.mail.internet.MimeMessage;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.edu.member.service.MemberService;
 import com.edu.member.vo.MemberVo;
-import com.edu.reservation.vo.ReservationVo;
-import com.edu.reservation.vo.TourVo;
 
 @Controller
 public class MemberController {
@@ -57,6 +50,7 @@ public class MemberController {
 		return "member/memberListView";
 	}
 	
+	// 마이 페이지 이동
 	@RequestMapping(value="/member/listOne.do")
 	public String memberListOne(int no, Model model) {
 		log.debug("Welcome memberListOne enter! - {}", no);
@@ -99,6 +93,7 @@ public class MemberController {
 		return "member/paymentCompleteView";
 	}
 	
+	//로그인 화면으로
 	@RequestMapping(value="/auth/login.do", method=RequestMethod.GET)
 	public String login(HttpSession session, Model model) {
 		log.debug("Welcome MemberController login 페이지 이동! ");
@@ -106,6 +101,7 @@ public class MemberController {
 		return "auth/loginForm";
 	}
 	
+	// 로그인 세션
 	@RequestMapping(value="/auth/loginCtr.do", method=RequestMethod.POST)
 	public String loginCtr(String email, String password,
 			String nickname, String phone, Date birthdate, String grade,
@@ -137,6 +133,7 @@ public class MemberController {
 		return viewUrl;
 	}
 	
+	// 로그아웃 세션
 	@RequestMapping(value="/auth/logout.do", method=RequestMethod.GET)
 	public String logout(HttpSession session, Model model) {
 		log.debug("Welcome MemberController logout 페이지 이동! ");
@@ -147,6 +144,61 @@ public class MemberController {
 		return "redirect:/auth/login.do";
 	}
 	
+	// 이메일 찾기 페이지 이동
+	@RequestMapping(value="/auth/emailform.do")
+	public String emailFind(Model model) {
+		
+		return "auth/emailForm";
+	}
+	
+	// 이메일 찾기
+	@RequestMapping(value="/auth/emailfind.do")
+	public String emailFind(String email, String name, String phone,
+				@DateTimeFormat(pattern="yyyy-MM-dd")Date birthdate,
+				Model model) {
+		
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("name", name);
+		paramMap.put("phone", phone);
+		paramMap.put("birthdate", birthdate);
+		log.info("----------------------------------");
+		log.info(paramMap.toString());
+		log.info("----------------------------------");
+		
+		MemberVo memberVo = memberService.memberEmailOne(paramMap);
+		
+		model.addAttribute(memberVo);
+		
+		return "auth/emailFind";
+	}
+	
+	// 비밀번호 찾기 페이지 이동
+	@RequestMapping(value="/auth/pwdform.do")
+	public String pwdFind(Model model) {
+		
+		return "auth/pwdForm";
+	}
+	
+	// 이메일 찾기
+		@RequestMapping(value="/auth/pwdfind.do")
+		public String pwdFind(String email, String name, String password,
+					Model model) {
+			
+			Map<String, Object> paramMap = new HashMap<>();
+			paramMap.put("email", email);
+			paramMap.put("name", name);
+			log.info("----------------------------------");
+			log.info(paramMap.toString());
+			log.info("----------------------------------");
+			
+			MemberVo memberVo = memberService.memberPwdOne(paramMap);
+			
+			model.addAttribute(memberVo);
+			
+			return "auth/pwdFind";
+		}
+	
+	// 회원가입 이동
 	@RequestMapping(value="/member/add.do", method=RequestMethod.GET)
 	public String memberAdd(Model model) {
 		log.debug("Welcome MemberController memberAdd 페이지 이동! ");
@@ -154,6 +206,7 @@ public class MemberController {
 		return "member/memberForm";
 	}
 
+	// 회원 추가
 	@RequestMapping(value="/member/addCtr.do",
 			method=RequestMethod.POST)
 	public String memberAdd(MemberVo memberVo, Model model) {
@@ -165,6 +218,7 @@ public class MemberController {
 		return "redirect:/auth/login.do";
 	}
 	
+	// 닉네임 중복 페이지 이동
 	@RequestMapping(value="/member/nick.do", method=RequestMethod.GET)
 	public String memberCheck(@RequestParam(defaultValue ="0" ) int result, 
 			@RequestParam(defaultValue ="" )String nickname ,Model model) {
@@ -173,6 +227,7 @@ public class MemberController {
 		return "member/nickCheckForm";
 	}
 	
+	// 닉네임 중복 체크
 	@RequestMapping(value="/member/nickCtr.do", method = RequestMethod.GET)
 	public String memberCheck(String nickname, Model model) {
 		
@@ -185,6 +240,7 @@ public class MemberController {
 		return "redirect:nick.do";
 	}
 	
+	// 회원 수정 이동
 	@RequestMapping(value="/member/update.do")
 	public String memberUpdate(int no, Model model) {
 		log.debug("Welcome memberUpdate enter! - {}", no);
@@ -196,6 +252,7 @@ public class MemberController {
 		return "member/memberUpdateForm";
 	}
 	
+	// 회원 수정
 	@RequestMapping(value="/member/updateCtr.do",
 			method=RequestMethod.POST)
 	public String memberUpdateCtr(HttpSession session
@@ -240,6 +297,7 @@ public class MemberController {
 		return "common/successPage";
 	}
 	
+	// 회원 삭제
 	@RequestMapping(value="/member/deleteCtr.do",
 			method=RequestMethod.GET)
 	public String memberDelete(@RequestParam(value="mno") int no
@@ -252,7 +310,7 @@ public class MemberController {
 		return "redirect:/member/list.do";
 	}
 	
-	// mailSending 코드
+	// mailSending 코드 (이메일 전송)
 	@ResponseBody
 	@RequestMapping(value = "/mail/mailSending.do"
 			, method = {RequestMethod.GET, RequestMethod.POST})

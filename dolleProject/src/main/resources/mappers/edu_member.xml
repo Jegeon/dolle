@@ -39,7 +39,8 @@
 	<select id="memberReservationOne" parameterType="map" resultMap="memberResultMap">
 		SELECT R.RESERVE_IDX, T.TOUR_NAME, R.RESERVE_APPLY_DATE, R.RESERVE_DEPOSIT_STATE
 		FROM RESERVE R, TOUR T
-		WHERE R.MEMBER_IDX = #{no}
+		WHERE R.TOUR_IDX = T.TOUR_IDX
+		AND R.MEMBER_IDX = #{no}
 	</select>
 
 	<select id="memberExist" parameterType="map"
@@ -72,6 +73,23 @@
 			, #{nickname}, #{birthdate}, #{email}, #{national}
 			, #{password}, SYSDATE, SYSDATE, #{grade})
 	</insert>
+	
+	<select id="memberEmailOne" parameterType="map"
+		resultMap="memberResultMap">
+		SELECT MEMBER_EMAIL
+		FROM MEMBER
+		WHERE MEMBER_NAME = #{name}
+		AND MEMBER_PHONE = #{phone}
+		AND MEMBER_BIRTHDATE = #{birthdate}
+	</select>
+	
+	<select id="memberPwdOne" parameterType="map"
+		resultMap="memberResultMap">
+		SELECT MEMBER_PASSWORD, MEMBER_NAME
+		FROM MEMBER
+		WHERE MEMBER_NAME = #{name}
+		AND MEMBER_EMAIL = #{email}
+	</select>
 	
 	<select id="memberNickNameList" parameterType="map" resultType="Integer">
 		SELECT count(*)

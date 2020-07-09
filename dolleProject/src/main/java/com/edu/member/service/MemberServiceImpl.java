@@ -74,4 +74,16 @@ public class MemberServiceImpl implements MemberService{
 		return memberDao.memberPaymentUpdateOne(reserveIdx);
 	}
 
+	@Override
+	public MemberVo memberEmailOne(Map<String, Object> paramMap) {
+		// TODO Auto-generated method stub
+		return memberDao.memberEmailOne(paramMap);
+	}
+
+	@Override
+	public MemberVo memberPwdOne(Map<String, Object> paramMap) {
+		// TODO Auto-generated method stub
+		return memberDao.memberPwdOne(paramMap);
+	}
+
 }

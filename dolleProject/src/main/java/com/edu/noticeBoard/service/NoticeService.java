@@ -16,6 +16,7 @@ public interface NoticeService {
 	public int noticeFindCurrentRow(int noticeIdx);
 	public void noticeInsertOne(NoticeMemberFileVo noticeMemberFileVo
 		, MultipartHttpServletRequest mulRequest);
-	public void noticeUpdateOne(NoticeMemberFileVo noticeMemberFileVo);
+	public void noticeUpdateOne(NoticeMemberFileVo noticeMemberFileVo, 
+		MultipartHttpServletRequest mulRequest, int fileIdx);
 	public void noticeDeleteOne(int noticeIdx);
 }

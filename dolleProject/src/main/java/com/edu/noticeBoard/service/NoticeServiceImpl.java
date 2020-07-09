@@ -113,20 +113,55 @@ public class NoticeServiceImpl implements NoticeService{
 
 
 	@Override
-	public void noticeUpdateOne(NoticeMemberFileVo noticeMemberFileVo) {
+	public void noticeUpdateOne(NoticeMemberFileVo noticeMemberFileVo
+			, MultipartHttpServletRequest mulRequest
+			, int fileIdx) {
 		// TODO Auto-generated method stub
 		
-		noticeDao.noticeUpdateOne(noticeMemberFileVo);
+		int noticeIdx = noticeMemberFileVo.getNoticeIdx();
+		try {
+			Map<String, Object> tempFileMap = noticeDao.fileSelectStoredName(noticeIdx);
+
+			List<Map<String, Object>> fileList = noticeFileUtils.parseInsertFileInfo(noticeIdx, mulRequest);
+
+			if (fileList.isEmpty() == false) {
+
+				if (tempFileMap != null) {
+					noticeDao.deleteFile(noticeIdx);
+
+					for (Map<String, Object> map : fileList) {
+						noticeDao.insertfile(map);
+					}
+
+					noticeFileUtils.parseUpdateFileInfo(tempFileMap);
+				}else if(tempFileMap == null) {
+					
+					for (Map<String, Object> map : fileList) {
+						noticeDao.insertfile(map);
+					}
+
+					noticeFileUtils.parseUpdateFileInfo(tempFileMap);
+				}
+
+			} else if (fileIdx == -1) {
+
+			}
+			noticeDao.noticeUpdateOne(noticeMemberFileVo);
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
 		
 	}
-
+	
 
 	@Override
 	public void noticeDeleteOne(int noticeIdx) {
 		// TODO Auto-generated method stub
-		
+		noticeDao.deleteFile(noticeIdx);
 		noticeDao.noticeDeleteOne(noticeIdx);
-		
 	}
 
 

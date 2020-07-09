@@ -187,7 +187,6 @@ public class NoticeController {
 		log.info("call adminNoticeUpdate!");
 		
 		NoticeMemberFileVo noticeVo = noticeService.noticeDetailSelectOne(noticeIdx);
-		System.out.println(noticeVo.getNoticeFixed()+"++++++++++++");
 		
 		model.addAttribute("noticeVo", noticeVo);
 		
@@ -195,13 +194,16 @@ public class NoticeController {
 	}
 	
 	@RequestMapping(value = "/noticeBoard/adminUpdateCtr.do", method = {RequestMethod.POST})
-	public String adminNoticeUpdate(Model model,@RequestParam(defaultValue = "none") String fixed
-			, NoticeMemberFileVo noticeMemberFileVo) {
+	public String adminNoticeUpdate(Model model, @RequestParam(defaultValue = "none") String fixed
+			, NoticeMemberFileVo noticeMemberFileVo
+			, MultipartHttpServletRequest mulRequest
+			, @RequestParam(value="fileIdx", defaultValue="-1") int fileIdx) {
 		log.info("call adminNoticeUpdateCtr!!!!!!!!!!!!!!!!!!", noticeMemberFileVo, fixed);
 		
 		
 		noticeMemberFileVo.setNoticeFixed(fixed);
-		noticeService.noticeUpdateOne(noticeMemberFileVo);
+		noticeService.noticeUpdateOne(noticeMemberFileVo, mulRequest, fileIdx);
+		
 		
 		
 		return "redirect:/noticeBoard/adminList.do";

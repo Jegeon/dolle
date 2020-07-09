@@ -19,4 +19,6 @@ public interface NoticeDao {
 	public void noticeUpdateOne(NoticeMemberFileVo noticeMemberFileVo);
 	public void noticeDeleteOne(int noticeIdx);
 	public void insertfile(Map<String, Object> map);
+	public void deleteFile(int noticeIdx);
+	public Map<String, Object> fileSelectStoredName(int noticeIdx);
 }

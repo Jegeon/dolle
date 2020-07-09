@@ -211,7 +211,8 @@
 					</div>
 				</div>
 				
-				<form name='inputForm' action='./adminUpdateCtr.do' method='post'>
+				<form name='inputForm' action='./adminUpdateCtr.do' method='post'
+					enctype="multipart/form-data">
 					<input type="hidden" name="noticeIdx" value="${noticeVo.noticeIdx}">
 					<div id='InputWrap'>
 						<div id='titleInputDiv'>
@@ -233,7 +234,7 @@
 						</div>
 						
 						<div id='fileAddDiv'>
-							<button type="button">파일 추가</button>
+							<input type="file" name="file" value="파일 추가"><span>현재 파일: ${noticeVo.fileNoticeOriginalName}</span>
 						</div>
 						
 						<div id='contentDiv'>

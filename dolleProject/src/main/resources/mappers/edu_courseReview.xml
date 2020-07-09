@@ -198,4 +198,18 @@
 		WHERE REVIEW_IDX = #{review_idx}
 	</delete>
 	
+	
+	
+	<!-- 댓글 -->
+	<insert id="commentInsertOne" parameterType="com.edu.courseReview.vo.CommentVo">
+		INSERT INTO REVIEW_COMMENT
+		(COMMENT_IDX, REVIEW_IDX, MEMBER_IDX, COMMENT_CONTENT, COMMENT_EMOTICON
+		, COMMENT_CRE_DATE, COMMENT_MOD_DATE)
+		VALUES(SEQ_COMMENT_NO.NEXTVAL, #{commentReviewIdx}, #{commentMemberIdx}
+		, #{commentContent}, #{commentEmoticon}, SYSDATE, SYSDATE)
+	</insert>
+	
+	
+	
+	
 </mapper>

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.edu.courseReview.dao.CourseReviewDao;
+import com.edu.courseReview.vo.CommentVo;
 import com.edu.courseReview.vo.CourseReviewMemberCommentFileVo;
 import com.edu.courseReview.vo.CourseReviewVo;
 import com.edu.courseReview.vo.ReviewFileUtils;
@@ -165,6 +166,20 @@ public class CourseReviewServiceImpl implements CourseReviewService{
 	public int reviewSelectTotalCount() {
 		// TODO Auto-generated method stub
 		return courseReviewDao.reviewSelectTotalCount();
+	}
+
+	
+	//댓글
+	@Override
+	public int commentInsertOne(CommentVo commentVo) {
+		// TODO Auto-generated method stub
+		return courseReviewDao.commentInsertOne(commentVo);
+	}
+
+	@Override
+	public List<CommentVo> commentSelectList(int reviewIdx) {
+		// TODO Auto-generated method stub
+		return courseReviewDao.commentSelectList(reviewIdx);
 	}
 
 	

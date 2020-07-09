@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.edu.courseReview.vo.CommentVo;
 import com.edu.courseReview.vo.CourseReviewMemberCommentFileVo;
 import com.edu.courseReview.vo.CourseReviewVo;
 
@@ -26,4 +27,9 @@ public interface CourseReviewService {
 	public Map<String, Object> fileSelectStoredName(int reviewIdx);
 	
 	public void courseReviewDeleteOne(int reviewIdx);
+	
+	//댓글
+	public int commentInsertOne(CommentVo commentVo);
+	public List<CommentVo> commentSelectList(int reviewIdx);
+	
 }

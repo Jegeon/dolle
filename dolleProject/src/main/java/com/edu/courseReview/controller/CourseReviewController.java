@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.edu.courseReview.service.CourseReviewService;
 import com.edu.courseReview.util.ReviewPaging;
+import com.edu.courseReview.vo.CommentVo;
 import com.edu.courseReview.vo.CourseReviewMemberCommentFileVo;
 import com.edu.courseReview.vo.CourseReviewVo;
 
@@ -28,6 +29,8 @@ public class CourseReviewController {
 	@Autowired
 	private CourseReviewService courseReviewService;
 	
+	//관리자
+	// "/courseReview/adminList.do"
 	
 	//코스리뷰 전체 조회 화면
 	@RequestMapping(value="/courseReview/list.do"
@@ -91,9 +94,9 @@ public class CourseReviewController {
 	
 	
 	@RequestMapping(value="/courseReview/detail.do", method = RequestMethod.GET)
-	public String courseReviewDetail(int reviewIdx, Model model) {
+	public String courseReviewDetail(int reviewIdx
+			, Model model) {
 		log.debug(" **** Welcome courseReviewDetail ****");
-		
 		//조회수 증가
 //		courseReviewService.reviewIncreaseLikeCount(reviewIdx);
 
@@ -140,5 +143,28 @@ public class CourseReviewController {
 		
 		return "redirect:/courseReview/list.do";
 	}
+
 	
+	//댓글
+	@RequestMapping(value="/courseReview/addCommentCtr.do", method = RequestMethod.POST)
+	public String commentAdd(CommentVo commentVo, Model model) {
+		log.debug(" **** Welcome commentAdd 등록 성공 ****");
+		
+		System.out.println("=====commentVo"+commentVo);
+		courseReviewService.commentInsertOne(commentVo);
+		
+		return "redirect:/courseReview/list.do";
+	}
+	
+	@RequestMapping(value="/courseReview/commentList.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public String commentList(int reviewIdx, Model model) {
+		log.debug(" **** Welcome commentList ****");
+		
+		List<CommentVo> commentList = courseReviewService.commentSelectList(reviewIdx);
+		
+		model.addAttribute("commentList",commentList);
+		
+		return "redirect:/courseReview/courseReviewDetail.do";
+	}
+			
 }

@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.edu.courseReview.vo.CommentVo;
 import com.edu.courseReview.vo.CourseReviewMemberCommentFileVo;
 import com.edu.courseReview.vo.CourseReviewVo;
 
@@ -97,6 +98,19 @@ public class CourseReviewDaoImpl implements CourseReviewDao{
 	public int reviewIncreaseReadCount(int reviewIdx) {
 		// TODO Auto-generated method stub
 		return sqlSession.update(namespace + "increaseReadCount", reviewIdx);
+	}
+
+	//댓글
+	@Override
+	public int commentInsertOne(CommentVo commentVo) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert(namespace + "commentInsertOne", commentVo);
+	}
+
+	@Override
+	public List<CommentVo> commentSelectList(int reviewIdx) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace + "commentSelectList", reviewIdx);
 	}
 
 	

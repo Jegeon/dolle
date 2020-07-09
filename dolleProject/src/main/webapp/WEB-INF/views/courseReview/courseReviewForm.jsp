@@ -142,9 +142,15 @@
 		var loginUser = $("#reviewMemberIdx").val();
 		if(loginUser == null || loginUser.trim() == "" || loginUser.length == 0){
 			alert("로그인 후 작성해주세요.");
-			location.href="../auth/login.do"
+			location.href="<%=request.getContextPath()%>/auth/login.do";
 		}
 		
+		var file = $("#fileBtn").val();
+		if(file == null || file.trim() == "" || file.length == 0){
+			alert("파일을 선택해주세요.");
+			return false;
+		}
+
 		var noChoise  = $("#reviewRating").val();
 		$("#choiseTxt").remove();
 		if(noChoise == 0){
@@ -167,11 +173,6 @@
 			return false;
 		}
 		
-		var file = $("#fileBtn").val();
-		if(file == null || file.trim() == "" || file.length == 0){
-			alert("파일을 선택해주세요.");
-			return false;
-		}
 		
 		return true;
 	}

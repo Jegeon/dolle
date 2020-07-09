@@ -105,6 +105,21 @@ public class NoticeDaoImpl implements NoticeDao{
 	}
 
 
+	@Override
+	public void deleteFile(int noticeIdx) {
+		// TODO Auto-generated method stub
+		
+		sqlSession.delete(namespace + "deleteFile", noticeIdx);
+	}
+
+
+	@Override
+	public Map<String, Object> fileSelectStoredName(int noticeIdx) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace + "fileSelectStoredName", noticeIdx);
+	}
+
+
 
 
 

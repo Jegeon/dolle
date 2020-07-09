@@ -220,9 +220,9 @@
 			style="background-color: #707070; color: #ffffff; height: 40px; padding: 15px 5px 5px 5px; box-sizing: border-box;">
 
 
-			<span style="float: right;"> <a class='whiteLink' href='#'>한글</a> / <a class='whiteLink' href='#'>영어</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			</span> <span style="float: right;"> <a class='whiteLink' href='#'>주간</a> / <a class='whiteLink' href='#'>야간모드</a>
-				&nbsp;&nbsp;&nbsp;&nbsp;
+			<span style="float: right;"> 
+			</span> 
+			<span style="float: right;">
 			</span>
 		</div>
 
@@ -232,7 +232,11 @@
 				<div style="font-size: 50px;">둘레길</div>
 				<div style="padding-bottom: 15px;">
 					<div style="float: right;">
-						<a class='blackLink' href='../auth/login.do'>로그인</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a class='blackLink' href='../member/add.do'>회원가입</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+						<a class='blackLink' href='<%=request.getContextPath()%>/auth/logout.do'>
+							로그아웃
+						</a>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					</div>
 				</div>
 			</div>
@@ -276,10 +280,10 @@
 		            
 		            <span id="popManageReserve">
 			            <span id="popReserveDate" style="padding: 0px 7px 0px 7px;">
-						       <a class='blackLink detailLink' href='#'>예약일정</a>
+						       <a class='blackLink detailLink' href='<%=request.getContextPath()%>/reservation/reservationSchedule.do'>예약일정</a>
 						</span>
 						<span id="popReserveAll" style="padding: 0px 7px 0px 7px;">
-						       <a class='blackLink detailLink' href='#'>예약현황(전체)</a>
+						       <a class='blackLink detailLink' href='<%=request.getContextPath()%>/reservation/reservationListAll.do'>예약현황(전체)</a>
 						</span>
 						<span id="popReserveNoPay" style="padding: 0px 7px 0px 7px;">
 						       <a class='blackLink detailLink' href='#'>예약현황(미입금자)</a>
@@ -299,7 +303,7 @@
 		            
 		            <span id="popManageBoard">
 			            <span id="popReview" style="padding: 0px 7px 0px 7px;">
-						       <a class='blackLink detailLink' href='#'>코스후기 게시판</a>
+						       <a class='blackLink detailLink' href='<%=request.getContextPath()%>/courseReview/list.do'>코스후기 게시판</a>
 						</span>
 					</span>
 		            <!-- 고객지원 -->
@@ -309,7 +313,7 @@
 		            
 		            <span id="popSupportUser">
 			            <span id="popNotice" style="padding: 0px 7px 0px 7px;">
-						       <a class='blackLink detailLink' href='#'>공지사항</a>
+						       <a class='blackLink detailLink' href='<%=request.getContextPath()%>/noticeBoard/adminList.do'>공지사항</a>
 						</span>
 					</span>
 		         </div>

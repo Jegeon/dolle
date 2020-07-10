@@ -5,10 +5,10 @@ import java.io.Serializable;
 public class Paging implements Serializable{
 	
 	// 페이지당 게시물수
-	public int pageScale = 15;
+	public static int pageScale = 15;
 
 	// 화면당 페이지 수
-	public int blockScale = 5;
+	public static int blockScale = 5;
 
 	private int curPage; // 현재 게시물
 	private int prevPage; // 이전 게시물
@@ -26,9 +26,10 @@ public class Paging implements Serializable{
 	private int blockEnd; // 블록의 끝번호
 
 	// 생성자
-	public Paging(int count, int curPage) {
+	public Paging(int count, int curPage, int pageScale) {
 		this.curBlock = 1;
 		this.curPage = curPage;
+		setPageScale(pageScale);
 		setTotPage(count);
 		setPageRange();
 		setTotBlock();
@@ -59,6 +60,24 @@ public class Paging implements Serializable{
 		if (nextPage >= totPage) {
 			nextPage = totPage;
 		}
+	}
+
+	
+	
+	public static int getPageScale() {
+		return pageScale;
+	}
+
+	public void setPageScale(int pageScale) {
+		Paging.pageScale = pageScale;
+	}
+
+	public static int getBlockScale() {
+		return blockScale;
+	}
+
+	public static void setBlockScale(int blockScale) {
+		Paging.blockScale = blockScale;
 	}
 
 	public int getCurPage() {

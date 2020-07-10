@@ -8,6 +8,9 @@ public class ReservationVo {
 	private int tourNo;
 	private String tourName;
 	private int memberNo;
+	private String memberName;
+	private String memberEmail;
+	private int memberAge;
 	private Date reserveTourDate;
 	private String reserveTourDay;
 	private int reserveApplyNum;
@@ -16,14 +19,18 @@ public class ReservationVo {
 	private Date reserveApplyDate;
 	private Date reserveDepositDate;
 	private String reserveDepositState;
-	public ReservationVo(int reserveNo, int tourNo, String tourName, int memberNo, Date reserveTourDate,
-			String reserveTourDay, int reserveApplyNum, int reserveApplyNumSum, int reservePrice, Date reserveApplyDate,
-			Date reserveDepositDate, String reserveDepositState) {
+	public ReservationVo(int reserveNo, int tourNo, String tourName, int memberNo, String memberName,
+			String memberEmail, int memberAge, Date reserveTourDate, String reserveTourDay, int reserveApplyNum,
+			int reserveApplyNumSum, int reservePrice, Date reserveApplyDate, Date reserveDepositDate,
+			String reserveDepositState) {
 		super();
 		this.reserveNo = reserveNo;
 		this.tourNo = tourNo;
 		this.tourName = tourName;
 		this.memberNo = memberNo;
+		this.memberName = memberName;
+		this.memberEmail = memberEmail;
+		this.memberAge = memberAge;
 		this.reserveTourDate = reserveTourDate;
 		this.reserveTourDay = reserveTourDay;
 		this.reserveApplyNum = reserveApplyNum;
@@ -59,6 +66,24 @@ public class ReservationVo {
 	}
 	public void setMemberNo(int memberNo) {
 		this.memberNo = memberNo;
+	}
+	public String getMemberName() {
+		return memberName;
+	}
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
+	public String getMemberEmail() {
+		return memberEmail;
+	}
+	public void setMemberEmail(String memberEmail) {
+		this.memberEmail = memberEmail;
+	}
+	public int getMemberAge() {
+		return memberAge;
+	}
+	public void setMemberAge(int memberAge) {
+		this.memberAge = memberAge;
 	}
 	public Date getReserveTourDate() {
 		return reserveTourDate;
@@ -111,12 +136,13 @@ public class ReservationVo {
 	@Override
 	public String toString() {
 		return "ReservationVo [reserveNo=" + reserveNo + ", tourNo=" + tourNo + ", tourName=" + tourName + ", memberNo="
-				+ memberNo + ", reserveTourDate=" + reserveTourDate + ", reserveTourDay=" + reserveTourDay
-				+ ", reserveApplyNum=" + reserveApplyNum + ", reserveApplyNumSum=" + reserveApplyNumSum
-				+ ", reservePrice=" + reservePrice + ", reserveApplyDate=" + reserveApplyDate + ", reserveDepositDate="
-				+ reserveDepositDate + ", reserveDepositState=" + reserveDepositState + "]";
+				+ memberNo + ", memberName=" + memberName + ", memberEmail=" + memberEmail + ", memberAge=" + memberAge
+				+ ", reserveTourDate=" + reserveTourDate + ", reserveTourDay=" + reserveTourDay + ", reserveApplyNum="
+				+ reserveApplyNum + ", reserveApplyNumSum=" + reserveApplyNumSum + ", reservePrice=" + reservePrice
+				+ ", reserveApplyDate=" + reserveApplyDate + ", reserveDepositDate=" + reserveDepositDate
+				+ ", reserveDepositState=" + reserveDepositState + "]";
 	}
-
+	
 	
 	
 }

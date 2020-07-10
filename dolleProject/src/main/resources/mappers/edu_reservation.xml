@@ -8,6 +8,9 @@
 		<result column="TOUR_IDX" property="tourNo" />
 		<result column="TOUR_NAME" property="tourName" />
 		<result column="MEMBER_IDX" property="memberNo" />
+		<result column="MEMBER_NAME" property="memberName" />
+		<result column="MEMBER_EMAIL" property="memberEmail" />
+		<result column="MEMBER_AGE" property="memberAge" />
 		<result column="RESERVE_TOUR_DATE" property="reserveTourDate" javaType="java.util.Date" />
 		<result column="RESERVE_TOUR_DAY" property="reserveTourDay" />
 		<result column="RESERVE_APPLY_NUM" property="reserveApplyNum" />
@@ -138,9 +141,35 @@
 	</select>
 	
 	<select id="tourReservationSelectListAll" parameterType="map" resultMap="reservationResultMap">
-		SELECT R.RESERVE_IDX, T.TOUR_NAME, R.RESERVE_APPLY_DATE, R.RESERVE_DEPOSIT_STATE
-		FROM RESERVE R, TOUR T
-		WHERE R.TOUR_IDX = T.TOUR_IDX
+		SELECT R.RESERVE_IDX, M.MEMBER_NAME AS MEMBER_NAME, M.MEMBER_EMAIL AS MEMBER_EMAIL, 
+		TRUNC(MONTHS_BETWEEN(TRUNC(SYSDATE), M.MEMBER_BIRTHDATE) / 12) AS MEMBER_AGE, 
+		R.TOUR_IDX, R.RESERVE_TOUR_DATE, R.RESERVE_APPLY_NUM, R.RESERVE_DEPOSIT_STATE, R.RESERVE_DEPOSIT_DATE
+		FROM RESERVE R, MEMBER M
+		WHERE R.MEMBER_IDX = M.MEMBER_IDX
 	</select>
 
+	<update id="tourUpdateOne" parameterType="map">
+		UPDATE TOUR
+		SET
+		TOUR_NAME = #{tourName}, TOUR_START_DATE = #{tourStartDate},  TOUR_END_DATE = #{tourEndDate}, 
+		TOUR_START_TIME = #{tourStartTime},  TOUR_END_TIME = #{tourEndTime},
+		TOUR_PEOPLE_NUM = #{tourPeopleNum},
+		TOUR_PRICE = #{tourPrice},
+		TOUR_STARTING_POINT = #{tourStartingPoint},
+		TOUR_CONTENT = #{tourContent},
+		TOUR_MOD_DATE = SYSDATE
+		WHERE TOUR_IDX = #{tourNo}
+	</update>
+	
+	<delete id="tourDeleteOne" parameterType="int">
+		DELETE FROM TOUR
+		WHERE TOUR_IDX = #{tourNo}
+	</delete>
+	
+	<insert id="tourInsertOne" parameterType="map">
+		INSERT INTO TOUR
+		(TOUR_IDX, TOWN_IDX, TOUR_NAME, TOUR_START_DATE, TOUR_END_DATE, TOUR_START_TIME, TOUR_END_TIME, TOUR_PRICE, TOUR_PEOPLE_NUM, TOUR_STARTING_POINT, TOUR_CONTENT)
+		VALUES(SEQ_TOUR_NO.NEXTVAL, 1, #{tourName}, #{tourStartDate}, #{tourEndDate}, #{tourStartTime}, #{tourEndTime}, #{tourPeopleNum}, #{tourPrice}, #{tourStartingPoint}, #{tourContent})
+	</insert>
+	
 </mapper>

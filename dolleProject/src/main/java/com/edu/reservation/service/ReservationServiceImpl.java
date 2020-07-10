@@ -55,5 +55,20 @@ public class ReservationServiceImpl implements ReservationService{
 	public List<TourVo> tourReservationSelectListAll() {
 		return reservationDao.tourReservationSelectListAll();
 	}
+
+	@Override
+	public int tourUpdateOne(Map<String, Object> paramMap) {
+		return reservationDao.tourUpdateOne(paramMap);
+	}
+
+	@Override
+	public void tourDeleteOne(int tourNo) {
+		reservationDao.tourDeleteOne(tourNo);
+	}
+
+	@Override
+	public void tourInsertOne(Map<String, Object> paramMap) {
+		reservationDao.tourInsertOne(paramMap);
+	}
 	
 }

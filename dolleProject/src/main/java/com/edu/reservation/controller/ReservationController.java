@@ -3,7 +3,7 @@ package com.edu.reservation.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.edu.member.vo.MemberVo;
 import com.edu.reservation.service.ReservationService;
 import com.edu.reservation.vo.ReservationVo;
 import com.edu.reservation.vo.TourVo;
@@ -132,4 +131,108 @@ public class ReservationController {
 		model.addAttribute("tourReservationListAll", tourReservationListAll);
 		return "reservation/adminReservationListAllView";
 	} 
+	
+	// [관리자] 투어 예약 게시판 CRUD 전체 조회
+	@RequestMapping(value="/reservation/reservationPage.do", method=RequestMethod.GET)
+	public String tourReservationBoard(Model model) {
+		log.debug("Welcome reservation tourReservationBoard");
+		
+		// 회원에서 사용했던  tourSelectList() 재사용
+		List<TourVo> tourList = reservationService.tourSelectList();
+		model.addAttribute("tourList", tourList);
+		return "reservation/adminReservationPageView";
+	} 
+	
+	// [관리자] 투어 예약 게시판 CRUD 전체 조회 - 상세(하나만 선택)
+	@RequestMapping(value="/reservation/reservationPageDetail.do", method=RequestMethod.GET)
+	public String tourReservationBoardDetail(int tourNo, Model model) {
+		log.debug("Welcome reservation tourReservationBoardDetail");
+		
+		// 회원에서 사용했던  tourSelectOne() 재사용
+		TourVo tourVo = reservationService.tourSelectOne(tourNo);
+		model.addAttribute("tourVo", tourVo);
+		return "reservation/adminReservationPageDetailView";
+	} 
+	
+	// [관리자] 투어 예약 게시판 CRUD 전체 조회 - 상세(하나만 선택) - 업데이트
+	@RequestMapping(value="/reservation/reservationPageUpdate.do", method=RequestMethod.GET)
+	public String tourReservationBoardUpdate(int tourNo, Model model) {
+		log.debug("Welcome reservation tourReservationBoardUpdate");
+		
+		// 회원, 상세 조회에서 사용했던  tourSelectOne() 재사용
+		TourVo tourVo = reservationService.tourSelectOne(tourNo);
+		model.addAttribute("tourVo", tourVo);
+		return "reservation/adminReservationPageUpdateForm";
+	} 
+	
+	// [관리자] 투어 예약 게시판 CRUD 전체 조회 - 상세(하나만 선택) - 업데이트 - 업데이트Ctr
+	// 원래 TourVo tourVo 하려다 날짜에서 문제가 생겨서 각각 쪼갬
+	// 그에 대한 원본
+	//	public String tourReservationBoardUpdateCtr(TourVo tourVo, Model model) {
+	//	log.debug("Welcome reservation tourReservationBoardUpdateCtr");
+	//	reservationService.tourUpdateOne(tourVo);
+	//	}
+	@RequestMapping(value="/reservation/reservationPageUpdateCtr.do", method={RequestMethod.POST, RequestMethod.GET})
+	public String tourReservationBoardUpdateCtr(String tourName, String tourStartDate, String tourEndDate,
+			String tourStartTime, String tourEndTime, int tourPeopleNum, int tourPrice, String tourStartingPoint,
+			String tourContent, int tourNo, Model model) {
+		log.debug("Welcome reservation tourReservationBoardUpdateCtr");
+		
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("tourName", tourName);
+		paramMap.put("tourStartDate", tourStartDate);
+		paramMap.put("tourEndDate", tourEndDate);
+		paramMap.put("tourStartTime", tourStartTime);
+		paramMap.put("tourEndTime", tourEndTime);
+		paramMap.put("tourPeopleNum", tourPeopleNum);
+		paramMap.put("tourPrice", tourPrice);
+		paramMap.put("tourStartingPoint", tourStartingPoint);
+		paramMap.put("tourContent", tourContent);
+		paramMap.put("tourNo", tourNo);
+		
+		reservationService.tourUpdateOne(paramMap);
+		return "redirect:/reservation/reservationPage.do";
+	}
+	
+	// [관리자] 투어 예약 게시판 CRUD 전체 조회 - 상세(하나만 선택) - 삭제
+	@RequestMapping(value="/reservation/reservationPageDelete.do", method=RequestMethod.GET)
+	public String tourReservationBoardDelete(int tourNo, Model model) {
+		log.debug("Welcome reservation tourReservationBoardDelete");
+		
+		reservationService.tourDeleteOne(tourNo);
+		
+		return "redirect:/reservation/reservationPage.do";
+	}
+	
+	// [관리자] 투어 예약 게시판 CRUD 전체 조회 - 추가(투어 만들기)
+	@RequestMapping(value="/reservation/reservationPageAdd.do", method=RequestMethod.GET)
+	public String tourReservationBoardAdd(Model model) {
+		log.debug("Welcome reservation tourReservationBoardAdd");
+		
+		return "reservation/adminReservationPageAddForm";
+	}
+	
+	// [관리자] 투어 예약 게시판 CRUD 전체 조회 - 추가(투어 만들기)Ctr
+	@RequestMapping(value="/reservation/reservationPageAddCtr.do", method={RequestMethod.POST, RequestMethod.GET})
+	public String tourReservationBoardAddCtr(String tourName, String tourStartDate, String tourEndDate,
+			String tourStartTime, String tourEndTime, int tourPeopleNum, int tourPrice, String tourStartingPoint,
+			String tourContent, Model model) {
+		log.debug("Welcome reservation tourReservationBoardAddCtr");
+		
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("tourName", tourName);
+		paramMap.put("tourStartDate", tourStartDate);
+		paramMap.put("tourEndDate", tourEndDate);
+		paramMap.put("tourStartTime", tourStartTime);
+		paramMap.put("tourEndTime", tourEndTime);
+		paramMap.put("tourPeopleNum", tourPeopleNum);
+		paramMap.put("tourPrice", tourPrice);
+		paramMap.put("tourStartingPoint", tourStartingPoint);
+		paramMap.put("tourContent", tourContent);
+		
+		reservationService.tourInsertOne(paramMap);
+		
+		return "redirect:/reservation/reservationPage.do";
+	}
+	
 }

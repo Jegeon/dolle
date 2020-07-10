@@ -149,4 +149,5 @@
 		RESERVE_DEPOSIT_STATE = 'paid'
 		WHERE RESERVE_IDX = #{reserveIdx}
 	</update>
+	
 </mapper>

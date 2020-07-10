@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
@@ -6,11 +7,8 @@
 <head>
 
 <meta charset="UTF-8">
-<title>투어 예약 게시판</title>
+<title>가이드 투어 예약페이지 관리(투어관리)</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
-<script type="text/javascript">
-
-</script>
 <style type="text/css">
 	button {
 		width : 150px;
@@ -41,19 +39,12 @@
 
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
 
-	관리자용 예약 관리 테스트 링크 이동 버튼<br>
-	<button onclick="location.href='../reservation/reservationSchedule.do'">예약일정</button>adminReservationScheduleView<br>
-	<button onclick="location.href='../reservation/reservationListAll.do'">예약현황(전체)</button>adminReservationListAllView<br>
-	<button onclick="location.href='../reservation/reservationListStandby.do'">예약현황(미입금자)</button>adminReservationListStandbyView<br>
-	<button onclick="location.href='../reservation/reservationListCanceled.do'">예약현황(취소자)</button>adminReservationListCanceledView<br>
-	<button onclick="location.href='../reservation/reservationPage.do'">예약페이지 관리(투어관리)</button>adminReservationPageView<br>
-	
-	<h1 class="daehanFont" style="margin: 10px 0px 10px 82px;">가이드 투어 예약</h1>
+	<h1 class="daehanFont" style="margin: 10px 0px 10px 82px;">가이드 투어 예약페이지 관리(투어관리, 추가, 수정, 삭제 등 가능)</h1>
 	<br/>
 	<c:forEach var="tourVo" items="${tourList}">
 		<div style="width: 740px; height: 360px; margin: auto;">
 			<div style="width: 240px; height: 260px; border: 1px solid black; float: left;">
-				<div onclick="location.href='../reservation/listOne.do?tourNo=${tourVo.tourNo}'" style="cursor:pointer;">
+				<div onclick="location.href='../reservation/reservationPageDetail.do?tourNo=${tourVo.tourNo}'" style="cursor:pointer;">
 					이미지 넣을 예정
 					<br>
 					여기 누르면 링크 이동
@@ -88,8 +79,13 @@
 		</div>
 	</c:forEach>
 	
+	<div>
+		<div>
+			<button onclick="location.href='../reservation/reservationPageAdd.do'">투어 만들기</button>
+		</div>
+	</div>
+	
 	<jsp:include page="/WEB-INF/views/Tail.jsp" />
 	
 </body>
-
 </html>

@@ -1,5 +1,6 @@
 package com.edu.courseReview.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -108,11 +109,49 @@ public class CourseReviewDaoImpl implements CourseReviewDao{
 	}
 
 	@Override
-	public List<CommentVo> commentSelectList(int reviewIdx) {
+	public List<CommentVo> commentSelectList(int commentReviewIdx) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList(namespace + "commentSelectList", reviewIdx);
+		return sqlSession.selectList(namespace + "commentSelectList", commentReviewIdx);
 	}
 
+	
+	@Override
+	public int commentDeleteOne(int commentIdx, int commentMemberIdx) {
+		// TODO Auto-generated method stub
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("commentIdx", commentIdx);
+		map.put("commentMemberIdx", commentMemberIdx);
+		
+		return sqlSession.delete(namespace + "commentDeleteOne", map);
+	}
+
+	@Override
+	public int commentUpdateOne(CommentVo commentVo) {
+		// TODO Auto-generated method stub
+		return sqlSession.update(namespace + "commentUpdateOne", commentVo);
+	}
+
+	//다중삭제용
+	@Override
+	public int commentDeleteList(List<String> reviewIdxList) {
+		// TODO Auto-generated method stub
+		System.out.println("Dao commentDeleteList 접근중"+ reviewIdxList.get(0));
+		return sqlSession.delete(namespace + "commentDeleteList", reviewIdxList);
+	}
+	@Override
+	public int courseReviewDeleteList(List<String> reviewIdxList) {
+		// TODO Auto-generated method stub
+		System.out.println("Dao courseReviewDeleteList 접근중"+ reviewIdxList.get(0));
+
+		return sqlSession.delete(namespace + "reviewDeleteList", reviewIdxList);
+	}
+	@Override
+	public int fileDeleteList(List<String> reviewIdxList) {
+		// TODO Auto-generated method stub
+		System.out.println("Dao fileDeleteList 접근중"+ reviewIdxList.get(0));
+
+		return sqlSession.delete(namespace + "fileDeleteList", reviewIdxList);
+	}
 	
 	
 	

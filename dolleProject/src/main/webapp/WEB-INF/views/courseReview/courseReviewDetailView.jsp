@@ -43,6 +43,40 @@
 		font:normal bold 18px Segoe UI;
 	}
 	
+	/* 리뷰 */
+	.reviewTitle{
+		color: #707070;
+		font:normal bold 25px Segoe UI;
+	}
+	.reviewContent{
+		color: #000;
+		font:normal normal 18px Segoe UI;
+	}
+	.reviewSide{
+		color: #707070;
+		font:normal normal 14px Segoe UI;
+	}	
+	
+	.marginRight5{
+		margin-right: 5px;
+	}
+	.marginRight15{
+		margin-right: 15px;
+	}
+	
+	/* 댓글 */
+	.commentHeader{
+		margin-left: 20px;
+		font:normal bold 16px Segoe UI;		
+	}
+	.commentBtn{
+		width: 10px;
+	}
+	.commentBox{
+		margin-left: 20px;
+	}
+	
+	
 	.EmoLi{
 		width: 48px;
 		height: 48px;
@@ -64,9 +98,24 @@
 <script type="text/javascript">
 
 	$(document).ready(function() { 
-		//기본 이미지 smile로 설정
+		//여기 부분 코드 깔끔하게 고치기 -> index남발한 것과 배열 1로 시작하는거랑 inputhidden으로 바꾸기
+		var commentList = $(".commentBox").get();
+// 		alert("index: "+commentList.length);
+		for(var i=1; i<=commentList.length; i++){
+			var emoticonVal = $("#commentEmoticon"+i).val();
+// 			alert(i+" : "+emoticonVal);
+			//댓글 이미지 출력
+			var imagesAddress = "/dolleProject/resources/images/"
+			$("#commentImg"+i).attr("src",imagesAddress+emoticonVal+".png");
+			$("#commentImg"+i).css("width","50px");
+		}
+		
+		
+		//댓글 작성시 - 기본 이미지 smile로 설정
 		$("#commentEmoticon").val("smile");
 		$("#smileEmo").css("border", "3px solid #FFCC00");
+		
+		
 	});
 
 	function movePageListFnc(){
@@ -102,10 +151,50 @@
 			location.href="<%=request.getContextPath()%>/auth/login.do";
 			return false;
 		}
-		
-		
 		return true;
 	}
+	
+	function deleteCommnetFnc(index){
+		var reviewIdxVal = $("#commentReviewIdx").val();
+		var memberIdxVal = $("#commentMemberIdx").val();
+		var commentIdxVal = $("#commentIdx"+index).val();
+
+		var checkDelete = confirm("정말 삭제하시겠습니까?");
+		if(checkDelete == true){
+			location.href="./deleteCommentCtr.do?reviewIdx="+reviewIdxVal+"&commentIdx="+commentIdxVal+"&memberIdx="+memberIdxVal;		
+		}
+	}
+	
+	//수정버튼 클릭시 
+	function makeUpdateBoxFnc(index){
+// 		alert($("#check"+index).text());
+		if($("#check"+index).text() == 0){
+			$("#commentBox"+index).append($("<textarea id='commentContent' name='commentContent'></textarea>"));		
+			$("#check"+index).text(1);
+			
+			var commentIdx = $("#commentIdx"+index).val();
+// 			alert("comIdx"+commentIdx);
+			$("#updateBtn"+index).attr("onclick","updateFnc("+commentIdx+");");
+		}else{
+			alert("이미 텍스트박스 있음");
+// 			$("#commentContent").remove();
+// 			$("#check"+index).text(0);
+		}
+		
+		
+		
+	}
+	
+	function updateFnc(commentIdx){
+// 		alert(commentIdx);
+		var checkUpdate = confirm("이대로 수정하시겠습니까?");
+		if(checkUpdate == true){
+			$("#commentIdx").val(commentIdx);
+			var formObj = $("#updateCommentForm");
+			formObj.submit();
+		}
+	}
+		
 	
 </script>
 </head>
@@ -121,52 +210,89 @@
 			<h1>혜화 명륜 마을</h1>
 		</div>
 		
-<!-- 		<form id="addForm" action="./addCtr.do" method="post" enctype="multipart/form-data"> -->
-			<div id="uploadImageBox" class="basicBox" style="text-align: center;">	
-				<img id="uploadImg" alt="upload_image" src="<c:url value='/img/${reviewMCFVo.fileStoredName}'/>"
-					style="height:583px;">
+		<div id="uploadImageBox" class="basicBox" style="text-align: center;">	
+			<img id="uploadImg" alt="upload_image" src="<c:url value='/img/${reviewMCFVo.fileStoredName}'/>"
+				style="width:100%; height:600px;">
+		</div>
+		
+		<div class="floatRight" style="margin: 10px 190px 40px;">
+		
+		</div>
+		
+		<div id="ratingBox" class="basicBox floatClear" style="padding-bottom: 20px;">
+		
+		</div>
+		
+		<div class="basicBox reviewTitle" style="padding-bottom: 20px;">
+			${reviewMCFVo.reviewTitle}
+		</div>
+		
+		<div class="basicBox reviewContent" style="padding-bottom: 20px; float:left; width:474px; margin-left: 180px;">
+			<span class="marginRight15">${reviewMCFVo.reviewRating}</span>
+			<span class="">${reviewMCFVo.memberNickname}</span>
+		</div>
+
+		<div style="float:left; width: 450px;">
+			<div class="basicBox reviewSide" style="padding-bottom: 10px;">
+				<span class="marginRight5">조회수</span>
+				<span class="marginRight15">${reviewMCFVo.reviewReadCount}</span> 
+				<span class="marginRight5">좋아요</span>
+				<span>${reviewMCFVo.reviewLikeCount}</span>
 			</div>
 			
-			<div class="floatRight" style="margin: 10px 190px 40px;">
-			
+			<div class="basicBox reviewSide" style="padding-bottom: 10px;">
+				<span class="marginRight5">등록일</span>
+				<span class="marginRight15">
+					<fmt:formatDate value="${reviewMCFVo.reviewCreDate}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
+				</span>
+				<span class="marginRight5">수정일</span>
+				<span>
+					<fmt:formatDate value="${reviewMCFVo.reviewModDate}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
+				</span> 
 			</div>
-			
-			<div id="ratingBox" class="basicBox floatClear" style="padding-bottom: 20px;">
-			
-			</div>
-			
-			<div class="basicBox" style="padding-bottom: 20px;">
-				${reviewMCFVo.reviewTitle}
-			</div>
-			
-			<div class="basicBox" style="padding-bottom: 20px;">
-				${reviewMCFVo.reviewRating}
-				${reviewMCFVo.memberNickname}
-			</div>
-			
-			<div class="basicBox" style="padding-bottom: 20px;">
-				${reviewMCFVo.reviewReadCount}
-				${reviewMCFVo.reviewLikeCount}
-			</div>
-			
-			<div class="basicBox" style="padding-bottom: 20px;">
-				등록일 <fmt:formatDate value="${reviewMCFVo.reviewCreDate}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
-				수정일 <fmt:formatDate value="${reviewMCFVo.reviewModDate}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate> 
-			</div>
-			
-			<div class="basicBox" style="padding-bottom: 20px;">
-				${reviewMCFVo.reviewContent}
-			</div>
-			
-			<div class="basicBox" style="float:left; padding-left:600px;">
-				<input class="inputBtn" type="button" onclick="movePageListFnc();" value="목록으로">
-				<input class="inputBtn" type="button" onclick="movePageUpdateFnc(${reviewMCFVo.reviewIdx});" value="수정">
-			</div>
-<!-- 		</form> -->
-			
-		<div>댓글쓰기</div>
-		<hr>
-		<div id="commentWrap">
+		</div>		
+		
+		<div class="basicBox reviewContent" style="padding-bottom: 20px; clear:both;">
+			${reviewMCFVo.reviewContent}
+		</div>
+		
+		<div class="basicBox" style="float:left; padding-left:656px;">
+			<input class="inputBtn" type="button" onclick="movePageListFnc();" value="목록으로">
+			<input class="inputBtn" type="button" onclick="movePageUpdateFnc(${reviewMCFVo.reviewIdx});" value="수정">
+		</div>
+		
+		<div id="commentWrap" style="width:1100px; margin:70px auto;">	
+			<span class="commentHeader">댓글쓰기</span>
+			<span>
+				<button class="commentBtn" style="width:25px; height:25px;">&lt;</button>
+				<button class="commentBtn" style="width:25px; height:25px;">&gt;</button>
+			</span>
+			<hr>
+			<form id="updateCommentForm" action="./updateCommentCtr.do" method="post">
+				<input id="commentReviewIdx" name="commentReviewIdx" type="hidden" value="${reviewMCFVo.reviewIdx}">
+				<input id="commentIdx" name="commentIdx" type="hidden" value="">
+				
+				<c:forEach var="commentVo" items="${commentList}" varStatus="index">
+					<input id="commentIdx${index.count}" type="hidden" value="${commentVo.commentIdx}">
+					<div id="commentBox${index.count}" class="commentBox">
+						<!-- 체크용(숨김) -->
+<%-- 						<div id="check${index.count}" style="color:#fff;">0</div> --%>
+						<input id="check${index.count}" type="hidden" value="0">
+						<input id="commentEmoticon${index.count}" type="hidden" value="${commentVo.commentEmoticon}">
+						
+						<span><img id="commentImg${index.count}" alt="emoticon" src=""></span>
+						<span>${commentVo.memberNickname}</span>
+						<div>${commentVo.commentContent}</div>
+						<span>${commentVo.creDate}</span>
+						<span>${commentVo.modDate}</span>
+					</div>	
+					<c:if test="${_memberVo_.no eq commentVo.commentMemberIdx}">
+						<button id="updateBtn${index.count}" type="button" onclick="makeUpdateBoxFnc(${index.count});">수정</button>
+						<button type="button" onclick="deleteCommnetFnc(${index.count});">삭제</button>
+					</c:if>
+					<hr>
+				</c:forEach>
+			</form>
 		</div>
 		
 		<!-- 댓글쓰기 -->

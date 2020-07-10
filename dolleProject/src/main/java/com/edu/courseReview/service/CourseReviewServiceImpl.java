@@ -1,5 +1,6 @@
 package com.edu.courseReview.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -182,7 +183,25 @@ public class CourseReviewServiceImpl implements CourseReviewService{
 		return courseReviewDao.commentSelectList(reviewIdx);
 	}
 
-	
+	@Override
+	public int commentDeleteOne(int commentIdx, int commentMemberIdx) {
+		// TODO Auto-generated method stub
+		return courseReviewDao.commentDeleteOne(commentIdx, commentMemberIdx);
+	}
+
+	@Override
+	public int commentUpdateOne(CommentVo commentVo) {
+		// TODO Auto-generated method stub
+		return courseReviewDao.commentUpdateOne(commentVo);
+	}
+
+	@Override
+	public int courseReviewDeleteList(List<String> reviewIdxList) {
+		// TODO Auto-generated method stub
+		courseReviewDao.commentDeleteList(reviewIdxList);
+		courseReviewDao.fileDeleteList(reviewIdxList);
+		return courseReviewDao.courseReviewDeleteList(reviewIdxList);
+	}
 	
 	
 	

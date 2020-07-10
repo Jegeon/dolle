@@ -27,17 +27,21 @@
 	
 	<sql id="orderBy">
 		<choose>
-        	<!-- 최신순일 경우  -->
+        	<!-- 최신순서일 경우  -->
         	<when test="orderOption == 'newest'">
         		ORDER BY RB.REVIEW_IDX DESC
         	</when>
-        	<!-- 별점순일 경우  -->
+        	<!-- 별점순서일 경우  -->
         	<when test="orderOption == 'starNum'">
         		ORDER BY RB.REVIEW_RATING DESC, RB.REVIEW_IDX DESC 
         	</when>
-        	<!-- 정렬순일 경우  -->
+        	<!-- 정렬 순서일 경우  -->
         	<when test="orderOption == 'readCnt'">
         		ORDER BY RB.REVIEW_READ_COUNT DESC, RB.REVIEW_IDX DESC
+        	</when>
+        	<!-- 댓글수 순서일 경우 - 관리자용  -->
+        	<when test="orderOption == 'cntComment'">
+        		ORDER BY  C.COMMENT_COUNT DESC, RB.REVIEW_IDX DESC
         	</when>
         </choose>
 	</sql>
@@ -92,6 +96,17 @@
 		<result column="REVIEW_STORED_FILE_NAME" property="fileStoredName"/>
 	</resultMap> 
 
+	<resultMap type="com.edu.courseReview.vo.CommentVo" id="commentMap">
+		<id column="COMMENT_IDX" property="commentIdx"/>
+		<result column="REVIEW_IDX" property="commentReviewIdx"/>
+		<result column="MEMBER_IDX" property="commentMemberIdx"/>
+		<result column="MEMBER_NICKNAME" property="memberNickname"/>
+		<result column="COMMENT_CONTENT" property="commentContent"/>
+		<result column="COMMENT_EMOTICON" property="commentEmoticon"/>
+		<result column="COMMENT_CRE_DATE" property="creDate"/>
+		<result column="COMMENT_MOD_DATE" property="modDate"/>
+	</resultMap>
+
 	<select id="reviewSelectList" parameterType="map" resultMap="courseReivewMap">
 		SELECT REVIEW_IDX, REVIEW_TITLE 
 		FROM REVIEWBOARD
@@ -101,7 +116,9 @@
 		 resultMap="courseReviewMemberCommentFileMap">
 		SELECT * 
 		FROM (SELECT ROWNUM RNUM, RBMCF.*
-				FROM( SELECT RB.REVIEW_IDX, REVIEW_TITLE, M.MEMBER_NICKNAME, REVIEW_READ_COUNT, REVIEW_RATING, REVIEW_LIKE_COUNT, C.COMMENT_COUNT, RF.REVIEW_STORED_FILE_NAME
+				FROM( SELECT RB.REVIEW_IDX, REVIEW_TITLE, M.MEMBER_NICKNAME, REVIEW_READ_COUNT
+					, REVIEW_RATING, REVIEW_LIKE_COUNT, REVIEW_CRE_DATE
+					, C.COMMENT_COUNT, RF.REVIEW_STORED_FILE_NAME
 						FROM REVIEWBOARD RB, MEMBER M
 						    ,(SELECT REVIEW_IDX, COUNT(*) AS COMMENT_COUNT FROM REVIEW_COMMENT GROUP BY REVIEW_IDX) C
 						    ,(SELECT REVIEW_IDX, REVIEW_STORED_FILE_NAME FROM REVIEW_FILE) RF
@@ -197,7 +214,37 @@
 		DELETE FROM REVIEW_FILE
 		WHERE REVIEW_IDX = #{review_idx}
 	</delete>
-	
+	<!-- 관리자용 다중삭제 -->
+	<delete id="reviewDeleteList" parameterType="java.util.List">
+		<if test="list.size != 0">
+		DELETE FROM REVIEWBOARD
+		WHERE REVIEW_IDX IN
+			<foreach collection="list" item="item"
+				open="(" close=")" separator=",">
+				#{item}
+			</foreach>
+		</if>
+	</delete>
+	<delete id="fileDeleteList" parameterType="java.util.List">
+		<if test="list.size != 0">
+		DELETE FROM REVIEW_FILE
+		WHERE REVIEW_IDX IN
+			<foreach collection="list" item="item"
+				open="(" close=")" separator=",">
+				#{item}
+			</foreach>
+		</if>	
+	</delete>
+	<delete id="commentDeleteList" parameterType="java.util.List">
+		<if test="list.size != 0">
+		DELETE FROM REVIEW_COMMENT
+		WHERE REVIEW_IDX IN
+			<foreach collection="list" item="item"
+				open="(" close=")" separator=",">
+				#{item}
+			</foreach>	
+		</if>
+	</delete>
 	
 	
 	<!-- 댓글 -->
@@ -209,6 +256,26 @@
 		, #{commentContent}, #{commentEmoticon}, SYSDATE, SYSDATE)
 	</insert>
 	
+	<select id="commentSelectList" parameterType="int" resultMap="commentMap">
+		SELECT COMMENT_IDX, RC.MEMBER_IDX, M.MEMBER_NICKNAME, COMMENT_CONTENT, COMMENT_EMOTICON, COMMENT_CRE_DATE, COMMENT_MOD_DATE
+		FROM REVIEW_COMMENT RC, MEMBER M
+		WHERE REVIEW_IDX = #{commentReviewIdx}
+        AND RC.MEMBER_IDX = M.MEMBER_IDX
+		ORDER BY COMMENT_IDX DESC
+	</select>
+	<!-- 사용자용 삭제 -->
+	<delete id="commentDeleteOne" parameterType="map">
+		DELETE FROM REVIEW_COMMENT
+		WHERE COMMENT_IDX = #{commentIdx}
+		AND MEMBER_IDX = #{commentMemberIdx}
+	</delete>
+	
+	<update id="commentUpdateOne" parameterType="com.edu.courseReview.vo.CommentVo">
+		UPDATE REVIEW_COMMENT
+		SET COMMENT_CONTENT = #{commentContent}
+			, COMMENT_MOD_DATE = SYSDATE
+        WHERE COMMENT_IDX = #{commentIdx}
+	</update>
 	
 	
 	

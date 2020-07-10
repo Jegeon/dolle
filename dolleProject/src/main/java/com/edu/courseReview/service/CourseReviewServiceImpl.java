@@ -182,7 +182,17 @@ public class CourseReviewServiceImpl implements CourseReviewService{
 		return courseReviewDao.commentSelectList(reviewIdx);
 	}
 
-	
+	@Override
+	public int commentDeleteOne(int commentIdx, int commentMemberIdx) {
+		// TODO Auto-generated method stub
+		return courseReviewDao.commentDeleteOne(commentIdx, commentMemberIdx);
+	}
+
+	@Override
+	public int commentUpdateOne(CommentVo commentVo) {
+		// TODO Auto-generated method stub
+		return courseReviewDao.commentUpdateOne(commentVo);
+	}
 	
 	
 	

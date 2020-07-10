@@ -108,11 +108,27 @@ public class CourseReviewDaoImpl implements CourseReviewDao{
 	}
 
 	@Override
-	public List<CommentVo> commentSelectList(int reviewIdx) {
+	public List<CommentVo> commentSelectList(int commentReviewIdx) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList(namespace + "commentSelectList", reviewIdx);
+		return sqlSession.selectList(namespace + "commentSelectList", commentReviewIdx);
 	}
 
+	
+	@Override
+	public int commentDeleteOne(int commentIdx, int commentMemberIdx) {
+		// TODO Auto-generated method stub
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("commentIdx", commentIdx);
+		map.put("commentMemberIdx", commentMemberIdx);
+		
+		return sqlSession.delete(namespace + "commentDeleteOne", map);
+	}
+
+	@Override
+	public int commentUpdateOne(CommentVo commentVo) {
+		// TODO Auto-generated method stub
+		return sqlSession.update(namespace + "commentUpdateOne", commentVo);
+	}
 	
 	
 	

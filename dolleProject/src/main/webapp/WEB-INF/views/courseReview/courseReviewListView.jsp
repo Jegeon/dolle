@@ -405,6 +405,8 @@
 		</form>
 	</div>
 	
+	<a href="./adminList.do">관리자 test</a>
+	
 	<jsp:include page="/WEB-INF/views/Tail.jsp" />
 	
 </body>

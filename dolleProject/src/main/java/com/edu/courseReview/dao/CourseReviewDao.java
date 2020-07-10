@@ -28,5 +28,6 @@ public interface CourseReviewDao {
 	//댓글
 	public int commentInsertOne(CommentVo commentVo);
 	public List<CommentVo> commentSelectList(int reviewIdx);
-	
+	public int commentDeleteOne(int commentIdx, int commentMemberIdx);
+	public int commentUpdateOne(CommentVo commentVo);
 }

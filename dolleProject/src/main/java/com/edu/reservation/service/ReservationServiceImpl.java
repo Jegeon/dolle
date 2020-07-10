@@ -65,5 +65,10 @@ public class ReservationServiceImpl implements ReservationService{
 	public void tourDeleteOne(int tourNo) {
 		reservationDao.tourDeleteOne(tourNo);
 	}
+
+	@Override
+	public void tourInsertOne(Map<String, Object> paramMap) {
+		reservationDao.tourInsertOne(paramMap);
+	}
 	
 }

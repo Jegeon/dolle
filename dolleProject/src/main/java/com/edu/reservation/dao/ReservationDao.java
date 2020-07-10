@@ -20,5 +20,6 @@ public interface ReservationDao {
 	public List<TourVo> tourReservationSelectListAll();
 	public int tourUpdateOne(Map<String, Object> paramMap);
 	public int tourDeleteOne(int tourNo);
+	public int tourInsertOne(Map<String, Object> paramMap);
 
 }

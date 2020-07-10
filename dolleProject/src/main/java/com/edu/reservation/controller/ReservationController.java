@@ -168,17 +168,15 @@ public class ReservationController {
 	// [관리자] 투어 예약 게시판 CRUD 전체 조회 - 상세(하나만 선택) - 업데이트 - 업데이트Ctr
 	// 원래 TourVo tourVo 하려다 날짜에서 문제가 생겨서 각각 쪼갬
 	// 그에 대한 원본
-	//	@RequestMapping(value="/reservation/reservationPageUpdateCtr.do", method={RequestMethod.POST, RequestMethod.GET})
 	//	public String tourReservationBoardUpdateCtr(TourVo tourVo, Model model) {
 	//	log.debug("Welcome reservation tourReservationBoardUpdateCtr");
-	//	System.out.println(tourVo);
 	//	reservationService.tourUpdateOne(tourVo);
-	//	return "redirect:/reservation/reservationPage.do";
 	//	}
 	@RequestMapping(value="/reservation/reservationPageUpdateCtr.do", method={RequestMethod.POST, RequestMethod.GET})
 	public String tourReservationBoardUpdateCtr(String tourName, String tourStartDate, String tourEndDate,
 			String tourStartTime, String tourEndTime, int tourPeopleNum, int tourPrice, String tourStartingPoint,
 			String tourContent, int tourNo, Model model) {
+		log.debug("Welcome reservation tourReservationBoardUpdateCtr");
 		
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("tourName", tourName);
@@ -192,7 +190,6 @@ public class ReservationController {
 		paramMap.put("tourContent", tourContent);
 		paramMap.put("tourNo", tourNo);
 		
-		log.debug("Welcome reservation tourReservationBoardUpdateCtr");
 		reservationService.tourUpdateOne(paramMap);
 		return "redirect:/reservation/reservationPage.do";
 	}
@@ -205,6 +202,37 @@ public class ReservationController {
 		reservationService.tourDeleteOne(tourNo);
 		
 		return "redirect:/reservation/reservationPage.do";
-	} 
+	}
+	
+	// [관리자] 투어 예약 게시판 CRUD 전체 조회 - 추가(투어 만들기)
+	@RequestMapping(value="/reservation/reservationPageAdd.do", method=RequestMethod.GET)
+	public String tourReservationBoardAdd(Model model) {
+		log.debug("Welcome reservation tourReservationBoardAdd");
+		
+		return "reservation/adminReservationPageAddForm";
+	}
+	
+	// [관리자] 투어 예약 게시판 CRUD 전체 조회 - 추가(투어 만들기)Ctr
+	@RequestMapping(value="/reservation/reservationPageAddCtr.do", method={RequestMethod.POST, RequestMethod.GET})
+	public String tourReservationBoardAddCtr(String tourName, String tourStartDate, String tourEndDate,
+			String tourStartTime, String tourEndTime, int tourPeopleNum, int tourPrice, String tourStartingPoint,
+			String tourContent, Model model) {
+		log.debug("Welcome reservation tourReservationBoardAddCtr");
+		
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("tourName", tourName);
+		paramMap.put("tourStartDate", tourStartDate);
+		paramMap.put("tourEndDate", tourEndDate);
+		paramMap.put("tourStartTime", tourStartTime);
+		paramMap.put("tourEndTime", tourEndTime);
+		paramMap.put("tourPeopleNum", tourPeopleNum);
+		paramMap.put("tourPrice", tourPrice);
+		paramMap.put("tourStartingPoint", tourStartingPoint);
+		paramMap.put("tourContent", tourContent);
+		
+		reservationService.tourInsertOne(paramMap);
+		
+		return "redirect:/reservation/reservationPage.do";
+	}
 	
 }

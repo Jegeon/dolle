@@ -18,4 +18,5 @@ public interface ReservationService {
 	public List<TourVo> tourReservationSelectListAll();
 	public int tourUpdateOne(Map<String, Object> paramMap);
 	public void tourDeleteOne(int tourNo);
+	public void tourInsertOne(Map<String, Object> paramMap);
 }	

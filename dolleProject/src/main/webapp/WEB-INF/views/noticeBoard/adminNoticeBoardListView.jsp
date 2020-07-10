@@ -169,6 +169,7 @@ th {
 		location.href = './AdminNoticeAdd.do';
 		
 	}
+	
 </script>
 
 
@@ -271,10 +272,13 @@ th {
 				</li>
 			</ul>
 			
-			<div id='listBtnDiv'>
-				<input id='listBtnInput' class='btnPointer' value='공지 작성'
-					onclick='pageMoveNoticeAdd();'>
-			</div>
+			
+			<c:if test="${_memberVo_.grade == 'admin'}">
+				<div id='listBtnDiv'>
+					<input id='listBtnInput' class='btnPointer' value='공지 작성'
+						onclick='pageMoveNoticeAdd();'>
+				</div>
+			</c:if>
 		</div>
 		
 	</div>

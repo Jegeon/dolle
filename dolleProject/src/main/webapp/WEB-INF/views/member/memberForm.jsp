@@ -40,7 +40,7 @@
 	}
 	
 	span {
-		font-size: 5px;
+		font-size: 15px;
 		color: #0D4371;
 	}
 	
@@ -57,6 +57,8 @@
 	#infoText {
 		color: #000000;
 		font-size: xx-small;
+		width: 200px;
+		height: 160px;
 	}
 	
 	.tdCss {
@@ -128,7 +130,7 @@
 	var pattern_spc = /[~!@#$%^&*()_+|<>?:{}]/; // 특수문자
 	var pattern_kor = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/; // 한글
 	var reg_email = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/; //이메일
-	var reg_Phone = /^((01[1|6|7|8|9])[1-9]+[0-9]{6,7})|(010[1-9][0-9]{7})$/; //핸드폰
+	var reg_Phone = /^((01[1|6|7|8|9])[2-9]+[0-9]{6,7})|(010[2-9][0-9]{7})$/; //핸드폰
 
 	function completedFnc() {
 		addMemberBtn = document.addMemberBtn;
@@ -339,7 +341,7 @@
 			cerObj.focus();
 			return false;
 		} else {
-			
+			cerCheck.innerHTML = '';
 		}
 		
 		// 가입성공
@@ -411,179 +413,211 @@
 			<span id='mainText'>회원가입</span>
 		</div>
 		
-		<div>
+		<div style='margin-left: 80px;'>
 		<form name='addMemberBtn' action="./addCtr.do" method="post">
 			<table>
 				<tr>
 					<td>
-						<span>이름</span>
-					</td>
-					<td>
-						<span>핸드폰 번호</span>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<input id='nameObj' type="text" name='name' placeholder='이름' value=''>
-					</td>
-					<td>
-						<input id='phonObj' type='text' name='phone'
-							placeholder='ex) 010-1234-5678, 01012345678' value=''>
-					</td>
-				</tr>
-				<tr>
-					<td id='nameCheck' class='tdCss'>
-					</td>
-					<td id='phonCheck' class='tdCss'>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<span>닉네임</span>
-					</td>
-					<td>
-						<span>생년 월일</span>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<input id='nickNameObj' type="text" name='nickname' placeholder='닉네임' size='7'
-							maxlength='6' value=''>
-						<input class='btnCss' type="button" onclick='sameNickFnc();' value='중복 확인'>
-						<input id='checking' type='hidden' name='overlap' value=''>
-					</td>
-					<td>
-						<input id='yearObj' type='text' name='year' placeholder='년(자)' size='4'
-						 maxlength='4' value=''>
-						<select id='monthCheck' name='month'>
-							<option>1</option>
-							<option>2</option>
-							<option>3</option>
-							<option>4</option>
-							<option>5</option>
-							<option>6</option>
-							<option>7</option>
-							<option>8</option>
-							<option>9</option>
-							<option>10</option>
-							<option>11</option>
-							<option>12</option>
-						</select>
-						<input id='dayObj' type='text' name='day' placeholder='일' size='2' maxlength='2'
-							value=''>
-						<input type='hidden' name='birthdate' value=''>
-					</td>
-				</tr>
-				<tr>
-					<td id='nickNameCheck' class='tdCss'>
-					</td>
-					<td id='birthCheck' class='tdCss'>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<span>이메일</span>
-					</td>
-					<td>
-						<span>내외국인</span>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<input id='emailObj' type='email' name='email' placeholder='예)XXXX@gmail.com' value=''>
-					</td>
-					<td>
-						내국인
-						<input type='radio' name='national' value='n'>
-						외국인
-						<input type='radio' name='national' value='f'>
-					</td>
-				</tr>
-				<tr>
-					<td id='emailCheck' class='tdCss'>
-					</td>
-					<td id='localCheck' class='tdCss'>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<input id='cerObj' type='text' size='7' placeholder='인증번호를 입력해주세요.'>
-						<input id='cerNumBtn' class='btnCss' type="button" onclick='cerNumFnc();' value='인증번호 발송'>
-						<input id='cerNum' type='hidden' value=''>
-					</td>
-					<td rowspan='6'>
-						<div style='border: 1px solid black;'>
-							<p>개인정보<p>
-							<span id='infoText'>
-							돌레길은 아래의 목적으로 개인정보를 수집 및 이용하며,<br>
-							회원의 개인정보를 안전하게 취급하는데 최선을 다합니다.<br>
-							<br>
-							개인정보 수집 및 이용에 대한 안내<br>
-							1. 목적 : 지원자 개인 식별, 지원의사 확인, 입사전형의 진행,<br>
-							&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
-							고지사항 전달, 입사 지원자와의 원활한 의사소통,<br>
-							&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
-							지원이력 확인 및 면접 불합격자 재지원 제한<br>
-							2. 항목 : 아이디(이메일주소), 비밀번호, 이름, 생년월일, 휴대폰번호<br>
-							3. 보유기간 : 회원 탈퇴 시까지 보유 (단, 지원이력 정보는 일방향<br>
-							&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
-							암호화하여 탈퇴일로부터 1년간 보관 후 파기합니다.)<br>
-							<br>
-							위 개인정보 수집에 대한 동의를 거부할 권리가 있으며,<br>
-							동의 거부 시에는 지원자 등록이 제한될 수 있습니다.<br>
-							</span>
+						<div>
+							<table style='margin-right: 30px;'>
+								<tr>
+									<td>
+										<span>이름</span>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<input id='nameObj' type="text" name='name' placeholder='이름' value=''>
+									</td>
+								</tr>
+								<tr>
+									<td id='nameCheck' class='tdCss'>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<span>닉네임</span>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<input id='nickNameObj' type="text" name='nickname' placeholder='닉네임' size='10'
+											maxlength='6' value=''>
+										<input class='btnCss' type="button" onclick='sameNickFnc();' value='중복 확인'>
+										<input id='checking' type='hidden' name='overlap' value=''>
+									</td>
+									
+								</tr>
+								<tr>
+									<td id='nickNameCheck' class='tdCss'>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<span>이메일</span>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<input id='emailObj' type='email' name='email' placeholder='예)XXXX@gmail.com' value=''>
+									</td>
+								</tr>
+								<tr>
+									<td id='emailCheck' class='tdCss'>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<input id='cerObj' type='text' size='7' placeholder='인증번호를 입력해주세요.'>
+										<input id='cerNumBtn' class='btnCss' type="button" onclick='cerNumFnc();' value='인증번호 발송'>
+										<input id='cerNum' type='hidden' value=''>
+									</td>
+									
+								</tr>
+								<tr>
+									<td id='cerCheck' class='tdCss'>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<span>비밀번호</span>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<input id='passObj' type='password' name='password' placeholder='비밀번호' value=''
+											maxlength='15'>
+									</td>
+								</tr>
+								<tr>
+									<td id='passCheck' class='tdCss'>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<span>비밀번호 확인</span>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<input id='passCheckObj' type='password' name='tempPassword' placeholder='비밀번호 확인'
+											value='' maxlength='15'>
+									</td>
+								</tr>
+								<tr>
+									<td id='passCheckCheck' class='tdCss'>
+									</td>
+								</tr>
+							</table>
 						</div>
 					</td>
-				</tr>
-				<tr>
-					<td id='cerCheck' class='tdCss'>
-					</td>
-				</tr>
-				<tr>
 					<td>
-						<span>비밀번호</span>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<input id='passObj' type='password' name='password' placeholder='비밀번호' value=''
-							maxlength='15'>
-					</td>
-				</tr>
-				<tr>
-					<td id='passCheck' class='tdCss'>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<span>비밀번호 확인</span>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<input id='passCheckObj' type='password' name='tempPassword' placeholder='비밀번호 확인'
-							value='' maxlength='15'>
-					</td>
-					<td>
-						(필수)위의 내용을 읽었으며 동의합니다.
-						<input id='agreeObj' type='checkBox' name='grade'>동의
-					</td>
-				</tr>
-				<tr>
-					<td id='passCheckCheck' class='tdCss'>
-					</td>
-					<td id='agreeCheck' class='tdCss'>
-					</td>
-				</tr>
-				<tr>
-					<td colspan='2' style='text-align:center;'>
-						<input class='btnCss' onclick='completedFnc();' type='button' value='가입완료'>
-						<input class='btnCss' onclick='pageMoveListFnc();' type='button' value='<-'>
+						<div>
+							<table>
+								<tr>
+									<td>
+										<span>핸드폰 번호</span>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<input id='phonObj' type='text' name='phone'
+											placeholder='ex) 010-1234-5678, 01012345678' value=''>
+									</td>
+								</tr>
+								<tr>
+									<td id='phonCheck' class='tdCss'>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<span>생년 월일</span>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<input id='yearObj' type='text' name='year' placeholder='년(자)' size='4'
+										 maxlength='4' value=''>
+										<select id='monthCheck' name='month'>
+											<option>1</option>
+											<option>2</option>
+											<option>3</option>
+											<option>4</option>
+											<option>5</option>
+											<option>6</option>
+											<option>7</option>
+											<option>8</option>
+											<option>9</option>
+											<option>10</option>
+											<option>11</option>
+											<option>12</option>
+										</select>
+										<input id='dayObj' type='text' name='day' placeholder='일' size='2' maxlength='2'
+											value=''>
+										<input type='hidden' name='birthdate' value=''>
+									</td>
+								</tr>
+								<tr>
+									<td id='birthCheck' class='tdCss'>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<span>내외국인</span>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										내국인
+										<input type='radio' name='national' value='n'>
+										외국인
+										<input type='radio' name='national' value='f'>
+									</td>
+								</tr>
+								<tr>
+									<td id='localCheck' class='tdCss'>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<div style='border: 1px solid black;'>
+											<p>개인정보<p>
+											<span id='infoText'>
+											돌레길은 아래의 목적으로<br>
+											개인정보를 수집 및 이용하며,<br>
+											회원의 개인정보를 안전하게<br>
+											취급하는데 최선을 다합니다.<br>
+											1. 목적 : 회원 정보 수집<br>
+											2. 항목 : 아이디(이메일주소), 비밀번호,<br>
+											이름, 생년월일, 휴대폰번호<br>
+											위 개인정보 수집에 대한 동의를<br>
+											거부할 권리가 있으며,<br>
+											동의 거부 시에는 등록이 제한될 수 있습니다.<br>
+											</span>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td style='font-size: 12px;'>
+										(필수)위의 내용을 읽었으며 동의합니다.
+										<input id='agreeObj' type='checkBox' name='grade'>동의
+									</td>
+								</tr>
+								<tr>
+									<td id='agreeCheck' class='tdCss'>
+									</td>
+								</tr>
+							</table>
+						</div>
 					</td>
 				</tr>
 			</table>
 		</form>
 		</div>
+			<div>
+				<input class='btnCss' onclick='completedFnc();' type='button' value='가입완료'>
+				<input class='btnCss' onclick='pageMoveListFnc();' type='button' value='<-'>
+			</div>
 	</div>
 
 	<jsp:include page="/WEB-INF/views/Tail.jsp"/>

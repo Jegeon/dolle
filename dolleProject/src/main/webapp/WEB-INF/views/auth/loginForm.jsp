@@ -98,7 +98,6 @@
 		}
 		
 		// 이메일, 비밀번호 있는지 체크
-		
 		if (email != "" && password != "") {
 			loginCheck.submit();
 		}
@@ -157,7 +156,7 @@
 			</form>
 		</div>
 	</div>
-	
+	<input id='memberCheck' type='hidden' value='${memberVo.email}'>
 	<jsp:include page="/WEB-INF/views/Tail.jsp"/>
 </body>
 </html>

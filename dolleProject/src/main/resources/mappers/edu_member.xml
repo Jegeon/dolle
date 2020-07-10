@@ -3,6 +3,21 @@
 
 <mapper namespace="com.edu.member">
 
+	<sql id="search">
+		<choose>
+        	<!-- 검색옵션이 전체 검색일 경우  -->
+        	<when test="searchOption == 'all'">
+        		WHERE MEMBER_NAME LIKE '%' || #{keyword} || '%'
+        		OR    MEMBER_EMAIL LIKE '%' || #{keyword} || '%'
+        	</when>
+        	
+        	<!-- 전체 검색이 아닐 경우 -->
+        	<otherwise>
+        		WHERE ${searchOption} LIKE '%' || #{keyword} || '%'
+        	</otherwise>
+        </choose>
+	</sql>
+
 	<resultMap type="com.edu.member.vo.MemberVo"
 		id="memberResultMap">
 		<id column="MEMBER_IDX" property="no" />
@@ -43,6 +58,24 @@
 		FROM MEMBER
 		ORDER BY MEMBER_IDX
 		DESC
+<!-- 		SELECT MF.RNUM, MF.MNO, MF.EMAIL, MF.MNAME -->
+<!-- 			, MF.CRE_DATE, MF.ORIGINAL_FILE_NAME -->
+<!--    		FROM ( -->
+<!--       			SELECT ROWNUM RNUM, M.MNO, M.EMAIL -->
+<!--       				, M.MNAME, M.CRE_DATE, M.ORIGINAL_FILE_NAME -->
+<!--        			FROM( -->
+<!-- 	           		SELECT MEMBER.MNO MNO, MEMBER.EMAIL EMAIL -->
+<!-- 	           			, MEMBER.MNAME MNAME, MEMBER.CRE_DATE CRE_DATE -->
+<!-- 	             		, TB_FILE.ORIGINAL_FILE_NAME ORIGINAL_FILE_NAME -->
+<!-- 	           		FROM MEMBER LEFT OUTER JOIN TB_FILE -->
+<!-- 			        ON MEMBER.MNO = TB_FILE.PARENT_SEQ -->
+			        
+<!-- 	        		<include refid="search"></include> -->
+	        	
+<!-- 			        ORDER BY MNO DESC -->
+<!--            		) M -->
+<!--         ) MF -->
+<!--         WHERE MF.RNUM BETWEEN #{start} AND #{end} -->
 	</select>
 	
 	<select id="adminSelectList" parameterType="map" resultMap="memberResultMap">
@@ -124,9 +157,19 @@
 
 	<select id="memberSelectOne" parameterType="int"
 		resultMap="memberResultMap">
-		SELECT MEMBER_IDX, MEMBER_NAME, MEMBER_NICKNAME, MEMBER_EMAIL, MEMBER_PHONE, MEMBER_PASSWORD, MEMBER_NATIONAL
+		SELECT MEMBER_IDX, MEMBER_NAME, MEMBER_NICKNAME, MEMBER_EMAIL, MEMBER_PHONE, MEMBER_PASSWORD, MEMBER_NATIONAL, MEMBER_CRE_DATE, MEMBER_BIRTHDATE
 		FROM MEMBER
 		WHERE MEMBER_IDX = #{no}
+	</select>
+	
+	<select id="adminSelectOne" parameterType="int"
+		resultMap="memberResultMap">
+		SELECT M.MEMBER_IDX, M.MEMBER_EMAIL, M.MEMBER_NAME, M.MEMBER_NICKNAME, M.MEMBER_PHONE, M.MEMBER_BIRTHDATE, TMT.TOWN_NAME, M.MEMBER_GRADE, M.MEMBER_CRE_DATE, M.MEMBER_BIRTHDATE
+		FROM MEMBER M, (SELECT MEMBER_IDX, MANAGE_GRADE, T.TOWN_IDX, TOWN_NAME, TOWN_ADDRESS
+    					FROM TOWN_MANAGEMENT TM, TOWN T
+    					WHERE TM.TOWN_IDX = T.TOWN_IDX    
+    					) TMT
+		WHERE M.MEMBER_IDX = #{no}
 	</select>
 	
 	<delete id="memberDelete" parameterType="int">
@@ -143,11 +186,34 @@
 		WHERE RESERVE_IDX = #{reserveIdx}
 	</select>
 	
+	<select id="memberSelectTotalCount" resultType="int" 
+		parameterType="map">
+		SELECT COUNT(*)
+		FROM MEMBER
+		<include refid="search"></include>
+	</select>
+	
+<!-- 	<select id="memberSelectCurPage" parameterType="map" -->
+<!-- 		resultType="int"> -->
+<!-- 		SELECT floor((rnum-1) / 10)+1 no -->
+<!-- 		FROM ( SELECT ROWNUM RNUM, M.MNO, M.EMAIL  -->
+<!-- 			, M.MNAME, M.CRE_DATE, -->
+<!-- 			M.ORIGINAL_FILE_NAME FROM -->
+<!-- 			( SELECT MEMBER.MNO MNO, MEMBER.EMAIL EMAIL -->
+<!-- 			, MEMBER.MNAME MNAME, MEMBER.CRE_DATE CRE_DATE -->
+<!-- 			, TB_FILE.ORIGINAL_FILE_NAME ORIGINAL_FILE_NAME -->
+<!-- 			FROM MEMBER LEFT OUTER JOIN TB_FILE -->
+<!-- 			ON MEMBER.MNO = TB_FILE.PARENT_SEQ -->
+<!-- 			<include refid="search"></include> -->
+<!-- 			ORDER BY MNO DESC ) -->
+<!-- 		M ) -->
+<!-- 		where mno = #{no} -->
+<!-- 	</select> -->
+	
 	<update id="memberPaymentUpdateOne" parameterType="int">
 		UPDATE RESERVE
 		SET
 		RESERVE_DEPOSIT_STATE = 'paid'
 		WHERE RESERVE_IDX = #{reserveIdx}
 	</update>
-	
 </mapper>

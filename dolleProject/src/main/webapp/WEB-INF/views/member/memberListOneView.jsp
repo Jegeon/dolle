@@ -32,6 +32,7 @@
 	
 	.resCss {
 		border: 1px solid black;
+		font-size: 10px;
 	}
 	
 	.inputBtn {
@@ -199,6 +200,14 @@
 							 	value='${memberVo.phone}' readonly='readonly'>
 						</td>
 					</tr>
+					<tr>
+						<td colspan='2'>
+							<input class='btnCss' type="button" value="수정하기"
+								onclick='updateMoveFnc();'>
+							<input class='btnCss' type="button" value="이전페이지" 
+								onclick='pageMoveListFnc();'>
+						</td>
+					</tr>
 				</table>
 				<table id='reservation' class='tableCenter'
 					style='display: none; border: 1px solid black; border-collapse: collapse;'>
@@ -246,7 +255,8 @@
 					</c:forEach>
 				</table>
 				<table id='myWriting' class='tableCenter'
-					style='display: none; border: 1px solid black; border-collapse: collapse;'>
+					style='display: none; border: 1px solid black;
+					border-collapse: collapse;'>
 					<tr class='resCss'>
 						<th class='resCss'>
 							번호
@@ -303,10 +313,6 @@
 						</tr>
 					</c:forEach>
 				</table>
-				<input class='btnCss' type="button" value="수정하기"
-					onclick='updateMoveFnc();'>
-				<input class='btnCss' type="button" value="이전페이지" 
-					onclick='pageMoveListFnc();'>
 			</form>
 		</div>
 	</div>

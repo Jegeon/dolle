@@ -59,7 +59,7 @@
 						${memberVo.email}
 					</td>
 					<td>
-						${memberVo.name}
+						<a href='../member/adminlistOne.do?no=${memberVo.no}'>${memberVo.name}</a>
 					</td>
 					<td>
 						${memberVo.nickname}
@@ -80,8 +80,8 @@
 		</table>
 	</div>
 	<div>
-		<input type='button' onclick='memberDeletFnc(${memberVo.no});' value='삭제'>
-		<input type='button' onclick='memberAddFnc();' value='회원 추가'>
+		<input type='button' onclick='memberDeletFnc();' value='삭제'>
+		<input type='button' onclick='memberAddFnc();' value='관리자 추가'>
 	</div>
 	</form>
 

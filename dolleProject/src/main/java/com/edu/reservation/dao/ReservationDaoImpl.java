@@ -57,5 +57,16 @@ public class ReservationDaoImpl implements ReservationDao{
 	public List<TourVo> tourReservationSelectListAll() {
 		return sqlSession.selectList(namespace + "tourReservationSelectListAll");
 	}
+
+	@Override
+	public int tourUpdateOne(Map<String, Object> paramMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.update(namespace + "tourUpdateOne", paramMap);
+	}
+
+	@Override
+	public int tourDeleteOne(int tourNo) {
+		return sqlSession.update(namespace + "tourDeleteOne", tourNo);
+	}
 	
 }

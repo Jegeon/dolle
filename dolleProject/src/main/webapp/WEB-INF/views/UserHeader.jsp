@@ -223,9 +223,20 @@
 			<div style="width: 1260px; margin: 0px auto;">
 				<div
 					style="height: 40px; width: 450px; background-color: #EFEAE2; text-align: center; padding-top: 14px; box-sizing: border-box; margin-left: 252px;">
-					<span style="padding: 0px 7px 0px 7px;"> <a class='blackLink' href='#'>성곽마을이란?</a>
-					</span> <span style="padding: 0px 7px 0px 7px;"> <a class='blackLink' href='#'>아홉 마을 소개</a>
-					</span> <span style="padding: 0px 7px 0px 7px;"> <a class='blackLink' href='#'>혜화명륜</a>
+					<span style="padding: 0px 7px 0px 7px;"> 
+						<a class='blackLink' href='#'>
+							성곽마을이란?
+						</a>
+					</span> 
+					<span style="padding: 0px 7px 0px 7px;"> 
+						<a class='blackLink' href='<%=request.getContextPath()%>/town/nineInfo.do'>
+							아홉 마을 소개
+						</a>
+					</span> 
+					<span style="padding: 0px 7px 0px 7px;"> 
+						<a class='blackLink' href='#'>
+							혜화명륜
+						</a>
 					</span>
 				</div>
 			</div>

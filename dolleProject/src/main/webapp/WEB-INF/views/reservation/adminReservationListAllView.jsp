@@ -39,21 +39,58 @@
 	
 	<h1 class="daehanFont" style="margin: 10px 0px 10px 82px;">가이드 투어 예약자 관리 - 예약 현황</h1>
 	
-<%-- 	가져오는 데이터 확인 ${tourReservationListAll} --%>
+	<%-- 가져오는 데이터 확인 ${tourReservationListAll} --%>
  	
 	<br/>
-	<div style="width: 740px; height: 1200px; margin: auto;">
+	<div style="width: 800px; height: 1200px; margin: auto;">
 		<table id='reservation' class='tableCenter' style='border: 1px solid black; border-collapse: collapse;'>
+			<tr>
+				<td style="width: 90px;">
+					예약 번호
+				</td>
+				<td style="width: 90px;">
+					이름
+				</td>
+				<td class='resCss'>
+					이메일
+				</td>
+				<td style="width: 140px;">
+					예약한 투어 이름
+				</td>
+				<td style="width: 90px;">
+					예약 날짜
+				</td>
+				<td style="width: 90px;">
+					예약 인원
+				</td>
+				<td style="width: 90px;">
+					입금 여부
+				</td>
+				<td style="width: 90px;">
+					입금 시간
+				</td>
+			</tr>
 			<c:forEach var='reservationVo' items='${tourReservationListAll}'>
 				<tr class='resCss'>
 					<td class='resCss idxNum'>
 						${reservationVo.reserveNo}
 					</td>
 					<td class='resCss'>
-						${reservationVo.tourName}
+						${reservationVo.memberName}
 					</td>
 					<td class='resCss'>
-						<fmt:formatDate value="${reservationVo.reserveApplyDate}" pattern="yyyy-MM-dd" />
+						${reservationVo.memberEmail}
+					</td>
+					<td class='resCss'>
+						<c:if test="${reservationVo.tourNo eq 1}">
+							성균관유생의하루
+						</c:if>
+					</td>
+					<td class='resCss'>
+						<fmt:formatDate value="${reservationVo.reserveTourDate}" pattern="yyyy-MM-dd" />
+					</td>
+					<td class='resCss'>
+						${reservationVo.reserveApplyNum}
 					</td>
 					<td class='resCss'>
 						<c:if test="${reservationVo.reserveDepositState == 'standby'}">
@@ -68,6 +105,9 @@
 						<c:if test="${reservationVo.reserveDepositState == 'canceled'}">
 							예약 취소
 						</c:if>
+					</td>
+					<td class='resCss'>
+						<fmt:formatDate value="${reservationVo.reserveDepositDate}" pattern="yyyy-MM-dd HH:mm:ss" />
 					</td>
 				</tr>
 			</c:forEach>

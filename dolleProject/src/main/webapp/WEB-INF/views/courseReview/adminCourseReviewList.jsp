@@ -65,7 +65,7 @@
 	</form> 
 	
 	<input type="button" onclick="deleteFnc();" value="삭제">
-	
+
 	페이징버튼
 
 	1-10 / 전체 페이지 : 27

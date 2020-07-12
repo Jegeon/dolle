@@ -285,6 +285,7 @@
 						<div>${commentVo.commentContent}</div>
 						<span>${commentVo.creDate}</span>
 						<span>${commentVo.modDate}</span>
+
 					</div>	
 					<c:if test="${_memberVo_.no eq commentVo.commentMemberIdx}">
 						<button id="updateBtn${index.count}" type="button" onclick="makeUpdateBoxFnc(${index.count});">수정</button>

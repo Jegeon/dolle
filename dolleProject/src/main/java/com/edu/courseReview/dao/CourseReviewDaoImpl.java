@@ -131,6 +131,7 @@ public class CourseReviewDaoImpl implements CourseReviewDao{
 		return sqlSession.update(namespace + "commentUpdateOne", commentVo);
 	}
 
+
 	//다중삭제용
 	@Override
 	public int commentDeleteList(List<String> reviewIdxList) {

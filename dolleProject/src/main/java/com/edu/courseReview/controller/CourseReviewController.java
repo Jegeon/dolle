@@ -228,6 +228,7 @@ public class CourseReviewController {
 		return "courseReview/adminCourseReviewList";
 	}
 	
+
 	//다중 삭제
 	@RequestMapping(value="/courseReview/multiDelete.do", method = RequestMethod.POST)
 	public String courseReviewMultiDelete(Model model
@@ -242,4 +243,5 @@ public class CourseReviewController {
 		
 		return "redirect:/courseReview/adminList.do";
 	}
+
 }

@@ -82,16 +82,6 @@ public class NoticeDaoImpl implements NoticeDao{
 	public void noticeInsertOne(NoticeMemberFileVo noticeMemberFileVo) {
 		// TODO Auto-generated method stub
 		
-		System.out.println(noticeMemberFileVo);
-		System.out.println(noticeMemberFileVo);
-		System.out.println(noticeMemberFileVo);
-		System.out.println(noticeMemberFileVo);
-		System.out.println(noticeMemberFileVo);
-		System.out.println(noticeMemberFileVo);
-		System.out.println(noticeMemberFileVo);
-		System.out.println(noticeMemberFileVo);
-		System.out.println(noticeMemberFileVo);
-		System.out.println(noticeMemberFileVo);
 		sqlSession.insert(namespace + "noticeInsertOne", noticeMemberFileVo);
 	}
 
@@ -136,10 +126,13 @@ public class NoticeDaoImpl implements NoticeDao{
 
 
 	@Override
-	public int noticeSelectTotalCount() {
+	public int noticeSelectTotalCount(String searchOption, String keyword) {
 		// TODO Auto-generated method stub
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("searchOption", searchOption);
+		map.put("keyword", keyword);
 		
-		return sqlSession.selectOne(namespace + "noticeSelectTotalCount");
+		return sqlSession.selectOne(namespace + "noticeSelectTotalCount", map);
 	}
 
 

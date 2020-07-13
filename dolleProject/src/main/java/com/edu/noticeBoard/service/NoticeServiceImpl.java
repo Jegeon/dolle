@@ -166,10 +166,10 @@ public class NoticeServiceImpl implements NoticeService{
 
 
 	@Override
-	public int noticeSelectTotalCount() {
+	public int noticeSelectTotalCount(String searchOption, String keyword) {
 		// TODO Auto-generated method stub
 		
-		return noticeDao.noticeSelectTotalCount();
+		return noticeDao.noticeSelectTotalCount(searchOption, keyword);
 	}
 
 

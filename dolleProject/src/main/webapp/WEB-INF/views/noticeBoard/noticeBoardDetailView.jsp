@@ -111,7 +111,7 @@ body {
 
 #listBtnDiv {
 	margin: auto; 
-	width: 230px; 
+	width: 480px; 
 	padding-top: 40px;
 }
 

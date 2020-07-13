@@ -21,5 +21,5 @@ public interface NoticeDao {
 	public void insertfile(Map<String, Object> map);
 	public void deleteFile(int noticeIdx);
 	public Map<String, Object> fileSelectStoredName(int noticeIdx);
-	public int noticeSelectTotalCount();
+	public int noticeSelectTotalCount(String searchOption, String keyword);
 }

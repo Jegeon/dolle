@@ -69,7 +69,7 @@
 	function pageMoveListFnc() {
 		var noObj = document.getElementById('noObj');
 		
-		location.href = '../member/list.do?no=' + noObj.value;
+		location.href = '../member/list.do?curPage=1';
 	}
 	
 	function updateMoveFnc() {
@@ -133,7 +133,8 @@
 						<span class='secondSpanCss'>생년월일</span>
 					</td>
 					<td>
-						<fmt:formatDate value="${memberVo.birthdate}" pattern="yyyy-MM-dd" />
+						<input class='inputCss' type='text' 
+							value='<fmt:formatDate value="${memberVo.birthdate}" pattern="yyyy-MM-dd" />'>
 					</td>
 				</tr>
 				<tr>
@@ -141,7 +142,8 @@
 						<span class='secondSpanCss'>가입일</span>
 					</td>
 					<td>
-						<fmt:formatDate value="${memberVo.createDate}" pattern="yyyy-MM-dd" />
+						<input class='inputCss' type='text'
+							value='<fmt:formatDate value="${memberVo.createDate}" pattern="yyyy-MM-dd" />'>
 					</td>
 				</tr>
 				<tr>

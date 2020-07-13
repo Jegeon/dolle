@@ -7,6 +7,7 @@ import com.edu.member.vo.MemberVo;
 
 public interface MemberDao {
 
+	public List<MemberVo> userList();
 	public List<MemberVo> memberSelectList(String searchOption, 
 			String keyword, int start, int end);
 	public List<MemberVo> adminSelectList();

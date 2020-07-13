@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -64,19 +66,21 @@
 	var pwdObj = '';
 	var pwdCheck = '';
 
+	var reg_email = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/; //이메일
+	
 	function loginButton() {
 		loginCheck = document.loginCheck;
 		
-		email = loginCheck.email.value;
-		emailObj = document.getElementById('emailText');
+		emailObj = document.getElementById('emailObj');
 		emailCheck = document.getElementById('emailCheck');
+		var emailHid = document.getElementsByName('emailHid');
 		
-		password = loginCheck.password.value;
-		pwdObj = document.getElementById('pwdText');
+		pwdObj = document.getElementById('pwdObj');
 		pwdCheck = document.getElementById('pwdCheck');
+		var pwdHid = document.getElementsByName('pwdHid');
 		
 		//이메일 유효성
-		if (email == "") {
+		if (emailObj.value == "") {
 			emailCheck.innerHTML = '이메일을 입력해주세요.';
 			emailObj.style.outlineColor = '#FF0000';
 			emailObj.focus();
@@ -86,8 +90,19 @@
 			emailCheck.innerHTML = '';
 		}
 		
+		// 이메일 형식 유효성
+		if (!reg_email.test(emailObj.value)) {
+			emailCheck.innerHTML = '이메일 형식이 올바르지 않습니다.';
+			emailObj.style.outlineColor = '#FF0000';
+			emailObj.focus();
+			return false;
+		} else {
+			emailObj.style.outlineColor = '#0D4371';
+			emailCheck.innerHTML = '';
+		}
+		
 		//비밀번호 유효성
-		if (password == "") {
+		if (pwdObj == "") {
 			pwdCheck.innerHTML = '비밀번호을 입력해주세요.';
 			pwdObj.style.outlineColor = '#FF0000';
 			pwdObj.focus();
@@ -98,9 +113,13 @@
 		}
 		
 		// 이메일, 비밀번호 있는지 체크
-		if (email != "" && password != "") {
-			loginCheck.submit();
+		for (var i = 0; i < emailHid.length; i++) {
+			if (emailHid[i].value == emailObj.value && pwdHid[i].value == pwdObj.value) {
+				loginCheck.submit();
+				return false;
+			}
 		}
+		alert('가입되어 있지 않은 회원이거나 입력하신 정보가 다릅니다.');
 	}
 	
 </script>
@@ -117,7 +136,7 @@
 				<table>
 					<tr>
 						<td>
-							<input id='emailText' class='textInput' placeholder='이메일'
+							<input id='emailObj' class='textInput' placeholder='이메일'
 							 type="text" name="email" value="">
 						</td>
 					</tr>
@@ -127,7 +146,7 @@
 					</tr>
 					<tr>
 						<td>
-							<input id='pwdText' class='textInput' placeholder='비밀번호'
+							<input id='pwdObj' class='textInput' placeholder='비밀번호'
 							 type="password" name='password'>
 						</td>
 					</tr>
@@ -156,7 +175,10 @@
 			</form>
 		</div>
 	</div>
-	<input id='memberCheck' type='hidden' value='${memberVo.email}'>
+	<c:forEach items="${userList}" var='memberVo'>
+		<input name='emailHid' type='hidden' value='${memberVo.email}'>
+		<input name='pwdHid' type='hidden' value='${memberVo.password}'>
+	</c:forEach>
 	<jsp:include page="/WEB-INF/views/Tail.jsp"/>
 </body>
 </html>

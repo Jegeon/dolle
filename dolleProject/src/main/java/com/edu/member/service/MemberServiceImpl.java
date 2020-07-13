@@ -119,4 +119,10 @@ public class MemberServiceImpl implements MemberService{
 		return memberDao.memberSelectCurPage(searchOption, keyword, no);
 	}
 
+	@Override
+	public List<MemberVo> userList() {
+		// TODO Auto-generated method stub
+		return memberDao.userList();
+	}
+
 }

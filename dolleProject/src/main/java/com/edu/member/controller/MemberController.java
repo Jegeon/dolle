@@ -180,6 +180,10 @@ public class MemberController {
 	public String login(HttpSession session, Model model) {
 		log.debug("Welcome MemberController login 페이지 이동! ");
 		
+		List<MemberVo> userList = memberService.userList();
+		
+		model.addAttribute("userList", userList);
+		
 		return "auth/loginForm";
 	}
 	
@@ -231,6 +235,10 @@ public class MemberController {
 	@RequestMapping(value="/auth/emailform.do")
 	public String emailFind(Model model) {
 		
+		List<MemberVo> userList = memberService.userList();
+		
+		model.addAttribute("userList", userList);
+		
 		return "auth/emailForm";
 	}
 	
@@ -258,6 +266,10 @@ public class MemberController {
 	// 비밀번호 찾기 페이지 이동
 	@RequestMapping(value="/auth/pwdform.do")
 	public String pwdFind(Model model) {
+		
+		List<MemberVo> userList = memberService.userList();
+		
+		model.addAttribute("userList", userList);
 		
 		return "auth/pwdForm";
 	}

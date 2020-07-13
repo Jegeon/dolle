@@ -159,4 +159,10 @@ public class MemberDaoImpl implements MemberDao{
 				+ "memberSelectCurPage", paramMap);
 	}
 
+	@Override
+	public List<MemberVo> userList() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace + "userList");
+	}
+
 }

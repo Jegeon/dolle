@@ -52,30 +52,19 @@
 		<result column="REVIEW_RATING" property="reviewRating" />
 		<result column="TOWN_NAME" property="townName" />
 	</resultMap>
+	
+	<select id="userList" parameterType="map" resultMap="memberResultMap">
+		SELECT MEMBER_IDX, MEMBER_NAME, MEMBER_EMAIL, MEMBER_PHONE, MEMBER_BIRTHDATE, MEMBER_PASSWORD
+		FROM MEMBER
+	</select>
 
 	<select id="memberSelectList" parameterType="map" resultMap="memberResultMap">
-		SELECT MEMBER_IDX, MEMBER_NAME, MEMBER_EMAIL, MEMBER_CRE_DATE, MEMBER_NICKNAME, MEMBER_PHONE, MEMBER_BIRTHDATE, MEMBER_GRADE
+		SELECT ROWNUM, MEMBER_IDX, MEMBER_NAME, MEMBER_EMAIL, MEMBER_CRE_DATE, MEMBER_NICKNAME, MEMBER_PHONE, MEMBER_BIRTHDATE, MEMBER_GRADE
 		FROM MEMBER
+   		<include refid="search"></include>
+        AND ROWNUM BETWEEN #{start} AND #{end}
 		ORDER BY MEMBER_IDX
 		DESC
-<!-- 		SELECT MF.RNUM, MF.MNO, MF.EMAIL, MF.MNAME -->
-<!-- 			, MF.CRE_DATE, MF.ORIGINAL_FILE_NAME -->
-<!--    		FROM ( -->
-<!--       			SELECT ROWNUM RNUM, M.MNO, M.EMAIL -->
-<!--       				, M.MNAME, M.CRE_DATE, M.ORIGINAL_FILE_NAME -->
-<!--        			FROM( -->
-<!-- 	           		SELECT MEMBER.MNO MNO, MEMBER.EMAIL EMAIL -->
-<!-- 	           			, MEMBER.MNAME MNAME, MEMBER.CRE_DATE CRE_DATE -->
-<!-- 	             		, TB_FILE.ORIGINAL_FILE_NAME ORIGINAL_FILE_NAME -->
-<!-- 	           		FROM MEMBER LEFT OUTER JOIN TB_FILE -->
-<!-- 			        ON MEMBER.MNO = TB_FILE.PARENT_SEQ -->
-			        
-<!-- 	        		<include refid="search"></include> -->
-	        	
-<!-- 			        ORDER BY MNO DESC -->
-<!--            		) M -->
-<!--         ) MF -->
-<!--         WHERE MF.RNUM BETWEEN #{start} AND #{end} -->
 	</select>
 	
 	<select id="adminSelectList" parameterType="map" resultMap="memberResultMap">
@@ -179,11 +168,11 @@
 
 	<select id="memberPaymentSelectOne" parameterType="int"
 		resultMap="memberResultMap">
-		SELECT RESERVE_APPLY_NUM, RESERVE_PRICE, (SELECT A1.ACC_ACCOUNT_NUM
-                                        FROM TOUR T1, ACCOUNT_MANAGEMENT A1
-                                        WHERE T1.TOWN_IDX = A1.TOWN_IDX) AS TOUR_ACCOUNT_NUM
-		FROM RESERVE
-		WHERE RESERVE_IDX = #{reserveIdx}
+		SELECT R.RESERVE_APPLY_NUM, R.RESERVE_PRICE, A.ACC_ACCOUNT_NUM AS TOUR_ACCOUNT_NUM 
+		FROM TOUR T, ACCOUNT_MANAGEMENT A, RESERVE R
+		WHERE T.TOWN_IDX = A.TOWN_IDX
+		AND T.TOUR_IDX = R.TOUR_IDX
+		AND RESERVE_IDX = #{reserveIdx}
 	</select>
 	
 	<select id="memberSelectTotalCount" resultType="int" 
@@ -193,22 +182,13 @@
 		<include refid="search"></include>
 	</select>
 	
-<!-- 	<select id="memberSelectCurPage" parameterType="map" -->
-<!-- 		resultType="int"> -->
-<!-- 		SELECT floor((rnum-1) / 10)+1 no -->
-<!-- 		FROM ( SELECT ROWNUM RNUM, M.MNO, M.EMAIL  -->
-<!-- 			, M.MNAME, M.CRE_DATE, -->
-<!-- 			M.ORIGINAL_FILE_NAME FROM -->
-<!-- 			( SELECT MEMBER.MNO MNO, MEMBER.EMAIL EMAIL -->
-<!-- 			, MEMBER.MNAME MNAME, MEMBER.CRE_DATE CRE_DATE -->
-<!-- 			, TB_FILE.ORIGINAL_FILE_NAME ORIGINAL_FILE_NAME -->
-<!-- 			FROM MEMBER LEFT OUTER JOIN TB_FILE -->
-<!-- 			ON MEMBER.MNO = TB_FILE.PARENT_SEQ -->
-<!-- 			<include refid="search"></include> -->
-<!-- 			ORDER BY MNO DESC ) -->
-<!-- 		M ) -->
-<!-- 		where mno = #{no} -->
-<!-- 	</select> -->
+	<select id="memberSelectCurPage" parameterType="map"
+		resultType="int">
+		SELECT FLOOR((ROWNUM-1) / 10) + 1, MEMBER_IDX, MEMBER_EMAIL, MEMBER_MNAME, MEMBER_CRE_DATE,
+		FROM MEMBER
+		<include refid="search"></include>
+		AND MEMBER_IDX = #{no}
+	</select>
 	
 	<update id="memberPaymentUpdateOne" parameterType="int">
 		UPDATE RESERVE

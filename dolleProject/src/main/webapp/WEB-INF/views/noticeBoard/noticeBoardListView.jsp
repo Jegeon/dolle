@@ -208,12 +208,20 @@ td {
 			<form id='searchOption' action="./list.do" method="post">
 			
 				<select id='searchOptionWrap' name='searchOption'>
-					<option value="writer">작성자</option>
-					<option value="title">제목</option>
+					<c:choose>
+						<c:when test="${searchOption eq 'title'}">
+							<option value="title" selected="selected">제목</option>
+							<option value="writer">작성자</option>
+						</c:when>
+						<c:when test="${searchOption eq 'writer'}">
+							<option value="title">제목</option>
+							<option value="writer" selected="selected">작성자</option>
+						</c:when>
+					</c:choose>
 				</select>
 				
 				<div id='serachDiv'>
-					<input id='searchInput' type="text" name='keyword' value="">
+					<input id='searchInput' type="text" name='keyword' value="${keyword}">
 					<img id="searchBtn" alt="검색버튼"
 						src="/dolleProject/resources/images/searchBtn.PNG"
 						onclick='searchFnc();'>
@@ -336,6 +344,10 @@ td {
 		<form action="./list.do" id='pagingForm' method="get">
 			<input type="hidden" id='curPage' name='curPage' 
 				value="${pagingMap.paging.curPage}">
+			<input type="hidden" id='pagingSearchOption' name='searchOption' 
+            value="${searchOption}">   
+         	<input type="hidden" id='pagingKeyword' name='keyword' 
+            value="${keyword}">
 		</form>
 	</div>
 	

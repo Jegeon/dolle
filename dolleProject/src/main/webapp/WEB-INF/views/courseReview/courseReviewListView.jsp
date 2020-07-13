@@ -118,7 +118,7 @@
 		margin-left:300px; padding-bottom:4px; display: inline-block;">
 			<span style="font: normal bold 22px Segoe UI">혜화 명륜 마을</span>
 		</div>
-		${searchOption}${keyword}
+		
 		<!-- 정렬선택과 검색창 -->
 		<div style="float:right; height:50px; width:530px; padding-top:40px;">
 			<form id='orderSearchForm' action="./list.do" method="post">

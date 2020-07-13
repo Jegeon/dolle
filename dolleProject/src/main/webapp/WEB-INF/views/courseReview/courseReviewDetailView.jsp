@@ -56,6 +56,14 @@
 		color: #707070;
 		font:normal normal 14px Segoe UI;
 	}	
+	#commentContent{
+		margin-top: 20px;
+	    widtH: 1060px;
+	    height: 100px;
+	    font-size: 14px;
+	    padding: 12px 20px;
+	    box-sizing: border-box;
+	}
 	
 	.marginRight5{
 		margin-right: 5px;
@@ -88,8 +96,13 @@
 	    padding-top: 25px;
 	}
 	#writeCommentBtn{
-		width:200px; height:40px; font:normal bold 16px Segoe UI; color:white; 
-		 border:0px; margin-right: 20px; background-color: #0D4371;
+		width:190px; height:40px; padding-left:28px; 
+		font:normal bold 16px Segoe UI; color:white; 
+		border:0px; background-color: #0D4371;
+		margin:8px 10px; float:right;
+		background-image: url('/dolleProject/resources/images/edit.png'); 
+		background-repeat: no-repeat;
+		background-position: 20px 5px; background-size: 32px
 	}
 	
 	.EmoLi{
@@ -130,6 +143,14 @@
 		$("#commentEmoticon").val("smile");
 		$("#smileEmo").css("border", "3px solid #FFCC00");
 		
+		
+		//댓글 개수에 따른 박스 높이 지정
+		var commentCnt = $("#commentCnt").val(); 
+		var bodyHeight = 1400;	//댓글 없을 때 기본 높이
+		for(var i=0; i<commentCnt; i++){
+			bodyHeight += 140;
+		}
+		$("#bodyWrap").css("height", bodyHeight+"px");
 		
 	});
 
@@ -207,6 +228,8 @@
 			$("#commentIdx").val(commentIdx);
 			var formObj = $("#updateCommentForm");
 			formObj.submit();
+		}else{
+// 			$("#commentContent").remove();
 		}
 	}
 		
@@ -219,7 +242,7 @@
 	<jsp:include page="/WEB-INF/views/Header.jsp"/>
 
 
-	<div style="width:1260px; height:1600px; margin:0px auto;">
+	<div id="bodyWrap" style="width:1260px; margin:0px auto;">
 		
 		<div id="townBox" class="basicBox titleFont" style="padding: 50px 0px 10px;">	
 			<h1>혜화 명륜 마을</h1>
@@ -276,7 +299,7 @@
 			<input class="inputBtn" type="button" onclick="movePageUpdateFnc(${reviewMCFVo.reviewIdx});" value="수정">
 		</div>
 		
-		<div id="commentWrap" style="width:1100px; margin:70px auto;">	
+		<div id="commentWrap" style="width:1100px; margin:70px auto 20px;">	
 			<span class="commentHeader">댓글쓰기</span>
 			<span class="commentBtn">
 				<button style="width:25px; height:25px;">&lt;</button>
@@ -287,6 +310,7 @@
 			<form id="updateCommentForm" action="./updateCommentCtr.do" method="post">
 				<input id="commentReviewIdx" name="commentReviewIdx" type="hidden" value="${reviewMCFVo.reviewIdx}">
 				<input id="commentIdx" name="commentIdx" type="hidden" value="">
+				<input id="commentCnt" type="hidden" value="${commentCnt}">
 				
 				<c:forEach var="commentVo" items="${commentList}" varStatus="index">
 					<input id="commentIdx${index.count}" type="hidden" value="${commentVo.commentIdx}">
@@ -327,7 +351,7 @@
 				<input id="commentEmoticon" name="commentEmoticon" type="hidden" value="">
 				<div id="choiseEmo" style="float:right; margin-bottom:4px;">
 					<div id="choiseEmoTitle">이모티콘 선택</div>
-					<ul id="EmoList" style="display:inline-block;">
+					<ul id="EmoList" style="display:inline-block; margin-right:10px;">
 						<li id="smileEmo" class="EmoLi" onclick="changeBorderFnc(this);">
 							<img alt="smile" style="margin-top: 4px; "
 							 src="/dolleProject/resources/images/smile.png">
@@ -362,11 +386,7 @@
 					<textarea id="commentContent" name="commentContent" placeholder="댓글을 작성해주세요."
 						style="width:1090px;height:100px;font-size: 16px; padding: 12px 20px; box-sizing: border-box;"></textarea>
 				</div>
-				<input id="writeCommentBtn" type="submit" value="댓글 작성"
-					style="margin:8px 10px; float:right;
-					background-image: url('/dolleProject/resources/images/edit.png'); background-position:5px; background-repeat: no-repeat; background-position: left;
-					background-position: 23px 3px; background-size: 34px
-					"></input>
+				<input id="writeCommentBtn" type="submit" value="댓글 작성"></input>
 			</form>
 		</div>
 			

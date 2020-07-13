@@ -44,7 +44,7 @@ public class CourseReviewController {
 		log.debug(" **** Welcome courseReviewBoard ***"+ curPage+ orderOption+ searchOption);
 		System.out.println("searchOption"+searchOption+"keyword"+keyword);
 		
-		int totalCount = courseReviewService.reviewSelectTotalCount(orderOption, searchOption, keyword);
+		int totalCount = courseReviewService.reviewSelectTotalCount(searchOption, keyword);
 		
 		ReviewPaging reviewPaging = new ReviewPaging(totalCount, curPage);
 		int start = reviewPaging.getPageBegin();
@@ -110,6 +110,9 @@ public class CourseReviewController {
 		model.addAttribute("reviewMCFVo",reviewMCFVo);
 		
 		model.addAttribute("commentList",commentList);
+		
+		int commentCnt = commentList.size();
+		model.addAttribute("commentCnt",commentCnt);
 		
 		return "courseReview/courseReviewDetailView";
 	}
@@ -198,7 +201,7 @@ public class CourseReviewController {
 			,@RequestParam(defaultValue = "") String keyword) {
 		log.debug(" **** Welcome courseReviewAdminList ***"+ curPage+ orderOption+ searchOption);
 		
-		int totalCount = courseReviewService.reviewSelectTotalCount(orderOption, searchOption, keyword);
+		int totalCount = courseReviewService.reviewSelectTotalCount(searchOption, keyword);
 		
 		Paging adminPaging = new Paging(totalCount, curPage, pageScale);
 		int start = adminPaging.getPageBegin();

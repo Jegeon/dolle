@@ -28,6 +28,8 @@
 
 <body>
 
+	<jsp:include page="/WEB-INF/views/Header.jsp"/>
+	
 	<h1>코스 후기 게시판</h1>
 	<div>
 		<span>마을</span><span>혜화 명륜</span>
@@ -70,7 +72,7 @@
 
 	1-10 / 전체 페이지 : 27
 	
-	
+	<jsp:include page="/WEB-INF/views/Tail.jsp"/>
 
 </body>
 

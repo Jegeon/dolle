@@ -76,9 +76,12 @@
 		ORDER BY NB.NOTICE_IDX DESC
 	</select>
 	
-	<select id="noticeSelectTotalCount" resultType="int">
+	<select id="noticeSelectTotalCount" parameterType="map" 
+		resultType="int">
 		SELECT COUNT(*)
-		FROM NOTICEBOARD
+		FROM NOTICEBOARD NB, MEMBER M
+		WHERE NB.MEMBER_IDX = M.MEMBER_IDX
+		<include refid="search"></include>
 	</select>
 	
 	<select id='noticeDetailSelectOne' parameterType="map"

@@ -38,7 +38,7 @@ public class NoticeController {
 			, @RequestParam(defaultValue = "") String keyword) {
 		log.info("Welcome NoticeList! "  + curPage);
 		
-		int totalCount = noticeService.noticeSelectTotalCount();
+		int totalCount = noticeService.noticeSelectTotalCount(searchOption, keyword);
 		
 		
 		Paging paging = new Paging(totalCount, curPage, 10);
@@ -67,12 +67,13 @@ public class NoticeController {
 		
 		//페이징
 		Map<String, Object> pagingMap = new HashMap<>();
-		
-		
 		pagingMap.put("totalCount", totalCount);
 		pagingMap.put("paging", paging);
 		model.addAttribute("pagingMap", pagingMap);
 		
+		//검색
+		model.addAttribute("searchOption", searchOption);
+		model.addAttribute("keyword", keyword);
 		
 		model.addAttribute("noticeMemberFileList", noticeMemberFileList);
 		model.addAttribute("noticeMemberFileFixedList", tempList);
@@ -95,7 +96,7 @@ public class NoticeController {
 		
 		int rNum = noticeService.noticeFindCurrentRow(noticeIdx);
 		
-		int totalCount = noticeService.noticeSelectTotalCount();
+		int totalCount = noticeService.noticeSelectTotalCount(searchOption, keyword);
 		
 		Paging paging = new Paging(totalCount, curPage, 10);
 		int start = paging.getPageBegin();

@@ -19,8 +19,7 @@ public interface CourseReviewService {
 			, MultipartHttpServletRequest mulRequest);
 	
 	public int reviewNewestSelectIdx();
-	public int reviewSelectTotalCount(String orderOption
-			, String searchOption, String keyword);
+	public int reviewSelectTotalCount(String searchOption, String keyword);
 //	public int reviewIncreaseReadCount(int reviewIdx);
 	
 	public void courseReviewUpdateOne(CourseReviewVo reviewVo

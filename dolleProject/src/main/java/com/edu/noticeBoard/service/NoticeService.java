@@ -19,5 +19,5 @@ public interface NoticeService {
 	public void noticeUpdateOne(NoticeMemberFileVo noticeMemberFileVo, 
 		MultipartHttpServletRequest mulRequest, int fileIdx);
 	public void noticeDeleteOne(int noticeIdx);
-	public int noticeSelectTotalCount();
+	public int noticeSelectTotalCount(String searchOption, String keyword);
 }

@@ -26,6 +26,7 @@
 	width: 40px;
 	height: 40px;
 	float: left;
+	cursor: pointer;
 }
 
 .townName {
@@ -37,6 +38,7 @@
 	box-sizing:border-box;
 	margin-top:7px;
 	padding-top: 4px;
+	cursor: pointer;
 }
 
 .townNameSpan {

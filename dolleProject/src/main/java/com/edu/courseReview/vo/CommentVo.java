@@ -8,6 +8,7 @@ public class CommentVo {
 	private int commentIdx;
 	private int commentReviewIdx;
 	private int commentMemberIdx;
+	private String memberNickname;
 	private String commentContent;
 	private String commentEmoticon;
 	private Date creDate;
@@ -18,12 +19,13 @@ public class CommentVo {
 		super();
 	}
 	
-	public CommentVo(int commentIdx, int commentReviewIdx, int commentMemberIdx, String commentContent,
-			String commentEmoticon, Date creDate, Date modDate, String commentDelYn) {
+	public CommentVo(int commentIdx, int commentReviewIdx, int commentMemberIdx, String memberNickname,
+			String commentContent, String commentEmoticon, Date creDate, Date modDate, String commentDelYn) {
 		super();
 		this.commentIdx = commentIdx;
 		this.commentReviewIdx = commentReviewIdx;
 		this.commentMemberIdx = commentMemberIdx;
+		this.memberNickname = memberNickname;
 		this.commentContent = commentContent;
 		this.commentEmoticon = commentEmoticon;
 		this.creDate = creDate;
@@ -79,12 +81,19 @@ public class CommentVo {
 	public void setCommentDelYn(String commentDelYn) {
 		this.commentDelYn = commentDelYn;
 	}
-	
+	public String getMemberNickname() {
+		return memberNickname;
+	}
+	public void setMemberNickname(String memberNickname) {
+		this.memberNickname = memberNickname;
+	}
+
 	@Override
 	public String toString() {
 		return "CommentVo [commentIdx=" + commentIdx + ", commentReviewIdx=" + commentReviewIdx + ", commentMemberIdx="
-				+ commentMemberIdx + ", commentContent=" + commentContent + ", commentEmoticon=" + commentEmoticon
-				+ ", creDate=" + creDate + ", modDate=" + modDate + ", commentDelYn=" + commentDelYn + "]";
+				+ commentMemberIdx + ", memberNickname=" + memberNickname + ", commentContent=" + commentContent
+				+ ", commentEmoticon=" + commentEmoticon + ", creDate=" + creDate + ", modDate=" + modDate
+				+ ", commentDelYn=" + commentDelYn + "]";
 	}
 	
 }

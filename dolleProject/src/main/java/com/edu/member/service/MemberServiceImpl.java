@@ -16,9 +16,11 @@ public class MemberServiceImpl implements MemberService{
 	public MemberDao memberDao;
 	
 	@Override
-	public List<MemberVo> memberSelectList() {
+	public List<MemberVo> memberSelectList(String searchOption, 
+			String keyword, int start, int end) {
 		
-		return memberDao.memberSelectList();
+		return memberDao.memberSelectList(searchOption, 
+				 keyword, start, end);
 	}
 
 	@Override
@@ -96,6 +98,25 @@ public class MemberServiceImpl implements MemberService{
 	public List<MemberVo> adminSelectList() {
 		// TODO Auto-generated method stub
 		return memberDao.adminSelectList();
+	}
+
+	@Override
+	public MemberVo adminSelectOne(int no) {
+		// TODO Auto-generated method stub
+		return memberDao.adminSelectOne(no);
+	}
+
+	@Override
+	public int memberSelectTotalCount(String searchOption, String keyword) {
+		// TODO Auto-generated method stub
+		return memberDao.memberSelectTotalCount(searchOption
+				, keyword);
+	}
+
+	@Override
+	public int memberSelectCurPage(String searchOption, String keyword, int no) {
+		// TODO Auto-generated method stub
+		return memberDao.memberSelectCurPage(searchOption, keyword, no);
 	}
 
 }

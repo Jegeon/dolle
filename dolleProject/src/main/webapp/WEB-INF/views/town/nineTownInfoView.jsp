@@ -294,6 +294,17 @@
 	function zoomOut() {
 	    map.setLevel(map.getLevel() + 1);
 	}
+	
+	function moveNonePageFnc() {
+		
+ 		alert("준비중입니다. 다른 마을을 둘러보세요!!");
+		  
+	}
+	
+	function move01PageFnc() {
+		
+		location.href = './nineInfoDetail.do';
+	}
 </script>
 </head>
 
@@ -327,7 +338,7 @@
 					<div class='markerTownWrap'>
 						<img class='markerImg' src='/dolleProject/resources/images/marker/01Marker.png'
 							 onClick="move01Marker();">
-						<div class='townName fiveText'>
+						<div onclick="move01PageFnc();" class='townName fiveText'>
 							<span class='townNameSpan'>혜화명륜권</span>
 						</div>
 					</div>
@@ -335,7 +346,7 @@
 					<div class='markerTownWrap'>
 						<img class='markerImg' src='/dolleProject/resources/images/marker/06Marker.png'
 							 onClick="move06Marker();">
-						<div class='townName threeText'>
+						<div onclick="moveNonePageFnc();" class='townName threeText'>
 							<span class='townNameSpan'>성북권</span>
 						</div>
 					</div>
@@ -345,7 +356,7 @@
 					<div class='markerTownWrap'>
 						<img class='markerImg' src='/dolleProject/resources/images/marker/02Marker.png'
 							onClick="move02Marker();">
-						<div class='townName threeText'>
+						<div onclick="moveNonePageFnc();" class='townName threeText'>
 							<span class='townNameSpan'>삼선권</span>
 						</div>
 					</div>
@@ -353,7 +364,7 @@
 					<div class='markerTownWrap'>
 						<img class='markerImg' src='/dolleProject/resources/images/marker/07Marker.png'
 							onClick="move07Marker();">
-						<div class='townName fiveText'>
+						<div onclick="moveNonePageFnc();" class='townName fiveText'>
 							<span class='townNameSpan'>이화충신권</span>
 						</div>
 					</div>
@@ -363,7 +374,7 @@
 					<div class='markerTownWrap'>
 						<img class='markerImg' src='/dolleProject/resources/images/marker/03Marker.png'
 							onClick="move03Marker();">
-						<div class='townName threeText'>
+						<div onclick="moveNonePageFnc();" class='townName threeText'>
 							<span class='townNameSpan'>창신권</span>
 						</div>
 					</div>
@@ -371,7 +382,7 @@
 					<div class='markerTownWrap'>
 						<img class='markerImg' src='/dolleProject/resources/images/marker/08Marker.png'
 							onClick="move08Marker();">
-						<div class='townName threeText'>
+						<div onclick="moveNonePageFnc();" class='townName threeText'>
 							<span class='townNameSpan'>광희권</span>
 						</div>
 					</div>
@@ -381,7 +392,7 @@
 					<div class='markerTownWrap'>
 						<img class='markerImg' src='/dolleProject/resources/images/marker/04Marker.png'
 							onClick="move04Marker();">
-						<div class='townName threeText'>
+						<div onclick="moveNonePageFnc();" class='townName threeText'>
 							<span class='townNameSpan'>다산권</span>
 						</div>
 					</div>
@@ -389,7 +400,7 @@
 					<div class='markerTownWrap'>
 						<img class='markerImg' src='/dolleProject/resources/images/marker/09Marker.png'
 							onClick="move09Marker();">
-						<div class='townName threeText'>
+						<div onclick="moveNonePageFnc();" class='townName threeText'>
 							<span class='townNameSpan'>행촌권</span>
 						</div>
 					</div>
@@ -399,7 +410,7 @@
 					<div class='markerTownWrap'>
 						<img class='markerImg' src='/dolleProject/resources/images/marker/05Marker.png'
 							onClick="move05Marker();">
-						<div class='townName threeText'>
+						<div onclick="moveNonePageFnc();" class='townName threeText'>
 							<span class='townNameSpan'>부암권</span>
 						</div>
 					</div>

@@ -11,7 +11,8 @@
 <style type="text/css">
 
 	.fixedBox{
-		width:306px; height:114px; background-color: #E1E1E1;
+/* 		width:306px; height:114px; background-color: #fff; */
+ 		width:306px; height:114px; background-color: #E1E1E1; 
 	}
 	
 	.innerBox{
@@ -404,6 +405,8 @@
 				value="${pagingMap.reviewPaging.curPage}">
 		</form>
 	</div>
+	
+	<a href="./adminList.do">관리자 test</a>
 	
 	<jsp:include page="/WEB-INF/views/Tail.jsp" />
 	

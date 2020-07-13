@@ -70,6 +70,7 @@
 	
 </style>
 <script type="text/javascript">
+	var cnt = 0;
 	var updateForm = '';
 	
 	var nameObj = '';
@@ -94,15 +95,16 @@
 	var pattern_eng = /[a-zA-Z]/;	// 문자 
 	var pattern_spc = /[~!@#$%^&*()_+|<>?:{}]/; // 특수문자
 	var pattern_kor = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/; // 한글
-	var reg_Phone = /^((01[1|6|7|8|9])[1-9]+[0-9]{6,7})|(010[1-9][0-9]{7})$/; //핸드폰
+	var reg_Phone = /^((01[1|6|7|8|9])[2-9]+[0-9]{6,7})|(010[2-9][0-9]{7})$/; //핸드폰
 
 	function updateBtnFnc() {
+		cnt = 0;
 		updateForm = document.updateForm;
 		
 		nameObj = document.getElementById('memberName');
 		nicknameObj = document.getElementById('memberNickName');
 		phoneObj = document.getElementById('memberPhone');
-		nationalObj = document.getElementsByName('national')[0];
+		nationalObj = document.getElementsByName('national');
 		passwordObj = document.getElementById('memberPassword');
 		tempPasswordObj = document.getElementById('memberTempPassword');
 		
@@ -175,9 +177,25 @@
 			tempPasswordObj.focus();
 			return false;
 		} else {
-			tempPasstempPasswordObjword.style.outlineColor = '#0D4371';
+			tempPasswordObj.style.outlineColor = '#0D4371';
 			tempPasswordCheck.innerHTML = '';
 		}
+		
+		// 내외국인 체크 여부
+		for (var i = 0; i < nationalObj.length; i++) {
+			if (nationalObj[i].checked == true) {
+				cnt++;
+			}
+		}
+		
+		if (cnt < 1) {
+			nationalCheck.innerHTML = '내외국인 항목을 체크해주세요.';
+			return;
+		} else {
+			nationalCheck.innerHTML = '';
+		}
+		
+		updateForm.submit();
 		
 	}
 	

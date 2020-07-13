@@ -1,5 +1,6 @@
 package com.edu.courseReview.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -27,9 +28,12 @@ public interface CourseReviewService {
 	public Map<String, Object> fileSelectStoredName(int reviewIdx);
 	
 	public void courseReviewDeleteOne(int reviewIdx);
+	public int courseReviewDeleteList(List<String> reviewIdxList); //다중삭제
+	
 	
 	//댓글
 	public int commentInsertOne(CommentVo commentVo);
 	public List<CommentVo> commentSelectList(int reviewIdx);
-	
+	public int commentDeleteOne(int commentIdx, int commentMemberIdx);
+	public int commentUpdateOne(CommentVo commentVo);
 }

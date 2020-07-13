@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.edu.member.service.MemberService;
 import com.edu.member.vo.MemberVo;
+import com.edu.util.memberPaging;
 
 @Controller
 public class MemberController {
@@ -38,14 +39,60 @@ public class MemberController {
 	private JavaMailSender mailSender;
 	
 	// 회원 목록 조회 화면으로
-	@RequestMapping(value="/member/list.do", method=RequestMethod.GET)
-	public String memberList(Model model) {
-		
+	@RequestMapping(value="/member/list.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public String memberList(@RequestParam(defaultValue = "1") 
+							int curPage
+							, @RequestParam(defaultValue = "0") int no
+							, @RequestParam(defaultValue = "all") String searchOption
+							, @RequestParam(defaultValue = "") String keyword
+							, Model model) {
 		log.debug("Welcome MemberController enter! ");
 		
-		List<MemberVo> memberList = memberService.memberSelectList();
+		// 화면의 form의 이름을 마바티스에 편하게 맞추기 위한 로직
+		if("name".equals(searchOption)) {
+			searchOption = "name";
+		}
+		
+		// 페이징을 위한 전체 회원목록 갯수
+		int totalCount = 
+			memberService.memberSelectTotalCount(
+					searchOption, keyword
+		);
+		
+		// 이전 페이지로 회원의 번호가 명확하게 나온 경우
+		// 자신의 curPage 찾는 로직 
+		if(no != 0) {
+			curPage 
+				= memberService.memberSelectCurPage(
+						searchOption, keyword, no);
+		}
+		
+		memberPaging memberPaging = new memberPaging(totalCount, curPage);
+		int start = memberPaging.getPageBegin();
+		int end = memberPaging.getPageEnd();
+		
+		List<MemberVo> memberList = memberService.memberSelectList(searchOption, keyword
+				, start, end);
+		
+		// 화면의 form의 이름을 맞추기 위한 작업
+		if("name".equals(searchOption)) {
+			searchOption = "name";
+		}
+		
+		// 검색
+		HashMap<String, Object> searchMap 
+			= new HashMap<String, Object>();
+		searchMap.put("searchOption", searchOption);
+		searchMap.put("keyword", keyword);
+		
+		// 페이징
+		Map<String, Object> pagingMap = new HashMap<>();
+		pagingMap.put("totalCount", totalCount);
+		pagingMap.put("memberPaging", memberPaging);
 		
 		model.addAttribute("memberList", memberList);
+		model.addAttribute("pagingMap", pagingMap);
+		model.addAttribute("searchMap", searchMap);
 		
 		return "member/memberListView";
 	}
@@ -61,7 +108,7 @@ public class MemberController {
 	}
 	
 	// 마이 페이지 이동
-	@RequestMapping(value="/member/listOne.do")
+	@RequestMapping(value="/member/listOne.do" , method = {RequestMethod.GET, RequestMethod.POST})
 	public String memberListOne(int no, Model model) {
 		log.debug("Welcome memberListOne enter! - {}", no);
 		
@@ -75,6 +122,29 @@ public class MemberController {
 		return "member/memberListOneView";
 	}
 	
+	// 회원 상세조회 이동
+	@RequestMapping(value="/member/memberlistOne.do" , method = {RequestMethod.GET, RequestMethod.POST})
+	public String userListOne(int no, Model model) {
+		log.debug("Welcome memberListOne enter! - {}", no);
+		
+		MemberVo memberVo = memberService.memberSelectOne(no);
+		model.addAttribute("memberVo", memberVo);
+		
+		return "member/userListOneView";
+	}
+	
+	// 관리자 상세조회 이동
+	@RequestMapping(value="/member/adminlistOne.do")
+	public String adminListOne(int no, Model model) {
+		log.debug("Welcome memberListOne enter! - {}", no);
+		
+		MemberVo memberVo = memberService.adminSelectOne(no);
+		model.addAttribute("memberVo", memberVo);
+		
+		return "member/adminListOneView";
+	}
+		
+		
 	// 마이페이지 - 입금화면으로 이동
 	@RequestMapping(value="/member/payment.do", method=RequestMethod.GET)
 	public String memberPayment(int reserveIdx, Model model) {
@@ -140,7 +210,7 @@ public class MemberController {
 			
 			viewUrl = "redirect:/member/list.do";
 		}else {
-			viewUrl = "/auth/loginFail";
+			viewUrl = "redirect:/auth/login.do";
 		}
 		
 		return viewUrl;
@@ -298,6 +368,10 @@ public class MemberController {
 					newMemberVo.setNo(memberVo.getNo());
 					newMemberVo.setEmail(memberVo.getEmail());
 					newMemberVo.setName(memberVo.getName());
+					newMemberVo.setPhone(memberVo.getPhone());
+					newMemberVo.setPassword(memberVo.getPassword());
+					newMemberVo.setTempPassword(memberVo.getTempPassword());
+					newMemberVo.setNational(memberVo.getNational());
 					
 					session.removeAttribute("_memberVo_");
 					
@@ -307,7 +381,7 @@ public class MemberController {
 			}
 		}
 		
-		return "common/successPage";
+		return "member/memberListOneView";
 	}
 	
 	// 회원 삭제

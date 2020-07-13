@@ -59,7 +59,7 @@
 						${memberVo.email}
 					</td>
 					<td>
-						${memberVo.name}
+						<a href='../member/memberlistOne.do?no=${memberVo.no}'>${memberVo.name}</a>
 					</td>
 					<td>
 						${memberVo.nickname}
@@ -72,7 +72,7 @@
 							pattern="yyyy-MM-dd"/>
 					</td>
 					<td>
-						<fmt:formatDate value="${memberVo.birthdate}"
+						<fmt:formatDate value="${memberVo.createDate}"
 							pattern="yyyy-MM-dd"/>
 					</td>
 				</tr>
@@ -80,11 +80,18 @@
 			</c:forEach>
 		</table>
 	</div>
-	<div>
-		<input type='button' onclick='memberDeletFnc(${memberVo.no});' value='삭제'>
-		<input type='button' onclick='memberAddFnc();' value='회원 추가'>
-	</div>
 	</form>
+	<div>
+		<input type='button' onclick='memberDeletFnc();' value='삭제'>
+		<jsp:include page="/WEB-INF/views/common/memberPaging.jsp">
+			<jsp:param value="${pagingMap}" name="pagingMap"/>
+		</jsp:include>
+		<input type='button' onclick='memberAddFnc();' value='회원 추가'>
+		<form action="./list.do" id='pagingForm' method="get">
+			<input type="hidden" id='curPage' name='curPage' 
+				value="${pagingMap.memberPaging.curPage}">
+		</form>
+	</div>
 
 	<jsp:include page="/WEB-INF/views/Tail.jsp" />
 

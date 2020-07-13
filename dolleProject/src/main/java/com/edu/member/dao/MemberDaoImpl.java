@@ -20,9 +20,16 @@ public class MemberDaoImpl implements MemberDao{
 	
 	
 	@Override
-	public List<MemberVo> memberSelectList() {
+	public List<MemberVo> memberSelectList(String searchOption, 
+			String keyword, int start, int end) {
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("searchOption", searchOption);
+		map.put("keyword", keyword);
+		map.put("start", start);
+		map.put("end", end);
 
-		return sqlSession.selectList(namespace + "memberSelectList");
+		return sqlSession.selectList(namespace + "memberSelectList", map);
 	}
 
 	@Override
@@ -117,7 +124,39 @@ public class MemberDaoImpl implements MemberDao{
 	@Override
 	public List<MemberVo> adminSelectList() {
 		// TODO Auto-generated method stub
+		
 		return sqlSession.selectList(namespace + "adminSelectList");
+	}
+
+	@Override
+	public MemberVo adminSelectOne(int no) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace + "adminSelectOne",
+				no);
+	}
+
+	@Override
+	public int memberSelectTotalCount(String searchOption, String keyword) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
+				
+		paramMap.put("searchOption", searchOption);
+		paramMap.put("keyword", keyword);
+		
+		return sqlSession.selectOne(namespace + "memberSelectTotalCount"
+				, paramMap);
+	}
+
+	@Override
+	public int memberSelectCurPage(String searchOption, String keyword, int no) {
+		// TODO Auto-generated method stub
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("searchOption", searchOption);
+		paramMap.put("keyword", keyword);
+		paramMap.put("no", no);
+			
+		return sqlSession.selectOne(namespace 
+				+ "memberSelectCurPage", paramMap);
 	}
 
 }

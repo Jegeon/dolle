@@ -129,10 +129,12 @@
 		WHERE RNUM BETWEEN #{start} AND #{end}
 	</select> 
 	
-	<select id="reviewSelectTotalCount" resultType="int">
+	<select id="reviewSelectTotalCount" parameterType="map" resultType="int">
 		SELECT COUNT(*)
-		FROM REVIEWBOARD
-<!-- 		<include refid="search"></include> -->
+		FROM REVIEWBOARD RB, MEMBER M
+		WHERE RB.MEMBER_IDX = M.MEMBER_IDX
+		<!-- 검색 -->
+		<include refid="search"></include>
 	</select>
 	
 	<insert id="reviewInsertOne" parameterType="CourseReviewVo">

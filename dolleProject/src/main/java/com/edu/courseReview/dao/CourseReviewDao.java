@@ -17,7 +17,8 @@ public interface CourseReviewDao {
 	public int fileInsertOne(Map<String, Object> map);
 	
 	public int reviewNewestSelectIdx();
-	public int reviewSelectTotalCount();
+	public int reviewSelectTotalCount(String orderOption
+			, String searchOption, String keyword);
 	public int reviewIncreaseReadCount(int reviewIdx);
 	
 	public Map<String, Object> fileSelectStoredName(int reviewIdx);

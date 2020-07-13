@@ -313,7 +313,9 @@
 		            
 		            <span id="popSupportUser">
 			            <span id="popNotice" style="padding: 0px 7px 0px 7px;">
-						       <a class='blackLink detailLink' href='<%=request.getContextPath()%>/noticeBoard/adminList.do'>공지사항</a>
+					       <a class='blackLink detailLink' href='<%=request.getContextPath()%>/noticeBoard/list.do'>
+						       	공지사항
+					       </a>
 						</span>
 					</span>
 		         </div>

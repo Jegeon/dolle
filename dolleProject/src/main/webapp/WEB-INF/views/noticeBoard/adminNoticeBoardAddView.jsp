@@ -190,7 +190,7 @@
 					</div>
 				</div>
 				
-				<form name='inputForm' action='./AdminNoticeAddCtr.do' method='post'
+				<form name='inputForm' action='./adminNoticeAddCtr.do' method='post'
 					enctype="multipart/form-data">
 					<div id='InputWrap'>
 						<div id='titleInputDiv'>

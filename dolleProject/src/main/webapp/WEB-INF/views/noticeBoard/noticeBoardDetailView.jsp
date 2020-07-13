@@ -130,6 +130,8 @@ body {
 .btnPointer {
 	cursor: pointer;
 }
+
+
 </style>
 
 <script type="text/javascript" 
@@ -183,6 +185,10 @@ body {
 		location.href = './list.do';
 	}
 	
+	function pageMoveUpdateFnc(noticeIdx) {
+		
+		location.href = './adminUpdate.do?noticeIdx='+noticeIdx;
+	}
 	
 </script>
 <body>
@@ -259,6 +265,10 @@ body {
 			<div id='listBtnDiv'>
 				<input id='listBtnInput' class='btnPointer' value='목록으로'
 					onclick='pageMoveListFnc();'>
+				<c:if test="${_memberVo_.grade == 'admin'}">
+					<input id='listBtnInput' class='btnPointer' value='수정하기'
+						onclick='pageMoveUpdateFnc(${noticeVo.noticeIdx});'>
+				</c:if>
 			</div>
 			
 		</div>

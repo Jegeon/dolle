@@ -29,10 +29,10 @@ public class NoticeServiceImpl implements NoticeService{
 	private NoticeFileUtils noticeFileUtils; 
 	
 	@Override
-	public List<NoticeMemberFileVo> noticeMemberFileList() {
+	public List<NoticeMemberFileVo> noticeMemberFileList(int start, int end) {
 		// TODO Auto-generated method stub
 		
-		return noticeDao.noticeMemberFileList();
+		return noticeDao.noticeMemberFileList(start, end);
 	}
 
 
@@ -162,6 +162,14 @@ public class NoticeServiceImpl implements NoticeService{
 		// TODO Auto-generated method stub
 		noticeDao.deleteFile(noticeIdx);
 		noticeDao.noticeDeleteOne(noticeIdx);
+	}
+
+
+	@Override
+	public int noticeSelectTotalCount() {
+		// TODO Auto-generated method stub
+		
+		return noticeDao.noticeSelectTotalCount();
 	}
 
 

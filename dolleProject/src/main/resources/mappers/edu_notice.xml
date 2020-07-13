@@ -40,11 +40,16 @@
 	
 	<select id="noticeMemberFileList" parameterType="map"
 		resultMap="noticeMemberFileResultMap">
-		SELECT NB.NOTICE_IDX, NB.NOTICE_TITLE, NB.NOTICE_CRE_DATE, M.MEMBER_NICKNAME, NVL2(NF.NOTICE_IDX, 1, 0) AS FILE_EXIST
-		FROM NOTICEBOARD NB, MEMBER M, NOTICE_FILE NF
-		WHERE NB.MEMBER_IDX = M.MEMBER_IDX
-		AND NB.NOTICE_IDX = NF.NOTICE_IDX(+)
-		ORDER BY NB.NOTICE_IDX DESC
+		SELECT TOTALNB.*
+		    FROM (SELECT ROWNUM RNUM, ORDERNB.*
+		        FROM(SELECT NB.NOTICE_IDX, NB.NOTICE_TITLE, NB.NOTICE_CRE_DATE, 
+		                M.MEMBER_NICKNAME, NVL2(NF.NOTICE_IDX, 1, 0) AS FILE_EXIST
+			            FROM NOTICEBOARD NB, MEMBER M, NOTICE_FILE NF
+			            WHERE NB.MEMBER_IDX = M.MEMBER_IDX
+			            AND NB.NOTICE_IDX = NF.NOTICE_IDX(+)
+			            ORDER BY NB.NOTICE_IDX DESC) ORDERNB
+		            )TOTALNB
+		WHERE RNUM BETWEEN #{start} AND #{end}
 	</select>
 	
 	<select id="noticeMemberFileFixedList" parameterType="map"
@@ -55,6 +60,11 @@
 		AND NB.NOTICE_IDX = NF.NOTICE_IDX(+)
 		AND NB.NOTICE_FIXED = 'fixed'
 		ORDER BY NB.NOTICE_IDX DESC
+	</select>
+	
+	<select id="noticeSelectTotalCount" resultType="int">
+		SELECT COUNT(*)
+		FROM NOTICEBOARD
 	</select>
 	
 	<select id='noticeDetailSelectOne' parameterType="map"
@@ -158,5 +168,7 @@
 		FROM NOTICE_FILE
 		WHERE NOTICE_IDX = #{noticeIdx}
 	</select>
+	
+	
 	
 </mapper>

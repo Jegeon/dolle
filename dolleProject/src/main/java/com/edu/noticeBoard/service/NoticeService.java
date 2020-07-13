@@ -8,7 +8,7 @@ import com.edu.noticeBoard.vo.NoticeMemberFileVo;
 
 public interface NoticeService {
 
-	public List<NoticeMemberFileVo> noticeMemberFileList();
+	public List<NoticeMemberFileVo> noticeMemberFileList(int start, int end);
 	public List<NoticeMemberFileVo> noticeMemberFileFixedList();
 	public NoticeMemberFileVo noticeDetailSelectOne(int noticeIdx);
 	public int noticeFindUpIdx(int noticeIdx);
@@ -19,4 +19,5 @@ public interface NoticeService {
 	public void noticeUpdateOne(NoticeMemberFileVo noticeMemberFileVo, 
 		MultipartHttpServletRequest mulRequest, int fileIdx);
 	public void noticeDeleteOne(int noticeIdx);
+	public int noticeSelectTotalCount();
 }

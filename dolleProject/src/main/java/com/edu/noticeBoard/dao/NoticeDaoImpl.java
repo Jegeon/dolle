@@ -1,12 +1,12 @@
 package com.edu.noticeBoard.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.edu.noticeBoard.vo.NoticeMemberFileVo;
 
@@ -20,11 +20,13 @@ public class NoticeDaoImpl implements NoticeDao{
 
 
 	@Override
-	public List<NoticeMemberFileVo> noticeMemberFileList() {
+	public List<NoticeMemberFileVo> noticeMemberFileList(int start, int end) {
 		// TODO Auto-generated method stub
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("start", String.valueOf(start));
+		map.put("end", String.valueOf(end));
 		
-		
-		return sqlSession.selectList(namespace + "noticeMemberFileList");
+		return sqlSession.selectList(namespace + "noticeMemberFileList", map);
 	}
 
 
@@ -117,6 +119,14 @@ public class NoticeDaoImpl implements NoticeDao{
 	public Map<String, Object> fileSelectStoredName(int noticeIdx) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(namespace + "fileSelectStoredName", noticeIdx);
+	}
+
+
+	@Override
+	public int noticeSelectTotalCount() {
+		// TODO Auto-generated method stub
+		
+		return sqlSession.selectOne(namespace + "noticeSelectTotalCount");
 	}
 
 

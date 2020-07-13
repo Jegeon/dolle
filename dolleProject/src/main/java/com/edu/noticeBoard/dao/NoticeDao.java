@@ -9,7 +9,7 @@ import com.edu.noticeBoard.vo.NoticeMemberFileVo;
 
 public interface NoticeDao {
 	
-	public List<NoticeMemberFileVo> noticeMemberFileList();
+	public List<NoticeMemberFileVo> noticeMemberFileList(int start, int end);
 	public List<NoticeMemberFileVo> noticeMemberFileFixedList();
 	public NoticeMemberFileVo noticeDetailSelectOne(int noticeIdx);
 	public int noticeFindUpIdx(int noticeIdx);
@@ -21,4 +21,5 @@ public interface NoticeDao {
 	public void insertfile(Map<String, Object> map);
 	public void deleteFile(int noticeIdx);
 	public Map<String, Object> fileSelectStoredName(int noticeIdx);
+	public int noticeSelectTotalCount();
 }

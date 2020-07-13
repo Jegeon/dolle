@@ -1,6 +1,5 @@
 package com.edu.courseReview.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,8 +42,9 @@ public class CourseReviewController {
 			,@RequestParam(defaultValue = "both") String searchOption
 			,@RequestParam(defaultValue = "") String keyword) {
 		log.debug(" **** Welcome courseReviewBoard ***"+ curPage+ orderOption+ searchOption);
+		System.out.println("searchOption"+searchOption+"keyword"+keyword);
 		
-		int totalCount = courseReviewService.reviewSelectTotalCount();
+		int totalCount = courseReviewService.reviewSelectTotalCount(orderOption, searchOption, keyword);
 		
 		ReviewPaging reviewPaging = new ReviewPaging(totalCount, curPage);
 		int start = reviewPaging.getPageBegin();
@@ -198,7 +198,7 @@ public class CourseReviewController {
 			,@RequestParam(defaultValue = "") String keyword) {
 		log.debug(" **** Welcome courseReviewAdminList ***"+ curPage+ orderOption+ searchOption);
 		
-		int totalCount = courseReviewService.reviewSelectTotalCount();
+		int totalCount = courseReviewService.reviewSelectTotalCount(orderOption, searchOption, keyword);
 		
 		Paging adminPaging = new Paging(totalCount, curPage, pageScale);
 		int start = adminPaging.getPageBegin();

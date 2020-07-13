@@ -13,7 +13,6 @@ public class CourseReviewFileVo {
 	private int reviewReadCount;
 	private int reviewLikeCount;
 	private int reviewRating;
-	private String reviewDelYn;
 	private Date reviewCreDate;
 	private Date reviewModDate;
 		
@@ -32,11 +31,10 @@ public class CourseReviewFileVo {
 		super();
 	}
 
-
 	public CourseReviewFileVo(int reviewIdx, int reviewMemberIdx, int reviewCourseIdx, String reviewTitle,
-			String reviewContent, int reviewReadCount, int reviewLikeCount, int reviewRating, String reviewDelYn,
-			Date reviewCreDate, Date reviewModDate, int fileIdx, int fileReviewIdx, String fileOriginalName,
-			String fileStoredName, int fileSize, Date fileCreDate, Date fileModDate) {
+			String reviewContent, int reviewReadCount, int reviewLikeCount, int reviewRating, Date reviewCreDate,
+			Date reviewModDate, int fileIdx, int fileReviewIdx, String fileOriginalName, String fileStoredName,
+			int fileSize, Date fileCreDate, Date fileModDate) {
 		super();
 		this.reviewIdx = reviewIdx;
 		this.reviewMemberIdx = reviewMemberIdx;
@@ -46,7 +44,6 @@ public class CourseReviewFileVo {
 		this.reviewReadCount = reviewReadCount;
 		this.reviewLikeCount = reviewLikeCount;
 		this.reviewRating = reviewRating;
-		this.reviewDelYn = reviewDelYn;
 		this.reviewCreDate = reviewCreDate;
 		this.reviewModDate = reviewModDate;
 		this.fileIdx = fileIdx;
@@ -57,8 +54,7 @@ public class CourseReviewFileVo {
 		this.fileCreDate = fileCreDate;
 		this.fileModDate = fileModDate;
 	}
-	
-	
+
 	public int getReviewIdx() {
 		return reviewIdx;
 	}
@@ -106,12 +102,6 @@ public class CourseReviewFileVo {
 	}
 	public void setReviewRating(int reviewRating) {
 		this.reviewRating = reviewRating;
-	}
-	public String getReviewDelYn() {
-		return reviewDelYn;
-	}
-	public void setReviewDelYn(String reviewDelYn) {
-		this.reviewDelYn = reviewDelYn;
 	}
 	public Date getReviewCreDate() {
 		return reviewCreDate;
@@ -167,16 +157,17 @@ public class CourseReviewFileVo {
 	public void setFileModDate(Date fileModDate) {
 		this.fileModDate = fileModDate;
 	}
-	
-	
+
 	@Override
 	public String toString() {
 		return "CourseReviewFileVo [reviewIdx=" + reviewIdx + ", reviewMemberIdx=" + reviewMemberIdx
 				+ ", reviewCourseIdx=" + reviewCourseIdx + ", reviewTitle=" + reviewTitle + ", reviewContent="
 				+ reviewContent + ", reviewReadCount=" + reviewReadCount + ", reviewLikeCount=" + reviewLikeCount
-				+ ", reviewRating=" + reviewRating + ", reviewDelYn=" + reviewDelYn + ", reviewCreDate=" + reviewCreDate
-				+ ", reviewModDate=" + reviewModDate + ", fileIdx=" + fileIdx + ", fileReviewIdx=" + fileReviewIdx
-				+ ", fileOriginalName=" + fileOriginalName + ", fileStoredName=" + fileStoredName + ", fileSize="
-				+ fileSize + ", fileCreDate=" + fileCreDate + ", fileModDate=" + fileModDate + "]";
+				+ ", reviewRating=" + reviewRating + ", reviewCreDate=" + reviewCreDate + ", reviewModDate="
+				+ reviewModDate + ", fileIdx=" + fileIdx + ", fileReviewIdx=" + fileReviewIdx + ", fileOriginalName="
+				+ fileOriginalName + ", fileStoredName=" + fileStoredName + ", fileSize=" + fileSize + ", fileCreDate="
+				+ fileCreDate + ", fileModDate=" + fileModDate + "]";
 	}
+	
+	
 }

@@ -164,9 +164,10 @@ public class CourseReviewServiceImpl implements CourseReviewService{
 	}
 
 	@Override
-	public int reviewSelectTotalCount() {
+	public int reviewSelectTotalCount(String orderOption
+			, String searchOption, String keyword) {
 		// TODO Auto-generated method stub
-		return courseReviewDao.reviewSelectTotalCount();
+		return courseReviewDao.reviewSelectTotalCount(orderOption, searchOption, keyword);
 	}
 
 	

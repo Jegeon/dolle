@@ -90,9 +90,14 @@ public class CourseReviewDaoImpl implements CourseReviewDao{
 	}
 
 	@Override
-	public int reviewSelectTotalCount() {
+	public int reviewSelectTotalCount(String orderOption
+			, String searchOption, String keyword) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne(namespace + "reviewSelectTotalCount");
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("orderOption", orderOption);
+		map.put("searchOption", searchOption);
+		map.put("keyword", keyword);
+		return sqlSession.selectOne(namespace + "reviewSelectTotalCount", map);
 	}
 
 	@Override

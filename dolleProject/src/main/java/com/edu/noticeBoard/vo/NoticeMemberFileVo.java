@@ -9,7 +9,6 @@ public class NoticeMemberFileVo {
 	private String noticeTitle;
 	private String noticeContent;
 	private String noticeFixed;
-	private String noticeDelYn;
 	private Date noticeCreDate;
 	private Date noticeModDate;
 	private int rNum;
@@ -44,10 +43,10 @@ public class NoticeMemberFileVo {
 
 
 	public NoticeMemberFileVo(int noticeIdx, int noticeMemberIdx, String noticeTitle, String noticeContent,
-			String noticeFixed, String noticeDelYn, Date noticeCreDate, Date noticeModDate, int rNum, int memberIdx,
-			String memberName, String memberEmail, String memberNickname, String memberPassword, String memberPhone,
-			Date memberBirthdate, String memberNational, Date memberCreDate, Date memberModDate, String memberGrade,
-			String memberDelYn, String memberTempPwd, int fileIdx, int fileNoticeIdx, String fileNoticeOriginalName,
+			String noticeFixed, Date noticeCreDate, Date noticeModDate, int rNum, int memberIdx, String memberName,
+			String memberEmail, String memberNickname, String memberPassword, String memberPhone, Date memberBirthdate,
+			String memberNational, Date memberCreDate, Date memberModDate, String memberGrade, String memberDelYn,
+			String memberTempPwd, int fileIdx, int fileNoticeIdx, String fileNoticeOriginalName,
 			String fileNoticeStoredName, int fileNoticeSize, Date fileNoticeCreDate, Date fileNoticeModDate,
 			int fileExist) {
 		super();
@@ -56,7 +55,6 @@ public class NoticeMemberFileVo {
 		this.noticeTitle = noticeTitle;
 		this.noticeContent = noticeContent;
 		this.noticeFixed = noticeFixed;
-		this.noticeDelYn = noticeDelYn;
 		this.noticeCreDate = noticeCreDate;
 		this.noticeModDate = noticeModDate;
 		this.rNum = rNum;
@@ -131,16 +129,6 @@ public class NoticeMemberFileVo {
 
 	public void setNoticeFixed(String noticeFixed) {
 		this.noticeFixed = noticeFixed;
-	}
-
-
-	public String getNoticeDelYn() {
-		return noticeDelYn;
-	}
-
-
-	public void setNoticeDelYn(String noticeDelYn) {
-		this.noticeDelYn = noticeDelYn;
 	}
 
 
@@ -387,20 +375,20 @@ public class NoticeMemberFileVo {
 	@Override
 	public String toString() {
 		return "NoticeMemberFileVo [noticeIdx=" + noticeIdx + ", noticeMemberIdx=" + noticeMemberIdx + ", noticeTitle="
-				+ noticeTitle + ", noticeContent=" + noticeContent + ", noticeFixed=" + noticeFixed + ", noticeDelYn="
-				+ noticeDelYn + ", noticeCreDate=" + noticeCreDate + ", noticeModDate=" + noticeModDate + ", rNum="
-				+ rNum + ", memberIdx=" + memberIdx + ", memberName=" + memberName + ", memberEmail=" + memberEmail
-				+ ", memberNickname=" + memberNickname + ", memberPassword=" + memberPassword + ", memberPhone="
-				+ memberPhone + ", memberBirthdate=" + memberBirthdate + ", memberNational=" + memberNational
-				+ ", memberCreDate=" + memberCreDate + ", memberModDate=" + memberModDate + ", memberGrade="
-				+ memberGrade + ", memberDelYn=" + memberDelYn + ", memberTempPwd=" + memberTempPwd + ", fileIdx="
-				+ fileIdx + ", fileNoticeIdx=" + fileNoticeIdx + ", fileNoticeOriginalName=" + fileNoticeOriginalName
-				+ ", fileNoticeStoredName=" + fileNoticeStoredName + ", fileNoticeSize=" + fileNoticeSize
-				+ ", fileNoticeCreDate=" + fileNoticeCreDate + ", fileNoticeModDate=" + fileNoticeModDate
-				+ ", fileExist=" + fileExist + "]";
+				+ noticeTitle + ", noticeContent=" + noticeContent + ", noticeFixed=" + noticeFixed + ", noticeCreDate="
+				+ noticeCreDate + ", noticeModDate=" + noticeModDate + ", rNum=" + rNum + ", memberIdx=" + memberIdx
+				+ ", memberName=" + memberName + ", memberEmail=" + memberEmail + ", memberNickname=" + memberNickname
+				+ ", memberPassword=" + memberPassword + ", memberPhone=" + memberPhone + ", memberBirthdate="
+				+ memberBirthdate + ", memberNational=" + memberNational + ", memberCreDate=" + memberCreDate
+				+ ", memberModDate=" + memberModDate + ", memberGrade=" + memberGrade + ", memberDelYn=" + memberDelYn
+				+ ", memberTempPwd=" + memberTempPwd + ", fileIdx=" + fileIdx + ", fileNoticeIdx=" + fileNoticeIdx
+				+ ", fileNoticeOriginalName=" + fileNoticeOriginalName + ", fileNoticeStoredName="
+				+ fileNoticeStoredName + ", fileNoticeSize=" + fileNoticeSize + ", fileNoticeCreDate="
+				+ fileNoticeCreDate + ", fileNoticeModDate=" + fileNoticeModDate + ", fileExist=" + fileExist + "]";
 	}
-
-
+	
+	
+	
 	
 	
 }

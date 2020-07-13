@@ -33,7 +33,9 @@ public class NoticeController {
 	@RequestMapping(value = "/noticeBoard/list.do"
 			, method = {RequestMethod.GET, RequestMethod.POST})
 	public String NoticeList(Model model
-			, @RequestParam(defaultValue = "1") int curPage) {
+			, @RequestParam(defaultValue = "1") int curPage
+			, @RequestParam(defaultValue = "title") String searchOption
+			, @RequestParam(defaultValue = "") String keyword) {
 		log.info("Welcome NoticeList! "  + curPage);
 		
 		int totalCount = noticeService.noticeSelectTotalCount();
@@ -43,7 +45,8 @@ public class NoticeController {
 		int start = paging.getPageBegin();
 		int end = paging.getPageEnd();
 		
-		List<NoticeMemberFileVo> noticeMemberFileList = noticeService.noticeMemberFileList(start, end);
+		List<NoticeMemberFileVo> noticeMemberFileList = 
+				noticeService.noticeMemberFileList(searchOption, keyword, start, end);
 		List<NoticeMemberFileVo> noticeMemberFileFixedList = noticeService.noticeMemberFileFixedList();
 		
 		int listSize = noticeMemberFileList.size();
@@ -83,6 +86,8 @@ public class NoticeController {
 	@RequestMapping(value="/noticeBoard/detail.do", method = RequestMethod.GET)
 	public String noticeBoardDetailView(Model model
 			, @RequestParam(defaultValue = "1") int curPage
+			, @RequestParam(defaultValue = "title") String searchOption
+			, @RequestParam(defaultValue = "") String keyword
 			, int noticeIdx) {
 		log.debug(" *** Welcome NoticeBoardDetail View {}***", noticeIdx);
 		
@@ -97,7 +102,7 @@ public class NoticeController {
 		int end = paging.getPageEnd();
 		
 		int topIdx = noticeService.noticeFindUpIdx(2);
-		int listSize = noticeService.noticeMemberFileList(start, end).size();
+		int listSize = noticeService.noticeMemberFileList(searchOption, keyword, start, end).size();
 		int bottomIdx = noticeService.noticeFindUpIdx(listSize+1);
 		
 		int upIdx = topIdx;

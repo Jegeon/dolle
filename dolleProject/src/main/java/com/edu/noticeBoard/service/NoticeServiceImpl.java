@@ -29,10 +29,10 @@ public class NoticeServiceImpl implements NoticeService{
 	private NoticeFileUtils noticeFileUtils; 
 	
 	@Override
-	public List<NoticeMemberFileVo> noticeMemberFileList(int start, int end) {
+	public List<NoticeMemberFileVo> noticeMemberFileList(String searchOption, String keyword, int start, int end) {
 		// TODO Auto-generated method stub
 		
-		return noticeDao.noticeMemberFileList(start, end);
+		return noticeDao.noticeMemberFileList(searchOption, keyword, start, end);
 	}
 
 

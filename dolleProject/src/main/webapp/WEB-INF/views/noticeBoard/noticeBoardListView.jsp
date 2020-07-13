@@ -24,7 +24,7 @@
 	width: 1260px;
 	margin: 50px auto 50px auto;
 	box-sizing: border-box;
- 	height: 900px; 
+ 	height: 700px; 
 }
 
 #megaPhone {
@@ -90,6 +90,7 @@ td {
 	-webkit-appearance: none; /* 원본 select 버튼 감추기 */
 	background: url('/dolleProject/resources/images/selectBtn.PNG')
 		no-repeat 95% 50%;
+	float:left;
 }
 
 #serachDiv {
@@ -98,6 +99,7 @@ td {
 	display: inline-block;
 	border: 1px solid #B9B9B9;
 	vertical-align: middle;
+	float:left;
 }
 
 #searchInput {
@@ -187,6 +189,12 @@ td {
 		var pagingForm = $('#pagingForm');
 		pagingForm.submit();
 	}
+	
+	function searchFnc(){
+		
+		var searchForm = $('#searchOption');
+		searchForm.submit();
+	}
 </script>
 
 
@@ -197,18 +205,20 @@ td {
 		<img id='megaPhone' alt="megaPhone" src="../resources/images/megaPhone.png">
 		<span id='pageTitle'>공지사항</span>
 		<div id='searchWrap'>
-
+			<form id='searchOption' action="./list.do" method="post">
 			
-			<select id='searchOptionWrap'>
-				<option>작성자</option>
-				<option>제목</option>
-			</select>
-
-			<div id='serachDiv'>
-				<input id='searchInput' type="text" value="">
-				<img id="searchBtn" alt="검색버튼"
-					src="/dolleProject/resources/images/searchBtn.PNG">
-			</div>
+				<select id='searchOptionWrap' name='searchOption'>
+					<option value="writer">작성자</option>
+					<option value="title">제목</option>
+				</select>
+				
+				<div id='serachDiv'>
+					<input id='searchInput' type="text" name='keyword' value="">
+					<img id="searchBtn" alt="검색버튼"
+						src="/dolleProject/resources/images/searchBtn.PNG"
+						onclick='searchFnc();'>
+				</div>
+			</form>
 
 		</div>
 		

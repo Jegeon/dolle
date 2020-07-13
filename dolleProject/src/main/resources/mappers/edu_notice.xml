@@ -3,6 +3,18 @@
 
 <mapper namespace="com.edu.noticeBoard">
 
+	<sql id="search">
+		<choose>
+			<when test="searchOption == 'title'">
+				AND NOTICE_TITLE LIKE '%' || #{keyword} || '%'
+			</when>
+			
+			<when test="searchOption == 'writer'">
+				AND M.MEMBER_NICKNAME LIKE '%' || #{keyword} || '%'
+			</when>
+		
+		</choose>
+	</sql>
 	<resultMap type="com.edu.noticeBoard.vo.NoticeVo" 
 		id="noticeResultMap">
 		<id column="NOTICE_IDX" 			property="noticeIdx"/>
@@ -14,13 +26,12 @@
 		<result column="NOTICE_MOD_DATE" 	property="noticeModDate"
 			javaType="java.util.Date"/>
 		<result column="NOTICE_FIXED" 		property="noticeFixed"/>
-		<result column="NOTICE_DEL_FLAG" 	property="noticeDelYn"/>
 	</resultMap>
 	
 	<resultMap type="com.edu.noticeBoard.vo.NoticeMemberFileVo"
 		id="noticeMemberFileResultMap">
 		<id 	column="NOTICE_IDX"					property="noticeIdx"/>
-		<result column="MEMBER_IDX" 				property="memberIdx"/>
+		<result column="MEMBER_IDX" 				property="noticeMemberIdx"/>
 		<result column="NOTICE_TITLE" 				property="noticeTitle"/>
 		<result column="NOTICE_CRE_DATE" 			property="noticeCreDate"
 			javaType="java.util.Date"/>
@@ -47,6 +58,9 @@
 			            FROM NOTICEBOARD NB, MEMBER M, NOTICE_FILE NF
 			            WHERE NB.MEMBER_IDX = M.MEMBER_IDX
 			            AND NB.NOTICE_IDX = NF.NOTICE_IDX(+)
+			            
+			            <include refid="search"></include>
+			            
 			            ORDER BY NB.NOTICE_IDX DESC) ORDERNB
 		            )TOTALNB
 		WHERE RNUM BETWEEN #{start} AND #{end}
@@ -126,7 +140,7 @@
 		VALUE(NOTICE_IDX, MEMBER_IDX
 			, NOTICE_TITLE, NOTICE_CONTENT, NOTICE_CRE_DATE
 			, NOTICE_MOD_DATE, NOTICE_FIXED)
-		VALUES(#{noticeIdx}, 1
+		VALUES(#{noticeIdx}, #{noticeMemberIdx}
 			, #{noticeTitle}, #{noticeContent}, SYSDATE
 			, SYSDATE, #{noticeFixed})
 	</insert>

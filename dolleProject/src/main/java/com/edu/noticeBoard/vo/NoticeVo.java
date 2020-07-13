@@ -9,7 +9,6 @@ public class NoticeVo {
 	private String noticeTitle;
 	private String noticeContent;
 	private String noticeFixed;
-	private String noticeDelYn;
 	private Date noticeCreDate;
 	private Date noticeModDate;
 	
@@ -19,15 +18,14 @@ public class NoticeVo {
 	}
 
 
-	public NoticeVo(int noticeIdx, int memberIdx, String noticeTitle, String noticeContent, String noticeFixed,
-			String noticeDelYn, Date noticeCreDate, Date noticeModDate) {
+	public NoticeVo(int noticeIdx, int noticeMemberIdx, String noticeTitle, String noticeContent, String noticeFixed,
+			Date noticeCreDate, Date noticeModDate) {
 		super();
 		this.noticeIdx = noticeIdx;
-		this.noticeMemberIdx = memberIdx;
+		this.noticeMemberIdx = noticeMemberIdx;
 		this.noticeTitle = noticeTitle;
 		this.noticeContent = noticeContent;
 		this.noticeFixed = noticeFixed;
-		this.noticeDelYn = noticeDelYn;
 		this.noticeCreDate = noticeCreDate;
 		this.noticeModDate = noticeModDate;
 	}
@@ -43,13 +41,13 @@ public class NoticeVo {
 	}
 
 
-	public int getMemberIdx() {
+	public int getNoticeMemberIdx() {
 		return noticeMemberIdx;
 	}
 
 
-	public void setMemberIdx(int memberIdx) {
-		this.noticeMemberIdx = memberIdx;
+	public void setNoticeMemberIdx(int noticeMemberIdx) {
+		this.noticeMemberIdx = noticeMemberIdx;
 	}
 
 
@@ -83,16 +81,6 @@ public class NoticeVo {
 	}
 
 
-	public String getNoticeDelYn() {
-		return noticeDelYn;
-	}
-
-
-	public void setNoticeDelYn(String noticeDelYn) {
-		this.noticeDelYn = noticeDelYn;
-	}
-
-
 	public Date getNoticeCreDate() {
 		return noticeCreDate;
 	}
@@ -115,12 +103,10 @@ public class NoticeVo {
 
 	@Override
 	public String toString() {
-		return "NoticeVo [noticeIdx=" + noticeIdx + ", memberIdx=" + noticeMemberIdx + ", noticeTitle=" + noticeTitle
-				+ ", noticeContent=" + noticeContent + ", noticeFixed=" + noticeFixed + ", noticeDelYn=" + noticeDelYn
-				+ ", noticeCreDate=" + noticeCreDate + ", noticeModDate=" + noticeModDate + "]";
+		return "NoticeVo [noticeIdx=" + noticeIdx + ", noticeMemberIdx=" + noticeMemberIdx + ", noticeTitle="
+				+ noticeTitle + ", noticeContent=" + noticeContent + ", noticeFixed=" + noticeFixed + ", noticeCreDate="
+				+ noticeCreDate + ", noticeModDate=" + noticeModDate + "]";
 	}
-	
-	
 	
 	
 	

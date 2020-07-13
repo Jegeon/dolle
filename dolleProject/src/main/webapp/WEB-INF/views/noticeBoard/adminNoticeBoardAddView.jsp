@@ -217,6 +217,8 @@
 							<button class='addUnderBtn' id='addUnderBtnMargin' type="button" onclick='pageMoveAdminListFnc();'>목록으로</button>
 							<button class='addUnderBtn' type="button" onclick='noticeBoardValidationFnc();'>추가</button>
 							<button class='addUnderBtn' type="reset">다시쓰기</button>
+
+							<input type="hidden" name="noticeMemberIdx" value="${_memberVo_.no}">
 						</div>
 					</div>
 				</form>

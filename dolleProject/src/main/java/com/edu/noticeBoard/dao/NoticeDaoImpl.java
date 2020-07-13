@@ -20,11 +20,13 @@ public class NoticeDaoImpl implements NoticeDao{
 
 
 	@Override
-	public List<NoticeMemberFileVo> noticeMemberFileList(int start, int end) {
+	public List<NoticeMemberFileVo> noticeMemberFileList(String searchOption, String keyword, int start, int end) {
 		// TODO Auto-generated method stub
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("start", String.valueOf(start));
 		map.put("end", String.valueOf(end));
+		map.put("searchOption", searchOption);
+		map.put("keyword", keyword);
 		
 		return sqlSession.selectList(namespace + "noticeMemberFileList", map);
 	}
@@ -79,6 +81,17 @@ public class NoticeDaoImpl implements NoticeDao{
 	@Override
 	public void noticeInsertOne(NoticeMemberFileVo noticeMemberFileVo) {
 		// TODO Auto-generated method stub
+		
+		System.out.println(noticeMemberFileVo);
+		System.out.println(noticeMemberFileVo);
+		System.out.println(noticeMemberFileVo);
+		System.out.println(noticeMemberFileVo);
+		System.out.println(noticeMemberFileVo);
+		System.out.println(noticeMemberFileVo);
+		System.out.println(noticeMemberFileVo);
+		System.out.println(noticeMemberFileVo);
+		System.out.println(noticeMemberFileVo);
+		System.out.println(noticeMemberFileVo);
 		sqlSession.insert(namespace + "noticeInsertOne", noticeMemberFileVo);
 	}
 

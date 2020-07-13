@@ -37,7 +37,7 @@
 	float: left;
 	box-sizing:border-box;
 	margin-top:7px;
-	padding-top: 4px;
+	padding-top: 7px;
 	cursor: pointer;
 }
 
@@ -159,7 +159,86 @@
 			, "중구 신당동 832", "종로구 통일로12길 30-23"
 			, "종로구 창의문로 145"];
 		
+		$('#town01Name').mouseover(function() {
+			$('#town01Name').css("backgroundColor","#0D4371");
+			$('#town01Name').css("color", "#ffffff");
+		});
+		$('#town01Name').mouseleave(function() {
+			$('#town01Name').css("backgroundColor","#ffffff");
+			$('#town01Name').css("color", "#000000");
+		});
 		
+		$('#town02Name').mouseover(function() {
+			$('#town02Name').css("backgroundColor","#0D4371");
+			$('#town02Name').css("color", "#ffffff");
+		});
+		$('#town02Name').mouseleave(function() {
+			$('#town02Name').css("backgroundColor","#ffffff");
+			$('#town02Name').css("color", "#000000");
+		});
+		
+		$('#town03Name').mouseover(function() {
+			$('#town03Name').css("backgroundColor","#0D4371");
+			$('#town03Name').css("color", "#ffffff");
+		});
+		$('#town03Name').mouseleave(function() {
+			$('#town03Name').css("backgroundColor","#ffffff");
+			$('#town03Name').css("color", "#000000");
+		});
+		
+		$('#town04Name').mouseover(function() {
+			$('#town04Name').css("backgroundColor","#0D4371");
+			$('#town04Name').css("color", "#ffffff");
+		});
+		$('#town04Name').mouseleave(function() {
+			$('#town04Name').css("backgroundColor","#ffffff");
+			$('#town04Name').css("color", "#000000");
+		});
+		
+		$('#town05Name').mouseover(function() {
+			$('#town05Name').css("backgroundColor","#0D4371");
+			$('#town05Name').css("color", "#ffffff");
+		});
+		$('#town05Name').mouseleave(function() {
+			$('#town05Name').css("backgroundColor","#ffffff");
+			$('#town05Name').css("color", "#000000");
+		});
+		
+		$('#town06Name').mouseover(function() {
+			$('#town06Name').css("backgroundColor","#0D4371");
+			$('#town06Name').css("color", "#ffffff");
+		});
+		$('#town06Name').mouseleave(function() {
+			$('#town06Name').css("backgroundColor","#ffffff");
+			$('#town06Name').css("color", "#000000");
+		});
+		
+		$('#town07Name').mouseover(function() {
+			$('#town07Name').css("backgroundColor","#0D4371");
+			$('#town07Name').css("color", "#ffffff");
+		});
+		$('#town07Name').mouseleave(function() {
+			$('#town07Name').css("backgroundColor","#ffffff");
+			$('#town07Name').css("color", "#000000");
+		});
+		
+		$('#town08Name').mouseover(function() {
+			$('#town08Name').css("backgroundColor","#0D4371");
+			$('#town08Name').css("color", "#ffffff");
+		});
+		$('#town08Name').mouseleave(function() {
+			$('#town08Name').css("backgroundColor","#ffffff");
+			$('#town08Name').css("color", "#000000");
+		});
+		
+		$('#town09Name').mouseover(function() {
+			$('#town09Name').css("backgroundColor","#0D4371");
+			$('#town09Name').css("color", "#ffffff");
+		});
+		$('#town09Name').mouseleave(function() {
+			$('#town09Name').css("backgroundColor","#ffffff");
+			$('#town09Name').css("color", "#000000");
+		});
 		
 		
 		
@@ -338,7 +417,7 @@
 					<div class='markerTownWrap'>
 						<img class='markerImg' src='/dolleProject/resources/images/marker/01Marker.png'
 							 onClick="move01Marker();">
-						<div onclick="move01PageFnc();" class='townName fiveText'>
+						<div onclick="move01PageFnc();" id='town01Name' class='townName fiveText'>
 							<span class='townNameSpan'>혜화명륜권</span>
 						</div>
 					</div>
@@ -346,7 +425,7 @@
 					<div class='markerTownWrap'>
 						<img class='markerImg' src='/dolleProject/resources/images/marker/06Marker.png'
 							 onClick="move06Marker();">
-						<div onclick="moveNonePageFnc();" class='townName threeText'>
+						<div onclick="moveNonePageFnc();" id='town06Name' class='townName threeText'>
 							<span class='townNameSpan'>성북권</span>
 						</div>
 					</div>
@@ -356,7 +435,7 @@
 					<div class='markerTownWrap'>
 						<img class='markerImg' src='/dolleProject/resources/images/marker/02Marker.png'
 							onClick="move02Marker();">
-						<div onclick="moveNonePageFnc();" class='townName threeText'>
+						<div onclick="moveNonePageFnc();" id='town02Name' class='townName threeText'>
 							<span class='townNameSpan'>삼선권</span>
 						</div>
 					</div>
@@ -364,7 +443,7 @@
 					<div class='markerTownWrap'>
 						<img class='markerImg' src='/dolleProject/resources/images/marker/07Marker.png'
 							onClick="move07Marker();">
-						<div onclick="moveNonePageFnc();" class='townName fiveText'>
+						<div onclick="moveNonePageFnc();" id='town07Name' class='townName fiveText'>
 							<span class='townNameSpan'>이화충신권</span>
 						</div>
 					</div>
@@ -374,7 +453,7 @@
 					<div class='markerTownWrap'>
 						<img class='markerImg' src='/dolleProject/resources/images/marker/03Marker.png'
 							onClick="move03Marker();">
-						<div onclick="moveNonePageFnc();" class='townName threeText'>
+						<div onclick="moveNonePageFnc();" id='town03Name' class='townName threeText'>
 							<span class='townNameSpan'>창신권</span>
 						</div>
 					</div>
@@ -382,7 +461,7 @@
 					<div class='markerTownWrap'>
 						<img class='markerImg' src='/dolleProject/resources/images/marker/08Marker.png'
 							onClick="move08Marker();">
-						<div onclick="moveNonePageFnc();" class='townName threeText'>
+						<div onclick="moveNonePageFnc();" id='town08Name' class='townName threeText'>
 							<span class='townNameSpan'>광희권</span>
 						</div>
 					</div>
@@ -392,7 +471,7 @@
 					<div class='markerTownWrap'>
 						<img class='markerImg' src='/dolleProject/resources/images/marker/04Marker.png'
 							onClick="move04Marker();">
-						<div onclick="moveNonePageFnc();" class='townName threeText'>
+						<div onclick="moveNonePageFnc();" id='town04Name' class='townName threeText'>
 							<span class='townNameSpan'>다산권</span>
 						</div>
 					</div>
@@ -400,7 +479,7 @@
 					<div class='markerTownWrap'>
 						<img class='markerImg' src='/dolleProject/resources/images/marker/09Marker.png'
 							onClick="move09Marker();">
-						<div onclick="moveNonePageFnc();" class='townName threeText'>
+						<div onclick="moveNonePageFnc();" id='town09Name' class='townName threeText'>
 							<span class='townNameSpan'>행촌권</span>
 						</div>
 					</div>
@@ -410,7 +489,7 @@
 					<div class='markerTownWrap'>
 						<img class='markerImg' src='/dolleProject/resources/images/marker/05Marker.png'
 							onClick="move05Marker();">
-						<div onclick="moveNonePageFnc();" class='townName threeText'>
+						<div onclick="moveNonePageFnc();" id='town05Name' class='townName threeText'>
 							<span class='townNameSpan'>부암권</span>
 						</div>
 					</div>

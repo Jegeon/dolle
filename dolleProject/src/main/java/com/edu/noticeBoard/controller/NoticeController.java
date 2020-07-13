@@ -82,6 +82,7 @@ public class NoticeController {
 	
 	@RequestMapping(value="/noticeBoard/detail.do", method = RequestMethod.GET)
 	public String noticeBoardDetailView(Model model
+			, @RequestParam(defaultValue = "1") int curPage
 			, int noticeIdx) {
 		log.debug(" *** Welcome NoticeBoardDetail View {}***", noticeIdx);
 		
@@ -89,8 +90,14 @@ public class NoticeController {
 		
 		int rNum = noticeService.noticeFindCurrentRow(noticeIdx);
 		
+		int totalCount = noticeService.noticeSelectTotalCount();
+		
+		Paging paging = new Paging(totalCount, curPage, 10);
+		int start = paging.getPageBegin();
+		int end = paging.getPageEnd();
+		
 		int topIdx = noticeService.noticeFindUpIdx(2);
-		int listSize = noticeService.noticeMemberFileList().size();
+		int listSize = noticeService.noticeMemberFileList(start, end).size();
 		int bottomIdx = noticeService.noticeFindUpIdx(listSize+1);
 		
 		int upIdx = topIdx;

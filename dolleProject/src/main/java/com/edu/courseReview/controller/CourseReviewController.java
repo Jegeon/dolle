@@ -194,12 +194,15 @@ public class CourseReviewController {
 	
 	//관리자 페이지 
 	@RequestMapping(value="/courseReview/adminList.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String courseReviewAdminList(Model model,@RequestParam(defaultValue = "1") int curPage
-			,@RequestParam(defaultValue = "10") int pageScale
-			,@RequestParam(defaultValue = "newest") String orderOption
-			,@RequestParam(defaultValue = "both") String searchOption
-			,@RequestParam(defaultValue = "") String keyword) {
+	public String courseReviewAdminList(Model model
+			, @RequestParam(defaultValue = "1") int curPage
+			, @RequestParam(defaultValue = "10") int pageScale
+			, @RequestParam(defaultValue = "newest") String orderOption
+			, @RequestParam(defaultValue = "both") String searchOption
+			, @RequestParam(defaultValue = "") String keyword
+			, @RequestParam(defaultValue = "10") String rowNumOption) {
 		log.debug(" **** Welcome courseReviewAdminList ***"+ curPage+ orderOption+ searchOption);
+		System.out.println("rowNum : " + rowNumOption);
 		
 		int totalCount = courseReviewService.reviewSelectTotalCount(searchOption, keyword);
 		
@@ -216,6 +219,7 @@ public class CourseReviewController {
 		model.addAttribute("orderOption",orderOption);
 		
 		//검색
+		model.addAttribute("rowNumOption",rowNumOption);
 		model.addAttribute("searchOption",searchOption);
 		model.addAttribute("keyword",keyword);
 		

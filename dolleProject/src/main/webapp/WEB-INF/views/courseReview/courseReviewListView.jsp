@@ -85,8 +85,8 @@
 // 	        alert($(this).val());
 // 	   });
 		
-		var pagingForm = $('#orderSearchForm');
-		pagingForm.submit();
+		var orderSearchForm = $('#orderSearchForm');
+		orderSearchForm.submit();
 	}
 	
 	function pageMoveFnc(){

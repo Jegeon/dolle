@@ -316,7 +316,6 @@
 					<input id="commentIdx${index.count}" type="hidden" value="${commentVo.commentIdx}">
 					<div id="commentBox${index.count}" class="commentBox">
 						<!-- 체크용(숨김) -->
-<%-- 						<div id="check${index.count}" style="color:#fff;">0</div> --%>
 						<input id="check${index.count}" type="hidden" value="0">
 						<input id="commentEmoticon${index.count}" type="hidden" value="${commentVo.commentEmoticon}">
 						

@@ -13,7 +13,6 @@ public class CourseReviewVo {
 	private int reviewReadCount;
 	private int reviewLikeCount;
 	private int reviewRating;
-	private String reviewDelYn;
 	private Date reviewCreDate;
 	private Date reviewModDate;
 	
@@ -22,8 +21,8 @@ public class CourseReviewVo {
 	}
 
 	public CourseReviewVo(int reviewIdx, int reviewMemberIdx, int reviewCourseIdx, String reviewTitle,
-			String reviewContent, int reviewReadCount, int reviewLikeCount, int reviewRating, String reviewDelYn,
-			Date reviewCreDate, Date reviewModDate) {
+			String reviewContent, int reviewReadCount, int reviewLikeCount, int reviewRating, Date reviewCreDate,
+			Date reviewModDate) {
 		super();
 		this.reviewIdx = reviewIdx;
 		this.reviewMemberIdx = reviewMemberIdx;
@@ -33,7 +32,6 @@ public class CourseReviewVo {
 		this.reviewReadCount = reviewReadCount;
 		this.reviewLikeCount = reviewLikeCount;
 		this.reviewRating = reviewRating;
-		this.reviewDelYn = reviewDelYn;
 		this.reviewCreDate = reviewCreDate;
 		this.reviewModDate = reviewModDate;
 	}
@@ -101,15 +99,6 @@ public class CourseReviewVo {
 	public void setReviewRating(int reviewRating) {
 		this.reviewRating = reviewRating;
 	}
-
-	public String getReviewDelYn() {
-		return reviewDelYn;
-	}
-
-	public void setReviewDelYn(String reviewDelYn) {
-		this.reviewDelYn = reviewDelYn;
-	}
-
 	public Date getReviewCreDate() {
 		return reviewCreDate;
 	}
@@ -131,9 +120,9 @@ public class CourseReviewVo {
 		return "CourseReviewVo [reviewIdx=" + reviewIdx + ", reviewMemberIdx=" + reviewMemberIdx + ", reviewCourseIdx="
 				+ reviewCourseIdx + ", reviewTitle=" + reviewTitle + ", reviewContent=" + reviewContent
 				+ ", reviewReadCount=" + reviewReadCount + ", reviewLikeCount=" + reviewLikeCount + ", reviewRating="
-				+ reviewRating + ", reviewDelYn=" + reviewDelYn + ", reviewCreDate=" + reviewCreDate
-				+ ", reviewModDate=" + reviewModDate + "]";
+				+ reviewRating + ", reviewCreDate=" + reviewCreDate + ", reviewModDate=" + reviewModDate + "]";
 	}
+
 	
 
 }

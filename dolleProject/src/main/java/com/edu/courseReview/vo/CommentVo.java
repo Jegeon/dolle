@@ -13,14 +13,13 @@ public class CommentVo {
 	private String commentEmoticon;
 	private Date creDate;
 	private Date modDate;
-	private String commentDelYn;
 	
 	public CommentVo() {
 		super();
 	}
 	
 	public CommentVo(int commentIdx, int commentReviewIdx, int commentMemberIdx, String memberNickname,
-			String commentContent, String commentEmoticon, Date creDate, Date modDate, String commentDelYn) {
+			String commentContent, String commentEmoticon, Date creDate, Date modDate) {
 		super();
 		this.commentIdx = commentIdx;
 		this.commentReviewIdx = commentReviewIdx;
@@ -30,7 +29,6 @@ public class CommentVo {
 		this.commentEmoticon = commentEmoticon;
 		this.creDate = creDate;
 		this.modDate = modDate;
-		this.commentDelYn = commentDelYn;
 	}
 
 	public int getCommentIdx() {
@@ -75,12 +73,6 @@ public class CommentVo {
 	public void setModDate(Date modDate) {
 		this.modDate = modDate;
 	}
-	public String getCommentDelYn() {
-		return commentDelYn;
-	}
-	public void setCommentDelYn(String commentDelYn) {
-		this.commentDelYn = commentDelYn;
-	}
 	public String getMemberNickname() {
 		return memberNickname;
 	}
@@ -92,8 +84,7 @@ public class CommentVo {
 	public String toString() {
 		return "CommentVo [commentIdx=" + commentIdx + ", commentReviewIdx=" + commentReviewIdx + ", commentMemberIdx="
 				+ commentMemberIdx + ", memberNickname=" + memberNickname + ", commentContent=" + commentContent
-				+ ", commentEmoticon=" + commentEmoticon + ", creDate=" + creDate + ", modDate=" + modDate
-				+ ", commentDelYn=" + commentDelYn + "]";
+				+ ", commentEmoticon=" + commentEmoticon + ", creDate=" + creDate + ", modDate=" + modDate + "]";
 	}
-	
+
 }

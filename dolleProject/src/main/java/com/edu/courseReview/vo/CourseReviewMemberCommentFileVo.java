@@ -13,7 +13,6 @@ public class CourseReviewMemberCommentFileVo {
 	private int reviewReadCount;
 	private int reviewLikeCount;
 	private int reviewRating;
-	private String reviewDelYn;
 	private Date reviewCreDate;
 	private Date reviewModDate;
 	
@@ -28,7 +27,6 @@ public class CourseReviewMemberCommentFileVo {
 	private int commentMemberIdx;
 	private int commentContent;
 	private int commentCount;
-	private int commentDelYn;
 	
 	//CourseReviewFile
 	private int fileIdx;
@@ -41,13 +39,11 @@ public class CourseReviewMemberCommentFileVo {
 		super();
 	}
 	
-	
-	
 	public CourseReviewMemberCommentFileVo(int reviewIdx, int reviewMemberIdx, int reviewCourseIdx, String reviewTitle,
-			String reviewContent, int reviewReadCount, int reviewLikeCount, int reviewRating, String reviewDelYn,
-			Date reviewCreDate, Date reviewModDate, int memberIdx, String memberEmail, String memberNickname,
-			int commentIdx, int commentReviewIdx, int commentMemberIdx, int commentContent, int commentCount,
-			int commentDelYn, int fileIdx, int fileReviewIdx, String fileOriginalName, String fileStoredName) {
+			String reviewContent, int reviewReadCount, int reviewLikeCount, int reviewRating, Date reviewCreDate,
+			Date reviewModDate, int memberIdx, String memberEmail, String memberNickname, int commentIdx,
+			int commentReviewIdx, int commentMemberIdx, int commentContent, int commentCount, int fileIdx,
+			int fileReviewIdx, String fileOriginalName, String fileStoredName) {
 		super();
 		this.reviewIdx = reviewIdx;
 		this.reviewMemberIdx = reviewMemberIdx;
@@ -57,7 +53,6 @@ public class CourseReviewMemberCommentFileVo {
 		this.reviewReadCount = reviewReadCount;
 		this.reviewLikeCount = reviewLikeCount;
 		this.reviewRating = reviewRating;
-		this.reviewDelYn = reviewDelYn;
 		this.reviewCreDate = reviewCreDate;
 		this.reviewModDate = reviewModDate;
 		this.memberIdx = memberIdx;
@@ -68,14 +63,11 @@ public class CourseReviewMemberCommentFileVo {
 		this.commentMemberIdx = commentMemberIdx;
 		this.commentContent = commentContent;
 		this.commentCount = commentCount;
-		this.commentDelYn = commentDelYn;
 		this.fileIdx = fileIdx;
 		this.fileReviewIdx = fileReviewIdx;
 		this.fileOriginalName = fileOriginalName;
 		this.fileStoredName = fileStoredName;
 	}
-
-
 
 	public int getReviewIdx() {
 		return reviewIdx;
@@ -124,12 +116,6 @@ public class CourseReviewMemberCommentFileVo {
 	}
 	public void setReviewRating(int reviewRating) {
 		this.reviewRating = reviewRating;
-	}
-	public String getReviewDelYn() {
-		return reviewDelYn;
-	}
-	public void setReviewDelYn(String reviewDelYn) {
-		this.reviewDelYn = reviewDelYn;
 	}
 	public Date getReviewCreDate() {
 		return reviewCreDate;
@@ -191,12 +177,6 @@ public class CourseReviewMemberCommentFileVo {
 	public void setCommentCount(int commentCount) {
 		this.commentCount = commentCount;
 	}
-	public int getCommentDelYn() {
-		return commentDelYn;
-	}
-	public void setCommentDelYn(int commentDelYn) {
-		this.commentDelYn = commentDelYn;
-	}
 	public int getFileIdx() {
 		return fileIdx;
 	}
@@ -227,15 +207,13 @@ public class CourseReviewMemberCommentFileVo {
 		return "CourseReviewMemberCommentFileVo [reviewIdx=" + reviewIdx + ", reviewMemberIdx=" + reviewMemberIdx
 				+ ", reviewCourseIdx=" + reviewCourseIdx + ", reviewTitle=" + reviewTitle + ", reviewContent="
 				+ reviewContent + ", reviewReadCount=" + reviewReadCount + ", reviewLikeCount=" + reviewLikeCount
-				+ ", reviewRating=" + reviewRating + ", reviewDelYn=" + reviewDelYn + ", reviewCreDate=" + reviewCreDate
-				+ ", reviewModDate=" + reviewModDate + ", memberIdx=" + memberIdx + ", memberEmail=" + memberEmail
-				+ ", memberNickname=" + memberNickname + ", commentIdx=" + commentIdx + ", commentReviewIdx="
-				+ commentReviewIdx + ", commentMemberIdx=" + commentMemberIdx + ", commentContent=" + commentContent
-				+ ", commentCount=" + commentCount + ", commentDelYn=" + commentDelYn + ", fileIdx=" + fileIdx
-				+ ", fileReviewIdx=" + fileReviewIdx + ", fileOriginalName=" + fileOriginalName + ", fileStoredName="
-				+ fileStoredName + "]";
+				+ ", reviewRating=" + reviewRating + ", reviewCreDate=" + reviewCreDate + ", reviewModDate="
+				+ reviewModDate + ", memberIdx=" + memberIdx + ", memberEmail=" + memberEmail + ", memberNickname="
+				+ memberNickname + ", commentIdx=" + commentIdx + ", commentReviewIdx=" + commentReviewIdx
+				+ ", commentMemberIdx=" + commentMemberIdx + ", commentContent=" + commentContent + ", commentCount="
+				+ commentCount + ", fileIdx=" + fileIdx + ", fileReviewIdx=" + fileReviewIdx + ", fileOriginalName="
+				+ fileOriginalName + ", fileStoredName=" + fileStoredName + "]";
 	}
-	
-	
+
 
 }

@@ -56,7 +56,6 @@
 		<result column="REVIEW_READ_COUNT" property="reviewReadCount"/>
 		<result column="REVIEW_LIKE_COUNT" property="reviewLikeCount"/>
 		<result column="REVIEW_RATING" property="reviewRating"/>
-		<result column="REVIEW_DEL_YN" property="reviewDelYn"/>
 		<result column="REVIEW_CRE_DATE" property="reviewCreDate"
 			javaType="java.util.Date"/>
 		<result column="REVIEW_MOD_DATE" property="reviewModDate"
@@ -73,7 +72,6 @@
 		<result column="REVIEW_READ_COUNT" property="reviewReadCount"/>
 		<result column="REVIEW_LIKE_COUNT" property="reviewLikeCount"/>
 		<result column="REVIEW_RATING" property="reviewRating"/>
-		<result column="REVIEW_DEL_YN" property="reviewDelYn"/>
 		<result column="REVIEW_CRE_DATE" property="reviewCreDate"
 			javaType="java.util.Date"/>
 		<result column="REVIEW_MOD_DATE" property="reviewModDate"
@@ -88,7 +86,6 @@
 		<result column="MEMBER_IDX_C" property="commentMemberIdx"/>
 		<result column="COMMENT_CONTENT" property="commentContent"/>
 		<result column="COMMENT_COUNT" property="commentCount"/>
-		<result column="COMMENT_DEL_YN" property="commentDelYn"/>
 		
 		<result column="REVIEW_FILE_IDX" property="fileIdx"/>
 		<result column="REVIEW_IDX_F" property="fileReviewIdx"/>

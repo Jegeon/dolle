@@ -67,15 +67,30 @@
 	/* 댓글 */
 	.commentHeader{
 		margin-left: 20px;
-		font:normal bold 16px Segoe UI;		
+		font: normal bold 16px Segoe UI;		
 	}
 	.commentBtn{
-		width: 10px;
+		float: right;
+		margin-right: 20px;
 	}
 	.commentBox{
-		margin-left: 20px;
+		margin: 20px;
 	}
 	
+	/* 댓글쓰기 */
+	#choiseEmoTitle{
+		font-weight: bold;
+	    font-size: 14px;
+	    color: gray;
+	    width: 100px;
+	    vertical-align: top;
+	    display: inline-block;
+	    padding-top: 25px;
+	}
+	#writeCommentBtn{
+		width:200px; height:40px; font:normal bold 16px Segoe UI; color:white; 
+		 border:0px; margin-right: 20px; background-color: #0D4371;
+	}
 	
 	.EmoLi{
 		width: 48px;
@@ -107,7 +122,7 @@
 			//댓글 이미지 출력
 			var imagesAddress = "/dolleProject/resources/images/"
 			$("#commentImg"+i).attr("src",imagesAddress+emoticonVal+".png");
-			$("#commentImg"+i).css("width","50px");
+			$("#commentImg"+i).css("width","35px");
 		}
 		
 		
@@ -212,7 +227,7 @@
 		
 		<div id="uploadImageBox" class="basicBox" style="text-align: center;">	
 			<img id="uploadImg" alt="upload_image" src="<c:url value='/img/${reviewMCFVo.fileStoredName}'/>"
-				style="width:100%; height:600px;">
+				style="height:600px;">
 		</div>
 		
 		<div class="floatRight" style="margin: 10px 190px 40px;">
@@ -243,31 +258,32 @@
 			<div class="basicBox reviewSide" style="padding-bottom: 10px;">
 				<span class="marginRight5">등록일</span>
 				<span class="marginRight15">
-					<fmt:formatDate value="${reviewMCFVo.reviewCreDate}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
+					<fmt:formatDate value="${reviewMCFVo.reviewCreDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
 				</span>
 				<span class="marginRight5">수정일</span>
 				<span>
-					<fmt:formatDate value="${reviewMCFVo.reviewModDate}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
+					<fmt:formatDate value="${reviewMCFVo.reviewModDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
 				</span> 
 			</div>
 		</div>		
 		
-		<div class="basicBox reviewContent" style="padding-bottom: 20px; clear:both;">
+		<div class="basicBox reviewContent" style="padding: 20px 0px 40px 0px; clear:both;">
 			${reviewMCFVo.reviewContent}
 		</div>
 		
-		<div class="basicBox" style="float:left; padding-left:656px;">
+		<div class="basicBox" style="float:left; padding-left:656px; padding-bottom: 20px;">
 			<input class="inputBtn" type="button" onclick="movePageListFnc();" value="목록으로">
 			<input class="inputBtn" type="button" onclick="movePageUpdateFnc(${reviewMCFVo.reviewIdx});" value="수정">
 		</div>
 		
 		<div id="commentWrap" style="width:1100px; margin:70px auto;">	
 			<span class="commentHeader">댓글쓰기</span>
-			<span>
-				<button class="commentBtn" style="width:25px; height:25px;">&lt;</button>
-				<button class="commentBtn" style="width:25px; height:25px;">&gt;</button>
+			<span class="commentBtn">
+				<button style="width:25px; height:25px;">&lt;</button>
+				<button style="width:25px; height:25px;">&gt;</button>
 			</span>
 			<hr>
+			
 			<form id="updateCommentForm" action="./updateCommentCtr.do" method="post">
 				<input id="commentReviewIdx" name="commentReviewIdx" type="hidden" value="${reviewMCFVo.reviewIdx}">
 				<input id="commentIdx" name="commentIdx" type="hidden" value="">
@@ -280,66 +296,79 @@
 						<input id="check${index.count}" type="hidden" value="0">
 						<input id="commentEmoticon${index.count}" type="hidden" value="${commentVo.commentEmoticon}">
 						
-						<span><img id="commentImg${index.count}" alt="emoticon" src=""></span>
-						<span>${commentVo.memberNickname}</span>
-						<div>${commentVo.commentContent}</div>
-						<span>${commentVo.creDate}</span>
-						<span>${commentVo.modDate}</span>
+						<span><img id="commentImg${index.count}" alt="emoticon" style="width:35px;"></span>
+						<span style="margin-left:10px; font-size:14px;">${commentVo.memberNickname}</span>
+						<div style="margin:12px 0px;">${commentVo.commentContent}</div>
+						<span style="font-size:12px; color:gray;">
+							<fmt:formatDate value="${commentVo.creDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
+						</span>
+						<span style="font-size:12px; color:gray;">
+							<fmt:formatDate value="${commentVo.modDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
+						</span>
 
-					</div>	
-					<c:if test="${_memberVo_.no eq commentVo.commentMemberIdx}">
-						<button id="updateBtn${index.count}" type="button" onclick="makeUpdateBoxFnc(${index.count});">수정</button>
-						<button type="button" onclick="deleteCommnetFnc(${index.count});">삭제</button>
-					</c:if>
+						
+						<c:if test="${_memberVo_.no eq commentVo.commentMemberIdx}">
+							<div style="float:right;">						
+								<button id="updateBtn${index.count}" type="button" onclick="makeUpdateBoxFnc(${index.count});">수정</button>
+								<button type="button" onclick="deleteCommnetFnc(${index.count});">삭제</button>
+							</div>
+						</c:if>
+					</div>
 					<hr>
 				</c:forEach>
 			</form>
 		</div>
 		
 		<!-- 댓글쓰기 -->
-		<form id="commentForm" action="./addCommentCtr.do" method="post" onsubmit="return commentCheckFnc();">
-			<input id="commentReviewIdx" name="commentReviewIdx" type="hidden" value="${reviewMCFVo.reviewIdx}">
-			<input id="commentMemberIdx" name="commentMemberIdx" type="hidden" value="${_memberVo_.no}">
-			<input id="commentEmoticon" name="commentEmoticon" type="hidden" value="">
-			<div id="choiseEmo">
-			<span>이모티콘 선택</span>
-			<ul id="EmoList">
-				<li id="smileEmo" class="EmoLi" onclick="changeBorderFnc(this);">
-					<img alt="smile" style="margin-top: 4px; "
-					 src="/dolleProject/resources/images/smile.png">
-				</li>
-				<li id="bigSmileEmo" class="EmoLi" onclick="changeBorderFnc(this);">
-					<img alt="bigSmile" style="margin-top: 4px;"
-					 src="/dolleProject/resources/images/bigSmile.png">
-				</li>
-				<li id="sadEmo" class="EmoLi" onclick="changeBorderFnc(this);">
-					<img alt="sad" style="margin-top: 4px;"
-					 src="/dolleProject/resources/images/sad.png">
-				</li>
-				<li id="likeEmo" class="EmoLi" onclick="changeBorderFnc(this);">
-					<img alt="like" style="margin-top: 2px;"
-					 src="/dolleProject/resources/images/like.png">
-				</li>
-				<li id="interviewEmo" class="EmoLi" onclick="changeBorderFnc(this);">
-					<img alt="interview" style="margin-top: 6px;"
-					 src="/dolleProject/resources/images/interview.png">
-				</li>
-				<li id="starEmo" class="EmoLi" onclick="changeBorderFnc(this);">
-					<img alt="star" style="margin-top: 6px;"
-					 src="/dolleProject/resources/images/star.png">
-				</li>
-				<li id="heartEmo" class="EmoLi" onclick="changeBorderFnc(this);">
-					<img alt="heart" style="margin-top: 6px;"
-					 src="/dolleProject/resources/images/heart.png">
-				</li>
-			</ul> 
-			</div>
-			<div>
-				<textarea id="commentContent" name="commentContent" placeholder="댓글을 작성해주세요."
-					style="width:700px;height:300px;"></textarea>
-			</div>
-			<input type="submit" value="댓글 작성"></input>
-		</form>
+		<div style="padding:0px 80px;">
+			<form id="commentForm" action="./addCommentCtr.do" method="post" onsubmit="return commentCheckFnc();">
+				<input id="commentReviewIdx" name="commentReviewIdx" type="hidden" value="${reviewMCFVo.reviewIdx}">
+				<input id="commentMemberIdx" name="commentMemberIdx" type="hidden" value="${_memberVo_.no}">
+				<input id="commentEmoticon" name="commentEmoticon" type="hidden" value="">
+				<div id="choiseEmo" style="float:right; margin-bottom:4px;">
+					<div id="choiseEmoTitle">이모티콘 선택</div>
+					<ul id="EmoList" style="display:inline-block;">
+						<li id="smileEmo" class="EmoLi" onclick="changeBorderFnc(this);">
+							<img alt="smile" style="margin-top: 4px; "
+							 src="/dolleProject/resources/images/smile.png">
+						</li>
+						<li id="bigSmileEmo" class="EmoLi" onclick="changeBorderFnc(this);">
+							<img alt="bigSmile" style="margin-top: 4px;"
+							 src="/dolleProject/resources/images/bigSmile.png">
+						</li>
+						<li id="sadEmo" class="EmoLi" onclick="changeBorderFnc(this);">
+							<img alt="sad" style="margin-top: 4px;"
+							 src="/dolleProject/resources/images/sad.png">
+						</li>
+						<li id="likeEmo" class="EmoLi" onclick="changeBorderFnc(this);">
+							<img alt="like" style="margin-top: 2px;"
+							 src="/dolleProject/resources/images/like.png">
+						</li>
+						<li id="interviewEmo" class="EmoLi" onclick="changeBorderFnc(this);">
+							<img alt="interview" style="margin-top: 6px;"
+							 src="/dolleProject/resources/images/interview.png">
+						</li>
+						<li id="starEmo" class="EmoLi" onclick="changeBorderFnc(this);">
+							<img alt="star" style="margin-top: 6px;"
+							 src="/dolleProject/resources/images/star.png">
+						</li>
+						<li id="heartEmo" class="EmoLi" onclick="changeBorderFnc(this);">
+							<img alt="heart" style="margin-top: 6px;"
+							 src="/dolleProject/resources/images/heart.png">
+						</li>
+					</ul> 
+				</div>
+				<div>
+					<textarea id="commentContent" name="commentContent" placeholder="댓글을 작성해주세요."
+						style="width:1090px;height:100px;font-size: 16px; padding: 12px 20px; box-sizing: border-box;"></textarea>
+				</div>
+				<input id="writeCommentBtn" type="submit" value="댓글 작성"
+					style="margin:8px 10px; float:right;
+					background-image: url('/dolleProject/resources/images/edit.png'); background-position:5px; background-repeat: no-repeat; background-position: left;
+					background-position: 23px 3px; background-size: 34px
+					"></input>
+			</form>
+		</div>
 			
 	</div>
 

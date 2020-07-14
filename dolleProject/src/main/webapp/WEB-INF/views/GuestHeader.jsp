@@ -110,10 +110,10 @@
 		<div style="border-bottom: 1px solid #A5A5A5;">
 			<div
 				style="text-align: center; padding: 30px 0px 10px 0px; box-sizing: border-box;">
-				<div style="font-size: 50px;">둘레길</div>
+				<div style="font-size: 50px;">돌레길</div>
 				<div style="padding-bottom: 15px;">
 					<div style="float: right;">
-						<a class='blackLink' href='../auth/login.do'>로그인</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a class='blackLink' href='../member/add.do'>회원가입</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<a class='blackLink' href='./auth/login.do'>로그인</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a class='blackLink' href='./member/add.do'>회원가입</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					</div>
 				</div>
 			</div>

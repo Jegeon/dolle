@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.edu.reservation.vo.ClosedDayVo;
 import com.edu.reservation.vo.ReservationVo;
 import com.edu.reservation.vo.TourVo;
 
@@ -126,5 +127,15 @@ public class ReservationDaoImpl implements ReservationDao{
 	public int reservationDeleteList(List<String> checkIdxList) {
 		System.out.println("Dao reservationDeleteList 접근중"+ checkIdxList.get(0));
 		return sqlSession.delete(namespace + "reservationDeleteList", checkIdxList);
+	}
+
+	@Override
+	public ClosedDayVo tourClosedDaySelectOne() {
+		return sqlSession.selectOne(namespace + "tourClosedDaySelectOne");
+	}
+
+	@Override
+	public int tourClosedDayUpdateOne(Map<String, Object> paramMap) {
+		return sqlSession.update(namespace + "tourClosedDayUpdateOne", paramMap);
 	}
 }

@@ -136,6 +136,23 @@ public class NoticeDaoImpl implements NoticeDao{
 	}
 
 
+	@Override
+	public NoticeMemberFileVo upWriteNotice(int rNum) {
+		// TODO Auto-generated method stub
+		
+		
+		return sqlSession.selectOne(namespace + "upWriteNotice", rNum);
+	}
+
+
+	@Override
+	public NoticeMemberFileVo downWriteNotice(int rNum) {
+		// TODO Auto-generated method stub
+		
+		return sqlSession.selectOne(namespace + "downWriteNotice", rNum);
+	}
+
+
 
 
 

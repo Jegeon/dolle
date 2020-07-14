@@ -45,6 +45,7 @@
 
 <body>
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
+	
 	<h1 class="daehanFont" style="text-align: center;">예약이 성공적으로 신청되었습니다</h1>
 	<br/>
 	<div style="width: 740px; height: 640px; margin: auto;">

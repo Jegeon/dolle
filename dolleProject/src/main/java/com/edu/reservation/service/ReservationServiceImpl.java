@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.edu.reservation.dao.ReservationDao;
+import com.edu.reservation.vo.ClosedDayVo;
 import com.edu.reservation.vo.ReservationVo;
 import com.edu.reservation.vo.TourVo;
 
@@ -103,5 +104,15 @@ public class ReservationServiceImpl implements ReservationService{
 		return reservationDao.reservationDeleteList(checkIdxList);
 	}
 	// 다중 끝
+
+	@Override
+	public ClosedDayVo tourClosedDaySelectOne() {
+		return reservationDao.tourClosedDaySelectOne();
+	}
+
+	@Override
+	public int tourClosedDayUpdateOne(Map<String, Object> paramMap) {
+		return reservationDao.tourClosedDayUpdateOne(paramMap);
+	}
 
 }

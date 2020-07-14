@@ -106,10 +106,7 @@
 
 <body>
 
-	<!-- 달력때문에 include가 잘안되서 임시로 붙여놓은 곳 시작 -->
-	<jsp:include page="/WEB-INF/views/Tail.jsp" />
-	<!-- 달력때문에 include가 잘안되서 임시로 붙여놓은 곳 끝 -->
-	<%-- <jsp:include page="/WEB-INF/views/Header.jsp" /> --%>
+	<jsp:include page="/WEB-INF/views/Header.jsp" />
 
 	<h1 class="daehanFont" style="margin: 10px 0px 10px 82px;">가이드 투어 예약페이지 수정</h1>
 	<br/>

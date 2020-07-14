@@ -1,5 +1,6 @@
 package com.edu.reservation.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.edu.reservation.service.ReservationService;
 import com.edu.reservation.util.ReservationPaging;
+import com.edu.reservation.vo.ClosedDayVo;
 import com.edu.reservation.vo.ReservationVo;
 import com.edu.reservation.vo.TourVo;
 
@@ -367,6 +369,7 @@ public class ReservationController {
 	public String tourReservationBoardAddCtr(String tourName, String tourStartDate, String tourEndDate,
 			String tourStartTime, String tourEndTime, int tourPeopleNum, int tourPrice, String tourStartingPoint,
 			String tourContent, Model model) {
+		
 		log.debug("Welcome reservation tourReservationBoardAddCtr");
 		
 		Map<String, Object> paramMap = new HashMap<>();
@@ -383,10 +386,35 @@ public class ReservationController {
 		// 아름누나 파일 시작
 		// 아름누나 파일 끝
 		
-		
+		System.out.println("여기까지 왔어1");
 		reservationService.tourInsertOne(paramMap);
-		
+		System.out.println("여기까지 왔어2");
 		return "redirect:/reservation/reservationPage.do";
+	}
+	
+	// [관리자] 휴무일 지정
+	@RequestMapping(value="/reservation/reservationPageClose.do", method=RequestMethod.GET)
+	public String tourReservationClose(Model model) {
+		log.debug("Welcome reservation tourReservationClose");
+		
+		ClosedDayVo closedDayVo = reservationService.tourClosedDaySelectOne();
+		model.addAttribute("closedDayVo", closedDayVo);
+		return "reservation/adminReservationPageCloseForm";
+	}
+	
+	// [관리자] 휴무일 지정 Ctr
+	@RequestMapping(value="/reservation/reservationPageCloseCtr.do", method={RequestMethod.POST, RequestMethod.GET})
+	public String tourReservationCloseCtr(String closedStartDate, String closedEndDate,
+			String closedContent, Model model) {
+		log.debug("Welcome reservation tourReservationCloseCtr");
+		
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("closedStartDate", closedStartDate);
+		paramMap.put("closedEndDate", closedEndDate);
+		paramMap.put("closedContent", closedContent);
+		
+		reservationService.tourClosedDayUpdateOne(paramMap);
+		return "redirect:/reservation/reservationPageClose.do";
 	}
 	
 }

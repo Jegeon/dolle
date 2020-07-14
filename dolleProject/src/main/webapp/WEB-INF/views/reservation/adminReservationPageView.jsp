@@ -82,6 +82,7 @@
 	<div style="text-align: center; margin-bottom: 20px;">
 		<div>
 			<button class="ahreum" onclick="location.href='../reservation/reservationPageAdd.do'">투어 만들기</button>
+			<button class="ahreum" onclick="location.href='../reservation/reservationPageClose.do'">휴무일 변경하기</button>
 		</div>
 	</div>
 	

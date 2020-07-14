@@ -137,45 +137,13 @@ body {
 <script type="text/javascript" 
 	src="/dolleProject/resources/js/jquery-3.5.1.js"></script>
 <script type="text/javascript">
-	function upFnc(upIdx) {
-// 		var noticeIdxVal = Number($('#noticeIdx').val());
-		
-// 		var upIdx = noticeIdxVal + 1;
-		
-// 		var url = '';
-		
-// 		url += './detail.do?';
-// 		url += 'noticeIdx=' + upIdx;
-		
-// 		location.href = url;
-		
-		var url = '';
-		
-		url += './detail.do?';
-		url += 'noticeIdx=' + upIdx;
-		
-		location.href = url;
-		
+	function upFnc() {
+		$('#upForm').submit();
 	}
 	
-	function downFnc(downIdx) {
-// 		var noticeIdxVal = Number($('#noticeIdx').val());
-		
-// 		var downIdx = noticeIdxVal - 1;
-		
-// 		var url = '';
-	
-// 		url += './detail.do?';
-// 		url += 'noticeIdx=' + downIdx;
-		
-// 		location.href = url;
-		
-		var url = '';
-		
-		url += './detail.do?';
-		url += 'noticeIdx=' + downIdx;
-		
-		location.href = url;
+	function downFnc() {
+
+		$('#downForm').submit();
 		
 		
 	}
@@ -207,33 +175,42 @@ body {
 			</div>
 			
 			<div class='contentInfoDiv'>
-				<span class='contentInfoSpan'>
-					작성자: ${noticeVo.memberNickname}
-				</span>
-			
-				<span class='updownSpan' id='upSpan'>
-					윗 글
-				</span>
-				
-				<img class='updownBtn btnPointer'
-					alt="upBtn" src="/dolleProject/resources/images/upBtn.png"
-					onclick="upFnc();">
-				
+				<form action="./noticeUpPage.do" id="upForm" method = "post">
+					<span class='contentInfoSpan'>
+						작성자: ${noticeVo.memberNickname}
+					</span>
+					
+					<c:if test="${noticeVo.rNum ne 1}">
+						
+						<span class='updownSpan' id='upSpan'>
+							윗 글
+						</span>
+							<img class='updownBtn btnPointer'
+								alt="upBtn" src="/dolleProject/resources/images/upBtn.png"
+								onclick="upFnc();">
+							<input type="hidden" name="rNum" value="${rNum}">
+						
+					</c:if>
+				</form>
 			</div>
 			
 			<div class='contentInfoDiv'>
-				<span class='contentInfoSpan'>
-					작성일: <fmt:formatDate value="${noticeVo.noticeCreDate}" pattern="yyyy-MM-dd"/>
-				</span>
-				
-				<span class='updownSpan' id='downSpan'>
-					아랫 글
-				</span>
-				
-				<img class='updownBtn btnPointer' 
-					alt="downBtn" src="/dolleProject/resources/images/downBtn.png"
-					onclick="downFnc();">
+				<form action="noticeDownPage.do" id="downForm" method = "post">
+					<span class='contentInfoSpan'>
+						작성일: <fmt:formatDate value="${noticeVo.noticeCreDate}" pattern="yyyy-MM-dd"/>
+					</span>
 					
+					<c:if test="${noticeVo.rNum ne maxRnum}">
+						<span class='updownSpan' id='downSpan'>
+							아랫 글
+						</span>
+					
+						<img class='updownBtn btnPointer' 
+							alt="downBtn" src="/dolleProject/resources/images/downBtn.png"
+							onclick="downFnc();">
+						<input type="hidden" name="rNum" value="${rNum}">
+					</c:if>
+				</form>
 			</div>
 			
 			<c:choose>
@@ -248,16 +225,16 @@ body {
 				</c:otherwise>
 			</c:choose>
 			
-			<c:choose>
-				<c:when test="${empty noticeVo.fileNoticeStoredName}">
+<%-- 			<c:choose> --%>
+<%-- 				<c:when test="${empty noticeVo.fileNoticeStoredName}"> --%>
 				
-				</c:when>
-				<c:otherwise>
-					<a id='downloadLink' href='#'>
-						파일첨부
-					</a>
-				</c:otherwise>
-			</c:choose>
+<%-- 				</c:when> --%>
+<%-- 				<c:otherwise> --%>
+<!-- 					<a id='downloadLink' href='#'> -->
+<!-- 						파일첨부 -->
+<!-- 					</a> -->
+<%-- 				</c:otherwise> --%>
+<%-- 			</c:choose> --%>
 			
 			
 			<textarea id='noticeTextarea' rows="25" cols="160" readonly="readonly">${noticeVo.noticeContent}</textarea>

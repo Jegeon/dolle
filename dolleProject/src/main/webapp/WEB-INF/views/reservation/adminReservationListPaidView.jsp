@@ -120,7 +120,7 @@
 		if(checkVal == true){
 			$("#adminForm").attr("action", "./multiConfirm.do");
 			$("#adminForm").submit();	
-			$("#adminForm").attr("action", "./reservationListAll.do");
+			$("#adminForm").attr("action", "./reservationListPaid.do");
 		}
 	}
 	function cancelFnc(){
@@ -128,7 +128,7 @@
 		if(checkVal == true){
 			$("#adminForm").attr("action", "./multiCancel.do");
 			$("#adminForm").submit();	
-			$("#adminForm").attr("action", "./reservationListAll.do");
+			$("#adminForm").attr("action", "./reservationListPaid.do");
 		}
 	}
 	function deleteFnc(){
@@ -136,7 +136,7 @@
 		if(checkVal == true){
 			$("#adminForm").attr("action", "./multiDelete.do");
 			$("#adminForm").submit();	
-			$("#adminForm").attr("action", "./reservationListAll.do");
+			$("#adminForm").attr("action", "./reservationListPaid.do");
 		}
 	}
 </script>
@@ -146,14 +146,12 @@
 
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
 	
-	<h1 class="daehanFont" style="margin: 10px 0px 10px 82px;">가이드 투어 예약자 관리 - 예약 현황(전체)</h1>
+	<h1 class="daehanFont" style="margin: 10px 0px 10px 82px;">가이드 투어 예약자 관리 - 예약 현황(승인대기)</h1>
 	
 	<%-- 가져오는 데이터 확인 ${tourReservationListAll} --%>
-	<%-- 가져오는 데이터 확인 ${pagingMap} --%>
-	<%-- 가져오는 데이터 확인${pagingMap.reservationPaging.curPage} --%>
-	<!-- 검색 시작 -->
+ 	<!-- 검색 시작 -->
 	<div style="float:right; height:50px; width:530px; padding-top:10px;">
-		<form id='searchForm' action="./reservationListAll.do" method="post">
+		<form id='searchForm' action="./reservationListPaid.do" method="post">
 			<select id="searchOption" name="searchOption"  
 				style="width:140px; padding: 6px 22px; vertical-align: middle;
 					border: 1px solid #B9B9B9; 
@@ -193,7 +191,7 @@
 	</div>
 	<!-- 검색 끝 -->
 	
-	<form id="adminForm" action="./reservationListAll.do" method="post">
+	<form id="adminForm" action="./reservationListPaid.do" method="post">
 		<div style="width: 1260px; height: 450px; margin: auto; clear: both;">
 			<table>
 				<tr>
@@ -229,12 +227,12 @@
 					</th>
 				</tr>
 				<!-- 검색결과가 없는 경우 -->
-				<c:if test="${empty tourReservationListAll}">
+				<c:if test="${empty tourReservationListPaid}">
 					<tr>
 						<td colspan="9">검색된 결과가 없습니다.</td>
 					</tr>
 				</c:if>
-				<c:forEach var='reservationVo' items='${tourReservationListAll}'>
+				<c:forEach var='reservationVo' items='${tourReservationListPaid}'>
 					<tr>
 						<td>
 							<input type="checkbox" name="checkIdx" value="${reservationVo.reserveNo}">
@@ -348,7 +346,7 @@
 		<!-- 다중 끝 -->
 		
 		<!-- 페이징정보 전달 -->
-		<form action="./reservationListAll.do" id='pagingForm' method="get">
+		<form action="./reservationListPaid.do" id='pagingForm' method="get">
 			<input type="hidden" id='curPage' name='curPage' value="${pagingMap.reviewPaging.curPage}">
 			<input type="hidden" id='pagingSearchOption' name='searchOption' value="${searchOption}">
 			<input type="hidden" id='pagingKeyword' name='keyword' value="${keyword}">

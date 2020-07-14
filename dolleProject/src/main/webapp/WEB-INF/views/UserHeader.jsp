@@ -39,8 +39,6 @@
 	color:#FFFFFF;
 }
 </style>
-<script type="text/javascript" src="/dolleProject/resources/js/jquery-3.5.1.js"></script>
-
 <script type="text/javascript">
    $(document).ready(function() {
    		
@@ -207,13 +205,13 @@
 		         <div style="height: 40px; width: 380px; background-color: #EFEAE2; text-align: center; padding-top: 14px;
 		              box-sizing: border-box;"> 
 		            <span style="padding: 0px 7px 0px 7px;">
-		               <a class='blackLink' href='#'>팀 공존</a>
+		               <a class='blackLink' href='<%=request.getContextPath()%>/common/teamIntroduction.jsp'>팀 공존</a>
 		            </span>
 		            <span style="padding: 0px 7px 0px 7px;">
-		               <a class='blackLink' href='#'>기획 의도</a>
+		               <a class='blackLink' href='<%=request.getContextPath()%>/common/teamIntroduction.jsp'>기획 의도</a>
 		            </span>
 		            <span style="padding: 0px 7px 0px 7px;">
-		               <a class='blackLink' href='#'>팀원 소개</a>
+		               <a class='blackLink' href='<%=request.getContextPath()%>/common/teamIntroduction.jsp'>팀원 소개</a>
 		            </span>
 		         </div>
 		      </div>

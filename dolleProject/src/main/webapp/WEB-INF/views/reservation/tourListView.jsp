@@ -34,6 +34,9 @@
 		text-align: center;
 		vertical-align: middle;
 	}
+	.rightTdleftPadding {
+		padding-left: 10px;
+	}
 </style>
 </head>
 
@@ -44,43 +47,48 @@
 	관리자용 예약 관리 테스트 링크 이동 버튼<br>
 	<button onclick="location.href='../reservation/reservationSchedule.do'">예약일정</button>adminReservationScheduleView<br>
 	<button onclick="location.href='../reservation/reservationListAll.do'">예약현황(전체)</button>adminReservationListAllView<br>
-	<button onclick="location.href='../reservation/reservationListStandby.do'">예약현황(미입금자)</button>adminReservationListStandbyView<br>
+	<button onclick="location.href='../reservation/reservationListPaid.do'">예약현황(승인대기)(원래는 미입금자)</button>adminReservationListPaidView<br>
 	<button onclick="location.href='../reservation/reservationListCanceled.do'">예약현황(취소자)</button>adminReservationListCanceledView<br>
 	<button onclick="location.href='../reservation/reservationPage.do'">예약페이지 관리(투어관리)</button>adminReservationPageView<br>
 	
 	<h1 class="daehanFont" style="margin: 10px 0px 10px 82px;">가이드 투어 예약</h1>
 	<br/>
 	<c:forEach var="tourVo" items="${tourList}">
-		<div style="width: 740px; height: 360px; margin: auto;">
+		<div style="width: 740px; height: 360px; margin: auto; cursor:pointer;" onclick="location.href='../reservation/listOne.do?tourNo=${tourVo.tourNo}'">
 			<div style="width: 240px; height: 260px; border: 1px solid black; float: left;">
-				<div onclick="location.href='../reservation/listOne.do?tourNo=${tourVo.tourNo}'" style="cursor:pointer;">
+				<div>
 					이미지 넣을 예정
 					<br>
-					여기 누르면 링크 이동
+					여기 겉 Div를 누르면 링크 이동
 				</div>
 			</div>
 			<div style="width: 496px; height: 260px; border: 1px solid black; float: left;">
 				<div>
 					<table style="width: 496px; height: 260px;">
 						<tr>
-							<td class="daehanFont" colspan="2" style="text-align: center;">${tourVo.tourName}</td>
+							<td class="daehanFont" colspan="2" style="text-align: center;">
+								${tourVo.tourName}
+							</td>
 						</tr>
 						<tr>
 							<td class="ahreum">기간</td>
-							<td>
+							<td class="rightTdleftPadding">
 								<fmt:formatDate value="${tourVo.tourStartDate}" pattern="yyyy-MM-dd" />
 								~
 								<fmt:formatDate value="${tourVo.tourEndDate}" pattern="yyyy-MM-dd" />
 							</td>
 						</tr>
 						<tr>
-							<td class="ahreum">시간</td><td>${tourVo.tourStartTime} ~ ${tourVo.tourEndTime}</td>
+							<td class="ahreum">시간</td>
+							<td class="rightTdleftPadding">${tourVo.tourStartTime} ~ ${tourVo.tourEndTime}</td>
 						</tr>
 						<tr>
-							<td class="ahreum">모집 인원</td><td>${tourVo.tourPeopleNum}</td>
+							<td class="ahreum">모집 인원</td>
+							<td class="rightTdleftPadding">${tourVo.tourPeopleNum} 명</td>
 						</tr>
 						<tr>
-							<td class="ahreum">출발지</td><td>${tourVo.tourStartingPoint}</td>
+							<td class="ahreum">출발지</td>
+							<td class="rightTdleftPadding">${tourVo.tourStartingPoint}</td>
 						</tr>
 					</table>
 				</div>

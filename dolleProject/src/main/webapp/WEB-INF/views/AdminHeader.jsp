@@ -48,8 +48,6 @@
 
 
 </style>
-<script type="text/javascript" src="/dolleProject/resources/js/jquery-3.5.1.js"></script>
-
 <script type="text/javascript">
    $(document).ready(function() {
    		
@@ -229,7 +227,7 @@
 		<div style="border-bottom: 1px solid #A5A5A5;">
 			<div
 				style="text-align: center; padding: 30px 0px 10px 0px; box-sizing: border-box;">
-				<div style="font-size: 50px;">둘레길</div>
+				<div style="font-size: 50px;">돌레길</div>
 				<div style="padding-bottom: 15px;">
 					<div style="float: right;">
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
@@ -286,13 +284,13 @@
 						       <a class='blackLink detailLink' href='<%=request.getContextPath()%>/reservation/reservationListAll.do'>예약현황(전체)</a>
 						</span>
 						<span id="popReserveNoPay" style="padding: 0px 7px 0px 7px;">
-						       <a class='blackLink detailLink' href='#'>예약현황(미입금자)</a>
+						       <a class='blackLink detailLink' href='<%=request.getContextPath()%>/reservation/reservationListPaid.do'>예약현황(승인대기)</a>
 						</span>
 						<span id="popReserveCancel" style="padding: 0px 7px 0px 7px;">
-						       <a class='blackLink detailLink' href='#'>예약현황(취소자)</a>
+						       <a class='blackLink detailLink' href='<%=request.getContextPath()%>/reservation/reservationListCanceled.do'>예약현황(취소자)</a>
 						</span>
 						<span id="popManageReserve" style="padding: 0px 7px 0px 7px;">
-						       <a class='blackLink detailLink' href='#'>예약페이지 관리</a>
+						       <a class='blackLink detailLink' href='<%=request.getContextPath()%>/reservation/reservationPage.do'>예약페이지 관리</a>
 						</span>
 					</span>
 					
@@ -330,13 +328,13 @@
 		         <div style="height: 40px; width: 380px; background-color: #EFEAE2; text-align: center; padding-top: 14px;
 		              box-sizing: border-box; margin-left: 210px;"> 
 		            <span style="padding: 0px 7px 0px 7px;">
-		               <a class='blackLink' href='#'>팀 공존</a>
+		               <a class='blackLink' href='<%=request.getContextPath()%>/common/teamIntroduction.jsp'>팀 공존</a>
 		            </span>
 		            <span style="padding: 0px 7px 0px 7px;">
-		               <a class='blackLink' href='#'>기획 의도</a>
+		           	   <a class='blackLink' href='<%=request.getContextPath()%>/common/teamIntroduction.jsp'>기획 의도</a>
 		            </span>
 		            <span style="padding: 0px 7px 0px 7px;">
-		               <a class='blackLink' href='#'>팀원 소개</a>
+		               <a class='blackLink' href='<%=request.getContextPath()%>/common/teamIntroduction.jsp'>팀원 소개</a>
 		            </span>
 		         </div>
 		      </div>

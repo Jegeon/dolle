@@ -37,8 +37,8 @@
 		$("#ui-datepicker-div").hide(); //자동으로 생성되는 div객체 숨김  
 	});
 	
-	function pageMoveDetailFnc() {
-		location.href = "reservationPageDetail.do";
+	function pageMoveListFnc() {
+		location.href = "reservationPage.do";
 	}
 	function validationFnc(){
 		// ObjValue 모음 시작
@@ -123,6 +123,7 @@
 		var hiddenTourEndDateObj = document.getElementById("tourEndDate");
 		hiddenTourEndDateObj.value = toDtObj.value;
 	}
+	
 </script>
 <style type="text/css">
 	button {
@@ -224,9 +225,9 @@
 			<div style="margin: auto; clear:both; width: 700px; text-align: center;">
 				<!-- <input type="hidden" name="tourNo" value=""> -->
 				<input type="submit" class="ahreum" value="추가하기">
-				<button class="ahreum" onclick="pageMoveListFnc();">목록으로</button>
 			</div>
 		</form>
+				<button class="ahreum" type="button" onclick="pageMoveListFnc();">목록으로</button>
 	</div>
 	
 	<jsp:include page="/WEB-INF/views/Tail.jsp" />

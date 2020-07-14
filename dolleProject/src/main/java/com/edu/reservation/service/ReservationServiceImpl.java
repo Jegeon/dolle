@@ -52,10 +52,20 @@ public class ReservationServiceImpl implements ReservationService{
 	}
 
 	@Override
-	public List<TourVo> tourReservationSelectListAll() {
-		return reservationDao.tourReservationSelectListAll();
+	public List<TourVo> tourReservationSelectListAll(String searchOption, String keyword, int start, int end) {
+		return reservationDao.tourReservationSelectListAll(searchOption, keyword, start, end);
 	}
 
+	@Override
+	public List<TourVo> tourReservationSelectListPaid(String searchOption, String keyword, int start, int end) {
+		return reservationDao.tourReservationSelectListPaid(searchOption, keyword, start, end);
+	}
+	
+	@Override
+	public List<TourVo> tourReservationSelectListCanceled(String searchOption, String keyword, int start, int end) {
+		return reservationDao.tourReservationSelectListCanceled(searchOption, keyword, start, end);
+	}
+	
 	@Override
 	public int tourUpdateOne(Map<String, Object> paramMap) {
 		return reservationDao.tourUpdateOne(paramMap);
@@ -71,4 +81,27 @@ public class ReservationServiceImpl implements ReservationService{
 		reservationDao.tourInsertOne(paramMap);
 	}
 	
+	// 아름누나 페이징
+	@Override
+	public int reservationSelectTotalCount(String searchOption, String keyword) {
+		return reservationDao.reservationSelectTotalCount(searchOption, keyword);
+	}
+
+	// 다중 시작
+	@Override
+	public int reservationConfirmList(List<String> checkIdxList) {
+		return reservationDao.reservationConfirmList(checkIdxList);
+	}
+
+	@Override
+	public int reservationCancelList(List<String> checkIdxList) {
+		return reservationDao.reservationCancelList(checkIdxList);
+	}
+	
+	@Override
+	public int reservationDeleteList(List<String> checkIdxList) {
+		return reservationDao.reservationDeleteList(checkIdxList);
+	}
+	// 다중 끝
+
 }

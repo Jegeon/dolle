@@ -9,11 +9,10 @@
 <title>투어 예약 게시판</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
-    $(function () {
+    $(document).ready(function () {
     	var date = new Date(); 
 		var dateRawStr = document.getElementById("tourEndDateStr").childNodes[0].nodeValue;
 		var dateStr = dateRawStr.replace(/(\s*)/g, "");
@@ -112,23 +111,25 @@
 	}
 	.tdLeftWidthLimit {
 		width:220px;
-		border-right: none;
 	}
 	.tdRightWidthLimit {
 		width:276px;
-		border-left: none;
+	}
+	.rightTdleftPadding {
+		padding-left: 10px;
 	}
 </style>
 </head>
 
 <body>
+	<jsp:include page="/WEB-INF/views/Header.jsp" />
+	
 	<!-- 달력때문에 include가 잘안되서 임시로 붙여놓은 곳 시작 -->
 	<div style="height: 220px; background-color: grey;"></div>
 	<!-- 달력때문에 include가 잘안되서 임시로 붙여놓은 곳 끝 -->
-	
 	<h1 class="daehanFont" style="margin: 10px 0px 10px 82px;">가이드 투어 예약 상세 날짜 선택</h1>
 	<br/>
-	<div style="width: 740px; height: 460px; margin: auto;">
+	<div style="width: 740px; height: 440px; margin: auto;">
 		<div style="width: 240px; height: 380px; border: 1px solid black; float: left;">
 			<div style="cursor:pointer;">이미지 넣을 예정</div>
 		</div>
@@ -140,7 +141,7 @@
 					</tr>
 					<tr>
 						<td class="ahreum">기간</td>
-						<td>
+						<td class="rightTdleftPadding">
 							<a>
 								<fmt:formatDate value="${tourVo.tourStartDate}" pattern="yyyy-MM-dd" />
 							</a>
@@ -151,16 +152,22 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="ahreum">시간</td><td>${tourVo.tourStartTime} ~ ${tourVo.tourEndTime}</td>
+						<td class="ahreum">시간</td>
+						<td class="rightTdleftPadding">${tourVo.tourStartTime} ~ ${tourVo.tourEndTime}</td>
 					</tr>
 					<tr>
-						<td class="ahreum">모집 인원</td><td>${tourVo.tourPeopleNum}</td>
+						<td class="ahreum">모집 인원</td>
+						<td class="rightTdleftPadding">${tourVo.tourPeopleNum} 명</td>
 					</tr>
 					<tr>
-						<td class="ahreum">인당 가격</td><td>${tourVo.tourPrice}원 / 1인</td>
+						<td class="ahreum">인당 가격</td>
+						<td class="rightTdleftPadding">
+							<fmt:formatNumber value="${tourVo.tourPrice}" pattern="#,###" /> 원 / 1인
+						</td>
 					</tr>
 					<tr>
-						<td class="ahreum">출발지</td><td>${tourVo.tourStartingPoint}</td>
+						<td class="ahreum">출발지</td>
+						<td class="rightTdleftPadding">${tourVo.tourStartingPoint}</td>
 					</tr>
 					<tr>
 						<td colspan="2">${tourVo.tourContent}</td>
@@ -176,12 +183,15 @@
 					<button class="ahreum">선택한 투어
 					</button>
 				</td>
-				<td class="tdRightWidthLimit">${tourVo.tourName}</td>
+				<td class="tdRightWidthLimit rightTdleftPadding">${tourVo.tourName}</td>
 			</tr>
 			<tr>
-				<td colspan="2">
+				<td>
 					<button class="ahreum">투어 날짜
 					</button>
+				</td>
+				<td class="rightTdleftPadding">
+					<input id="here" name="here" type="hidden" value="">
 				</td>
 			</tr>
 			<!-- 달력 구현 부분 -->
@@ -190,10 +200,10 @@
 					<div style="width: 400px; margin: auto;">
 						<div id="datepicker" onchange="moveByCalendarFnc();"></div>
 					</div>
-					<input id="here" name="here" type="hidden" value="">
 					<br/>
 					<fmt:formatDate value="${tourVo.tourClosedStartDate}" pattern="yyyy-MM-dd" />부터
-					<fmt:formatDate value="${tourVo.tourClosedEndDate}" pattern="yyyy-MM-dd" />까지 휴무입니다.
+					<fmt:formatDate value="${tourVo.tourClosedEndDate}" pattern="yyyy-MM-dd" />까지 휴무입니다<br>
+					<c:if test="${tourVo.tourClosedContent ne null}"><div style="padding-top: 10px; padding-bottom: 5px;">${tourVo.tourClosedContent}</div></c:if>
 					<input type="hidden" id="tourClosedStartDateInput" value="<fmt:formatDate value="${tourVo.tourClosedStartDate}" pattern="yyyy-MM-dd" />">
 					<input type="hidden" id="tourClosedEndDateInput" value="<fmt:formatDate value="${tourVo.tourClosedEndDate}" pattern="yyyy-MM-dd" />">
 				</td>
@@ -203,15 +213,15 @@
 					<button class="ahreum">예약 현황
 					</button>
 				</td>
-				<td>달력에서 날짜를 선택해주세요</td>
+				<td class="rightTdleftPadding">달력에서 날짜를 선택해주세요</td>
 			</tr>
 			<tr>
 				<td>
 					<button class="ahreum">투어 인원
 					</button>
 				</td>
-				<td>
-					<input id="selectedTourPeopleNum" type="number" min="0" max="${tourVo.tourPeopleNum}" value="" onchange="calculateFnc();">
+				<td class="rightTdleftPadding">
+					<input id="selectedTourPeopleNum" type="number" min="0" max="${tourVo.tourPeopleNum}" value="0" onchange="calculateFnc();">
 				</td>
 			</tr>
 			<tr>
@@ -219,26 +229,31 @@
 					<button class="ahreum">결제 방법
 					</button>
 				</td>
-				<td>계좌이체</td>
+				<td class="rightTdleftPadding">계좌이체</td>
 			</tr>
 			<tr>
 				<td>
 					<button class="ahreum">결제 예상 금액
 					</button>
 				</td>
-				<td id="test"><input id="predictedTotal" type="text" value="" disabled="disabled"> 원</td>
+				<td id="test" class="rightTdleftPadding">
+					<input id="predictedTotal" type="text" value="0" disabled="disabled"> 원
+				</td>
 			</tr>
 			<tr>
 				<td>
 					<button class="ahreum">결제 계좌
 					</button>
 				</td>
-				<td>${tourVo.tourStartingPoint}</td>
+				<td class="rightTdleftPadding">
+					${tourVo.tourAccountNum} ${tourVo.tourBank} <br>
+					예금주 : ${tourVo.tourDepositor}
+				</td>
 			</tr>
 		</table>
 	</div>
 	<div style="text-align: center;">
-		<div style="margin-top: 20px;">
+		<div style="margin-top: 10px; padding-bottom: 10px;">
 			<button class="ahreum" onclick="failAlertFnc();">예약 신청 하기</button>
 			<button class="ahreum" onclick="pageMoveListOneFnc();">뒤로 가기</button>
 		</div>

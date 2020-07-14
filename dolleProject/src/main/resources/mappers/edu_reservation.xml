@@ -3,6 +3,24 @@
 
 <mapper namespace="com.edu.reservation">
 
+	<sql id="search">
+		<choose>
+			<!-- 전체 검색일 경우  -->
+        	<when test="searchOption == 'both'">
+        		AND (MEMBER_NAME LIKE '%' || #{keyword} || '%'
+					OR TOUR_NAME LIKE '%' || #{keyword} || '%')
+        	</when>
+        	<!-- 회원 이름 검색일 경우  -->
+        	<when test="searchOption == 'memberName'">
+        		AND MEMBER_NAME LIKE '%' || #{keyword} || '%'
+        	</when>
+        	<!-- 투어 번호 검색일 경우  -->
+        	<when test="searchOption == 'tourName'">
+        		AND TOUR_NAME LIKE '%' || #{keyword} || '%'
+        	</when>
+        </choose>
+	</sql>
+
 	<resultMap type="com.edu.reservation.vo.ReservationVo" id="reservationResultMap">
 		<id column="RESERVE_IDX" property="reserveNo" />
 		<result column="TOUR_IDX" property="tourNo" />
@@ -29,6 +47,7 @@
 		<result column="TOUR_END_DATE" property="tourEndDate" javaType="java.util.Date" />
 		<result column="TOUR_CLOSED_START_DATE" property="tourClosedStartDate" javaType="java.util.Date" />
 		<result column="TOUR_CLOSED_END_DATE" property="tourClosedEndDate" javaType="java.util.Date" />
+		<result column="TOUR_CLOSED_CONTENT" property="tourClosedContent" />
 		<result column="TOUR_START_TIME" property="tourStartTime" />
 		<result column="TOUR_END_TIME" property="tourEndTime" />
 		<result column="TOUR_PRICE" property="tourPrice" />
@@ -41,6 +60,8 @@
 		<result column="TOUR_POSSIBLE_NUM" property="tourPossibleNum" />
 		<result column="TOUR_RESERVED_NUM" property="tourReservedNum" />
 		<result column="TOUR_ACCOUNT_NUM" property="tourAccountNum" />
+		<result column="TOUR_BANK" property="tourBank" />
+		<result column="TOUR_DEPOSITOR" property="tourDepositor" />
 	</resultMap>   
 	
 	<select id="tourSelectList" parameterType="map" resultMap="tourResultMap">
@@ -55,7 +76,20 @@
 		SELECT TOUR_IDX, TOWN_IDX, TOUR_NAME, TOUR_START_DATE,
 		TOUR_END_DATE, TOUR_START_TIME, TOUR_END_TIME, TOUR_PRICE,
 		TOUR_PEOPLE_NUM, TOUR_STARTING_POINT, TOUR_CONTENT, TOUR_CRE_DATE,
-		TOUR_MOD_DATE, TOUR_DEL_YN
+		TOUR_MOD_DATE, TOUR_DEL_YN,
+		(SELECT A1.ACC_ACCOUNT_NUM
+	    FROM TOUR T1, ACCOUNT_MANAGEMENT A1
+	    WHERE T1.TOWN_IDX = A1.TOWN_IDX
+	    AND T1.TOUR_IDX = #{tourNo}) AS TOUR_ACCOUNT_NUM,
+	    (SELECT A1.ACC_BANK
+	    FROM TOUR T1, ACCOUNT_MANAGEMENT A1
+	    WHERE T1.TOWN_IDX = A1.TOWN_IDX
+	    AND T1.TOUR_IDX = #{tourNo}) AS TOUR_BANK,
+	    (SELECT A1.ACC_DEPOSITOR
+	    FROM TOUR T1, ACCOUNT_MANAGEMENT A1
+	    WHERE T1.TOWN_IDX = A1.TOWN_IDX
+	    AND T1.TOUR_IDX = #{tourNo}) AS TOUR_DEPOSITOR
+	    
 		FROM TOUR
 		WHERE TOUR_IDX = #{tourNo}	
 	</select>
@@ -68,6 +102,21 @@
         (SELECT CLOSED_END_DATE
         FROM CLOSED_DAY
         WHERE TOUR_IDX = #{tourNo}) AS TOUR_CLOSED_END_DATE,
+        (SELECT CLOSED_CONTENT
+        FROM CLOSED_DAY
+        WHERE TOUR_IDX = #{tourNo}) AS TOUR_CLOSED_CONTENT,
+        (SELECT A1.ACC_ACCOUNT_NUM
+	    FROM TOUR T1, ACCOUNT_MANAGEMENT A1
+	    WHERE T1.TOWN_IDX = A1.TOWN_IDX
+	    AND T1.TOUR_IDX = #{tourNo}) AS TOUR_ACCOUNT_NUM,
+	    (SELECT A1.ACC_BANK
+	    FROM TOUR T1, ACCOUNT_MANAGEMENT A1
+	    WHERE T1.TOWN_IDX = A1.TOWN_IDX
+	    AND T1.TOUR_IDX = #{tourNo}) AS TOUR_BANK,
+	    (SELECT A1.ACC_DEPOSITOR
+	    FROM TOUR T1, ACCOUNT_MANAGEMENT A1
+	    WHERE T1.TOWN_IDX = A1.TOWN_IDX
+	    AND T1.TOUR_IDX = #{tourNo}) AS TOUR_DEPOSITOR,
         TOUR_START_TIME, TOUR_END_TIME, TOUR_PRICE,
 		TOUR_PEOPLE_NUM, TOUR_STARTING_POINT, TOUR_CONTENT, TOUR_CRE_DATE,
 		TOUR_MOD_DATE, TOUR_DEL_YN
@@ -76,35 +125,45 @@
 	</select>
 	
 	<select id="tourAndReservationSelectAllFromOne" parameterType="map" resultMap="tourResultMap">
-	SELECT T.TOUR_IDX AS TOUR_IDX, TOWN_IDX, TOUR_NAME, TOUR_START_DATE, TOUR_END_DATE, 
-    C.CLOSED_START_DATE AS TOUR_CLOSED_START_DATE,
-    C.CLOSED_END_DATE AS TOUR_CLOSED_END_DATE,
-    (SELECT SUM(R.RESERVE_APPLY_NUM)
-    FROM RESERVE R, TOUR T
-    WHERE R.TOUR_IDX = T.TOUR_IDX
-    AND R.RESERVE_TOUR_DATE = #{reserveTourDate}
-    AND R.RESERVE_DEPOSIT_STATE = 'active'
-    GROUP BY R.TOUR_IDX
-    HAVING R.TOUR_IDX = #{tourNo}) as TOUR_RESERVED_NUM,
-    (T.TOUR_PEOPLE_NUM - (SELECT SUM(R.RESERVE_APPLY_NUM)
-    FROM RESERVE R, TOUR T
-    WHERE R.TOUR_IDX = T.TOUR_IDX
-    AND R.RESERVE_TOUR_DATE = #{reserveTourDate}
-    AND R.RESERVE_DEPOSIT_STATE = 'active'
-    GROUP BY R.TOUR_IDX
-    HAVING R.TOUR_IDX = #{tourNo})) AS TOUR_POSSIBLE_NUM,
-    (SELECT A1.ACC_ACCOUNT_NUM
-    FROM TOUR T1, ACCOUNT_MANAGEMENT A1
-    WHERE T1.TOWN_IDX = A1.TOWN_IDX
-    AND T1.TOUR_IDX = #{tourNo}) AS TOUR_ACCOUNT_NUM,
-    
-    TOUR_START_TIME, TOUR_END_TIME, TOUR_PRICE,
-	TOUR_PEOPLE_NUM, TOUR_STARTING_POINT, TOUR_CONTENT, TOUR_CRE_DATE,
-	TOUR_MOD_DATE, TOUR_DEL_YN
-    
-    FROM TOUR T, CLOSED_DAY C
-    WHERE C.TOUR_IDX = T.TOUR_IDX
-    AND T.TOUR_IDX = #{tourNo}
+		SELECT T.TOUR_IDX AS TOUR_IDX, TOWN_IDX, TOUR_NAME, TOUR_START_DATE, TOUR_END_DATE, 
+	    C.CLOSED_START_DATE AS TOUR_CLOSED_START_DATE,
+	    C.CLOSED_END_DATE AS TOUR_CLOSED_END_DATE,
+	    C.CLOSED_CONTENT AS TOUR_CLOSED_CONTENT,
+	    (SELECT SUM(R.RESERVE_APPLY_NUM)
+	    FROM RESERVE R, TOUR T
+	    WHERE R.TOUR_IDX = T.TOUR_IDX
+	    AND R.RESERVE_TOUR_DATE = #{reserveTourDate}
+	    AND R.RESERVE_DEPOSIT_STATE = 'active'
+	    GROUP BY R.TOUR_IDX
+	    HAVING R.TOUR_IDX = #{tourNo}) as TOUR_RESERVED_NUM,
+	    (T.TOUR_PEOPLE_NUM - (SELECT SUM(R.RESERVE_APPLY_NUM)
+	    FROM RESERVE R, TOUR T
+	    WHERE R.TOUR_IDX = T.TOUR_IDX
+	    AND R.RESERVE_TOUR_DATE = #{reserveTourDate}
+	    AND R.RESERVE_DEPOSIT_STATE = 'active'
+	    GROUP BY R.TOUR_IDX
+	    HAVING R.TOUR_IDX = #{tourNo})) AS TOUR_POSSIBLE_NUM,
+	    
+	    (SELECT A1.ACC_ACCOUNT_NUM
+	    FROM TOUR T1, ACCOUNT_MANAGEMENT A1
+	    WHERE T1.TOWN_IDX = A1.TOWN_IDX
+	    AND T1.TOUR_IDX = #{tourNo}) AS TOUR_ACCOUNT_NUM,
+	    (SELECT A1.ACC_BANK
+	    FROM TOUR T1, ACCOUNT_MANAGEMENT A1
+	    WHERE T1.TOWN_IDX = A1.TOWN_IDX
+	    AND T1.TOUR_IDX = #{tourNo}) AS TOUR_BANK,
+	    (SELECT A1.ACC_DEPOSITOR
+	    FROM TOUR T1, ACCOUNT_MANAGEMENT A1
+	    WHERE T1.TOWN_IDX = A1.TOWN_IDX
+	    AND T1.TOUR_IDX = #{tourNo}) AS TOUR_DEPOSITOR,
+	    
+	    TOUR_START_TIME, TOUR_END_TIME, TOUR_PRICE,
+		TOUR_PEOPLE_NUM, TOUR_STARTING_POINT, TOUR_CONTENT, TOUR_CRE_DATE,
+		TOUR_MOD_DATE, TOUR_DEL_YN
+	    
+	    FROM TOUR T, CLOSED_DAY C
+	    WHERE C.TOUR_IDX = T.TOUR_IDX
+	    AND T.TOUR_IDX = #{tourNo}
 	</select>
 	
 	<insert id="tourReservationInsertOne" parameterType="map">
@@ -141,11 +200,79 @@
 	</select>
 	
 	<select id="tourReservationSelectListAll" parameterType="map" resultMap="reservationResultMap">
-		SELECT R.RESERVE_IDX, M.MEMBER_NAME AS MEMBER_NAME, M.MEMBER_EMAIL AS MEMBER_EMAIL, 
+		<!-- 	SELECT R.RESERVE_IDX, M.MEMBER_NAME AS MEMBER_NAME, M.MEMBER_EMAIL AS MEMBER_EMAIL,  -->
+		<!-- 	TRUNC(MONTHS_BETWEEN(TRUNC(SYSDATE), M.MEMBER_BIRTHDATE) / 12) AS MEMBER_AGE,  -->
+		<!-- 	R.TOUR_IDX,  -->
+		<!--    T.TOUR_NAME, -->
+		<!--    R.RESERVE_TOUR_DATE, R.RESERVE_APPLY_NUM, R.RESERVE_DEPOSIT_STATE, R.RESERVE_DEPOSIT_DATE -->
+		<!-- 	FROM RESERVE R, MEMBER M, TOUR T -->
+		<!-- 	WHERE R.MEMBER_IDX = M.MEMBER_IDX -->
+		<!--    AND R.TOUR_IDX = T.TOUR_IDX -->
+		SELECT *
+		FROM (SELECT ROWNUM RNUM, AHREUM.*
+    	FROM(SELECT R.RESERVE_IDX, M.MEMBER_NAME AS MEMBER_NAME, M.MEMBER_EMAIL AS MEMBER_EMAIL, 
 		TRUNC(MONTHS_BETWEEN(TRUNC(SYSDATE), M.MEMBER_BIRTHDATE) / 12) AS MEMBER_AGE, 
-		R.TOUR_IDX, R.RESERVE_TOUR_DATE, R.RESERVE_APPLY_NUM, R.RESERVE_DEPOSIT_STATE, R.RESERVE_DEPOSIT_DATE
-		FROM RESERVE R, MEMBER M
+		R.TOUR_IDX, 
+        T.TOUR_NAME,
+        R.RESERVE_TOUR_DATE, R.RESERVE_APPLY_NUM, R.RESERVE_DEPOSIT_STATE, R.RESERVE_DEPOSIT_DATE
+		FROM RESERVE R, MEMBER M, TOUR T
 		WHERE R.MEMBER_IDX = M.MEMBER_IDX
+        AND R.TOUR_IDX = T.TOUR_IDX
+		<!-- 검색 -->
+		<include refid="search"></include>
+		ORDER BY R.RESERVE_IDX DESC
+		) AHREUM )
+        WHERE RNUM BETWEEN #{start} AND #{end}
+	</select>
+
+	<select id="tourReservationSelectListPaid" parameterType="map" resultMap="reservationResultMap">
+		<!-- SELECT R.RESERVE_IDX, M.MEMBER_NAME AS MEMBER_NAME, M.MEMBER_EMAIL AS MEMBER_EMAIL,  -->
+		<!-- TRUNC(MONTHS_BETWEEN(TRUNC(SYSDATE), M.MEMBER_BIRTHDATE) / 12) AS MEMBER_AGE,  -->
+		<!-- R.TOUR_IDX, R.RESERVE_TOUR_DATE, R.RESERVE_APPLY_NUM, R.RESERVE_DEPOSIT_STATE, R.RESERVE_DEPOSIT_DATE -->
+		<!-- FROM RESERVE R, MEMBER M -->
+		<!-- WHERE R.MEMBER_IDX = M.MEMBER_IDX -->
+		<!-- AND R.RESERVE_DEPOSIT_STATE = 'paid' -->
+		SELECT *
+		FROM (SELECT ROWNUM RNUM, AHREUM.*
+    	FROM(SELECT R.RESERVE_IDX, M.MEMBER_NAME AS MEMBER_NAME, M.MEMBER_EMAIL AS MEMBER_EMAIL, 
+		TRUNC(MONTHS_BETWEEN(TRUNC(SYSDATE), M.MEMBER_BIRTHDATE) / 12) AS MEMBER_AGE, 
+		R.TOUR_IDX, 
+        T.TOUR_NAME,
+        R.RESERVE_TOUR_DATE, R.RESERVE_APPLY_NUM, R.RESERVE_DEPOSIT_STATE, R.RESERVE_DEPOSIT_DATE
+		FROM RESERVE R, MEMBER M, TOUR T
+		WHERE R.MEMBER_IDX = M.MEMBER_IDX
+        AND R.TOUR_IDX = T.TOUR_IDX
+        AND R.RESERVE_DEPOSIT_STATE = 'paid'
+        <!-- 검색 -->
+		<include refid="search"></include>
+		ORDER BY R.RESERVE_IDX DESC
+		) AHREUM )
+        WHERE RNUM BETWEEN #{start} AND #{end}
+	</select>
+
+	<select id="tourReservationSelectListCanceled" parameterType="map" resultMap="reservationResultMap">
+		<!-- SELECT R.RESERVE_IDX, M.MEMBER_NAME AS MEMBER_NAME, M.MEMBER_EMAIL AS MEMBER_EMAIL,  -->
+		<!-- TRUNC(MONTHS_BETWEEN(TRUNC(SYSDATE), M.MEMBER_BIRTHDATE) / 12) AS MEMBER_AGE,  -->
+		<!-- R.TOUR_IDX, R.RESERVE_TOUR_DATE, R.RESERVE_APPLY_NUM, R.RESERVE_DEPOSIT_STATE, R.RESERVE_DEPOSIT_DATE -->
+		<!-- FROM RESERVE R, MEMBER M -->
+		<!-- WHERE R.MEMBER_IDX = M.MEMBER_IDX -->
+		<!-- AND R.RESERVE_DEPOSIT_STATE = 'canceled' -->
+		SELECT *
+		FROM (SELECT ROWNUM RNUM, AHREUM.*
+    	FROM(SELECT R.RESERVE_IDX, M.MEMBER_NAME AS MEMBER_NAME, M.MEMBER_EMAIL AS MEMBER_EMAIL, 
+		TRUNC(MONTHS_BETWEEN(TRUNC(SYSDATE), M.MEMBER_BIRTHDATE) / 12) AS MEMBER_AGE, 
+		R.TOUR_IDX, 
+        T.TOUR_NAME,
+        R.RESERVE_TOUR_DATE, R.RESERVE_APPLY_NUM, R.RESERVE_DEPOSIT_STATE, R.RESERVE_DEPOSIT_DATE
+		FROM RESERVE R, MEMBER M, TOUR T
+		WHERE R.MEMBER_IDX = M.MEMBER_IDX
+        AND R.TOUR_IDX = T.TOUR_IDX
+        AND R.RESERVE_DEPOSIT_STATE = 'canceled'
+        <!-- 검색 -->
+		<include refid="search"></include>
+		ORDER BY R.RESERVE_IDX DESC
+		) AHREUM )
+        WHERE RNUM BETWEEN #{start} AND #{end}
 	</select>
 
 	<update id="tourUpdateOne" parameterType="map">
@@ -169,7 +296,57 @@
 	<insert id="tourInsertOne" parameterType="map">
 		INSERT INTO TOUR
 		(TOUR_IDX, TOWN_IDX, TOUR_NAME, TOUR_START_DATE, TOUR_END_DATE, TOUR_START_TIME, TOUR_END_TIME, TOUR_PRICE, TOUR_PEOPLE_NUM, TOUR_STARTING_POINT, TOUR_CONTENT)
-		VALUES(SEQ_TOUR_NO.NEXTVAL, 1, #{tourName}, #{tourStartDate}, #{tourEndDate}, #{tourStartTime}, #{tourEndTime}, #{tourPeopleNum}, #{tourPrice}, #{tourStartingPoint}, #{tourContent})
+		VALUES(SEQ_TOUR_NO.NEXTVAL, 1, #{tourName}, #{tourStartDate}, #{tourEndDate}, #{tourStartTime}, #{tourEndTime}, #{tourPrice}, #{tourPeopleNum}, #{tourStartingPoint}, #{tourContent})
 	</insert>
+	
+	<!-- 아름누나 페이징 -->
+	<select id="reservationSelectTotalCount" parameterType="map" resultType="int">
+		SELECT COUNT(*)
+		FROM RESERVE R, MEMBER M, TOUR T
+		WHERE R.MEMBER_IDX = M.MEMBER_IDX
+        AND T.TOUR_IDX = R.TOUR_IDX
+		<!-- 검색 -->
+		<include refid="search"></include>
+	</select>
+	
+	<!-- 관리자용 다중승인 -->
+	<delete id="reservationConfirmList" parameterType="java.util.List">
+		<if test="list.size != 0">
+		UPDATE RESERVE
+		SET
+		RESERVE_DEPOSIT_STATE = 'active'
+		WHERE RESERVE_IDX IN
+			<foreach collection="list" item="item"
+				open="(" close=")" separator=",">
+				#{item}
+			</foreach>
+		</if>
+	</delete>
+	
+	<!-- 관리자용 다중취소-->
+	<delete id="reservationCancelList" parameterType="java.util.List">
+		<if test="list.size != 0">
+		UPDATE RESERVE
+		SET
+		RESERVE_DEPOSIT_STATE = 'canceled'
+		WHERE RESERVE_IDX IN
+			<foreach collection="list" item="item"
+				open="(" close=")" separator=",">
+				#{item}
+			</foreach>
+		</if>
+	</delete>
+	
+	<!-- 관리자용 다중삭제 -->
+	<delete id="reservationDeleteList" parameterType="java.util.List">
+		<if test="list.size != 0">
+		DELETE FROM RESERVE
+		WHERE RESERVE_IDX IN
+			<foreach collection="list" item="item"
+				open="(" close=")" separator=",">
+				#{item}
+			</foreach>
+		</if>
+	</delete>
 	
 </mapper>

@@ -5,30 +5,32 @@
 
 <style type="text/css">
 nav > ul {
- 	list-style-type: none; 
-    padding: 0;
-    overflow: hidden;
-    background-color: #333333; 
-    display: table; /* table을 주면  요소의 내용에 맞게 자동으로 크기 */ 
-    margin-left: auto;
-    margin-right: auto;
-    
+	list-style-type: none;
+	padding: 0px;
+	overflow: hidden;
+	background-color: #333333;
+	display: table;
+	margin-left: auto;
+	margin-right: auto;
 }
-nav > ul > li {
+
+nav > ul > li{
 	float: left;
 }
-nav > ul > li > a {
-    display: block;
-    color: white;  
-    text-align: center;
-    padding: 16px;
-    text-decoration: none;
-} 
-nav > ul > li > a:hover { 
-     color: #FFD9EC; 
-     background-color: #5D5D5D; 
-     font-weight: bold; 
- }  
+
+nav > ul > li > a{
+	display: block;
+ 	color: white; 
+	text-align: center;
+	padding: 16px;
+	text-decoration: none;
+}
+
+nav > ul > li > a:hover{
+	color: #FFD9EC;
+	background-color: #5D5D5D;
+	font-weight: bold;
+}
  
 .active {
 	color: #FFD9EC;
@@ -51,6 +53,11 @@ nav > ul > li > a:hover {
 		curPage.val(pageNumber);
 		
 		var pagingForm = $('#pagingForm');
+		pagingForm.submit();
+	}
+
+	function submitFnc() {
+		var pagingForm = $('#searchForm');
 		pagingForm.submit();
 	}
 	

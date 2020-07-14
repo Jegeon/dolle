@@ -79,9 +79,9 @@
 		</div>
 	</c:forEach>
 	
-	<div>
+	<div style="text-align: center; margin-bottom: 20px;">
 		<div>
-			<button onclick="location.href='../reservation/reservationPageAdd.do'">투어 만들기</button>
+			<button class="ahreum" onclick="location.href='../reservation/reservationPageAdd.do'">투어 만들기</button>
 		</div>
 	</div>
 	

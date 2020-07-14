@@ -1,5 +1,6 @@
 package com.edu.reservation.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -54,10 +55,36 @@ public class ReservationDaoImpl implements ReservationDao{
 	}
 
 	@Override
-	public List<TourVo> tourReservationSelectListAll() {
-		return sqlSession.selectList(namespace + "tourReservationSelectListAll");
+	public List<TourVo> tourReservationSelectListAll(String searchOption, String keyword, int start, int end) {
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("start", String.valueOf(start));
+		paramMap.put("end", String.valueOf(end));
+		paramMap.put("searchOption", searchOption);
+		paramMap.put("keyword", keyword);
+		
+		return sqlSession.selectList(namespace + "tourReservationSelectListAll", paramMap);
 	}
 
+	@Override
+	public List<TourVo> tourReservationSelectListPaid(String searchOption, String keyword, int start, int end) {
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("start", String.valueOf(start));
+		paramMap.put("end", String.valueOf(end));
+		paramMap.put("searchOption", searchOption);
+		paramMap.put("keyword", keyword);
+		return sqlSession.selectList(namespace + "tourReservationSelectListPaid", paramMap);
+	}
+	
+	@Override
+	public List<TourVo> tourReservationSelectListCanceled(String searchOption, String keyword, int start, int end) {
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("start", String.valueOf(start));
+		paramMap.put("end", String.valueOf(end));
+		paramMap.put("searchOption", searchOption);
+		paramMap.put("keyword", keyword);
+		return sqlSession.selectList(namespace + "tourReservationSelectListCanceled", paramMap);
+	}
+	
 	@Override
 	public int tourUpdateOne(Map<String, Object> paramMap) {
 		return sqlSession.update(namespace + "tourUpdateOne", paramMap);
@@ -72,5 +99,32 @@ public class ReservationDaoImpl implements ReservationDao{
 	public int tourInsertOne(Map<String, Object> paramMap) {
 		return sqlSession.update(namespace + "tourInsertOne", paramMap);
 	}
+
+	// 아름누나 페이징
+	@Override
+	public int reservationSelectTotalCount(String searchOption, String keyword) {
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("searchOption", searchOption);
+		paramMap.put("keyword", keyword);
+		
+		return sqlSession.selectOne(namespace + "reservationSelectTotalCount", paramMap);
+	}
+
+	@Override
+	public int reservationConfirmList(List<String> checkIdxList) {
+		System.out.println("Dao reservationConfirmList 접근중"+ checkIdxList.get(0));
+		return sqlSession.delete(namespace + "reservationConfirmList", checkIdxList);
+	}
+
+	@Override
+	public int reservationCancelList(List<String> checkIdxList) {
+		System.out.println("Dao reservationCancelList 접근중"+ checkIdxList.get(0));
+		return sqlSession.delete(namespace + "reservationCancelList", checkIdxList);
+	}
 	
+	@Override
+	public int reservationDeleteList(List<String> checkIdxList) {
+		System.out.println("Dao reservationDeleteList 접근중"+ checkIdxList.get(0));
+		return sqlSession.delete(namespace + "reservationDeleteList", checkIdxList);
+	}
 }

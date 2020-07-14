@@ -117,11 +117,12 @@
 	}
 	.tdLeftWidthLimit {
 		width:220px;
-		border-right: none;
 	}
 	.tdRightWidthLimit {
 		width:276px;
-		border-left: none;
+	}
+	.rightTdleftPadding {
+		padding-left: 10px;
 	}
 </style>
 </head>
@@ -134,7 +135,7 @@
 	<h1 class="daehanFont" style="margin: 10px 0px 10px 82px;">가이드 투어 예약 상세 날짜 선택</h1>
 	<br/>
 	<!-- 여기 div 는 투어 상세 정보가 뜨는 곳 시작 -->
-	<div style="width: 740px; height: 460px; margin: auto;">
+	<div style="width: 740px; height: 440px; margin: auto;">
 		<div style="width: 240px; height: 380px; border: 1px solid black; float: left;">
 			<div style="cursor:pointer;">이미지 넣을 예정</div>
 		</div>
@@ -146,7 +147,7 @@
 					</tr>
 					<tr>
 						<td class="ahreum">기간</td>
-						<td>
+						<td class="rightTdleftPadding">
 							<a>
 								<fmt:formatDate value="${tourVo.tourStartDate}" pattern="yyyy-MM-dd" />
 							</a>
@@ -157,16 +158,22 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="ahreum">시간</td><td>${tourVo.tourStartTime} ~ ${tourVo.tourEndTime}</td>
+						<td class="ahreum">시간</td>
+						<td class="rightTdleftPadding">${tourVo.tourStartTime} ~ ${tourVo.tourEndTime}</td>
 					</tr>
 					<tr>
-						<td class="ahreum">모집 인원</td><td>${tourVo.tourPeopleNum}</td>
+						<td class="ahreum">모집 인원</td>
+						<td class="rightTdleftPadding">${tourVo.tourPeopleNum} 명</td>
 					</tr>
 					<tr>
-						<td class="ahreum">인당 가격</td><td>${tourVo.tourPrice}원 / 1인</td>
+						<td class="ahreum">인당 가격</td>
+						<td class="rightTdleftPadding">
+							<fmt:formatNumber value="${tourVo.tourPrice}" pattern="#,###" /> 원 / 1인
+						</td>
 					</tr>
 					<tr>
-						<td class="ahreum">출발지</td><td>${tourVo.tourStartingPoint}</td>
+						<td class="ahreum">출발지</td>
+						<td class="rightTdleftPadding">${tourVo.tourStartingPoint}</td>
 					</tr>
 					<tr>
 						<td colspan="2">${tourVo.tourContent}</td>
@@ -187,12 +194,15 @@
 							선택한 투어
 						</button>
 					</td>
-					<td class="tdRightWidthLimit">${tourVo.tourName}</td>
+					<td class="tdRightWidthLimit rightTdleftPadding">${tourVo.tourName}</td>
 				</tr>
 				<tr>
-					<td colspan="2">
-						<button class="ahreum" disabled="disabled">투어 날짜
+					<td>
+						<button class="ahreum">투어 날짜
 						</button>
+					</td>
+					<td class="rightTdleftPadding">
+						<input id="selectedDateInput" name="reserveTourDate" type="text" value="">
 					</td>
 				</tr>
 				<!-- 달력 구현 부분 -->
@@ -201,10 +211,10 @@
 						<div style="width: 400px; margin: auto;">
 							<div id="datepicker" onchange="testFnc();"></div>
 						</div>
-						<input id="selectedDateInput" name="reserveTourDate" type="text" value="">
 						<br/>
 						<fmt:formatDate value="${tourVo.tourClosedStartDate}" pattern="yyyy-MM-dd" />부터
-						<fmt:formatDate value="${tourVo.tourClosedEndDate}" pattern="yyyy-MM-dd" />까지 휴무입니다.
+						<fmt:formatDate value="${tourVo.tourClosedEndDate}" pattern="yyyy-MM-dd" />까지 휴무입니다<br>
+						<c:if test="${tourVo.tourClosedContent ne null}"><div style="padding-top: 10px; padding-bottom: 5px;">${tourVo.tourClosedContent}</div></c:if>
 						<input type="hidden" id="tourClosedStartDateInput" value="<fmt:formatDate value="${tourVo.tourClosedStartDate}" pattern="yyyy-MM-dd" />">
 						<input type="hidden" id="tourClosedEndDateInput" value="<fmt:formatDate value="${tourVo.tourClosedEndDate}" pattern="yyyy-MM-dd" />">
 					</td>
@@ -214,14 +224,14 @@
 						<button class="ahreum" disabled="disabled">예약 현황
 						</button>
 					</td>
-					<td>${tourVo.tourReservedNum}/ ${tourVo.tourPeopleNum}</td>
+					<td class="rightTdleftPadding">${tourVo.tourReservedNum}/ ${tourVo.tourPeopleNum}</td>
 				</tr>
 				<tr>
 					<td>
 						<button class="ahreum" disabled="disabled">투어 인원
 						</button>
 					</td>
-					<td>
+					<td class="rightTdleftPadding">
 						<c:choose>
 							<c:when test="${0 eq tourVo.tourReservedNum}">
 								<input id="selectedTourPeopleNumInput" name="reserveApplyNum" type="number" min="1" max="${tourVo.tourPeopleNum}" value="" placeholder="${tourVo.tourPeopleNum}" onchange="calculateFnc();">
@@ -240,21 +250,26 @@
 						<button class="ahreum" disabled="disabled">결제 방법
 						</button>
 					</td>
-					<td>계좌이체</td>
+					<td class="rightTdleftPadding">계좌이체</td>
 				</tr>
 				<tr>
 					<td>
 						<button class="ahreum" disabled="disabled">결제 예상 금액
 						</button>
 					</td>
-					<td><input id="predictedTotal" name="reservePrice" type="text" value="" readonly="readonly"> 원</td>
+					<td id="test" class="rightTdleftPadding">
+						<input id="predictedTotal" name="reservePrice" type="text" value="" readonly="readonly"> 원
+					</td>
 				</tr>
 				<tr>
 					<td>
 						<button class="ahreum" disabled="disabled">결제 계좌
 						</button>
 					</td>
-					<td>${tourVo.tourAccountNum}</td>
+					<td class="rightTdleftPadding">
+						${tourVo.tourAccountNum} ${tourVo.tourBank} <br>
+						예금주 : ${tourVo.tourDepositor}
+					</td>
 				</tr>
 			</table>
 		</div>
@@ -262,7 +277,7 @@
 		
 		<!-- 여기 div 는 form의 submit이 있는 부분 시작 -->
 		<div style="text-align: center;">
-			<div style="margin-top: 20px;">
+			<div style="margin-top: 10px; padding-bottom: 10px;">
 				<input type="hidden" name="tourNo" value="${tourVo.tourNo}">
 				<input type="hidden" name="memberNo" value="${sessionScope._memberVo_.no}">
 				<input type="submit" class="ahreum" value="예약 신청 하기">

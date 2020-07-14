@@ -13,6 +13,7 @@ public class TourVo {
 	// 휴무일 테이블에서 가져온 내용 시작
 	private Date tourClosedStartDate;
 	private Date tourClosedEndDate;
+	private String tourClosedContent;
 	// 휴무일 테이블에서 가져온 내용 끝
 	
 	private String tourStartTime;
@@ -26,55 +27,33 @@ public class TourVo {
 	private String tourDel;
 	private int tourPossibleNum;
 	private int tourReservedNum;
+	
+	// 계좌 관리 테이블 시작
 	private String tourAccountNum;
+	private String tourBank;
+	private String tourDepositor;
+	// 계좌 관리 테이블 시작
 	
 	// memberNo, reserveTourDate 관련 부분 시작
 	private int memberNo;
 	private String reserveTourDate;
 	private int reserveApplyNum;
-	
-	
-	public int getReserveApplyNum() {
-		return reserveApplyNum;
-	}
-
-	public void setReserveApplyNum(int reserveApplyNum) {
-		this.reserveApplyNum = reserveApplyNum;
-	}
-
-	
-	public String getReserveTourDate() {
-		return reserveTourDate;
-	}
-
-	public void setReserveTourDate(String reserveTourDate) {
-		this.reserveTourDate = reserveTourDate;
-	}
-
-	public TourVo(String reserveTourDate) {
-		super();
-		this.reserveTourDate = reserveTourDate;
-	}
-	
-	public int getMemberNo() {
-		return memberNo;
-	}
 	// memberNo, reserveTourDate 관련 부분 끝
-	
-	public void setMemberNo(int memberNo) {
-		this.memberNo = memberNo;
-	}
-
-	public TourVo(int tourNo, int townNo, String tourName, Date tourStartDate, Date tourEndDate, String tourStartTime,
+	public TourVo(int tourNo, int townNo, String tourName, Date tourStartDate, Date tourEndDate,
+			Date tourClosedStartDate, Date tourClosedEndDate, String tourClosedContent, String tourStartTime,
 			String tourEndTime, int tourPrice, int tourPeopleNum, String tourStartingPoint, String tourContent,
 			Date tourCreDate, Date tourModDate, String tourDel, int tourPossibleNum, int tourReservedNum,
-			String tourAccountNum) {
+			String tourAccountNum, String tourBank, String tourDepositor, int memberNo, String reserveTourDate,
+			int reserveApplyNum) {
 		super();
 		this.tourNo = tourNo;
 		this.townNo = townNo;
 		this.tourName = tourName;
 		this.tourStartDate = tourStartDate;
 		this.tourEndDate = tourEndDate;
+		this.tourClosedStartDate = tourClosedStartDate;
+		this.tourClosedEndDate = tourClosedEndDate;
+		this.tourClosedContent = tourClosedContent;
 		this.tourStartTime = tourStartTime;
 		this.tourEndTime = tourEndTime;
 		this.tourPrice = tourPrice;
@@ -87,11 +66,15 @@ public class TourVo {
 		this.tourPossibleNum = tourPossibleNum;
 		this.tourReservedNum = tourReservedNum;
 		this.tourAccountNum = tourAccountNum;
+		this.tourBank = tourBank;
+		this.tourDepositor = tourDepositor;
+		this.memberNo = memberNo;
+		this.reserveTourDate = reserveTourDate;
+		this.reserveApplyNum = reserveApplyNum;
 	}
 	public TourVo() {
 		super();
 	}
-	
 	public int getTourNo() {
 		return tourNo;
 	}
@@ -121,6 +104,24 @@ public class TourVo {
 	}
 	public void setTourEndDate(Date tourEndDate) {
 		this.tourEndDate = tourEndDate;
+	}
+	public Date getTourClosedStartDate() {
+		return tourClosedStartDate;
+	}
+	public void setTourClosedStartDate(Date tourClosedStartDate) {
+		this.tourClosedStartDate = tourClosedStartDate;
+	}
+	public Date getTourClosedEndDate() {
+		return tourClosedEndDate;
+	}
+	public void setTourClosedEndDate(Date tourClosedEndDate) {
+		this.tourClosedEndDate = tourClosedEndDate;
+	}
+	public String getTourClosedContent() {
+		return tourClosedContent;
+	}
+	public void setTourClosedContent(String tourClosedContent) {
+		this.tourClosedContent = tourClosedContent;
 	}
 	public String getTourStartTime() {
 		return tourStartTime;
@@ -194,35 +195,48 @@ public class TourVo {
 	public void setTourAccountNum(String tourAccountNum) {
 		this.tourAccountNum = tourAccountNum;
 	}
-
-	// 휴무일 테이블에서 가져온 내용 getter/setter 시작
-	public Date getTourClosedStartDate() {
-		return tourClosedStartDate;
+	public String getTourBank() {
+		return tourBank;
 	}
-
-	public void setTourClosedStartDate(Date tourClosedStartDate) {
-		this.tourClosedStartDate = tourClosedStartDate;
+	public void setTourBank(String tourBank) {
+		this.tourBank = tourBank;
 	}
-
-	public Date getTourClosedEndDate() {
-		return tourClosedEndDate;
+	public String getTourDepositor() {
+		return tourDepositor;
 	}
-
-	public void setTourClosedEndDate(Date tourClosedEndDate) {
-		this.tourClosedEndDate = tourClosedEndDate;
+	public void setTourDepositor(String tourDepositor) {
+		this.tourDepositor = tourDepositor;
 	}
-	// 휴무일 테이블에서 가져온 내용 getter/setter 끝
-
+	public int getMemberNo() {
+		return memberNo;
+	}
+	public void setMemberNo(int memberNo) {
+		this.memberNo = memberNo;
+	}
+	public String getReserveTourDate() {
+		return reserveTourDate;
+	}
+	public void setReserveTourDate(String reserveTourDate) {
+		this.reserveTourDate = reserveTourDate;
+	}
+	public int getReserveApplyNum() {
+		return reserveApplyNum;
+	}
+	public void setReserveApplyNum(int reserveApplyNum) {
+		this.reserveApplyNum = reserveApplyNum;
+	}
 	@Override
 	public String toString() {
 		return "TourVo [tourNo=" + tourNo + ", townNo=" + townNo + ", tourName=" + tourName + ", tourStartDate="
 				+ tourStartDate + ", tourEndDate=" + tourEndDate + ", tourClosedStartDate=" + tourClosedStartDate
-				+ ", tourClosedEndDate=" + tourClosedEndDate + ", tourStartTime=" + tourStartTime + ", tourEndTime="
-				+ tourEndTime + ", tourPrice=" + tourPrice + ", tourPeopleNum=" + tourPeopleNum + ", tourStartingPoint="
-				+ tourStartingPoint + ", tourContent=" + tourContent + ", tourCreDate=" + tourCreDate + ", tourModDate="
-				+ tourModDate + ", tourDel=" + tourDel + ", tourPossibleNum=" + tourPossibleNum + ", tourReservedNum="
-				+ tourReservedNum + ", tourAccountNum=" + tourAccountNum + ", memberNo=" + memberNo
-				+ ", reserveTourDate=" + reserveTourDate + ", reserveApplyNum=" + reserveApplyNum + "]";
+				+ ", tourClosedEndDate=" + tourClosedEndDate + ", tourClosedContent=" + tourClosedContent
+				+ ", tourStartTime=" + tourStartTime + ", tourEndTime=" + tourEndTime + ", tourPrice=" + tourPrice
+				+ ", tourPeopleNum=" + tourPeopleNum + ", tourStartingPoint=" + tourStartingPoint + ", tourContent="
+				+ tourContent + ", tourCreDate=" + tourCreDate + ", tourModDate=" + tourModDate + ", tourDel=" + tourDel
+				+ ", tourPossibleNum=" + tourPossibleNum + ", tourReservedNum=" + tourReservedNum + ", tourAccountNum="
+				+ tourAccountNum + ", tourBank=" + tourBank + ", tourDepositor=" + tourDepositor + ", memberNo="
+				+ memberNo + ", reserveTourDate=" + reserveTourDate + ", reserveApplyNum=" + reserveApplyNum + "]";
 	}
+
 	
 }

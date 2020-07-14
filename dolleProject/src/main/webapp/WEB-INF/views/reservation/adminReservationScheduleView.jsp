@@ -39,13 +39,11 @@
 	
 	<h1 class="daehanFont" style="margin: 10px 0px 10px 82px;">가이드 투어 예약 일정 조회 달력</h1>
 	
-	가져오는 데이터 확인 ${tourList}
-<%-- 	가져오는 데이터 확인 ${tourReservationList} --%>
+	<%-- 가져오는 데이터 확인 ${tourList} --%>
 	<br/>
 	<div style="width: 740px; height: 1200px; margin: auto;">
 		<table>
 			<c:forEach var='reservationVo' items='${tourReservationList}'>
-				<button>${reservationVo.tourName}</button>
 				<tr class='resCss'>
 					<td class='daehanFont' style="text-align: right;">
 						<c:choose>

@@ -86,7 +86,7 @@ public class NoticeController {
 	
 	@RequestMapping(value="/noticeBoard/detail.do", method = RequestMethod.GET)
 	public String noticeBoardDetailView(Model model
-			, @RequestParam(defaultValue = "1") int curPage
+//			, @RequestParam(defaultValue = "1") int curPage
 			, @RequestParam(defaultValue = "title") String searchOption
 			, @RequestParam(defaultValue = "") String keyword
 			, int noticeIdx) {
@@ -96,39 +96,75 @@ public class NoticeController {
 		
 		int rNum = noticeService.noticeFindCurrentRow(noticeIdx);
 		
-		int totalCount = noticeService.noticeSelectTotalCount(searchOption, keyword);
+		System.out.println(rNum+ "_____________________________________________________________");
 		
-		Paging paging = new Paging(totalCount, curPage, 10);
-		int start = paging.getPageBegin();
-		int end = paging.getPageEnd();
+		int totalCount = noticeService.noticeSelectTotalCount("title", "");
 		
-		int topIdx = noticeService.noticeFindUpIdx(2);
-		int listSize = noticeService.noticeMemberFileList(searchOption, keyword, start, end).size();
-		int bottomIdx = noticeService.noticeFindUpIdx(listSize+1);
-		
-		int upIdx = topIdx;
-		int downIdx = bottomIdx;
-		
-		if(rNum == topIdx) {
-			upIdx = noticeService.noticeFindUpIdx(rNum);
-		}
-
-		if(rNum == 1) {
-			downIdx	= noticeService.noticeFindDownIdx(rNum);
-		}
-		
-		
-		if(upIdx > topIdx) {
-			upIdx = -1;
-		}
+//		Paging paging = new Paging(totalCount, curPage, 10);
+//		int start = paging.getPageBegin();
+//		int end = paging.getPageEnd();
+//		
+//		int topIdx = noticeService.noticeFindUpIdx(2);
+//		int listSize = noticeService.noticeMemberFileList("title", "", start, end).size();
+//		int bottomIdx = noticeService.noticeFindUpIdx(listSize+1);
+//		
+//		int upIdx = topIdx;
+//		int downIdx = bottomIdx;
+//		
+//		if(rNum == topIdx) {
+//			upIdx = noticeService.noticeFindUpIdx(rNum);
+//		}
+//
+//		if(rNum == 1) {
+//			downIdx	= noticeService.noticeFindDownIdx(rNum);
+//		}
+//		
+//		
+//		if(upIdx > topIdx) {
+//			upIdx = -1;
+//		}
 		
 		model.addAttribute("noticeVo", noticeVo);
-		model.addAttribute("upIdx", upIdx);
-		model.addAttribute("downIdx", downIdx);
+//		model.addAttribute("upIdx", upIdx);
+//		model.addAttribute("downIdx", downIdx);
+		model.addAttribute("rNum", rNum);
+		model.addAttribute("maxRnum", totalCount);
 		
 		return "noticeBoard/noticeBoardDetailView";
 	}
 	
+	@RequestMapping(value = "/noticeBoard/noticeUpPage.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public String noticeUpPage(Model model, int rNum) {
+		log.debug("●▅▇█▇▅▄▄▌           Welcome noticeUpPage!!!!!!!     ●▅▇█▇▅▄▄▌");
+		
+		
+		NoticeMemberFileVo noticeVo = noticeService.upWriteNotice(rNum);
+		System.out.println("notice rnum : "+ rNum);
+		int maxRnum = noticeService.noticeSelectTotalCount("title", "");
+		
+		model.addAttribute("noticeVo", noticeVo);
+		model.addAttribute("rNum", rNum - 1);
+		model.addAttribute("maxRnum", maxRnum);
+		
+		return "/noticeBoard/noticeBoardDetailView";
+	}
+	
+	@RequestMapping(value= "/noticeBoard/noticeDownPage.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public String noticeDownPage(Model model, int rNum) {
+		log.debug("●▅▇█▇▅▄▄▌           Welcome noticeDownPage!!!!!!!     ●▅▇█▇▅▄▄▌");
+		
+		NoticeMemberFileVo noticeVo = noticeService.downWriteNotice(rNum);
+		System.out.println("notice rnum : " + rNum);
+		int maxRnum = noticeService.noticeSelectTotalCount("title", "");
+		System.out.println("notice maxRnum : " + maxRnum + "●▅▇█▇▅▄▄▌ ●▅▇█▇▅▄▄▌ ");
+		
+		model.addAttribute("noticeVo", noticeVo);
+		model.addAttribute("rNum", rNum + 1);
+		model.addAttribute("maxRnum", maxRnum);
+		
+		
+		return "/noticeBoard/noticeBoardDetailView";
+	}
 	
 	
 	@RequestMapping(value = "/noticeBoard/adminNoticeAdd.do", method = {RequestMethod.GET})

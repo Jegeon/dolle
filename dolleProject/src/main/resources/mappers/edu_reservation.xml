@@ -62,7 +62,15 @@
 		<result column="TOUR_ACCOUNT_NUM" property="tourAccountNum" />
 		<result column="TOUR_BANK" property="tourBank" />
 		<result column="TOUR_DEPOSITOR" property="tourDepositor" />
-	</resultMap>   
+	</resultMap>  
+	
+	<resultMap type="com.edu.reservation.vo.ClosedDayVo" id="closedDayResultMap">
+		<id column="CLOSED_IDX" property="closedNo" />
+		<result column="TOUR_IDX" property="tourNo" />
+		<result column="CLOSED_START_DATE" property="closedStartDate" javaType="java.util.Date" />
+		<result column="CLOSED_END_DATE" property="closedEndDate" javaType="java.util.Date" />
+		<result column="CLOSED_CONTENT" property="closedContent" />
+	</resultMap> 
 	
 	<select id="tourSelectList" parameterType="map" resultMap="tourResultMap">
 		SELECT TOUR_IDX, TOWN_IDX, TOUR_NAME, TOUR_START_DATE,
@@ -98,13 +106,13 @@
 		SELECT TOUR_IDX, TOWN_IDX, TOUR_NAME, TOUR_START_DATE, TOUR_END_DATE, 
         (SELECT CLOSED_START_DATE
         FROM CLOSED_DAY
-        WHERE TOUR_IDX = #{tourNo}) AS TOUR_CLOSED_START_DATE,
+        WHERE TOUR_IDX = 1) AS TOUR_CLOSED_START_DATE,
         (SELECT CLOSED_END_DATE
         FROM CLOSED_DAY
-        WHERE TOUR_IDX = #{tourNo}) AS TOUR_CLOSED_END_DATE,
+        WHERE TOUR_IDX = 1) AS TOUR_CLOSED_END_DATE,
         (SELECT CLOSED_CONTENT
         FROM CLOSED_DAY
-        WHERE TOUR_IDX = #{tourNo}) AS TOUR_CLOSED_CONTENT,
+        WHERE TOUR_IDX = 1) AS TOUR_CLOSED_CONTENT,
         (SELECT A1.ACC_ACCOUNT_NUM
 	    FROM TOUR T1, ACCOUNT_MANAGEMENT A1
 	    WHERE T1.TOWN_IDX = A1.TOWN_IDX
@@ -348,5 +356,23 @@
 			</foreach>
 		</if>
 	</delete>
+	
+	<!-- 투어 휴무일 시작 -->
+	<select id="tourClosedDaySelectOne" parameterType="map" resultMap="closedDayResultMap">
+		SELECT CLOSED_IDX, TOUR_IDX, CLOSED_START_DATE, CLOSED_END_DATE,
+    	CLOSED_CONTENT
+		FROM CLOSED_DAY
+		WHERE CLOSED_IDX = 1
+	</select>
+	
+	<update id="tourClosedDayUpdateOne" parameterType="map">
+		UPDATE CLOSED_DAY
+		SET
+		CLOSED_START_DATE = #{closedStartDate}, 
+		CLOSED_END_DATE = #{closedEndDate},
+		CLOSED_CONTENT = #{closedContent}
+		WHERE TOUR_IDX = 1
+	</update>
+	<!-- 투어 휴무일 끝 -->
 	
 </mapper>

@@ -3,6 +3,7 @@ package com.edu.reservation.service;
 import java.util.List;
 import java.util.Map;
 
+import com.edu.reservation.vo.ClosedDayVo;
 import com.edu.reservation.vo.ReservationVo;
 import com.edu.reservation.vo.TourVo;
 
@@ -29,4 +30,9 @@ public interface ReservationService {
 	public int reservationConfirmList(List<String> checkIdxList);
 	public int reservationCancelList(List<String> checkIdxList);
 	public int reservationDeleteList(List<String> checkIdxList);
+	
+	// 휴무일
+	public ClosedDayVo tourClosedDaySelectOne();
+	public int tourClosedDayUpdateOne(Map<String, Object> paramMap);
+	
 }	

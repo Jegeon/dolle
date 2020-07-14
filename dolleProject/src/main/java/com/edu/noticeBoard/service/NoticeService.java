@@ -20,4 +20,6 @@ public interface NoticeService {
 		MultipartHttpServletRequest mulRequest, int fileIdx);
 	public void noticeDeleteOne(int noticeIdx);
 	public int noticeSelectTotalCount(String searchOption, String keyword);
+	public NoticeMemberFileVo upWriteNotice(int rNum);
+	public NoticeMemberFileVo downWriteNotice(int rNum);
 }

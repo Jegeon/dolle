@@ -41,16 +41,18 @@
 		location.href = "reservationPage.do";
 	}
 	function validationFnc(){
+		alert("check작동");
+		
 		// ObjValue 모음 시작
-		var tourNameObjValue = document.getElementById("tourName").value;
-		var tourStartDateObjValue = document.getElementById("tourStartDate").value;
-		var tourEndDateObjValue = document.getElementById("tourEndDate").value;
-		var tourStartTimeObjValue = document.getElementById("tourStartTime").value;
-		var tourEndTimeObjValue = document.getElementById("tourEndTime").value;
-		var tourPeopleNumObjValue = document.getElementById("tourPeopleNum").value;
-		var tourPriceObjValue = document.getElementById("tourPriceObj").value;
-		var tourStartingPointObjValue = document.getElementById("tourStartingPoint").value;
-		var tourContentObjValue = document.getElementById("tourContent").value;
+		var tourNameObjValue = $("#tourName").val();
+		var tourStartDateObjValue = $("#tourStartDate").val();
+		var tourEndDateObjValue = $("#tourEndDate").val();
+		var tourStartTimeObjValue = $("#tourStartTime").val();
+		var tourEndTimeObjValue = $("#tourEndTime").val();
+		var tourPeopleNumObjValue = $("#tourPeopleNum").val();
+		var tourPriceObjValue = $("#tourPrice").val();
+		var tourStartingPointObjValue = $("#tourStartingPoint").val();
+		var tourContentObjValue = $("#tourContent").val();
 		// ObjValue 모음 끝
 		
 		var errorStr = "추가가 불가능합니다";
@@ -64,43 +66,52 @@
 		var errorCode8 = "투어 출발지 입력 필요";
 		var errorCode9 = "투어 내용 입력 필요";
 		
-		if (!tourNameObjValue) {
+		if (tourNameObjValue == null || tourNameObjValue == "" || tourNameObjValue.length == 0) {
 			alert(errorStr + " - " + errorCode1);
 			return false;
 		}
-		if (!tourStartDateObjValue) {
+		if (tourStartDateObjValue == null || tourStartDateObjValue == "" || tourStartDateObjValue.length == 0) {
 			alert(errorStr + " - " + errorCode2);
 			return false;
 		}
-		if (!tourEndDateObjValue) {
+		if (!tourEndDateObjValue || tourEndDateObjValue=="") {
 			alert(errorStr + " - " + errorCode3);
 			return false;
 		}
-		if (!tourStartTimeObjValue) {
+		if (!tourStartTimeObjValue || tourStartTimeObjValue=="") {
 			alert(errorStr + " - " + errorCode4);
 			return false;
 		}
-		if (!tourEndTimeObjValue) {
+		if (!tourEndTimeObjValue || tourEndTimeObjValue=="") {
 			alert(errorStr + " - " + errorCode5);
 			return false;
 		}
-		if (!tourPeopleNumObjValue) {
+		if (!tourPeopleNumObjValue || tourPeopleNumObjValue==0) {
 			alert(errorStr + " - " + errorCode6);
 			return false;
 		}
-		if (!tourPriceObjValue) {
+		if (!tourPriceObjValue || tourPriceObjValue==0) {
 			alert(errorStr + " - " + errorCode7);
 			return false;
 		}
-		if (!tourStartingPointObjValue) {
-			alert(errorStr + " - " + errorCode8);
-			return false;
-		}
-		if (!tourContentObjValue) {
-			alert(errorStr + " - " + errorCode9);
-			return false;
+		 if (!tourStartingPointObjValue || tourStartingPointObjValue=="") {
+					alert(errorStr + " - " + errorCode8);
+					return false;
+			}
+		 if (!tourContentObjValue || tourContentObjValue=="") {
+					alert(errorStr + " - " + errorCode9);
+					return false;
+			}
+		
+		return true;
+	}
+	
+	function addFormFnc(){
+		if(validationFnc() == true){
+			$("#addForm").submit();
 		}
 	}
+	
 	function carryStartDateTextToDateFnc() {
 		var fromDtObj = document.getElementById("fromDt");
 		var end_ymd = fromDtObj.value;    
@@ -108,7 +119,6 @@
 	    var mm = end_ymd.substr(5,2);
 	    var dd = end_ymd.substr(8,2);                        
 	    var com_ymd = new Date(yyyy, mm-1, dd);
-	    alert(com_ymd);
 		var hiddenTourStartDateObj = document.getElementById("tourStartDate");
 		hiddenTourStartDateObj.value = fromDtObj.value;
 	}
@@ -119,7 +129,6 @@
 	    var mm1 = end_ymd1.substr(5,2);
 	    var dd1 = end_ymd1.substr(8,2);                        
 	    var com_ymd1 = new Date(yyyy1, mm1-1, dd1);
-	    alert(com_ymd1);
 		var hiddenTourEndDateObj = document.getElementById("tourEndDate");
 		hiddenTourEndDateObj.value = toDtObj.value;
 	}
@@ -153,15 +162,12 @@
 
 <body>
 
-	<!-- 달력때문에 include가 잘안되서 임시로 붙여놓은 곳 시작 -->
-	<jsp:include page="/WEB-INF/views/Tail.jsp" />
-	<!-- 달력때문에 include가 잘안되서 임시로 붙여놓은 곳 끝 -->
-	<%-- <jsp:include page="/WEB-INF/views/Header.jsp" /> --%>
+	<jsp:include page="/WEB-INF/views/Header.jsp" />
 
 	<h1 class="daehanFont" style="margin: 10px 0px 10px 82px;">가이드 투어 예약페이지 추가</h1>
 	<br/>
 	<div style="width: 980px; height: 800px; margin: auto;">
-		<form action="./reservationPageAddCtr.do" method="post" onsubmit='return validationFnc();'>
+		<form id="addForm" action="./reservationPageAddCtr.do" method="post">
 			<div style="width: 400px; height: 740px; border: 1px solid black; float: left;">
 				<div style="cursor:pointer;">이미지 넣을 예정</div>
 			</div>
@@ -224,10 +230,10 @@
 			</div>
 			<div style="margin: auto; clear:both; width: 700px; text-align: center;">
 				<!-- <input type="hidden" name="tourNo" value=""> -->
-				<input type="submit" class="ahreum" value="추가하기">
+				<input type="button" onclick='addFormFnc();' class="ahreum" value="추가하기">
+				<button class="ahreum" type="button" onclick="pageMoveListFnc();">목록으로</button>
 			</div>
 		</form>
-				<button class="ahreum" type="button" onclick="pageMoveListFnc();">목록으로</button>
 	</div>
 	
 	<jsp:include page="/WEB-INF/views/Tail.jsp" />

@@ -128,10 +128,8 @@
 </head>
 
 <body>
-	<!-- 달력때문에 include가 잘안되서 임시로 붙여놓은 곳 시작 -->
-	<div style="height: 220px; background-color: grey;"></div>
-	<!-- 달력때문에 include가 잘안되서 임시로 붙여놓은 곳 끝 -->
-	
+	<jsp:include page="/WEB-INF/views/Header.jsp" />
+		
 	<h1 class="daehanFont" style="margin: 10px 0px 10px 82px;">가이드 투어 예약 상세 날짜 선택</h1>
 	<br/>
 	<!-- 여기 div 는 투어 상세 정보가 뜨는 곳 시작 -->

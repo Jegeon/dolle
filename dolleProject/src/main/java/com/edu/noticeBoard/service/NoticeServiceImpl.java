@@ -173,6 +173,23 @@ public class NoticeServiceImpl implements NoticeService{
 	}
 
 
+	@Override
+	public NoticeMemberFileVo upWriteNotice(int rNum) {
+		// TODO Auto-generated method stub
+		
+		return noticeDao.upWriteNotice(rNum);
+	}
+
+
+	@Override
+	public NoticeMemberFileVo downWriteNotice(int rNum) {
+		// TODO Auto-generated method stub
+		
+		
+		return noticeDao.downWriteNotice(rNum);
+	}
+
+
 
 
 	

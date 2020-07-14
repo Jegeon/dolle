@@ -22,4 +22,6 @@ public interface NoticeDao {
 	public void deleteFile(int noticeIdx);
 	public Map<String, Object> fileSelectStoredName(int noticeIdx);
 	public int noticeSelectTotalCount(String searchOption, String keyword);
+	public NoticeMemberFileVo upWriteNotice(int rNum);
+	public NoticeMemberFileVo downWriteNotice(int rNum);
 }

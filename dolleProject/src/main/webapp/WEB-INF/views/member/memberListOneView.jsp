@@ -79,6 +79,7 @@
 	var subInfo = '';
 	var reservation = '';
 	var myWriting = '';
+	var addBtn = '';
 	
 	var subTest = '';
 
@@ -98,10 +99,12 @@
 		subInfo = document.getElementById('subInfo');
 		reservation = document.getElementById('reservation');
 		myWriting = document.getElementById('myWriting');
+		addBtn = document.getElementById('addBtn');
 		
 		subInfo.style.display = 'table';
 		reservation.style.display = 'none';
 		myWriting.style.display = 'none';
+		addBtn.style.display = 'none';
 		
 	}
 	
@@ -111,10 +114,12 @@
 		subInfo = document.getElementById('subInfo');
 		reservation = document.getElementById('reservation');
 		myWriting = document.getElementById('myWriting');
+		addBtn = document.getElementById('addBtn');
 		
 		subInfo.style.display = 'none';
 		reservation.style.display = 'table';
 		myWriting.style.display = 'none';
+		addBtn.style.display = 'unset';
 		
 	}
 	
@@ -122,10 +127,12 @@
 		subInfo = document.getElementById('subInfo');
 		reservation = document.getElementById('reservation');
 		myWriting = document.getElementById('myWriting');
+		addBtn = document.getElementById('addBtn');
 		
 		subInfo.style.display = 'none';
 		reservation.style.display = 'none';
 		myWriting.style.display = 'table';
+		addBtn.style.display = 'none';
 	}
 	
 	function testFnc(data) {
@@ -133,6 +140,10 @@
 		location.href = './payment.do?reserveIdx=' + data;
 	}
 	
+	function addReserveFnc() {
+		var testObj = document.getElementById('here');
+		testObj.value = parseInt(testObj.value) + 5;
+	}
 </script>
 
 </head>
@@ -225,11 +236,10 @@
 							예약/입금
 						</th>
 					</tr>
-					<c:forEach var='memberVo' items='${reservationList}'>
+					<c:forEach var='memberVo' items='${reservationList}' begin='0' end='5' varStatus="status">
 						<tr class='resCss'>
 							<td class='resCss idxNum'>
 								${memberVo.reserveIdx}
-<%-- 								<input name='testIdx' type='hidden' value='${memberVo.reserveIdx}'> --%>
 							</td>
 							<td class='resCss'>
 								${memberVo.tourName}
@@ -252,8 +262,11 @@
 								</c:if>
 							</td>
 						</tr>
+						<input id='here' type='hidden' value='${status.end}'>
 					</c:forEach>
 				</table>
+				<input id='addBtn' style='display: none;' class='btnCss' type='button' value='더보기'
+					onclick='addReserveFnc();'> 
 				<table id='myWriting' class='tableCenter'
 					style='display: none; border: 1px solid black;
 					border-collapse: collapse;'>

@@ -71,6 +71,7 @@ public class MemberController {
 		int start = memberPaging.getPageBegin();
 		int end = memberPaging.getPageEnd();
 		
+		System.out.println(totalCount);
 		List<MemberVo> memberList = memberService.memberSelectList(searchOption, keyword
 				, start, end);
 		

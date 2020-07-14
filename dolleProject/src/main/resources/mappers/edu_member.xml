@@ -7,14 +7,17 @@
 		<choose>
         	<!-- 검색옵션이 전체 검색일 경우  -->
         	<when test="searchOption == 'all'">
-        		WHERE MEMBER_NAME LIKE '%' || #{keyword} || '%'
-        		OR    MEMBER_EMAIL LIKE '%' || #{keyword} || '%'
+        		WHERE (MEMBER_NAME LIKE '%' || #{keyword} || '%'
+        		OR    MEMBER_EMAIL LIKE '%' || #{keyword} || '%')
         	</when>
         	
         	<!-- 전체 검색이 아닐 경우 -->
-        	<otherwise>
-        		WHERE ${searchOption} LIKE '%' || #{keyword} || '%'
-        	</otherwise>
+        	<when test="searchOption == 'name'">
+        		WHERE MEMBER_NAME LIKE '%' || #{keyword} || '%'
+        	</when>
+        	<when test="searchOption == 'email'">
+        		WHERE MEMBER_EMAIL LIKE '%' || #{keyword} || '%'
+        	</when>
         </choose>
 	</sql>
 
@@ -59,12 +62,13 @@
 	</select>
 
 	<select id="memberSelectList" parameterType="map" resultMap="memberResultMap">
-		SELECT ROWNUM, MEMBER_IDX, MEMBER_NAME, MEMBER_EMAIL, MEMBER_CRE_DATE, MEMBER_NICKNAME, MEMBER_PHONE, MEMBER_BIRTHDATE, MEMBER_GRADE
-		FROM MEMBER
-   		<include refid="search"></include>
-        AND ROWNUM BETWEEN #{start} AND #{end}
-		ORDER BY MEMBER_IDX
-		DESC
+		SELECT * 
+		FROM (SELECT ROWNUM AS RNUM, MEMBER_IDX, MEMBER_NAME, MEMBER_EMAIL, MEMBER_CRE_DATE, MEMBER_NICKNAME, MEMBER_PHONE, MEMBER_BIRTHDATE, MEMBER_GRADE
+			  FROM MEMBER
+    		  <include refid="search"></include>
+       		  AND MEMBER_GRADE = 'user'
+        	  ORDER BY MEMBER_IDX DESC)
+        WHERE RNUM BETWEEN #{start} AND #{end}
 	</select>
 	
 	<select id="adminSelectList" parameterType="map" resultMap="memberResultMap">
@@ -180,6 +184,7 @@
 		SELECT COUNT(*)
 		FROM MEMBER
 		<include refid="search"></include>
+		AND MEMBER_GRADE = 'user'
 	</select>
 	
 	<select id="memberSelectCurPage" parameterType="map"

@@ -24,6 +24,7 @@
 		padding: 5px;
 	}
 </style>
+<script type="text/javascript" src="/dolleProject/resources/js/jquery-3.5.1.js"></script>
 <script type="text/javascript">
 	function memberDeletFnc() {
 		var checkNo = document.getElementsByName('checkNo');
@@ -37,16 +38,28 @@
 	function memberAddFnc() {
 		location.href = '../member/add.do';
 	}
+	
+	function goPageFnc(pageNum){
+		var curPage = $('#curPage');
+		curPage.val(pageNum);
+		
+		var pagingForm = $('#pagingForm');
+		pagingForm.submit();
+	}
+	
+	function submitFnc() {
+		var pagingForm = $('#searchForm');
+		pagingForm.submit();
+	}
 </script>
 </head>
 <body>
-
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
 	<div id='mainDiv'>
 		<div style='padding: 10px;'>
 			<h1>회원목록</h1>
 		</div>
-			<form id='searchingForm' action="./list.do" method="post">
+			<form id='searchForm' action="./list.do" method="post">
 		<select id='searchOption' name='searchOption'>
 		<c:choose>
 			<c:when test="${searchMap.searchOption eq 'all'}">
@@ -85,51 +98,122 @@
 					<th>핸드폰</th><td>생년월일</td>
 					<th>가입일</th>
 				</tr>
-				<c:forEach var="memberVo" items="${memberList}">
-				<c:if test="${memberVo.grade == 'user' || memberVo.grade != 'admin'}">
+			<c:choose>
+				<c:when test="${empty memberList}">
 					<tr>
-						<td>
-							<input type='checkbox' name='checkNo' value='${memberVo.no}'>
-						</td>
-						<td>
-							${memberVo.email}
-						</td>
-						<td>
-							<a href='../member/memberlistOne.do?no=${memberVo.no}'>${memberVo.name}</a>
-						</td>
-						<td>
-							${memberVo.nickname}
-						</td>
-						<td>
-							${memberVo.phone}
-						</td>
-						<td>
-							<fmt:formatDate value="${memberVo.birthdate}"
-								pattern="yyyy-MM-dd"/>
-						</td>
-						<td>
-							<fmt:formatDate value="${memberVo.createDate}"
-								pattern="yyyy-MM-dd"/>
+						<td colspan="7" style="text-align: center;">
+							등록된 게시글이 없습니다.
 						</td>
 					</tr>
-				</c:if>
-				</c:forEach>
+				</c:when>
+				<c:otherwise>
+					<c:forEach var="memberVo" items="${memberList}">
+					<c:if test="${memberVo.grade == 'user' || memberVo.grade != 'admin'}">
+						<tr>
+							<td>
+								<input type='checkbox' name='checkNo' value='${memberVo.no}'>
+							</td>
+							<td>
+								${memberVo.email}
+							</td>
+							<td>
+								<a href='../member/memberlistOne.do?no=${memberVo.no}'>${memberVo.name}</a>
+							</td>
+							<td>
+								${memberVo.nickname}
+							</td>
+							<td>
+								${memberVo.phone}
+							</td>
+							<td>
+								<fmt:formatDate value="${memberVo.birthdate}"
+									pattern="yyyy-MM-dd"/>
+							</td>
+							<td>
+								<fmt:formatDate value="${memberVo.createDate}"
+									pattern="yyyy-MM-dd"/>
+							</td>
+						</tr>
+					</c:if>
+					</c:forEach>
+				</c:otherwise>
+			</c:choose>
 			</table>
 		</div>
 		</form>
 		<div>
 			<input type='button' onclick='memberDeletFnc();' value='삭제'>
-			<jsp:include page="/WEB-INF/views/common/memberPaging.jsp">
-				<jsp:param value="${pagingMap}" name="pagingMap"/>
-			</jsp:include>
+			<div style="display: none;">
+			</div>
+		<!-- 	페이징 버튼 -->
+			<div style="width:1260px; height:205px; margin:0 auto; text-align: center; 
+				padding-top: 30px; box-sizing: border-box;">
+				<ul id="pagingGroup" style="width: 600px; display: inline-block; margin-left: 165px;">
+					<li class="pagingImg" onclick="goPageFnc(1);"
+						 style="cursor: pointer; width:40px; height:40px; display: inline-block; 
+						 background: #FFFFFF; border:1px solid #fff; vertical-align: middle;
+						 padding-top:7px; box-sizing: border-box;">
+						<img id="doubledLeftBtn" alt="doubledLeftBtn" src="/dolleProject/resources/images/doubleLeft.PNG" 
+							style="width: 55%;">
+					</li>
+					<li class="pagingImg" onclick="goPageFnc(${pagingMap.memberPaging.prevPage});"
+						 style="cursor: pointer; width:40px; height:40px; display: inline-block; 
+						 background: #FFFFFF; border:1px solid #fff; vertical-align: middle;
+						 padding-top:7px; box-sizing: border-box;">
+						<img id="doubledLeftBtn" alt="doubledLeftBtn" src="/dolleProject/resources/images/left.PNG" 
+							style="width: 40%;">
+					</li>
+					<c:forEach var="num" 
+						begin="${pagingMap.memberPaging.blockBegin}" 
+						end="${pagingMap.memberPaging.blockEnd}">
+						
+						<c:if test="${pagingMap.memberPaging.curPage eq num}">
+							<li class="pagingNum" onclick="goPageFnc(${num});"
+								style="cursor: pointer; width:40px; height:40px; display:inline-block; 
+								background: #0D4371; color:#fff; border:1px solid #707070; vertical-align: middle; 
+								font-size: 20px; padding-top:8px; box-sizing: border-box;">
+								<c:out value="${num}"/>
+							</li>
+						</c:if>
+						<c:if test="${pagingMap.memberPaging.curPage ne num}">
+							<li class="pagingNum" onclick="goPageFnc(${num});"
+								 style="cursor: pointer; width:40px; height:40px; display: inline-block; 
+								 background: #FFFFFF; border:1px solid #707070; vertical-align: middle;
+								font-size: 20px; padding-top:8px; box-sizing: border-box;">
+								<c:out value="${num}"/>
+							</li>
+						</c:if>
+					</c:forEach>
+		
+					<li class="pagingImg" onclick="goPageFnc(${pagingMap.memberPaging.nextPage});"
+					 style="cursor: pointer; width:40px; height:40px; display: inline-block; 
+					 background: #FFFFFF; border:1px solid #fff; vertical-align: middle;
+						 padding-top:7px; box-sizing: border-box;">
+						<img id="doubledLeftBtn" alt="doubledLeftBtn" src="/dolleProject/resources/images/right.PNG" 
+							style="width: 42%;">
+					</li>
+					<li class="pagingImg" onclick="goPageFnc(${pagingMap.memberPaging.totPage});"
+						 style="cursor: pointer; width:40px; height:40px; display: inline-block; 
+						 background: #FFFFFF; border:1px solid #fff; vertical-align: middle;
+						 padding-top:7px; box-sizing: border-box;">
+						<img id="doubledLeftBtn" alt="doubledLeftBtn" src="/dolleProject/resources/images/doubleRight.PNG" 
+							style="width: 55%;">
+					</li>
+				</ul>
+				
+				<!-- 페이징정보 전달 -->
+				<form action="./list.do" id='pagingForm' method="get">
+					<input type="hidden" id='curPage' name='curPage' 
+						value="${pagingMap.memberPaging.curPage}">
+					<input type="hidden" id='pagingSearchOption' name='searchOption' 
+						value="${searchMap.searchOption}">	
+					<input type="hidden" id='pagingKeyword' name='keyword' 
+						value="${searchMap.keyword}">
+				</form>
+			</div>
 			<input type='button' onclick='memberAddFnc();' value='회원 추가'>
-			<form action="./list.do" id='pagingForm' method="get">
-				<input type="hidden" id='curPage' name='curPage' 
-					value="${pagingMap.memberPaging.curPage}">
-			</form>
 		</div>
 	</div>
-
 	<jsp:include page="/WEB-INF/views/Tail.jsp" />
 
 </body>

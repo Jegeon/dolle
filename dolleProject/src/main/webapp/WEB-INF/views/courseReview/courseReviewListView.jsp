@@ -200,6 +200,7 @@
 	</div>
 	
 	
+	<input id="listSize" type="hidden" value="${listSize}"> 
 	<c:if test="${listSize / 4 <= 1}">
 		<c:set var="listHeight" value="514"/>
 	</c:if>

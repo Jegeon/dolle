@@ -71,6 +71,7 @@ public class ReviewFileUtils {
 		
 		File file = new File(FILE_PATH);
 		
+		System.out.println("file.exists() : "+file.exists());
 		if(file.exists() == false) {
 			file.mkdirs();
 		}
@@ -97,6 +98,8 @@ public class ReviewFileUtils {
 				fileInfoMap.put("review_file_size", multipartFile.getSize());
 				
 				fileList.add(fileInfoMap);
+			}else {
+				System.out.println("파일 없음 - 기본파일값으로 넣자");
 			}
 			
 		} // while end 

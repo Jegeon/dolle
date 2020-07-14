@@ -152,6 +152,25 @@
 		}
 		$("#bodyWrap").css("height", bodyHeight+"px");
 		
+		
+		//첫글이거나 마지막글이면 버튼 나타나지 않도록
+		var lastRowNum = $("#lastRowNum").val();
+		var currentRowNum = $("#rnum").val();
+		if(currentRowNum == 1){
+			$("#leftBtn").remove();
+		}else if(currentRowNum == lastRowNum){
+			$("#rightBtn").remove();
+		}
+		
+		//댓글에서도 첫&마지막페이지에서 버튼 나타나지 않도록
+		var cmtCurrent = $("#cmtCurPage").val();
+		var lastCmtPage = $("#lastCmtPage").val();
+		if(cmtCurrent == 1){
+			$("#cmtLeftBtn").remove();
+		}else if(cmtCurrent == lastCmtPage){
+			$("#cmtRightBtn").remove();
+		}
+		
 	});
 
 	function movePageListFnc(){
@@ -207,18 +226,15 @@
 		if($("#check"+index).text() == 0){
 			$("#commentBox"+index).append($("<textarea id='commentContent' name='commentContent'></textarea>"));		
 			$("#check"+index).text(1);
-			
+
 			var commentIdx = $("#commentIdx"+index).val();
 // 			alert("comIdx"+commentIdx);
-			$("#updateBtn"+index).attr("onclick","updateFnc("+commentIdx+");");
+			$("#updateBtn"+index).attr("onClick","updateFnc("+commentIdx+")");
 		}else{
 			alert("이미 텍스트박스 있음");
 // 			$("#commentContent").remove();
 // 			$("#check"+index).text(0);
 		}
-		
-		
-		
 	}
 	
 	function updateFnc(commentIdx){
@@ -232,7 +248,26 @@
 // 			$("#commentContent").remove();
 		}
 	}
-		
+	
+	//리뷰 이전글 다음글
+	function prePageFnc(reviewIdx){
+		var rnumVal = $("#rnum").val();
+		location.href="./pageMove.do?reviewIdx="+reviewIdx+"&rnum="+rnumVal+"&channel=-1";
+	}
+	function nextPageFnc(reviewIdx){
+		var rnumVal = $("#rnum").val();
+		location.href="./pageMove.do?reviewIdx="+reviewIdx+"&rnum="+rnumVal+"&channel=1";
+	}
+	
+	//댓글 이전리스트, 다음리스트
+	function cmtLeftFnc(reviewIdx){
+		var cmtCurPage = Number($("#cmtCurPage").val())-1; 
+		location.href="./detail.do?reviewIdx="+reviewIdx+"&cmtCurPage="+cmtCurPage;
+	}
+	function cmtRightFnc(reviewIdx){
+		var cmtCurPage = Number($("#cmtCurPage").val())+1; 
+		location.href="./detail.do?reviewIdx="+reviewIdx+"&cmtCurPage="+cmtCurPage;
+	}
 	
 </script>
 </head>
@@ -259,6 +294,16 @@
 		
 		<div id="ratingBox" class="basicBox floatClear" style="padding-bottom: 20px;">
 		
+		</div>
+		
+		<!-- 이번페이지 다음페이지 버튼 -->
+		<input id="rnum" name="rnum" type="hidden" value="${rnum}">
+		<input id="lastRowNum" name="lastRowNum" type="hidden" value="${lastRowNum}">
+		<div id="leftBtn" onclick="prePageFnc(${reviewMCFVo.reviewIdx});" style="float:left;">
+			<img alt="leftBtn" src="/dolleProject/resources/images/left.PNG">
+		</div>
+		<div id="rightBtn" onclick="nextPageFnc(${reviewMCFVo.reviewIdx});" style="float:right;">
+			<img alt="rightBtn" src="/dolleProject/resources/images/right.PNG">
 		</div>
 		
 		<div class="basicBox reviewTitle" style="padding-bottom: 20px;">
@@ -300,10 +345,13 @@
 		</div>
 		
 		<div id="commentWrap" style="width:1100px; margin:70px auto 20px;">	
+			<input id="cmtCurPage" name="cmtCurPage" type="hidden" value="${cmtCurPage}">
+			<input id="lastCmtPage" name="lastCmtPage" type="hidden" value="${lastCmtPage}">
 			<span class="commentHeader">댓글쓰기</span>
 			<span class="commentBtn">
-				<button style="width:25px; height:25px;">&lt;</button>
-				<button style="width:25px; height:25px;">&gt;</button>
+				<span class="marginRight15">${cmtCurPage} / ${lastCmtPage}</span>
+				<button id="cmtLeftBtn" onclick="cmtLeftFnc(${reviewMCFVo.reviewIdx});" style="width:25px; height:25px;">&lt;</button>
+				<button id="cmtRightBtn" onclick="cmtRightFnc(${reviewMCFVo.reviewIdx});" style="width:25px; height:25px;">&gt;</button>
 			</span>
 			<hr>
 			

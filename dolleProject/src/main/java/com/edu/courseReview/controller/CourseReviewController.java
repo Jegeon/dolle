@@ -30,8 +30,6 @@ public class CourseReviewController {
 	@Autowired
 	private CourseReviewService courseReviewService;
 	
-	//관리자
-	// "/courseReview/adminList.do"
 	
 	//코스리뷰 전체 조회 화면
 	@RequestMapping(value="/courseReview/list.do"
@@ -97,6 +95,7 @@ public class CourseReviewController {
 	
 	@RequestMapping(value="/courseReview/detail.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String courseReviewDetail(int reviewIdx
+			,@RequestParam(defaultValue = "1") int cmtCurPage
 			, Model model) {
 		log.debug(" **** Welcome courseReviewDetail ****");
 		
@@ -104,17 +103,51 @@ public class CourseReviewController {
 		CourseReviewMemberCommentFileVo reviewMCFVo
 		 = courseReviewService.reviewSelectOne(reviewIdx);	//+조회수 증가 같이 기능함
 		
+		int cmtTotalCount = courseReviewService.commentSelectTotalCount(reviewIdx);
+		
+		Paging commentPaging = new Paging(cmtTotalCount, cmtCurPage, 10);
+		int cmtStart = commentPaging.getPageBegin();
+		int cmtEnd = commentPaging.getPageEnd();
+		System.out.println(cmtStart+" + "+cmtEnd); 
+		
 		//댓글 리스트
-		List<CommentVo> commentList = courseReviewService.commentSelectList(reviewIdx);
+		List<CommentVo> commentList = courseReviewService.commentSelectList(reviewIdx, cmtStart, cmtEnd);
+		
+		//현재 글의 번호 
+		int rnum = courseReviewService.reviewFindRNum(reviewIdx);
+		int lastRowNum = courseReviewService.reviewFindLastRowNum();
+		//윗글 아랫글 검색결과로 적용할 시 ...
+//		int lastRowNum = courseReviewService.reviewSelectTotalCount();
 		
 		model.addAttribute("reviewMCFVo",reviewMCFVo);
+		model.addAttribute("rnum",rnum);
+		model.addAttribute("lastRowNum",lastRowNum);
 		
 		model.addAttribute("commentList",commentList);
+		model.addAttribute("cmtCurPage",cmtCurPage);
+		int lastCmtPage = cmtTotalCount/10 +1;
+		model.addAttribute("lastCmtPage",lastCmtPage);
+		System.out.println("cmtCurPage"+cmtCurPage+"lastCmtPage"+lastCmtPage);
 		
+		//한페이지에 보이는 높이 계산용
 		int commentCnt = commentList.size();
 		model.addAttribute("commentCnt",commentCnt);
 		
+		
 		return "courseReview/courseReviewDetailView";
+	}
+	
+	@RequestMapping(value="/courseReview/pageMove.do", method = RequestMethod.GET)
+	public String courseReviewDetailPageMove(int reviewIdx, int rnum
+			,@RequestParam(defaultValue = "1") int channel 
+			, Model model) {
+		log.debug(" **** Welcome courseReviewDetailPageMove ****");
+		
+		int nextReviewIdx = courseReviewService.reviewMovePageOne(rnum, channel);
+		
+		model.addAttribute("reviewIdx",nextReviewIdx);
+		
+		return "redirect:/courseReview/detail.do";
 	}
 	
 	
@@ -199,10 +232,8 @@ public class CourseReviewController {
 			, @RequestParam(defaultValue = "10") int pageScale
 			, @RequestParam(defaultValue = "newest") String orderOption
 			, @RequestParam(defaultValue = "both") String searchOption
-			, @RequestParam(defaultValue = "") String keyword
-			, @RequestParam(defaultValue = "10") String rowNumOption) {
+			, @RequestParam(defaultValue = "") String keyword) {
 		log.debug(" **** Welcome courseReviewAdminList ***"+ curPage+ orderOption+ searchOption);
-		System.out.println("rowNum : " + rowNumOption);
 		
 		int totalCount = courseReviewService.reviewSelectTotalCount(searchOption, keyword);
 		
@@ -217,9 +248,9 @@ public class CourseReviewController {
 		
 		//정렬
 		model.addAttribute("orderOption",orderOption);
+		model.addAttribute("pageScale",pageScale);
 		
 		//검색
-		model.addAttribute("rowNumOption",rowNumOption);
 		model.addAttribute("searchOption",searchOption);
 		model.addAttribute("keyword",keyword);
 		

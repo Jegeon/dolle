@@ -41,6 +41,12 @@ public class CourseReviewServiceImpl implements CourseReviewService{
 		return courseReviewDao.reviewSelectOne(reviewIdx);
 	}
 
+	//이전글 다음글
+	@Override
+	public int reviewMovePageOne(int rnum, int channel) {
+		// TODO Auto-generated method stub
+		return courseReviewDao.reviewMovePageOne(rnum, channel);
+	}
 	
 	@Override
 	public void courseReviewInsertOne(CourseReviewVo reviewVo
@@ -178,9 +184,9 @@ public class CourseReviewServiceImpl implements CourseReviewService{
 	}
 
 	@Override
-	public List<CommentVo> commentSelectList(int reviewIdx) {
+	public List<CommentVo> commentSelectList(int reviewIdx, int start, int end) {
 		// TODO Auto-generated method stub
-		return courseReviewDao.commentSelectList(reviewIdx);
+		return courseReviewDao.commentSelectList(reviewIdx, start, end);
 	}
 
 	@Override
@@ -202,6 +208,26 @@ public class CourseReviewServiceImpl implements CourseReviewService{
 		courseReviewDao.fileDeleteList(reviewIdxList);
 		return courseReviewDao.courseReviewDeleteList(reviewIdxList);
 	}
+
+	@Override
+	public int reviewFindRNum(int reviewIdx) {
+		// TODO Auto-generated method stub
+		return courseReviewDao.reviewFindRNum(reviewIdx);
+	}
+
+	@Override
+	public int reviewFindLastRowNum() {
+		// TODO Auto-generated method stub
+		return courseReviewDao.reviewFindLastRowNum();
+	}
+
+	@Override
+	public int commentSelectTotalCount(int reviewIdx) {
+		// TODO Auto-generated method stub
+		return courseReviewDao.commentSelectTotalCount(reviewIdx);
+	}
+
+	
 	
 	
 

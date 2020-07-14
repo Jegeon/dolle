@@ -178,6 +178,11 @@
 	}
 	
 	
+	function changeBasicPhotoFnc(){
+		alert("기본사진으로 변경");
+		$("#uploadImg").attr("src", "/dolleProject/resources/images/test.jpg
+	}
+	
 	//input[type="file"] 미리보기 제공하기 
 	var sel_file;
 	var sel_files = [];
@@ -251,8 +256,8 @@
 			</div>
 			
 			<div class="floatRight" style="margin: 10px 190px 40px;">
-				<span style="margin-right:10px; font-size:12px;">기본 사진으로 변경</span>
-<!-- 				<button id="changePhotoBtn" onclick="">사진 변경하기</button> -->
+<!-- 				<span style="margin-right:10px; font-size:12px;">기본 사진으로 변경</span> -->
+				<input id="changePhotoBtn" type="button" onclick="changeBasicPhotoFnc();" value="기본 사진으로 변경">
 				<input id="fileBtn" type="file" name="file">
 			</div>
 			

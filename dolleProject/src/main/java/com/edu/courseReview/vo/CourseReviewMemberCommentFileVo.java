@@ -38,7 +38,6 @@ public class CourseReviewMemberCommentFileVo {
 	public CourseReviewMemberCommentFileVo() {
 		super();
 	}
-	
 	public CourseReviewMemberCommentFileVo(int reviewIdx, int reviewMemberIdx, int reviewCourseIdx, String reviewTitle,
 			String reviewContent, int reviewReadCount, int reviewLikeCount, int reviewRating, Date reviewCreDate,
 			Date reviewModDate, int memberIdx, String memberEmail, String memberNickname, int commentIdx,
@@ -68,7 +67,6 @@ public class CourseReviewMemberCommentFileVo {
 		this.fileOriginalName = fileOriginalName;
 		this.fileStoredName = fileStoredName;
 	}
-
 	public int getReviewIdx() {
 		return reviewIdx;
 	}
@@ -201,7 +199,7 @@ public class CourseReviewMemberCommentFileVo {
 	public void setFileStoredName(String fileStoredName) {
 		this.fileStoredName = fileStoredName;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "CourseReviewMemberCommentFileVo [reviewIdx=" + reviewIdx + ", reviewMemberIdx=" + reviewMemberIdx
@@ -212,8 +210,7 @@ public class CourseReviewMemberCommentFileVo {
 				+ memberNickname + ", commentIdx=" + commentIdx + ", commentReviewIdx=" + commentReviewIdx
 				+ ", commentMemberIdx=" + commentMemberIdx + ", commentContent=" + commentContent + ", commentCount="
 				+ commentCount + ", fileIdx=" + fileIdx + ", fileReviewIdx=" + fileReviewIdx + ", fileOriginalName="
-				+ fileOriginalName + ", fileStoredName=" + fileStoredName + "]";
+				+ fileOriginalName + ", fileStoredName=" + fileStoredName +  "]";
 	}
-
-
+	
 }

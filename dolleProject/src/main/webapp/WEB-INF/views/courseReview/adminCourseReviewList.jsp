@@ -66,24 +66,24 @@
 	<form id="adminForm" action="./adminList.do" method="post">
 		<!-- 정렬개수 -->
 		게시글개수 
-		<select id="rowNumOption" name="rowNumOption" onchange="submitFnc();" 
+		<select id="pageScale" name="pageScale" onchange="submitFnc();" 
 		style="width:120px; padding: 6px 22px; vertical-align: middle;
 			border: 1px solid #B9B9B9; 
 			font-size:14px; font-family: Segoe UI;
 			-webkit-appearance: none; /* 원본 select 버튼 감추기 */
 			background: url('/dolleProject/resources/images/selectBtn.PNG') no-repeat 95% 50%;">
 			<c:choose>
-				<c:when test="${rowNumOption eq 10}">
+				<c:when test="${pageScale eq 10}">
 					<option value="10" selected="selected">10</option>
 					<option value="20">20</option>
 					<option value="30">30</option>
 				</c:when>
-				<c:when test="${rowNumOption eq 20}">
+				<c:when test="${pageScale eq 20}">
 					<option value="10">10</option>
 					<option value="20" selected="selected">20</option>
 					<option value="30">30</option>
 				</c:when>
-				<c:when test="${rowNumOption eq 30}">
+				<c:when test="${pageScale eq 30}">
 					<option value="10">10</option>
 					<option value="20">20</option>
 					<option value="30" selected="selected">30</option>
@@ -272,7 +272,6 @@
 	</div>
 
 
-	1-10 / 전체 페이지 : 27
 	
 	<jsp:include page="/WEB-INF/views/Tail.jsp"/>
 

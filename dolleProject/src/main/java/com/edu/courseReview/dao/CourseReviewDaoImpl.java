@@ -41,6 +41,16 @@ public class CourseReviewDaoImpl implements CourseReviewDao{
 		return sqlSession.selectOne(namespace+"reviewSelectOne", reviewIdx);
 	}
 	
+	//이전글 다음글
+	@Override
+	public int reviewMovePageOne(int rnum, int channel) {
+		// TODO Auto-generated method stub
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("rnum", rnum);
+		map.put("channel", channel);
+		return sqlSession.selectOne(namespace + "reviewMovePageOne", map);
+	}
+	
 
 	@Override
 	public int courseReviewInsertOne(CourseReviewVo reviewVo) {
@@ -112,9 +122,13 @@ public class CourseReviewDaoImpl implements CourseReviewDao{
 	}
 
 	@Override
-	public List<CommentVo> commentSelectList(int commentReviewIdx) {
+	public List<CommentVo> commentSelectList(int commentReviewIdx, int start, int end) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList(namespace + "commentSelectList", commentReviewIdx);
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("commentReviewIdx", commentReviewIdx);
+		map.put("start", start);
+		map.put("end", end);
+		return sqlSession.selectList(namespace + "commentSelectList", map);
 	}
 
 	
@@ -156,6 +170,26 @@ public class CourseReviewDaoImpl implements CourseReviewDao{
 
 		return sqlSession.delete(namespace + "fileDeleteList", reviewIdxList);
 	}
+
+	@Override
+	public int reviewFindRNum(int reviewIdx) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace + "reviewFindRNum", reviewIdx);
+	}
+
+	@Override
+	public int reviewFindLastRowNum() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace + "reviewFindLastRowNum");
+	}
+
+	@Override
+	public int commentSelectTotalCount(int reviewIdx) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace + "commentSelectTotalCount", reviewIdx);
+	}
+
+	
 	
 	
 	

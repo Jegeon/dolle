@@ -98,97 +98,119 @@
 		$('#townIntroduceDiv').css("color", "#ffffff");
 		$('.contentBtn').css("cursor", "pointer");
 		
-		$('#townIntroduceDiv').click(function() {
-			$('#townIntroduceDiv').css("backgroundColor", "#0D4371");
-			$('#townIntroduceDiv').css("color", "#ffffff");
-			
-			$('#townSeeDiv').css("backgroundColor", "#ffffff");
-			$('#townSeeDiv').css("color", "#000000");
-			$('#townEatDiv').css("backgroundColor", "#ffffff");
-			$('#townEatDiv').css("color", "#000000");
-			$('#townPlayDiv').css("backgroundColor", "#ffffff");
-			$('#townPlayDiv').css("color", "#000000");
-			$('#recommendCourseDiv').css("backgroundColor", "#ffffff");
-			$('#recommendCourseDiv').css("color", "#000000");
-			
-			$('#leftImg').attr("src", "/dolleProject/resources/images/townIntroduce/townIntroduceImg.jpg");
-			$('#imgWrap').css("paddingTop", "50px")
-		});
+		$('#townIntroduceDiv').attr("onClick","introClickFnc()");
 		
-		$('#townSeeDiv').click(function() {
-			$('#townSeeDiv').css("backgroundColor", "#0D4371");
-			$('#townSeeDiv').css("color", "#ffffff");
-			
-			$('#townIntroduceDiv').css("backgroundColor", "#ffffff");
-			$('#townIntroduceDiv').css("color", "#000000");
-			$('#townEatDiv').css("backgroundColor", "#ffffff");
-			$('#townEatDiv').css("color", "#000000");
-			$('#townPlayDiv').css("backgroundColor", "#ffffff");
-			$('#townPlayDiv').css("color", "#000000");
-			$('#recommendCourseDiv').css("backgroundColor", "#ffffff");
-			$('#recommendCourseDiv').css("color", "#000000");
-			
-			$('#leftImg').attr("src", "/dolleProject/resources/images/townIntroduce/townSeeImg.jpg");
-			$('#imgWrap').css("paddingTop", "130px");
-		});
+		$('#townSeeDiv').attr("onClick", "seeClickFnc()");
 		
-		$('#townEatDiv').click(function() {
-			$('#townEatDiv').css("backgroundColor", "#0D4371");
-			$('#townEatDiv').css("color", "#ffffff");
-			
-			$('#townIntroduceDiv').css("backgroundColor", "#ffffff");
-			$('#townIntroduceDiv').css("color", "#000000");
-			$('#townSeeDiv').css("backgroundColor", "#ffffff");
-			$('#townSeeDiv').css("color", "#000000");
-			$('#townPlayDiv').css("backgroundColor", "#ffffff");
-			$('#townPlayDiv').css("color", "#000000");
-			$('#recommendCourseDiv').css("backgroundColor", "#ffffff");
-			$('#recommendCourseDiv').css("color", "#000000");
-			
-			$('#leftImg').attr("src", "/dolleProject/resources/images/townIntroduce/townEatImg.jpg");
-			$('#imgWrap').css("paddingTop", "0px");
-		});
+		$('#townEatDiv').attr("onClick", "eatClickFnc()");
 		
-		$('#townPlayDiv').click(function() {
-			$('#townPlayDiv').css("backgroundColor", "#0D4371");
-			$('#townPlayDiv').css("color", "#ffffff");
-			
-			$('#townIntroduceDiv').css("backgroundColor", "#ffffff");
-			$('#townIntroduceDiv').css("color", "#000000");
-			$('#townSeeDiv').css("backgroundColor", "#ffffff");
-			$('#townSeeDiv').css("color", "#000000");
-			$('#townEatDiv').css("backgroundColor", "#ffffff");
-			$('#townEatDiv').css("color", "#000000");
-			$('#recommendCourseDiv').css("backgroundColor", "#ffffff");
-			$('#recommendCourseDiv').css("color", "#000000");
-			
-			$('#leftImg').attr("src", "/dolleProject/resources/images/townIntroduce/townPlayImg.jpg");
-			$('#imgWrap').css("paddingTop", "70px");
-		});
+		$('#townPlayDiv').attr("onClick", "playClickFnc()");
 		
-		$('#recommendCourseDiv').click(function() {
-			$('#recommendCourseDiv').css("backgroundColor", "#0D4371");
-			$('#recommendCourseDiv').css("color", "#ffffff");
-			
-			$('#townIntroduceDiv').css("backgroundColor", "#ffffff");
-			$('#townIntroduceDiv').css("color", "#000000");
-			$('#townSeeDiv').css("backgroundColor", "#ffffff");
-			$('#townSeeDiv').css("color", "#000000");
-			$('#townEatDiv').css("backgroundColor", "#ffffff");
-			$('#townEatDiv').css("color", "#000000");
-			$('#townPlayDiv').css("backgroundColor", "#ffffff");
-			$('#townPlayDiv').css("color", "#000000");
-			
-			$('#leftImg').attr("src", "/dolleProject/resources/images/townIntroduce/recommendCourseImg.jpg");
-			$('#imgWrap').css("paddingTop", "0px");
-		});
+		$('#recommendCourseDiv').attr("onClick", "courseClickFnc()");
 		
+		var menu = $("#menu").val();
+		
+		if(menu == "intro"){
+			introClickFnc();
+		}else if(menu == "eat"){
+			eatClickFnc();
+		}else if(menu == "see"){
+			seeClickFnc();
+		}
 		
 	});
+	
+	function introClickFnc() {
+		$('#townIntroduceDiv').css("backgroundColor", "#0D4371");
+		$('#townIntroduceDiv').css("color", "#ffffff");
+		
+		$('#townSeeDiv').css("backgroundColor", "#ffffff");
+		$('#townSeeDiv').css("color", "#000000");
+		$('#townEatDiv').css("backgroundColor", "#ffffff");
+		$('#townEatDiv').css("color", "#000000");
+		$('#townPlayDiv').css("backgroundColor", "#ffffff");
+		$('#townPlayDiv').css("color", "#000000");
+		$('#recommendCourseDiv').css("backgroundColor", "#ffffff");
+		$('#recommendCourseDiv').css("color", "#000000");
+		
+		$('#leftImg').attr("src", "/dolleProject/resources/images/townIntroduce/townIntroduceImg.jpg");
+		$('#imgWrap').css("paddingTop", "50px");
+	}
+	
+	function seeClickFnc(){
+		$('#townSeeDiv').css("backgroundColor", "#0D4371");
+		$('#townSeeDiv').css("color", "#ffffff");
+		
+		$('#townIntroduceDiv').css("backgroundColor", "#ffffff");
+		$('#townIntroduceDiv').css("color", "#000000");
+		$('#townEatDiv').css("backgroundColor", "#ffffff");
+		$('#townEatDiv').css("color", "#000000");
+		$('#townPlayDiv').css("backgroundColor", "#ffffff");
+		$('#townPlayDiv').css("color", "#000000");
+		$('#recommendCourseDiv').css("backgroundColor", "#ffffff");
+		$('#recommendCourseDiv').css("color", "#000000");
+		
+		$('#leftImg').attr("src", "/dolleProject/resources/images/townIntroduce/townSeeImg.jpg");
+		$('#imgWrap').css("paddingTop", "130px");
+	}
+	
+	function eatClickFnc() {
+		$('#townEatDiv').css("backgroundColor", "#0D4371");
+		$('#townEatDiv').css("color", "#ffffff");
+		
+		$('#townIntroduceDiv').css("backgroundColor", "#ffffff");
+		$('#townIntroduceDiv').css("color", "#000000");
+		$('#townSeeDiv').css("backgroundColor", "#ffffff");
+		$('#townSeeDiv').css("color", "#000000");
+		$('#townPlayDiv').css("backgroundColor", "#ffffff");
+		$('#townPlayDiv').css("color", "#000000");
+		$('#recommendCourseDiv').css("backgroundColor", "#ffffff");
+		$('#recommendCourseDiv').css("color", "#000000");
+		
+		$('#leftImg').attr("src", "/dolleProject/resources/images/townIntroduce/townEatImg.jpg");
+		$('#imgWrap').css("paddingTop", "0px");
+	}
+	
+	function playClickFnc() {
+		$('#townPlayDiv').css("backgroundColor", "#0D4371");
+		$('#townPlayDiv').css("color", "#ffffff");
+		
+		$('#townIntroduceDiv').css("backgroundColor", "#ffffff");
+		$('#townIntroduceDiv').css("color", "#000000");
+		$('#townSeeDiv').css("backgroundColor", "#ffffff");
+		$('#townSeeDiv').css("color", "#000000");
+		$('#townEatDiv').css("backgroundColor", "#ffffff");
+		$('#townEatDiv').css("color", "#000000");
+		$('#recommendCourseDiv').css("backgroundColor", "#ffffff");
+		$('#recommendCourseDiv').css("color", "#000000");
+		
+		$('#leftImg').attr("src", "/dolleProject/resources/images/townIntroduce/townPlayImg.jpg");
+		$('#imgWrap').css("paddingTop", "70px");
+	}
+	
+	function courseClickFnc() {
+		$('#recommendCourseDiv').css("backgroundColor", "#0D4371");
+		$('#recommendCourseDiv').css("color", "#ffffff");
+		
+		$('#townIntroduceDiv').css("backgroundColor", "#ffffff");
+		$('#townIntroduceDiv').css("color", "#000000");
+		$('#townSeeDiv').css("backgroundColor", "#ffffff");
+		$('#townSeeDiv').css("color", "#000000");
+		$('#townEatDiv').css("backgroundColor", "#ffffff");
+		$('#townEatDiv').css("color", "#000000");
+		$('#townPlayDiv').css("backgroundColor", "#ffffff");
+		$('#townPlayDiv').css("color", "#000000");
+		
+		$('#leftImg').attr("src", "/dolleProject/resources/images/townIntroduce/recommendCourseImg.jpg");
+		$('#imgWrap').css("paddingTop", "0px");
+	}
+		
 </script>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
+	
+	<input id="menu" type="hidden" value="${menu}">
 	
 	<div id='totalWrap'>
 		<div id='imgWrap'>

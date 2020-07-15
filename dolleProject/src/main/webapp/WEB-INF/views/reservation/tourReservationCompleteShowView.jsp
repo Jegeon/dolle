@@ -28,14 +28,34 @@
 		font-family: 대한민국정부상징체 ; 
 	}
 	.ahreum {
-		width:220px; 
-		height:50px;
+		width:200px; 
+		height:45px;
 		font:normal bold 18px Segoe UI; 
 		color:white; 
 		background-color: #0D4371;
 		border:0px;
 		text-align: center;
 		vertical-align: middle;
+	}
+	.uzin {
+		border: 1px solid #A5A5A5;
+		border-radius: 4px;
+		width:200px;
+		height: 33px;
+		float: left;
+		box-sizing:border-box;
+		margin-top:10px;
+		margin-left: 20px;
+		padding-top: 7px;
+		cursor: pointer;
+		font-size: 15px;
+		font-weight: 600;
+		font-family: Arial;
+		text-align: center;
+		vertical-align: middle;
+	}
+	.titleColor {
+		color: #0D4371;
 	}
 	.tdRightPadding {
 		padding-left: 20px;
@@ -49,42 +69,42 @@
 	<h1 class="daehanFont" style="text-align: center;">예약이 성공적으로 신청되었습니다</h1>
 	<br/>
 	<div style="width: 740px; height: 640px; margin: auto;">
-		<div style="width: 600px; height: 420px; border-top: 1px solid black; border-bottom: 1px solid black; margin: auto;">
-			<div>
+		<div style="width: 600px; height: 450px; border-top: 2px solid #707070; border-bottom: 2px solid #707070; margin: auto;">
+			<div style="padding-top: 20px;">
 				<table style="width: 440px; height: 400px; margin:auto;">
 					<tr>
-						<td class="daehanFont" colspan="2" style="text-align: center;">${tourVo.tourName}</td>
+						<td class="daehanFont titleColor" colspan="2" style="text-align: center;">${tourVo.tourName}</td>
 					</tr>
 					<tr>
-						<td class="ahreum">투어 예약 신청 번호</td>
+						<td class="uzin">투어 예약 신청 번호</td>
 						<td class="tdRightPadding">
 							${reservationVo.reserveNo}
 						</td>
 					</tr>
 					<tr>
-						<td class="ahreum">투어 예약 날짜</td>
+						<td class="uzin">투어 예약 날짜</td>
 						<td class="tdRightPadding">
 							<fmt:formatDate value="${reservationVo.reserveTourDate}" pattern="yyyy-MM-dd" />
 						</td>
 					</tr>
 					<tr>
-						<td class="ahreum">투어 예약 시간</td>
+						<td class="uzin">투어 예약 시간</td>
 						<td class="tdRightPadding">${tourVo.tourStartTime} ~ ${tourVo.tourEndTime}</td>
 					</tr>
 					<tr>
-						<td class="ahreum">투어 예약 인원</td>
+						<td class="uzin">투어 예약 인원</td>
 						<td class="tdRightPadding">${reservationVo.reserveApplyNum}</td>
 					</tr>
 					<tr>
-						<td class="ahreum">결제 가격</td>
+						<td class="uzin">결제 가격</td>
 						<td class="tdRightPadding">${tourVo.tourPrice * reservationVo.reserveApplyNum}</td>
 					</tr>
 					<tr>
-						<td class="ahreum">결제 방법</td>
+						<td class="uzin">결제 방법</td>
 						<td class="tdRightPadding">계좌이체</td>
 					</tr>
 					<tr>
-						<td class="ahreum">예약 승인 상태</td>
+						<td class="uzin">예약 승인 상태</td>
 						<c:if test="${reservationVo.reserveDepositState eq 'standby'}">
 							<td class="tdRightPadding">대기 중</td>
 						</c:if>

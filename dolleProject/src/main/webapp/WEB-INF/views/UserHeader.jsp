@@ -171,7 +171,7 @@
 		<div style="border-bottom: 1px solid #A5A5A5;">
 			<div
 				style="text-align: center; padding: 30px 0px 10px 0px; box-sizing: border-box;">
-				<div style="font-size: 50px;">둘레길</div>
+				<div style="font-size: 50px;">돌레길</div>
 				<div style="padding-bottom: 15px;">
 					<div style="float: right;">
 						<a class='blackLink' href='<%=request.getContextPath()%>/member/listOne.do?no=${_memberVo_.no}'>
@@ -208,7 +208,7 @@
 		               <a class='blackLink' href='<%=request.getContextPath()%>/team/teamIntroduction.do'>팀 공존</a>
 		            </span>
 		            <span style="padding: 0px 7px 0px 7px;">
-		               <a class='blackLink' href='<%=request.getContextPath()%>/team/teamIntroduction.do'>기획 의도</a>
+		               <a class='blackLink' href='<%=request.getContextPath()%>/team/teamIntroduction.do#aim'>기획 의도</a>
 		            </span>
 		            <span style="padding: 0px 7px 0px 7px;">
 		               <a class='blackLink' href='<%=request.getContextPath()%>/team/teamIntroduction.do'>팀원 소개</a>

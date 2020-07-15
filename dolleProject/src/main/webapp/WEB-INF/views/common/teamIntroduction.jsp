@@ -26,7 +26,7 @@
 					팀 공존 <br>
 				</span>
 				<br>
-				<span style="font-size: 20px; font-family: 대한민국정부상징체;">
+				<span id="aim" style="font-size: 20px; font-family: 대한민국정부상징체;">
 					공존 [공ː존] <br><br>
 					1. [명사] 두 가지 이상의 사물이나 현상이 함께 존재함. <br>
 					2. [명사] 서로 도와서 함께 존재함. <br>

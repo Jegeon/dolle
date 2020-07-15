@@ -44,14 +44,12 @@
 	<div style="width: 740px; height: 1200px; margin: auto;">
 		<table>
 			<c:forEach var='reservationVo' items='${tourReservationList}'>
-				<tr class='resCss'>
+				<tr>
 					<td class='daehanFont' style="text-align: right;">
 						<c:choose>
 							<c:when test="${reservationVo.reserveTourDay eq '토'}">
 								<a style="color: #3B9DDA;">
-									<!-- 여기 부분은 어쩔 수 없이 한줄로 써야 합니다 시작-->
 									<fmt:formatDate value="${reservationVo.reserveTourDate}" pattern="d"/>${reservationVo.reserveTourDay}
-									<!-- 여기 부분은 어쩔 수 없이 한줄로 써야 합니다 끝 -->
 								</a>
 							</c:when>
 							<c:when test="${reservationVo.reserveTourDay eq '일'}">
@@ -64,13 +62,13 @@
 							</c:otherwise>
 						</c:choose>
 					</td>
-					<td class='resCss' style="width: 500px; padding-left: 20px;">
+					<td style="width: 500px; padding-left: 20px;">
 						<c:if test="${reservationVo.reserveApplyNumSum eq 0}"></c:if>
 						<c:if test="${reservationVo.reserveApplyNumSum ne 0}">
 							<c:forEach var='tourVo' items='${tourList}'>
 								<c:if test="${tourVo.tourNo eq 1}">${tourVo.tourStartTime} ~ ${tourVo.tourEndTime}</c:if>
 							</c:forEach>
-							${reservationVo.tourName} (${reservationVo.reserveApplyNumSum}명)
+							${reservationVo.tourNo}${reservationVo.tourName} (${reservationVo.reserveApplyNumSum}명)
 						</c:if>
 					</td>
 				</tr>

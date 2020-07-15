@@ -316,7 +316,7 @@
 						공존</a>
 				</span> <span style="padding: 0px 7px 0px 7px;"> <a
 					class='blackLink'
-					href='<%=request.getContextPath()%>/team/teamIntroduction.do'>기획
+					href='<%=request.getContextPath()%>/team/teamIntroduction.do#aim'>기획
 						의도</a>
 				</span> <span style="padding: 0px 7px 0px 7px;"> <a
 					class='blackLink'

@@ -42,7 +42,6 @@
 		width : 74px;
 	}
 	table, tr, td {
-		border: 1px solid black;
 		border-collapse: collapse;
 		vertical-align: middle;
 	}
@@ -51,14 +50,34 @@
 		font-family: 대한민국정부상징체 ; 
 	}
 	.ahreum {
-		width:220px; 
-		height:50px;
+		width:200px; 
+		height:45px;
 		font:normal bold 18px Segoe UI; 
 		color:white; 
 		background-color: #0D4371;
 		border:0px;
 		text-align: center;
 		vertical-align: middle;
+		cursor:pointer;
+	}
+	.uzin {
+		border: 1px solid #A5A5A5;
+		border-radius: 4px;
+		width:150px;
+		height: 33px;
+		float: left;
+		box-sizing:border-box;
+		margin-top:10px;
+		margin-left: 20px;
+		padding-top: 7px;
+		font-size: 15px;
+		font-weight: 600;
+		font-family: Arial;
+		text-align: center;
+		vertical-align: middle;
+	}
+	.titleColor {
+		color: #0D4371;
 	}
 </style>
 </head>
@@ -73,46 +92,58 @@
 	
 	<h1 class="daehanFont" style="margin: 10px 0px 10px 82px;">가이드 투어 예약페이지 관리 상세(투어관리)</h1>
 	<br/>
-	<div style="width: 740px; height: 460px; margin: auto;">
-		<div style="width: 240px; height: 380px; border: 1px solid black; float: left;">
-			<div>
-				이미지 넣을 예정
-				<img alt="review_photo" src="<c:url value='/img/${tourVo.fileStoredName}'/>" style="position: relative; height:100%; width:100%;">
+	<div style="width: 840px; height: 560px; border-top: 2px solid #707070; margin: auto;">
+		<div style="width: 840px; height: 360px; margin-top: 50px;">
+			<div style="width: 300px; height: 360px; float: left;">
+				<div>
+					<img alt="review_photo" src="<c:url value='/img/${tourVo.fileStoredName}'/>" style="position: relative; height:100%; width:100%;">
+				</div>
+			</div>
+			<div style="width: 450px; height: 360px; margin-left: 50px; float: left;">
+				<div>
+					<table style="width: 450px; height: 360px;">
+						<tr>
+							<td class="daehanFont titleColor" colspan="2" style="text-align: center;">
+									${tourVo.tourName}
+							</td>
+						</tr>
+						<tr>
+							<td class="uzin">기간</td>
+							<td>
+								<fmt:formatDate value="${tourVo.tourStartDate}" pattern="yyyy-MM-dd" />
+								~
+								<fmt:formatDate value="${tourVo.tourEndDate}" pattern="yyyy-MM-dd" />
+							</td>
+						</tr>
+						<tr>
+							<td class="uzin">시간</td>
+							<td>${tourVo.tourStartTime} ~ ${tourVo.tourEndTime}</td>
+						</tr>
+						<tr>
+							<td class="uzin">모집 인원</td>
+							<td>${tourVo.tourPeopleNum} 명</td>
+						</tr>
+						<tr>
+							<td class="uzin">인당 가격</td>
+							<td>
+								<fmt:formatNumber value="${tourVo.tourPrice}" pattern="#,###" /> 원 / 1인
+							</td>
+						</tr>
+						<tr>
+							<td class="uzin">출발지</td>
+							<td>${tourVo.tourStartingPoint}</td>
+						</tr>
+						<tr>
+							<td colspan="2" style="padding-left: 20px;">${tourVo.tourContent}</td>
+						</tr>
+					</table>
+				</div>
 			</div>
 		</div>
-		<div style="width: 496px; height: 380px; border: 1px solid black; float: left;">
-			<div>
-				<table style="width: 496px; height: 380px;">
-					<tr>
-						<td class="daehanFont" colspan="2" style="text-align: center;">${tourVo.tourName}</td>
-					</tr>
-					<tr>
-						<td class="ahreum">기간</td>
-						<td>
-							<fmt:formatDate value="${tourVo.tourStartDate}" pattern="yyyy-MM-dd" />
-							~
-							<fmt:formatDate value="${tourVo.tourEndDate}" pattern="yyyy-MM-dd" />
-						</td>
-					</tr>
-					<tr>
-						<td class="ahreum">시간</td><td>${tourVo.tourStartTime} ~ ${tourVo.tourEndTime}</td>
-					</tr>
-					<tr>
-						<td class="ahreum">모집 인원</td><td>${tourVo.tourPeopleNum}</td>
-					</tr>
-					<tr>
-						<td class="ahreum">인당 가격</td><td>${tourVo.tourPrice}원 / 1인</td>
-					</tr>
-					<tr>
-						<td class="ahreum">출발지</td><td>${tourVo.tourStartingPoint}</td>
-					</tr>
-					<tr>
-						<td colspan="2">${tourVo.tourContent}</td>
-					</tr>
-				</table>
-			</div>
-		</div>
-		<div style="margin: auto; clear:both; width: 700px; text-align: center;">
+		
+		<div style="width: 840px; height: 10px; border-top: 2px solid #707070; margin: 20px auto;"></div>
+		
+		<div style="margin: auto; clear:both; width: 840px; text-align: center;">
 			<button class="ahreum" onclick="pageMoveUpdateFnc();">수정하기</button>
 			<button class="ahreum" onclick="pageMoveDeleteFnc();">삭제하기</button>
 			<button class="ahreum" onclick="pageMoveListFnc();">목록으로</button>

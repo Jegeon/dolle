@@ -117,6 +117,7 @@
 		TOUR_MOD_DATE, TOUR_DEL_YN, TOUR_STORED_FILE_NAME AS REVIEW_STORED_FILE_NAME
 		FROM TOUR T, TOUR_FILE TF
         WHERE T.TOUR_IDX = TF.TOUR_IDX
+        ORDER BY T.TOUR_IDX DESC
 	</select> 
 	
 	<select id="tourSelectOne" parameterType="int" resultMap="tourFileResultMap">
@@ -273,6 +274,7 @@
 		FROM RESERVE R, MEMBER M, TOUR T
 		WHERE R.MEMBER_IDX = M.MEMBER_IDX
         AND R.TOUR_IDX = T.TOUR_IDX
+        AND T.TOUR_DEL_YN = 'n'
 		<!-- 검색 -->
 		<include refid="search"></include>
 		ORDER BY R.RESERVE_IDX DESC
@@ -297,6 +299,7 @@
 		FROM RESERVE R, MEMBER M, TOUR T
 		WHERE R.MEMBER_IDX = M.MEMBER_IDX
         AND R.TOUR_IDX = T.TOUR_IDX
+        AND T.TOUR_DEL_YN = 'n'
         AND R.RESERVE_DEPOSIT_STATE = 'paid'
         <!-- 검색 -->
 		<include refid="search"></include>
@@ -322,6 +325,7 @@
 		FROM RESERVE R, MEMBER M, TOUR T
 		WHERE R.MEMBER_IDX = M.MEMBER_IDX
         AND R.TOUR_IDX = T.TOUR_IDX
+        AND T.TOUR_DEL_YN = 'n'
         AND R.RESERVE_DEPOSIT_STATE = 'canceled'
         <!-- 검색 -->
 		<include refid="search"></include>
@@ -343,10 +347,14 @@
 		WHERE TOUR_IDX = #{tourNo}
 	</update>
 	
-	<delete id="tourDeleteOne" parameterType="int">
-		DELETE FROM TOUR
+	<update id="tourDeleteOne" parameterType="int">
+		UPDATE TOUR
+		SET
+		TOUR_NAME = SEQ_TOUR_DEL_NO.NEXTVAL, 
+		TOUR_MOD_DATE = SYSDATE,
+		TOUR_DEL_YN = 'y'
 		WHERE TOUR_IDX = #{tourNo}
-	</delete>
+	</update>
 	
 	<insert id="tourInsertOne" parameterType="map">
 		INSERT INTO TOUR

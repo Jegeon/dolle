@@ -148,14 +148,15 @@
 		font-family: 대한민국정부상징체 ; 
 	}
 	.ahreum {
-		width:220px; 
-		height:50px;
+		width:200px; 
+		height:45px;
 		font:normal bold 18px Segoe UI; 
 		color:white; 
 		background-color: #0D4371;
 		border:0px;
 		text-align: center;
 		vertical-align: middle;
+		cursor:pointer;
 	}
 </style>
 </head>
@@ -166,70 +167,70 @@
 
 	<h1 class="daehanFont" style="margin: 10px 0px 10px 82px;">가이드 투어 예약페이지 추가</h1>
 	<br/>
-	<div style="width: 980px; height: 800px; margin: auto;">
+	<div style="width: 580px; height: 820px; margin: auto;">
 		<form id="addForm" action="./reservationPageAddCtr.do" method="post" enctype="multipart/form-data">
-			<div style="width: 400px; height: 740px; border: 1px solid black; float: left;">
-				<div style="cursor:pointer;">이미지 넣을 예정</div>
-				<input id="fileBtn" type="file" name="file">
+			<div>
+				<table style="width: 580px; height: 740px;">
+					<tr>
+						<td class="ahreum">투어명</td>
+						<td>
+							<input type="text" id="tourName" name="tourName" value="" placeholder="투어 이름을 입력하세요">
+						</td>
+					</tr>
+					<tr>
+						<td class="ahreum">투어 이미지 파일</td>
+						<td>
+							<input id="fileBtn" type="file" name="file">
+						</td>
+					</tr>
+					<tr>
+						<td class="ahreum">투어 시작일 및 종료일</td>
+						<td>
+							<input type="text"   
+							id="fromDt" size="8" title="시작일자" placeholder="투어 시작일" 
+							onchange="carryStartDateTextToDateFnc();"> ~
+							<input type="text" 
+							id="toDt" size="8" title="종료일자" placeholder="투어 종료일"  
+							onchange="carryEndDateTextToDateFnc();">  
+							<input type="hidden" id="tourStartDate" name="tourStartDate" value="">
+							<input type="hidden" id="tourEndDate" name="tourEndDate" value="">
+						</td>
+					</tr>
+					<tr>
+						<td class="ahreum">출발시간 및 종료시간</td>
+						<td>
+							<input type="text" id="tourStartTime" name="tourStartTime" value="" placeholder="09:00"> ~
+							<input type="text" id="tourEndTime" name="tourEndTime" value="" placeholder="18:00">
+						</td>
+					</tr>
+					<tr>
+						<td class="ahreum">투어 최대 인원</td>
+						<td>
+							<input type="number" id="tourPeopleNum" name="tourPeopleNum" value="" placeholder="10 (숫자를 입력하세요)">
+						</td>
+					</tr>
+					<tr>
+						<td class="ahreum">투어 인당 가격</td>
+						<td>
+							<input type="number" id="tourPrice" name="tourPrice" value="" placeholder="9800 (숫자만 입력하세요)">
+						</td>
+					</tr>
+					<tr>
+						<td class="ahreum">투어 출발지</td>
+						<td>
+							<input type="text" id="tourStartingPoint" name="tourStartingPoint" value="" placeholder="출발지를 입력하세요">
+						</td>
+					</tr>
+					<tr>
+						<td class="ahreum">투어 내용</td>
+						<td>
+							<textarea id="tourContent" name="tourContent" rows="" cols="" placeholder="내용을 입력해주세요"
+							style="width:270px; height:200px; font-size:17px; box-sizing:border-box;"></textarea>
+						</td>
+					</tr>
+				</table>
 			</div>
-			<div style="width: 576px; height: 740px; border: 1px solid black; float: left;">
-				<div>
-					<table style="width: 576px; height: 740px;">
-						<tr>
-							<td class="ahreum">투어명</td>
-							<td>
-								<input type="text" id="tourName" name="tourName" value="" placeholder="투어 이름을 입력하세요">
-							</td>
-						</tr>
-						<tr>
-							<td class="ahreum">투어 시작일 및 종료일</td>
-							<td>
-								<input type="text"   
-								id="fromDt" size="8" title="시작일자" placeholder="투어 시작일" 
-								onchange="carryStartDateTextToDateFnc();"> ~
-								<input type="text" 
-								id="toDt" size="8" title="종료일자" placeholder="투어 종료일"  
-								onchange="carryEndDateTextToDateFnc();">  
-								<input type="hidden" id="tourStartDate" name="tourStartDate" value="">
-								<input type="hidden" id="tourEndDate" name="tourEndDate" value="">
-							</td>
-						</tr>
-						<tr>
-							<td class="ahreum">투어 출발시간 및 종료시간</td>
-							<td>
-								<input type="text" id="tourStartTime" name="tourStartTime" value="" placeholder="09:00"> ~
-								<input type="text" id="tourEndTime" name="tourEndTime" value="" placeholder="18:00">
-							</td>
-						</tr>
-						<tr>
-							<td class="ahreum">투어 최대 인원</td>
-							<td>
-								<input type="number" id="tourPeopleNum" name="tourPeopleNum" value="" placeholder="10 (숫자를 입력하세요)">
-							</td>
-						</tr>
-						<tr>
-							<td class="ahreum">투어 인당 가격</td>
-							<td>
-								<input type="number" id="tourPrice" name="tourPrice" value="" placeholder="9800 (숫자만 입력하세요)">
-							</td>
-						</tr>
-						<tr>
-							<td class="ahreum">투어 출발지</td>
-							<td>
-								<input type="text" id="tourStartingPoint" name="tourStartingPoint" value="" placeholder="출발지를 입력하세요">
-							</td>
-						</tr>
-						<tr>
-							<td class="ahreum">투어 내용</td>
-							<td>
-								<textarea id="tourContent" name="tourContent" rows="" cols="" placeholder="내용을 입력해주세요"
-								style="width:270px; height:200px; font-size:17px; box-sizing:border-box;"></textarea>
-							</td>
-						</tr>
-					</table>
-				</div>
-			</div>
-			<div style="margin: auto; clear:both; width: 700px; text-align: center;">
+			<div style="width: 580px; padding-top: 20px; text-align: center;">
 				<!-- <input type="hidden" name="tourNo" value=""> -->
 				<input type="button" onclick='addFormFnc();' class="ahreum" value="추가하기">
 				<button class="ahreum" type="button" onclick="pageMoveListFnc();">목록으로</button>

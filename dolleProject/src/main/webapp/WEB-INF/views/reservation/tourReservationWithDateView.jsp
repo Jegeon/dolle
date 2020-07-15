@@ -114,6 +114,7 @@
 		text-align: center;
 		vertical-align: middle;
 		margin-bottom: 10px;
+		cursor:pointer;
 	}
 	.uzin {
 		border: 1px solid #A5A5A5;
@@ -125,7 +126,6 @@
 		margin-top:10px;
 		margin-left: 20px;
 		padding-top: 7px;
-		cursor: pointer;
 		font-size: 15px;
 		font-weight: 600;
 		font-family: Arial;

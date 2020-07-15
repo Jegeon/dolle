@@ -33,7 +33,6 @@
 		margin-top:10px;
 		margin-left: 20px;
 		padding-top: 7px;
-		cursor: pointer;
 		font-size: 15px;
 		font-weight: 600;
 		font-family: Arial;

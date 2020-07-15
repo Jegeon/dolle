@@ -39,14 +39,15 @@
 		font-family: 대한민국정부상징체 ; 
 	}
 	.ahreum {
-		width:220px; 
-		height:50px;
+		width:200px; 
+		height:45px;
 		font:normal bold 18px Segoe UI; 
 		color:white; 
 		background-color: #0D4371;
 		border:0px;
 		text-align: center;
 		vertical-align: middle;
+		cursor:pointer;
 	}
 	#searchWrap {
 		float: right;
@@ -231,7 +232,7 @@
 				<!-- 검색결과가 없는 경우 -->
 				<c:if test="${empty tourReservationListAll}">
 					<tr>
-						<td colspan="9">검색된 결과가 없습니다.</td>
+						<td colspan="10">검색된 결과가 없습니다.</td>
 					</tr>
 				</c:if>
 				<c:forEach var='reservationVo' items='${tourReservationListAll}'>

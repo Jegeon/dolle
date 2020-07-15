@@ -29,7 +29,7 @@
 			buttonImageOnly : true, //이미지표시
 			buttonImage : '/dolleProject/resources/images/starSolid.png', //이미지주소
 			showOn : "both", //엘리먼트와 이미지 동시 사용(both,button)
-			minDate: 2,
+			minDate: 1,
 		};
 		$("#fromDt").datepicker(clareCalendar);
 		$("#toDt").datepicker(clareCalendar);
@@ -37,8 +37,8 @@
 		$("#ui-datepicker-div").hide(); //자동으로 생성되는 div객체 숨김  
 	});
 	
-	function pageMoveDetailFnc() {
-		location.href = "reservationPageDetail.do";
+	function pageMoveListFnc() {
+		location.href = "reservationPage.do";
 	}
 	function validationFnc(){
 		var closedStartDateObjValue = document.getElementById("closedStartDate").value;
@@ -90,14 +90,15 @@
 		font-family: 대한민국정부상징체 ; 
 	}
 	.ahreum {
-		width:220px; 
-		height:40px;
+		width:200px; 
+		height:45px;
 		font:normal bold 18px Segoe UI; 
 		color:white; 
 		background-color: #0D4371;
 		border:0px;
 		text-align: center;
 		vertical-align: middle;
+		cursor:pointer;
 	}
 </style>
 </head>
@@ -109,44 +110,45 @@
 	<h1 class="daehanFont" style="margin: 10px 0px 10px 82px;">가이드 투어 휴무일 변경</h1>
 	<br/>
 	<div style="width: 600px; height: 700px; margin: auto;">
-	<form action="./reservationPageCloseCtr.do" method="post" onsubmit='return validationFnc();'>
-		<input type="hidden" name="closedNo" value="${closedDayVo.closedNo}" disabled="disabled">
-		<input type="hidden" name="tourNo" value="${closedDayVo.tourNo}" disabled="disabled">
-		<div>
-			<table style="width: 576px; height: 340px;">
-				<tr>
-					<td class="ahreum">휴무 시작일 및 종료일</td>
-					<td>
-						<input type="text"   
-						id="fromDt" size="8" title="시작일자" onchange="carryStartDateTextToDateFnc();"> ~
-						<input type="text" 
-						id="toDt" size="8" title="종료일자" onchange="carryEndDateTextToDateFnc();">  
-						<br>
-						기존 휴무일 : 
-						<fmt:formatDate value="${closedDayVo.closedStartDate}" pattern="yyyy-MM-dd" /> ~
-						<fmt:formatDate value="${closedDayVo.closedEndDate}" pattern="yyyy-MM-dd" />
-						<input type="hidden" id="closedStartDate" name="closedStartDate" value="">
-						<input type="hidden" id="closedEndDate" name="closedEndDate" value="">
-					</td>
-				</tr>
-				<tr>
-					<td class="ahreum">휴무 내용</td>
-					<td>
-						<textarea id="closedContent" name="closedContent" rows="" cols="" placeholder="내용을 입력해주세요."
-					 	style="width:270px; height:100px; font-size:17px; box-sizing:border-box;">
-					 		${closedDayVo.closedContent}
-			 			</textarea>
-					</td>
-				</tr>
-			</table>
-		</div>
-		
-		<div style="text-align: center; margin-top: 20px; margin-bottom: 20px;">
+		<form action="./reservationPageCloseCtr.do" method="post" onsubmit='return validationFnc();'>
+			<input type="hidden" name="closedNo" value="${closedDayVo.closedNo}" disabled="disabled">
+			<input type="hidden" name="tourNo" value="${closedDayVo.tourNo}" disabled="disabled">
 			<div>
-				<button class="ahreum" onclick="location.href='../reservation/reservationPageClose.do'">휴무일 변경하기</button>
+				<table style="width: 576px; height: 200px;">
+					<tr>
+						<td class="ahreum">휴무 시작일 및 종료일</td>
+						<td style="padding-left: 20px;">
+							<input type="text"   
+							id="fromDt" size="8" title="시작일자" onchange="carryStartDateTextToDateFnc();"> ~
+							<input type="text" 
+							id="toDt" size="8" title="종료일자" onchange="carryEndDateTextToDateFnc();">  
+							<br>
+							기존 휴무일 : 
+							<fmt:formatDate value="${closedDayVo.closedStartDate}" pattern="yyyy-MM-dd" /> ~
+							<fmt:formatDate value="${closedDayVo.closedEndDate}" pattern="yyyy-MM-dd" />
+							<input type="hidden" id="closedStartDate" name="closedStartDate" value="">
+							<input type="hidden" id="closedEndDate" name="closedEndDate" value="">
+						</td>
+					</tr>
+					<tr>
+						<td class="ahreum">휴무 내용</td>
+						<td style="padding-left: 20px;">
+							<textarea id="closedContent" name="closedContent" rows="" cols="" placeholder="내용을 입력해주세요."
+						 	style="width:300px; height:100px; font-size:17px; box-sizing:border-box;">
+						 		${closedDayVo.closedContent}
+				 			</textarea>
+						</td>
+					</tr>
+				</table>
 			</div>
-		</div>
-	</form>
+			
+			<div style="text-align: center; margin-top: 20px; margin-bottom: 20px;">
+				<div>
+					<button class="ahreum" onclick="location.href='../reservation/reservationPageClose.do'">휴무일 변경하기</button>
+					<button class="ahreum" type="button" onclick="pageMoveListFnc();">뒤로가기</button>
+				</div>
+			</div>
+		</form>
 	</div>
 	
 	<jsp:include page="/WEB-INF/views/Tail.jsp" />

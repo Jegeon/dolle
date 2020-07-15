@@ -197,7 +197,7 @@ body {
 			<div class='contentInfoDiv'>
 				<form action="noticeDownPage.do" id="downForm" method = "post">
 					<span class='contentInfoSpan'>
-						작성일: <fmt:formatDate value="${noticeVo.noticeCreDate}" pattern="yyyy-MM-dd"/>
+						작성일: <fmt:formatDate value="${noticeVo.noticeCreDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
 					</span>
 					
 					<c:if test="${noticeVo.rNum ne maxRnum}">

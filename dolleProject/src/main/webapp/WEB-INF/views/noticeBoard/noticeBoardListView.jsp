@@ -254,7 +254,7 @@ td {
 							</td>
 							<td class='tableLine'>${noticeMemberFileVo.memberNickname}</td>
 							<td>
-								<fmt:formatDate value="${noticeMemberFileVo.noticeCreDate}" pattern="yyyy-MM-dd"/>
+								<fmt:formatDate value="${noticeMemberFileVo.noticeCreDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
 							</td>
 						</tr>
 					</c:forEach>
@@ -271,7 +271,7 @@ td {
 							</a>
 						</td>
 						<td class='tableLine'>${noticeMemberFileVo.memberNickname}</td>
-						<td><fmt:formatDate value="${noticeMemberFileVo.noticeCreDate}" pattern="yyyy-MM-dd"/></td>
+						<td><fmt:formatDate value="${noticeMemberFileVo.noticeCreDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 					</tr>
 				</c:forEach>
 			</table>

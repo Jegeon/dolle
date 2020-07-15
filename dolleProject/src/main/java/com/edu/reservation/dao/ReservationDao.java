@@ -5,14 +5,15 @@ import java.util.Map;
 
 import com.edu.reservation.vo.ClosedDayVo;
 import com.edu.reservation.vo.ReservationVo;
+import com.edu.reservation.vo.TourFileVo;
 import com.edu.reservation.vo.TourVo;
 
 public interface ReservationDao {
 
 	public List<TourVo> tourSelectList();
-	public TourVo tourSelectOne(int tourNo);
-	public TourVo tourSelectAllFromOne(int tourNo);
-	public TourVo tourAndReservationSelectAllFromOne(Map<String, Object> paramMap);
+	public TourFileVo tourSelectOne(int tourNo);
+	public TourFileVo tourSelectAllFromOne(int tourNo);
+	public TourFileVo tourAndReservationSelectAllFromOne(Map<String, Object> paramMap);
 	public int tourReservationInsertOne(Map<String, Object> paramMap);
 	public ReservationVo reservationSelectNewestOne();
 	
@@ -38,4 +39,12 @@ public interface ReservationDao {
 	// 휴무일
 	public ClosedDayVo tourClosedDaySelectOne();
 	public int tourClosedDayUpdateOne(Map<String, Object> paramMap);
+	
+	// 아름누나 파일 기술
+	// reviewNewestSelectIdx();
+	public int tourNewestSelectIdx();
+	public int fileInsertOne(Map<String, Object> map);
+	public int fileUpdateOne(Map<String, Object> map);
+	public Map<String, Object> fileSelectStoredName(int tourIdx);
+	public int fileDeleteOne(int tourIdx);
 }

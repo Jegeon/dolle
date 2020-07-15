@@ -45,9 +45,10 @@
 		<div style="width: 740px; height: 360px; margin: auto;">
 			<div style="width: 240px; height: 260px; border: 1px solid black; float: left;">
 				<div onclick="location.href='../reservation/reservationPageDetail.do?tourNo=${tourVo.tourNo}'" style="cursor:pointer;">
+					<div>
 					이미지 넣을 예정
-					<br>
-					여기 누르면 링크 이동
+					<img alt="review_photo" src="<c:url value='/img/${tourVo.fileStoredName}'/>" style="position: relative; height:100%; width:100%;">
+				</div>
 				</div>
 			</div>
 			<div style="width: 496px; height: 260px; border: 1px solid black; float: left;">

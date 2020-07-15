@@ -167,9 +167,10 @@
 	<h1 class="daehanFont" style="margin: 10px 0px 10px 82px;">가이드 투어 예약페이지 추가</h1>
 	<br/>
 	<div style="width: 980px; height: 800px; margin: auto;">
-		<form id="addForm" action="./reservationPageAddCtr.do" method="post">
+		<form id="addForm" action="./reservationPageAddCtr.do" method="post" enctype="multipart/form-data">
 			<div style="width: 400px; height: 740px; border: 1px solid black; float: left;">
 				<div style="cursor:pointer;">이미지 넣을 예정</div>
+				<input id="fileBtn" type="file" name="file">
 			</div>
 			<div style="width: 576px; height: 740px; border: 1px solid black; float: left;">
 				<div>

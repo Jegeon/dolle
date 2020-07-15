@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.edu.reservation.vo.ClosedDayVo;
 import com.edu.reservation.vo.ReservationVo;
+import com.edu.reservation.vo.TourFileVo;
 import com.edu.reservation.vo.TourVo;
 
 @Repository
@@ -26,17 +27,17 @@ public class ReservationDaoImpl implements ReservationDao{
 	}
 
 	@Override
-	public TourVo tourSelectOne(int tourNo) {
+	public TourFileVo tourSelectOne(int tourNo) {
 		return sqlSession.selectOne(namespace + "tourSelectOne", tourNo);
 	}
 
 	@Override
-	public TourVo tourSelectAllFromOne(int tourNo) {
+	public TourFileVo tourSelectAllFromOne(int tourNo) {
 		return sqlSession.selectOne(namespace + "tourSelectAllFromOne", tourNo);
 	}
 
 	@Override
-	public TourVo tourAndReservationSelectAllFromOne(Map<String, Object> paramMap) {
+	public TourFileVo tourAndReservationSelectAllFromOne(Map<String, Object> paramMap) {
 		return sqlSession.selectOne(namespace + "tourAndReservationSelectAllFromOne", paramMap);
 	}
 
@@ -137,5 +138,34 @@ public class ReservationDaoImpl implements ReservationDao{
 	@Override
 	public int tourClosedDayUpdateOne(Map<String, Object> paramMap) {
 		return sqlSession.update(namespace + "tourClosedDayUpdateOne", paramMap);
+	}
+	
+	// 아름 파일
+	// fileInsertOne
+	@Override
+	public int fileInsertOne(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert(namespace + "fileInsertOne", map);
+	}
+	// reviewNewestSelectIdx
+	@Override
+	public int tourNewestSelectIdx() {
+		return sqlSession.selectOne(namespace + "tourNewestSelectIdx");
+	}
+	@Override
+	public int fileDeleteOne(int fileIdx) {
+		// TODO Auto-generated method stub
+		return sqlSession.delete(namespace + "fileDeleteOne", fileIdx);
+	}
+
+	@Override
+	public Map<String, Object> fileSelectStoredName(int tourIdx) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace + "fileSelectStoredName", tourIdx);
+	}
+	@Override
+	public int fileUpdateOne(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return sqlSession.update(namespace + "fileUpdateOne", map);
 	}
 }

@@ -3,12 +3,17 @@ package com.edu.reservation.service;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.edu.reservation.dao.ReservationDao;
 import com.edu.reservation.vo.ClosedDayVo;
 import com.edu.reservation.vo.ReservationVo;
+import com.edu.reservation.vo.TourFileUtils;
+import com.edu.reservation.vo.TourFileVo;
 import com.edu.reservation.vo.TourVo;
 
 @Service
@@ -16,6 +21,9 @@ public class ReservationServiceImpl implements ReservationService{
 
 	@Autowired
 	public ReservationDao reservationDao;
+	
+	@Resource(name="tourFileUtils")
+	private TourFileUtils tourFileUtils;
 
 	@Override
 	public List<TourVo> tourSelectList() {
@@ -23,17 +31,17 @@ public class ReservationServiceImpl implements ReservationService{
 	}
 
 	@Override
-	public TourVo tourSelectOne(int tourNo) {
+	public TourFileVo tourSelectOne(int tourNo) {
 		return reservationDao.tourSelectOne(tourNo);
 	}
 
 	@Override
-	public TourVo tourReservation(int tourNo) {
+	public TourFileVo tourReservation(int tourNo) {
 		return reservationDao.tourSelectAllFromOne(tourNo);
 	}
 
 	@Override
-	public TourVo tourReservation(Map<String, Object> paramMap) {
+	public TourFileVo tourReservation(Map<String, Object> paramMap) {
 		return reservationDao.tourAndReservationSelectAllFromOne(paramMap);
 	}
 
@@ -68,18 +76,96 @@ public class ReservationServiceImpl implements ReservationService{
 	}
 	
 	@Override
-	public int tourUpdateOne(Map<String, Object> paramMap) {
-		return reservationDao.tourUpdateOne(paramMap);
+	public void tourUpdateOne(Map<String, Object> paramMap, MultipartHttpServletRequest multipartHttpServletRequest
+			, int fileIdx) {
+		
+		int tourIdx = (int) paramMap.get("tourNo");
+		System.out.println(tourIdx);
+		try {
+			Map<String, Object> tempFileMap 
+			= reservationDao.fileSelectStoredName(tourIdx);
+			
+			System.out.println(tempFileMap.get("TOUR_STORED_FILE_NAME"));
+			
+			List<Map<String, Object>> fileList = 
+				tourFileUtils.parseInsertFileInfo(tourIdx
+					, multipartHttpServletRequest);
+			
+			// 오로지 하나만 관리 수정
+			if(fileList.isEmpty() == false) {
+				System.out.println("0");
+				
+				if(tempFileMap != null) {
+					System.out.println("1");
+					reservationDao.fileDeleteOne(tourIdx);
+					
+					for (Map<String, Object> map : fileList) {
+						System.out.println("4");
+						reservationDao.fileInsertOne(map);
+					}
+					
+					System.out.println("5");
+					tourFileUtils.parseUpdateFileInfo(tempFileMap);
+					System.out.println("6");
+				}
+				
+			}else if(fileIdx == -1) {
+				System.out.println("2");
+				if(tempFileMap != null) {
+					System.out.println("3");
+//					courseReviewDao.fileDeleteOne(reviewIdx);
+					
+					//파일입력이 없으면 기본 사진
+//					List<Map<String, Object>> basicFile = 
+//							reviewFileUtils.parseInsertFileInfo(reviewIdx
+//								, multipartHttpServletRequest);
+//					courseReviewDao.fileInsertOne(basicFile.get(0));
+//					reviewFileUtils.parseUpdateFileInfo(tempFileMap);
+					
+					System.out.println(tempFileMap.get("TOUR_STORED_FILE_NAME"));
+				}
+			}
+			reservationDao.tourUpdateOne(paramMap);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("문제 생기면 처리할꺼 정하자");
+			System.out.println("일단 여긴 파일 처리 중 문제 발생한 거야");
+			e.printStackTrace();
+		}
 	}
 
 	@Override
-	public void tourDeleteOne(int tourNo) {
-		reservationDao.tourDeleteOne(tourNo);
+	public void tourDeleteOne(int tourIdx) {
+		// 걱정되는 부분 원래는 tourNo였음
+		reservationDao.fileDeleteOne(tourIdx);
+		reservationDao.tourDeleteOne(tourIdx);
 	}
 
 	@Override
-	public void tourInsertOne(Map<String, Object> paramMap) {
+	public void tourInsertOne(Map<String, Object> paramMap
+			, MultipartHttpServletRequest multipartHttpServletRequest) {
 		reservationDao.tourInsertOne(paramMap);
+		
+		int newestIdx = reservationDao.tourNewestSelectIdx();
+		
+		int tourIdx = newestIdx;
+		System.out.println("**************tourIdx"+tourIdx+"************");
+		try {
+			List<Map<String, Object>> fileList = 
+				tourFileUtils.parseInsertFileInfo(tourIdx
+					, multipartHttpServletRequest);
+			
+			for (int i = 0; i < fileList.size(); i++) {
+				reservationDao.fileInsertOne(fileList.get(i));
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("문제 생기면 처리할꺼 정하자");
+			System.out.println("일단 여긴 파일 처리 중 문제 발생한 거야");
+			e.printStackTrace();
+		}
 	}
 	
 	// 아름누나 페이징
@@ -113,6 +199,26 @@ public class ReservationServiceImpl implements ReservationService{
 	@Override
 	public int tourClosedDayUpdateOne(Map<String, Object> paramMap) {
 		return reservationDao.tourClosedDayUpdateOne(paramMap);
+	}
+	
+	// 아름 파일
+	// reviewNewestSelectIdx
+	@Override
+	public int tourNewestSelectIdx() {
+		// TODO Auto-generated method stub
+		return reservationDao.tourNewestSelectIdx();
+	}
+	
+	@Override
+	public Map<String, Object> fileSelectStoredName(int tourIdx) {
+		// TODO Auto-generated method stub
+		return reservationDao.fileSelectStoredName(tourIdx);
+	}
+
+	@Override
+	public int fileUpdateOne(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return reservationDao.fileUpdateOne(map);
 	}
 
 }

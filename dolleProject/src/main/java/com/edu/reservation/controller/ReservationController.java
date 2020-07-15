@@ -21,6 +21,7 @@ import com.edu.reservation.service.ReservationService;
 import com.edu.reservation.util.ReservationPaging;
 import com.edu.reservation.vo.ClosedDayVo;
 import com.edu.reservation.vo.ReservationVo;
+import com.edu.reservation.vo.TourFileVo;
 import com.edu.reservation.vo.TourVo;
 
 @Controller
@@ -45,7 +46,7 @@ public class ReservationController {
 	@RequestMapping(value="/reservation/listOne.do", method=RequestMethod.GET)
 	public String tourListOne(int tourNo, Model model) {
 		log.debug("Welcome reservation tourListOne - {}", tourNo);
-		TourVo tourVo = reservationService.tourSelectOne(tourNo);
+		TourFileVo tourVo = reservationService.tourSelectOne(tourNo);
 		model.addAttribute("tourVo", tourVo);
 		return "reservation/tourListOneView";
 	}
@@ -54,7 +55,7 @@ public class ReservationController {
 	@RequestMapping(value="/reservation/reservation.do", method=RequestMethod.GET)
 	public String tourReservation(int tourNo, Model model) {
 		log.debug("Welcome reservation tourReservation - {}", tourNo);
-		TourVo tourVo = reservationService.tourReservation(tourNo);
+		TourFileVo tourVo = reservationService.tourReservation(tourNo);
 		model.addAttribute("tourVo", tourVo);
 		return "reservation/tourReservationView";
 	}
@@ -67,7 +68,7 @@ public class ReservationController {
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("tourNo", tourNo);
 		paramMap.put("reserveTourDate", reserveTourDate);
-		TourVo tourVo = reservationService.tourReservation(paramMap);
+		TourFileVo tourVo = reservationService.tourReservation(paramMap);
 		
 		model.addAttribute("tourVo", tourVo);
 		
@@ -108,7 +109,7 @@ public class ReservationController {
 		
 		model.addAttribute("reservationVo", reservationVo);
 		// tourVo 정보를 받아오기 위해 select
-		TourVo tourVo = reservationService.tourSelectOne(tourNo);
+		TourFileVo tourVo = reservationService.tourSelectOne(tourNo);
 		model.addAttribute("tourVo", tourVo);
 		
 		return "reservation/tourReservationCompleteShowView";
@@ -301,7 +302,7 @@ public class ReservationController {
 		log.debug("Welcome reservation tourReservationBoardDetail");
 		
 		// 회원에서 사용했던  tourSelectOne() 재사용
-		TourVo tourVo = reservationService.tourSelectOne(tourNo);
+		TourFileVo tourVo = reservationService.tourSelectOne(tourNo);
 		model.addAttribute("tourVo", tourVo);
 		return "reservation/adminReservationPageDetailView";
 	} 
@@ -312,22 +313,18 @@ public class ReservationController {
 		log.debug("Welcome reservation tourReservationBoardUpdate");
 		
 		// 회원, 상세 조회에서 사용했던  tourSelectOne() 재사용
-		TourVo tourVo = reservationService.tourSelectOne(tourNo);
+		TourFileVo tourVo = reservationService.tourSelectOne(tourNo);
 		model.addAttribute("tourVo", tourVo);
 		return "reservation/adminReservationPageUpdateForm";
 	} 
 	
 	// [관리자] 투어 예약 게시판 CRUD 전체 조회 - 상세(하나만 선택) - 업데이트 - 업데이트Ctr
 	// 원래 TourVo tourVo 하려다 날짜에서 문제가 생겨서 각각 쪼갬
-	// 그에 대한 원본
-	//	public String tourReservationBoardUpdateCtr(TourVo tourVo, Model model) {
-	//	log.debug("Welcome reservation tourReservationBoardUpdateCtr");
-	//	reservationService.tourUpdateOne(tourVo);
-	//	}
 	@RequestMapping(value="/reservation/reservationPageUpdateCtr.do", method={RequestMethod.POST, RequestMethod.GET})
 	public String tourReservationBoardUpdateCtr(String tourName, String tourStartDate, String tourEndDate,
 			String tourStartTime, String tourEndTime, int tourPeopleNum, int tourPrice, String tourStartingPoint,
-			String tourContent, int tourNo, Model model) {
+			String tourContent, int tourNo, @RequestParam(value="fileIdx", defaultValue = "-1") int fileIdx
+			, MultipartHttpServletRequest mulRequest, Model model) {
 		log.debug("Welcome reservation tourReservationBoardUpdateCtr");
 		
 		Map<String, Object> paramMap = new HashMap<>();
@@ -342,7 +339,8 @@ public class ReservationController {
 		paramMap.put("tourContent", tourContent);
 		paramMap.put("tourNo", tourNo);
 		
-		reservationService.tourUpdateOne(paramMap);
+		reservationService.tourUpdateOne(paramMap, mulRequest, fileIdx);
+		
 		return "redirect:/reservation/reservationPage.do";
 	}
 	
@@ -368,7 +366,7 @@ public class ReservationController {
 	@RequestMapping(value="/reservation/reservationPageAddCtr.do", method={RequestMethod.POST, RequestMethod.GET})
 	public String tourReservationBoardAddCtr(String tourName, String tourStartDate, String tourEndDate,
 			String tourStartTime, String tourEndTime, int tourPeopleNum, int tourPrice, String tourStartingPoint,
-			String tourContent, Model model) {
+			String tourContent, MultipartHttpServletRequest mulRequest, Model model) {
 		
 		log.debug("Welcome reservation tourReservationBoardAddCtr");
 		
@@ -387,7 +385,7 @@ public class ReservationController {
 		// 아름누나 파일 끝
 		
 		System.out.println("여기까지 왔어1");
-		reservationService.tourInsertOne(paramMap);
+		reservationService.tourInsertOne(paramMap, mulRequest);
 		System.out.println("여기까지 왔어2");
 		return "redirect:/reservation/reservationPage.do";
 	}

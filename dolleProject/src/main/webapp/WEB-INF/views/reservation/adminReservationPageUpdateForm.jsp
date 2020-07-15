@@ -37,9 +37,13 @@
 		$("#ui-datepicker-div").hide(); //자동으로 생성되는 div객체 숨김  
 	});
 	
-	function pageMoveDetailFnc() {
-		location.href = "reservationPageDetail.do";
+	function pageMoveDeleteFnc() {
+		location.href = "reservationPageDelete.do";
 	}
+	function pageMoveListFnc() {
+		location.href = "reservationPage.do";
+	}
+	
 	function validationFnc(){
 		var tourStartDateObjValue = document.getElementById("tourStartDate").value;
 		var tourEndDateObjValue = document.getElementById("tourEndDate").value;
@@ -111,9 +115,10 @@
 	<h1 class="daehanFont" style="margin: 10px 0px 10px 82px;">가이드 투어 예약페이지 수정</h1>
 	<br/>
 	<div style="width: 980px; height: 800px; margin: auto;">
-		<form action="./reservationPageUpdateCtr.do" method="post" onsubmit='return validationFnc();'>
+		<form action="./reservationPageUpdateCtr.do" method="post" onsubmit='return validationFnc();' enctype="multipart/form-data">
 			<div style="width: 400px; height: 740px; border: 1px solid black; float: left;">
 				<div style="cursor:pointer;">이미지 넣을 예정</div>
+				<input id="fileBtn" type="file" name="file" >
 			</div>
 			<div style="width: 576px; height: 740px; border: 1px solid black; float: left;">
 				<div>
@@ -175,8 +180,8 @@
 			<div style="margin: auto; clear:both; width: 700px; text-align: center;">
 				<input type="hidden" name="tourNo" value="${tourVo.tourNo}">
 				<input type="submit" class="ahreum" value="수정하기">
-				<button class="ahreum" onclick="pageMoveUpdateFnc();">삭제하기</button>
-				<button class="ahreum" onclick="pageMoveListFnc();">목록으로</button>
+				<button type="button" class="ahreum" onclick="pageMoveUpdateFnc();">삭제하기</button>
+				<button type="button" class="ahreum" onclick="pageMoveListFnc();">목록으로</button>
 			</div>
 		</form>
 	</div>

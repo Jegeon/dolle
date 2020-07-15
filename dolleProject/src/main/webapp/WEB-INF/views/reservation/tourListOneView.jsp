@@ -66,7 +66,10 @@
 	<br/>
 	<div style="width: 740px; height: 460px; margin: auto;">
 		<div style="width: 240px; height: 380px; border: 1px solid black; float: left;">
-			<div>이미지 넣을 예정</div>
+			<div>
+				이미지 넣을 예정
+				<img alt="review_photo" src="<c:url value='/img/${tourVo.fileStoredName}'/>" style="position: relative; height:100%; width:100%;">
+			</div>
 		</div>
 		<div style="width: 496px; height: 380px; border: 1px solid black; float: left;">
 			<div>

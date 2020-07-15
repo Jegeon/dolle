@@ -72,16 +72,55 @@
 		<result column="CLOSED_CONTENT" property="closedContent" />
 	</resultMap> 
 	
-	<select id="tourSelectList" parameterType="map" resultMap="tourResultMap">
-		SELECT TOUR_IDX, TOWN_IDX, TOUR_NAME, TOUR_START_DATE,
+	<resultMap type="com.edu.reservation.vo.TourFileVo" id="tourFileResultMap">
+		<id column="TOUR_IDX" property="tourNo" />
+		<result column="TOWN_IDX" property="townNo" />
+		<result column="TOUR_NAME" property="tourName" />
+		<result column="TOUR_START_DATE" property="tourStartDate" javaType="java.util.Date" />
+		<result column="TOUR_END_DATE" property="tourEndDate" javaType="java.util.Date" />
+		<result column="TOUR_CLOSED_START_DATE" property="tourClosedStartDate" javaType="java.util.Date" />
+		<result column="TOUR_CLOSED_END_DATE" property="tourClosedEndDate" javaType="java.util.Date" />
+		<result column="TOUR_CLOSED_CONTENT" property="tourClosedContent" />
+		<result column="TOUR_START_TIME" property="tourStartTime" />
+		<result column="TOUR_END_TIME" property="tourEndTime" />
+		<result column="TOUR_PRICE" property="tourPrice" />
+		<result column="TOUR_PEOPLE_NUM" property="tourPeopleNum" />
+		<result column="TOUR_STARTING_POINT" property="tourStartingPoint" />
+		<result column="TOUR_CONTENT" property="tourContent" />
+		<result column="TOUR_CRE_DATE" property="tourCreDate" javaType="java.util.Date" />
+		<result column="TOUR_MOD_DATE" property="tourModDate" javaType="java.util.Date" />
+		<result column="TOUR_DEL_YN" property="tourDel" />
+		<result column="TOUR_POSSIBLE_NUM" property="tourPossibleNum" />
+		<result column="TOUR_RESERVED_NUM" property="tourReservedNum" />
+		<result column="TOUR_ACCOUNT_NUM" property="tourAccountNum" />
+		<result column="TOUR_BANK" property="tourBank" />
+		<result column="TOUR_DEPOSITOR" property="tourDepositor" />
+		
+		<result column="REVIEW_FILE_IDX" property="fileIdx"/>
+		<result column="REVIEW_IDX" property="fileReviewIdx"/>
+		<result column="REVIEW_ORIGINAL_FILE_NAME" property="fileOriginalName"/>
+		<result column="REVIEW_STORED_FILE_NAME" property="fileStoredName"/>
+	</resultMap>
+	
+<!-- 	<select id="tourSelectList" parameterType="map" resultMap="tourResultMap"> -->
+<!-- 		SELECT TOUR_IDX, TOWN_IDX, TOUR_NAME, TOUR_START_DATE, -->
+<!-- 		TOUR_END_DATE, TOUR_START_TIME, TOUR_END_TIME, TOUR_PRICE, -->
+<!-- 		TOUR_PEOPLE_NUM, TOUR_STARTING_POINT, TOUR_CONTENT, TOUR_CRE_DATE, -->
+<!-- 		TOUR_MOD_DATE, TOUR_DEL_YN -->
+<!-- 		FROM TOUR -->
+<!-- 	</select> -->
+	
+	<select id="tourSelectList" parameterType="map" resultMap="tourFileResultMap">
+		SELECT T.TOUR_IDX, TOWN_IDX, TOUR_NAME, TOUR_START_DATE,
 		TOUR_END_DATE, TOUR_START_TIME, TOUR_END_TIME, TOUR_PRICE,
 		TOUR_PEOPLE_NUM, TOUR_STARTING_POINT, TOUR_CONTENT, TOUR_CRE_DATE,
-		TOUR_MOD_DATE, TOUR_DEL_YN
-		FROM TOUR
-	</select>
+		TOUR_MOD_DATE, TOUR_DEL_YN, TOUR_STORED_FILE_NAME AS REVIEW_STORED_FILE_NAME
+		FROM TOUR T, TOUR_FILE TF
+        WHERE T.TOUR_IDX = TF.TOUR_IDX
+	</select> 
 	
-	<select id="tourSelectOne" parameterType="int" resultMap="tourResultMap">
-		SELECT TOUR_IDX, TOWN_IDX, TOUR_NAME, TOUR_START_DATE,
+	<select id="tourSelectOne" parameterType="int" resultMap="tourFileResultMap">
+		SELECT T.TOUR_IDX, TOWN_IDX, TOUR_NAME, TOUR_START_DATE,
 		TOUR_END_DATE, TOUR_START_TIME, TOUR_END_TIME, TOUR_PRICE,
 		TOUR_PEOPLE_NUM, TOUR_STARTING_POINT, TOUR_CONTENT, TOUR_CRE_DATE,
 		TOUR_MOD_DATE, TOUR_DEL_YN,
@@ -96,14 +135,16 @@
 	    (SELECT A1.ACC_DEPOSITOR
 	    FROM TOUR T1, ACCOUNT_MANAGEMENT A1
 	    WHERE T1.TOWN_IDX = A1.TOWN_IDX
-	    AND T1.TOUR_IDX = #{tourNo}) AS TOUR_DEPOSITOR
+	    AND T1.TOUR_IDX = #{tourNo}) AS TOUR_DEPOSITOR,
+        TOUR_STORED_FILE_NAME AS REVIEW_STORED_FILE_NAME
 	    
-		FROM TOUR
-		WHERE TOUR_IDX = #{tourNo}	
+		FROM TOUR T, TOUR_FILE TF
+		WHERE T.TOUR_IDX = #{tourNo}
+		AND T.TOUR_IDX = TF.TOUR_IDX	
 	</select>
 	
-	<select id="tourSelectAllFromOne" parameterType="int" resultMap="tourResultMap">
-		SELECT TOUR_IDX, TOWN_IDX, TOUR_NAME, TOUR_START_DATE, TOUR_END_DATE, 
+	<select id="tourSelectAllFromOne" parameterType="int" resultMap="tourFileResultMap">
+		SELECT T.TOUR_IDX, TOWN_IDX, TOUR_NAME, TOUR_START_DATE, TOUR_END_DATE, 
         (SELECT CLOSED_START_DATE
         FROM CLOSED_DAY
         WHERE TOUR_IDX = 1) AS TOUR_CLOSED_START_DATE,
@@ -127,12 +168,15 @@
 	    AND T1.TOUR_IDX = #{tourNo}) AS TOUR_DEPOSITOR,
         TOUR_START_TIME, TOUR_END_TIME, TOUR_PRICE,
 		TOUR_PEOPLE_NUM, TOUR_STARTING_POINT, TOUR_CONTENT, TOUR_CRE_DATE,
-		TOUR_MOD_DATE, TOUR_DEL_YN
-		FROM TOUR
-		WHERE TOUR_IDX = #{tourNo}
+		TOUR_MOD_DATE, TOUR_DEL_YN,
+		TOUR_STORED_FILE_NAME AS REVIEW_STORED_FILE_NAME
+		
+		FROM TOUR T, TOUR_FILE TF
+		WHERE T.TOUR_IDX = #{tourNo}
+		AND T.TOUR_IDX = TF.TOUR_IDX
 	</select>
 	
-	<select id="tourAndReservationSelectAllFromOne" parameterType="map" resultMap="tourResultMap">
+	<select id="tourAndReservationSelectAllFromOne" parameterType="map" resultMap="tourFileResultMap">
 		SELECT T.TOUR_IDX AS TOUR_IDX, TOWN_IDX, TOUR_NAME, TOUR_START_DATE, TOUR_END_DATE, 
 	    C.CLOSED_START_DATE AS TOUR_CLOSED_START_DATE,
 	    C.CLOSED_END_DATE AS TOUR_CLOSED_END_DATE,
@@ -167,11 +211,14 @@
 	    
 	    TOUR_START_TIME, TOUR_END_TIME, TOUR_PRICE,
 		TOUR_PEOPLE_NUM, TOUR_STARTING_POINT, TOUR_CONTENT, TOUR_CRE_DATE,
-		TOUR_MOD_DATE, TOUR_DEL_YN
+		TOUR_MOD_DATE, TOUR_DEL_YN,
+		TOUR_STORED_FILE_NAME AS REVIEW_STORED_FILE_NAME
 	    
-	    FROM TOUR T, CLOSED_DAY C
-	    WHERE C.TOUR_IDX = T.TOUR_IDX
+	    FROM TOUR T, CLOSED_DAY C, TOUR_FILE TF
+	    WHERE C.TOUR_IDX = 1
+		<!-- WHERE C.TOUR_IDX = T.TOUR_IDX -->
 	    AND T.TOUR_IDX = #{tourNo}
+	    AND T.TOUR_IDX = TF.TOUR_IDX
 	</select>
 	
 	<insert id="tourReservationInsertOne" parameterType="map">
@@ -374,5 +421,37 @@
 		WHERE TOUR_IDX = 1
 	</update>
 	<!-- 투어 휴무일 끝 -->
+	
+	<!-- 파일 -->
+	<select id="tourNewestSelectIdx" resultType="int">
+		SELECT TOUR_IDX 
+		FROM (SELECT ROWNUM, TOUR_IDX
+        	FROM TOUR
+        	ORDER BY TOUR_IDX DESC)
+		WHERE ROWNUM = 1
+	</select>
+	<insert id="fileInsertOne" parameterType="map">
+		INSERT INTO TOUR_FILE
+		(TOUR_FILE_IDX, TOUR_IDX, TOUR_ORIGINAL_FILE_NAME, TOUR_STORED_FILE_NAME, TOUR_FILE_SIZE)
+		VALUES(SEQ_TOUR_FILE_NO.NEXTVAL, #{tour_idx}, #{tour_original_file_name},
+			 #{tour_stored_file_name}, #{tour_file_size})
+	</insert>
+	<delete id="fileDeleteOne" parameterType="int">
+		DELETE FROM TOUR_FILE
+		WHERE TOUR_IDX = #{tour_idx}
+	</delete>
+	<select id="fileSelectStoredName" parameterType="int"
+		resultType="map">
+		SELECT TOUR_FILE_IDX, TOUR_STORED_FILE_NAME
+		FROM TOUR_FILE
+		WHERE TOUR_IDX = #{tour_idx}
+	</select>
+	<update id="fileUpdateOne" parameterType="map">
+		UPDATE TOUR_FILE
+		SET TOUR_ORIGINAL_FILE_NAME = #{tour_original_file_name}
+		, TOUR_STORED_FILE_NAME = #{tour_stored_file_name}
+		, TOUR_FILE_SIZE = #{tour_file_size}
+		WHERE TOUR_IDX = #{tour_idx}
+	</update>
 	
 </mapper>

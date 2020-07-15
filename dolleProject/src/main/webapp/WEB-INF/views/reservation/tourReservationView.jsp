@@ -9,6 +9,9 @@
 <title>투어 예약 게시판</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<!-- 없어도 그만 시작 -->
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<!-- 없어도 그만 끝 -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
@@ -128,7 +131,10 @@
 	<br/>
 	<div style="width: 740px; height: 440px; margin: auto;">
 		<div style="width: 240px; height: 380px; border: 1px solid black; float: left;">
-			<div style="cursor:pointer;">이미지 넣을 예정</div>
+			<div>
+				이미지 넣을 예정
+				<img alt="review_photo" src="<c:url value='/img/${tourVo.fileStoredName}'/>" style="position: relative; height:100%; width:100%;">
+			</div>
 		</div>
 		<div style="width: 496px; height: 380px; border: 1px solid black; float: left;">
 			<div>

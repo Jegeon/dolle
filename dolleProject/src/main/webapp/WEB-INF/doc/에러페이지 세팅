@@ -1,0 +1,18 @@
+
+에러 페이지 세팅
+
+server의
+web.xml에 다음 태그 추가 
+
+<error-page>
+		<error-code>400</error-code>
+		<location>/errorPage.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/errorPage.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/errorPage.jsp</location>
+</error-page>

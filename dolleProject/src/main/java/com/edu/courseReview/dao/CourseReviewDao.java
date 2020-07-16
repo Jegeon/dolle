@@ -42,4 +42,5 @@ public interface CourseReviewDao {
 	public int commentDeleteOne(int commentIdx, int commentMemberIdx);
 	public int commentUpdateOne(CommentVo commentVo);
 	public int commentSelectTotalCount(int reviewIdx);
+	public int commentDeleteTogether(int reviewIdx);
 }

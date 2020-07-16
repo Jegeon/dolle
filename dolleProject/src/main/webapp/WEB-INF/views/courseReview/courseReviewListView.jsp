@@ -10,6 +10,15 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
 <style type="text/css">
 
+	#title{
+		font-size:30px; font-family: 대한민국정부상징체 ; margin: 55px 0px 20px 82px;
+	}
+	
+	#subTitle{
+		width:200px; border-bottom: 4px solid #FFCC00; text-align: center; 
+		margin-left:300px; padding-bottom:4px; display: inline-block;
+	}
+	
 	.fixedBox{
  		width:306px; height:114px; background-color: #E1E1E1; 
    		background: url('/dolleProject/resources/images/reviewList/640기와3.jpg') no-repeat 53% 64% 
@@ -31,6 +40,74 @@
 	    height: 28px;
 	}
 	
+	/* 정렬 */
+	#orderOption{
+		width:120px; padding: 6px 22px; vertical-align: middle;
+						border: 1px solid #B9B9B9; 
+						font-size:14px; font-family: Segoe UI;
+						-webkit-appearance: none; /* 원본 select 버튼 감추기 */
+						background: url('/dolleProject/resources/images/selectBtn.PNG') no-repeat 95% 50%;
+	}
+	
+	/* 검색 */
+	#searchOption{
+	width:140px; padding: 6px 22px; vertical-align: middle;
+						border: 1px solid #B9B9B9; 
+						font-size:14px; font-family: Segoe UI;
+						-webkit-appearance: none; /* 원본 select 버튼 감추기 */
+						background: url('/dolleProject/resources/images/selectBtn.PNG') no-repeat 95% 50%;
+	}
+	#keywordBox{
+    	width:250px; height:31px; display:inline-block;
+					 border:1px solid #B9B9B9; vertical-align:middle;
+    }
+    #keyword{
+    	width:190px; height:22px; vertical-align: middle;
+							font: normal normal 14px Segoe UI; margin-left:10px;
+							padding: 2px 0px 1px 10px; border: 0px;
+    }
+    #searchBtn{
+    	margin-top:2px; vertical-align: middle;	
+    }
+    
+    /* 검색결과 없는 경우 */
+    #noSearchBox{
+   		margin:0px auto; width:1245px; height:514px; border:2px solid #EBEBEB ; text-align: center;
+    }
+    #noSearch{
+    	padding:130px 0px 26px; width:150px; height:150px; margin:0px auto;
+    }
+    
+    /* 페이징 */
+    #pagingBox{
+    	width:1260px; height:205px; margin:0 auto; text-align: center; 
+		padding-top: 30px; box-sizing: border-box;
+    }
+    #pagingGroup{
+    	width: 600px; display: inline-block; margin-left: 165px;
+    }
+    .pagingImg{
+    	cursor: pointer; width:40px; height:40px; display: inline-block; 
+				 background: #FFFFFF; border:1px solid #fff; vertical-align: middle;
+				 padding-top:7px; box-sizing: border-box;
+    }
+    .pagingNum{
+   		cursor: pointer; width:40px; height:40px; display:inline-block; border:1px solid #707070;
+    	vertical-align: middle; font-size: 20px; padding-top:8px; box-sizing: border-box;
+    }
+    
+    /* 별점 */
+    .starBox{
+   		margin: 0px 20px; display: inline-block; width: 120px; vertical-align: middle;
+    }
+    .starFull{
+    width:16px; height:16px; vertical-align: middle; margin-right: 2px;
+    	   
+    }
+    .starBlank{
+    	width:18px; height:16.5px; vertical-align: middle; margin-right: 2px;
+    }
+    
 	/*  0 318 636 954 */
 	.firstCol{position: absolute;  left: 0px;}
 	.secondCol{position: absolute;	left: 318px;}
@@ -57,7 +134,41 @@
 // 			$("#title"+i).attr("onmouseleave","mouseLeaveFnc("+i+")");
 // 			$("#title"+i).css("cursor","pointer");
 // 		}
+
+		//정렬옵션 select 태그 생성 
+		var orderOptionVal = $("#orderOptionVal").val();
+		if(orderOptionVal == "newest"){
+			$("#orderOption").val("newest").prop("selected", true);
+		}else if(orderOptionVal == "starNum"){
+			$("#orderOption").val("starNum").prop("selected", true);
+		}else if(orderOptionVal == "readCnt"){
+			$("#orderOption").val("readCnt").prop("selected", true);
+		}
 		
+		//검색옵션 select 태그 생성 
+		var searchOptionVal = $("#searchOptionVal").val();
+		if(searchOptionVal == "both"){
+			$("#searchOption").val("both").prop("selected", true);
+		}else if(searchOptionVal == "title"){
+			$("#searchOption").val("title").prop("selected", true);
+		}else if(searchOptionVal == "content"){
+			$("#searchOption").val("content").prop("selected", true);
+		}else if(searchOptionVal == "writer"){
+			$("#searchOption").val("writer").prop("selected", true);
+		}
+		
+		//별점 출력 
+		$(".starBox").each(function(index){
+			var starNum = $("#starNum"+index).val();
+			for(i=0; i<starNum; i++){
+				var starFull = $('<img class="starFull" alt="별_full" src="/dolleProject/resources/images/starSolid.png">');
+				$(this).append(starFull);
+			}
+			for(i=0; i<5-starNum; i++){
+				var starBlank = $('<img class="starBlank" alt="별_blank" src="/dolleProject/resources/images/starBlank.png">');
+				$(this).append(starBlank);
+			}
+		});
 		
 	});
 	
@@ -98,90 +209,36 @@
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
 
 	<div style="width:1260px; height:130px; margin:0 auto;" >
-		<h1 style="font-size:30px; font-family: 대한민국정부상징체 ; margin: 55px 0px 20px 82px;">코스 후기 게시판</h1>
-		<div style="width:200px; border-bottom: 4px solid #FFCC00; text-align: center; 
-		margin-left:300px; padding-bottom:4px; display: inline-block;">
+		<h1 id="title">코스 후기 게시판</h1>
+		<div id="subTitle">
 			<span style="font: normal bold 22px Segoe UI">혜화 명륜 마을</span>
 		</div>
 		
 		<!-- 정렬선택과 검색창 -->
 		<div style="float:right; height:50px; width:530px; padding-top:40px;">
 			<form id='orderSearchForm' action="./list.do" method="post">
-				<select id="orderOption" name="orderOption" onchange="submitFnc();"
-					style="width:120px; padding: 6px 22px; vertical-align: middle;
-						border: 1px solid #B9B9B9; 
-						font-size:14px; font-family: Segoe UI;
-						-webkit-appearance: none; /* 원본 select 버튼 감추기 */
-						background: url('/dolleProject/resources/images/selectBtn.PNG') no-repeat 95% 50%;">
-					
-					<c:choose>
-						<c:when test="${orderOption eq 'newest'}">
-							<option value="newest" selected="selected">최신순</option>
-							<option value="starNum">별점순</option>
-							<option value="readCnt">조회순</option>
-						</c:when>
-						<c:when test="${orderOption eq 'starNum'}">
-							<option value="newest">최신순</option>
-							<option value="starNum" selected="selected">별점순</option>
-							<option value="readCnt">조회순</option>
-						</c:when>
-						<c:when test="${orderOption eq 'readCnt'}">
-							<option value="newest">최신순</option>
-							<option value="starNum">별점순</option>
-							<option value="readCnt" selected="selected">조회순</option>
-						</c:when>
-					</c:choose>		
-					
+				<input id="orderOptionVal" type="hidden" value="${orderOption}">
+				<select id="orderOption" name="orderOption" onchange="submitFnc();">
+					<option value="newest">최신순</option>
+					<option value="starNum">별점순</option>
+					<option value="readCnt">조회순</option>
 				</select>
 
-				<select id="searchOption" name="searchOption"  
-					style="width:140px; padding: 6px 22px; vertical-align: middle;
-						border: 1px solid #B9B9B9; 
-						font-size:14px; font-family: Segoe UI;
-						-webkit-appearance: none; /* 원본 select 버튼 감추기 */
-						background: url('/dolleProject/resources/images/selectBtn.PNG') no-repeat 95% 50%;">
-					<c:choose>
-						<c:when test="${searchOption eq 'both'}">
-							<option value="both" selected="selected">제목+내용</option>
-							<option value="title">제목</option>
-							<option value="content">내용</option>
-							<option value="writer">작성자</option>
-						</c:when>
-						<c:when test="${searchOption eq 'title'}">
-							<option value="both">제목+내용</option>
-							<option value="title" selected="selected">제목</option>
-							<option value="content">내용</option>
-							<option value="writer">작성자</option>
-						</c:when>
-						<c:when test="${searchOption eq 'content'}">
-							<option value="both">제목+내용</option>
-							<option value="title">제목</option>
-							<option value="content" selected="selected">내용</option>
-							<option value="writer">작성자</option>
-						</c:when>
-						<c:when test="${searchOption eq 'writer'}">
-							<option value="both">제목+내용</option>
-							<option value="title">제목</option>
-							<option value="content">내용</option>
-							<option value="writer" selected="selected">작성자</option>
-						</c:when>
-					</c:choose>		
+				<input id="searchOptionVal" type="hidden" value="${searchOption}">
+				<select id="searchOption" name="searchOption">
+					<option value="both">제목+내용</option>
+					<option value="title">제목</option>
+					<option value="content">내용</option>
+					<option value="writer">작성자</option>	
 				</select>
 			
-				<div style="width:250px; height:31px; display:inline-block;
-					 border:1px solid #B9B9B9; vertical-align:middle;">
-					<input id="keyword" name="keyword" type="text" value="${keyword}"
-						 style="width:190px; height:22px; vertical-align: middle;
-							font: normal normal 14px Segoe UI; margin-left:10px;
-							padding: 2px 0px 1px 10px; border: 0px;">
+				<div id="keywordBox">
+					<input id="keyword" name="keyword" type="text" value="${keyword}">
 					<img id="searchBtn" alt="검색버튼" onclick="submitFnc();"
-					 src="/dolleProject/resources/images/searchBtn.PNG"
-					 style="margin-top:2px; vertical-align: middle;"> 
+					 src="/dolleProject/resources/images/searchBtn.PNG"> 
 				</div>
 			</form>
 		</div>
-		
-			
 	</div>
 	
 	
@@ -206,8 +263,11 @@
 		
 		<!-- 검색결과가 없는 경우 -->
 		<c:if test="${listSize == 0 }">
-			<div style="width:1260px; height:514px; background-color:#EBEBEB ; text-align: center;">
-				<h1 style="font: normal normal 40px 대한민국정부상징체;">검색된 결과가 없습니다.</h1>
+			<div id="noSearchBox">
+				<div id="noSearch">
+					<img style="width:150px;" alt="error" src="/dolleProject/resources/images/error/close.png">
+				</div>
+				<h1 style="font: normal normal 28px 대한민국정부상징체;">검색된 결과가 없습니다.</h1>
 			</div>
 		</c:if>
 		
@@ -234,7 +294,6 @@
 			<c:forEach var="reviewVo" items="${reviewList}" varStatus="listIndex">
 			<!-- 상세 게시글  -->
 			<!-- 행렬 개수 -->
-					
 					<c:if test="${listIndex.count >= 1 and listIndex.count <= 4}">
 						<c:set var="rowNum" value="1"/>
 					</c:if>
@@ -290,17 +349,8 @@
 							<span style="font: normal normal 14px Segoe UI; margin: 8px 20px; display: block;">
 								${reviewVo.memberNickname}
 							</span>
-							<span style="margin: 0px 20px; display: inline-block; width: 120px; vertical-align: middle;">
-								<c:forEach var="starNum" begin="1" end="${reviewVo.reviewRating}" step="1">
-									<img alt="별_full" src="/dolleProject/resources/images/starSolid.png" 
-										style="width:16px; height:16px; vertical-align: middle;">
-								</c:forEach>
-								<c:if test="${reviewVo.reviewRating != 5}">
-									<c:forEach var="starNum" begin="1" end="${5 - reviewVo.reviewRating}" step="1">
-										<img alt="별_blank" src="/dolleProject/resources/images/starBlank.png" 
-											style="width:18px; height:16.5px; vertical-align: middle;">
-									</c:forEach>
-								</c:if>
+							<span class="starBox">
+								<input id="starNum${listIndex.index}" type="hidden" value="${reviewVo.reviewRating}">
 							</span>
 							<span style="width:50px; display: inline-block; margin-left: 20px;">
 								<img alt="Icon_eye" src="/dolleProject/resources/images/eye.png"
@@ -321,22 +371,15 @@
 	</div>
 	
 	<!-- 페이징 버튼 -->
-	<div style="width:1260px; height:205px; margin:0 auto; text-align: center; 
-		padding-top: 30px; box-sizing: border-box;">
-		<ul id="pagingGroup" style="width: 600px; display: inline-block; margin-left: 165px;">
-			<li class="pagingImg" onclick="goPageFnc(1);"
-				 style="cursor: pointer; width:40px; height:40px; display: inline-block; 
-				 background: #FFFFFF; border:1px solid #fff; vertical-align: middle;
-				 padding-top:7px; box-sizing: border-box;">
+	<div id="pagingBox">
+		<ul id="pagingGroup">
+			<li class="pagingImg" onclick="goPageFnc(1);">
 				<img id="doubledLeftBtn" alt="doubledLeftBtn" src="/dolleProject/resources/images/doubleLeft.PNG" 
 					style="width: 55%;">
 			</li>
-			<li class="pagingImg" onclick="goPageFnc(${pagingMap.reviewPaging.prevPage});"
-				 style="cursor: pointer; width:40px; height:40px; display: inline-block; 
-				 background: #FFFFFF; border:1px solid #fff; vertical-align: middle;
-				 padding-top:7px; box-sizing: border-box;">
+			<li class="pagingImg" onclick="goPageFnc(${pagingMap.reviewPaging.prevPage});">
 				<img id="doubledLeftBtn" alt="doubledLeftBtn" src="/dolleProject/resources/images/left.PNG" 
-					style="width: 40%;">
+					style="width:40%;">
 			</li>
 			<c:forEach var="num" 
 				begin="${pagingMap.reviewPaging.blockBegin}" 
@@ -344,35 +387,25 @@
 				
 				<c:if test="${pagingMap.reviewPaging.curPage eq num}">
 					<li class="pagingNum" onclick="goPageFnc(${num});"
-						style="cursor: pointer; width:40px; height:40px; display:inline-block; 
-						background: #0D4371; color:#fff; border:1px solid #707070; vertical-align: middle; 
-						font-size: 20px; padding-top:8px; box-sizing: border-box;">
+						style="background: #0D4371; color:#fff; border:1px solid #707070;">
 						<c:out value="${num}"/>
 					</li>
 				</c:if>
 				<c:if test="${pagingMap.reviewPaging.curPage ne num}">
 					<li class="pagingNum" onclick="goPageFnc(${num});"
-						 style="cursor: pointer; width:40px; height:40px; display: inline-block; 
-						 background: #FFFFFF; border:1px solid #707070; vertical-align: middle;
-						font-size: 20px; padding-top:8px; box-sizing: border-box;">
+						 style="background: #FFFFFF; border:1px solid #707070;">
 						<c:out value="${num}"/>
 					</li>
 				</c:if>
 			</c:forEach>
 
-			<li class="pagingImg" onclick="goPageFnc(${pagingMap.reviewPaging.nextPage});"
-			 style="cursor: pointer; width:40px; height:40px; display: inline-block; 
-			 background: #FFFFFF; border:1px solid #fff; vertical-align: middle;
-				 padding-top:7px; box-sizing: border-box;">
+			<li class="pagingImg" onclick="goPageFnc(${pagingMap.reviewPaging.nextPage});">
 				<img id="doubledLeftBtn" alt="doubledLeftBtn" src="/dolleProject/resources/images/right.PNG" 
-					style="width: 42%;">
+					style="width:42%;">
 			</li>
-			<li class="pagingImg" onclick="goPageFnc(${pagingMap.reviewPaging.totPage});"
-				 style="cursor: pointer; width:40px; height:40px; display: inline-block; 
-				 background: #FFFFFF; border:1px solid #fff; vertical-align: middle;
-				 padding-top:7px; box-sizing: border-box;">
+			<li class="pagingImg" onclick="goPageFnc(${pagingMap.reviewPaging.totPage});">
 				<img id="doubledLeftBtn" alt="doubledLeftBtn" src="/dolleProject/resources/images/doubleRight.PNG" 
-					style="width: 55%;">
+					style="width:55%;">
 			</li>
 		</ul>
 		<input id="reviewMemberIdx" type="hidden" value="${_memberVo_.no}">

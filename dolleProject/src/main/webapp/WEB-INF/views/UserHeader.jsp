@@ -211,7 +211,7 @@
 		               <a class='blackLink' href='<%=request.getContextPath()%>/team/teamIntroduction.do#aim'>기획 의도</a>
 		            </span>
 		            <span style="padding: 0px 7px 0px 7px;">
-		               <a class='blackLink' href='<%=request.getContextPath()%>/team/teamIntroduction.do'>팀원 소개</a>
+		               <a class='blackLink' href='<%=request.getContextPath()%>/team/teamIntroduction.do#teamIntro'>팀원 소개</a>
 		            </span>
 		         </div>
 		      </div>

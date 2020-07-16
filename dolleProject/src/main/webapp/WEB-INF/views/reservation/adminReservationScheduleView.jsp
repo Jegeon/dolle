@@ -41,39 +41,48 @@
 	
 	<%-- 가져오는 데이터 확인 ${tourList} --%>
 	<br/>
-	<div style="width: 740px; height: 1200px; margin: auto;">
-		<table>
-			<c:forEach var='reservationVo' items='${tourReservationList}'>
-				<tr>
-					<td class='daehanFont' style="text-align: right;">
-						<c:choose>
-							<c:when test="${reservationVo.reserveTourDay eq '토'}">
-								<a style="color: #3B9DDA;">
-									<fmt:formatDate value="${reservationVo.reserveTourDate}" pattern="d"/>${reservationVo.reserveTourDay}
-								</a>
-							</c:when>
-							<c:when test="${reservationVo.reserveTourDay eq '일'}">
-								<a style="color: #EF4044;">
-									<fmt:formatDate value="${reservationVo.reserveTourDate}" pattern="d"/>${reservationVo.reserveTourDay}
-								</a>
-							</c:when>
-							<c:otherwise>
-								<fmt:formatDate value="${reservationVo.reserveTourDate}" pattern="d"/>${reservationVo.reserveTourDay}
-							</c:otherwise>
-						</c:choose>
-					</td>
-					<td style="width: 500px; padding-left: 20px;">
-						<c:if test="${reservationVo.reserveApplyNumSum eq 0}"></c:if>
-						<c:if test="${reservationVo.reserveApplyNumSum ne 0}">
-							<c:forEach var='tourVo' items='${tourList}'>
-								<c:if test="${tourVo.tourNo eq 1}">${tourVo.tourStartTime} ~ ${tourVo.tourEndTime}</c:if>
-							</c:forEach>
-							${reservationVo.tourNo}${reservationVo.tourName} (${reservationVo.reserveApplyNumSum}명)
-						</c:if>
-					</td>
-				</tr>
-			</c:forEach>
-		</table>
+<!-- 	<div style="width: 740px; height: 1200px; margin: auto;"> -->
+<!-- 		<table> -->
+<%-- 			<c:forEach var='reservationVo' items='${tourReservationList}'> --%>
+<!-- 				<tr> -->
+<!-- 					<td class='daehanFont' style="text-align: right;"> -->
+<%-- 						<c:choose> --%>
+<%-- 							<c:when test="${reservationVo.reserveTourDay eq '토'}"> --%>
+<!-- 								<a style="color: #3B9DDA;"> -->
+<%-- 									<fmt:formatDate value="${reservationVo.reserveTourDate}" pattern="d"/>${reservationVo.reserveTourDay} --%>
+<!-- 								</a> -->
+<%-- 							</c:when> --%>
+<%-- 							<c:when test="${reservationVo.reserveTourDay eq '일'}"> --%>
+<!-- 								<a style="color: #EF4044;"> -->
+<%-- 									<fmt:formatDate value="${reservationVo.reserveTourDate}" pattern="d"/>${reservationVo.reserveTourDay} --%>
+<!-- 								</a> -->
+<%-- 							</c:when> --%>
+<%-- 							<c:otherwise> --%>
+<%-- 								<fmt:formatDate value="${reservationVo.reserveTourDate}" pattern="d"/>${reservationVo.reserveTourDay} --%>
+<%-- 							</c:otherwise> --%>
+<%-- 						</c:choose> --%>
+<!-- 					</td> -->
+<!-- 					<td style="width: 500px; padding-left: 20px;"> -->
+<%-- 						<c:if test="${reservationVo.reserveApplyNumSum eq 0}"></c:if> --%>
+<%-- 						<c:if test="${reservationVo.reserveApplyNumSum ne 0}"> --%>
+<%-- 							<c:forEach var='tourVo' items='${tourList}'> --%>
+<%-- 								<c:if test="${tourVo.tourNo eq 1}">${tourVo.tourStartTime} ~ ${tourVo.tourEndTime}</c:if> --%>
+<%-- 							</c:forEach> --%>
+<%-- 							${reservationVo.tourNo}${reservationVo.tourName} (${reservationVo.reserveApplyNumSum}명) --%>
+<%-- 						</c:if> --%>
+<!-- 					</td> -->
+<!-- 				</tr> -->
+<%-- 			</c:forEach> --%>
+<!-- 		</table> -->
+<!-- 	</div> -->
+
+	<div style="width: 1260px; height: 600px; background-image: url('/dolleProject/resources/images/GzoneBackGround.png'); text-align:center; margin: auto;">
+		<div style="font-size: 40px; font-family: 대한민국정부상징체; padding-top: 200px;">
+			페이지 준비중입니다. 다른 페이지를 둘러보세요!
+		</div>
+	</div>
+	
+	<div style="margin-bottom: 20px;">
 	</div>
 	
 	<jsp:include page="/WEB-INF/views/Tail.jsp" />

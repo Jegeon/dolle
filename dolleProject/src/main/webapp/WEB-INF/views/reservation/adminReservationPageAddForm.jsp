@@ -41,8 +41,6 @@
 		location.href = "reservationPage.do";
 	}
 	function validationFnc(){
-		alert("check작동");
-		
 		// ObjValue 모음 시작
 		var tourNameObjValue = $("#tourName").val();
 		var tourStartDateObjValue = $("#tourStartDate").val();
@@ -53,6 +51,8 @@
 		var tourPriceObjValue = $("#tourPrice").val();
 		var tourStartingPointObjValue = $("#tourStartingPoint").val();
 		var tourContentObjValue = $("#tourContent").val();
+		
+		var fileObjValue = $("#fileBtn").val();
 		// ObjValue 모음 끝
 		
 		var errorStr = "추가가 불가능합니다";
@@ -66,8 +66,14 @@
 		var errorCode8 = "투어 출발지 입력 필요";
 		var errorCode9 = "투어 내용 입력 필요";
 		
+		var errorCode10 = "파일 추가 필요";
+		
 		if (tourNameObjValue == null || tourNameObjValue == "" || tourNameObjValue.length == 0) {
 			alert(errorStr + " - " + errorCode1);
+			return false;
+		}
+		if(fileObjValue == null || fileObjValue.trim() == "" || fileObjValue.length == 0){
+			alert(errorStr + " - " + errorCode10);
 			return false;
 		}
 		if (tourStartDateObjValue == null || tourStartDateObjValue == "" || tourStartDateObjValue.length == 0) {
@@ -94,14 +100,14 @@
 			alert(errorStr + " - " + errorCode7);
 			return false;
 		}
-		 if (!tourStartingPointObjValue || tourStartingPointObjValue=="") {
-					alert(errorStr + " - " + errorCode8);
-					return false;
-			}
-		 if (!tourContentObjValue || tourContentObjValue=="") {
-					alert(errorStr + " - " + errorCode9);
-					return false;
-			}
+		if (!tourStartingPointObjValue || tourStartingPointObjValue=="") {
+			alert(errorStr + " - " + errorCode8);
+			return false;
+		}
+		if (!tourContentObjValue || tourContentObjValue=="") {
+			alert(errorStr + " - " + errorCode9);
+			return false;
+		}
 		
 		return true;
 	}
@@ -156,7 +162,6 @@
 		border:0px;
 		text-align: center;
 		vertical-align: middle;
-		cursor:pointer;
 	}
 </style>
 </head>
@@ -232,8 +237,8 @@
 			</div>
 			<div style="width: 580px; padding-top: 20px; text-align: center;">
 				<!-- <input type="hidden" name="tourNo" value=""> -->
-				<input type="button" onclick='addFormFnc();' class="ahreum" value="추가하기">
-				<button class="ahreum" type="button" onclick="pageMoveListFnc();">목록으로</button>
+				<input type="button" onclick='addFormFnc();' class="ahreum" value="추가하기" style="cursor: pointer;">
+				<button class="ahreum" type="button" onclick="pageMoveListFnc();" style="cursor: pointer;">목록으로</button>
 			</div>
 		</form>
 	</div>

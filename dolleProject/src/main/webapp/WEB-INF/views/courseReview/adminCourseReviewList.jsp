@@ -10,12 +10,80 @@
 <title>코스후기 게시판 관리</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
 <style>
+	
 	table,tr,td,th {
-		border: 1px solid black;
+		box-sizing: border-box;
+		border-collapse: collapse;
+	}
+	th{
+		background-color: #F8F4ED;
+		height: 35px;
+		font-weight: bold;
+		padding-top: 9px;
+		border-top: 1px solid #B9B9B9;
+		border-bottom: 1px solid #B9B9B9;
+	}
+	td{
+		height: 30px;
+		padding-top: 5px;
+		border-top: 1px solid #B9B9B9;
+		border-bottom: 1px solid #B9B9B9;
+	}
+	.tableLine{
+		border-right: 1px solid #B9B9B9;
+	}	
+		
+	.alignCenter{
+		text-align: center;
+	}
+	.alignLeft{
+		text-align: left;
+		padding-left: 5px;
+	}
+	.alignRight{
+		text-align: right;
+		padding-right: 5px;
+	}
+	
+	.subTitle{
+		font: normal bold 18px Segoe UI;
+   		margin-right: 15px;
+	}
+	.subContent{
+		font: normal normal 18px Segoe UI;
+	}
+	
+	#deleteBtn{
+		width: 49px;
+	    height: 30px;
+	    background-color: #0D4371;
+	    border: none;
+	    font-weight: 600;
+	    color: #fff;
 	}
 </style>
 <script src="http://code.jquery.com/jquery-1.4.4.min.js"></script>
 <script type="text/javascript">
+	
+	$(document).ready(function() {
+		
+		for(var i=1; i<=30;i++){
+			$("#title"+i).attr("onmouseover","mouseOverFnc("+i+")");
+			$("#title"+i).attr("onmouseleave","mouseLeaveFnc("+i+")");
+			$("#title"+i).css("cursor","pointer");
+		}
+		
+	});
+	
+	//제목에 마우스 올렸을시 이벤트
+	function mouseOverFnc(index){
+		var trOneObj = $("#tr"+index);
+		trOneObj.css("background-color","#eee");
+	}
+	function mouseLeaveFnc(index){
+		var trOneObj = $("#tr"+index);
+		trOneObj.css("background-color","#fff");
+	}	
 	
 	function goPageFnc(pageNum){
 		var curPage = $('#curPage');
@@ -30,16 +98,20 @@
 		adminForm.submit();
 	}
 	
-// 	function pageMoveFnc(){
-// 		var loginUser = $("#reviewMemberIdx").val();
-// 		if(loginUser == null || loginUser.trim() == "" || loginUser.length == 0){
-// 			alert("로그인 후 작성해주세요.");
-// 				//관련없는것들은 절대경로로 
-<%-- 			location.href="<%=request.getContextPath()%>/auth/login.do"  --%>
-// 		}else{
-// 			location.href="./add.do";
-// 		}
-// 	}
+	function moveDetailFnc(reviewIdx){
+		location.href="<%=request.getContextPath()%>/courseReview/detail.do?reviewIdx="+reviewIdx;
+	}
+	
+	function pageMoveFnc(){
+		var loginUser = $("#reviewMemberIdx").val();
+		if(loginUser == null || loginUser.trim() == "" || loginUser.length == 0){
+			alert("로그인 후 작성해주세요.");
+				//관련없는것들은 절대경로로 
+			location.href="<%=request.getContextPath()%>/auth/login.do" 
+		}else{
+			location.href="./add.do";
+		}
+	}
 	
 	function deleteFnc(){
 		var checkVal = confirm("정말 삭제하시겠습니까?");
@@ -56,18 +128,28 @@
 
 	<jsp:include page="/WEB-INF/views/Header.jsp"/>
 	
-	<h1>코스 후기 게시판</h1>
-	<div>
-		<span>마을</span><span>혜화 명륜</span>
-		<span>코스</span><span>혜화 명륜 성곽 코스</span>
+<div style="width:1290px; margin: 0px auto;">
+	
+	
+	
+	<div style="margin-left:20px; font-size:30px; font-family:대한민국정부상징체; padding:10px 0px 20px;">
+		<h1>코스 후기 게시판</h1>
+	</div>
+	<div style="margin-left:20px;">
+		<span class="subTitle">마을</span>
+		<span class="subContent">혜화 명륜</span>
+	</div>
+	<div style="margin-left:20px;">	
+		<span class="subTitle">코스</span>
+		<span class="subContent">혜화 명륜 성곽 코스</span>
 	</div>
 	
 	
-	<form id="adminForm" action="./adminList.do" method="post">
+	<form id="adminForm" action="./adminList.do" method="post" style="width:1260px; margin:20px auto 0px;">
 		<!-- 정렬개수 -->
 		게시글개수 
 		<select id="pageScale" name="pageScale" onchange="submitFnc();" 
-		style="width:120px; padding: 6px 22px; vertical-align: middle;
+		style="width:85px; padding: 6px 22px; vertical-align: middle;
 			border: 1px solid #B9B9B9; 
 			font-size:14px; font-family: Segoe UI;
 			-webkit-appearance: none; /* 원본 select 버튼 감추기 */
@@ -93,9 +175,9 @@
 		개씩
 	
 			<!-- 정렬선택과 검색창 -->
-		<div style="float:right; height:50px; width:530px; padding-top:40px;">
+		<div style="float:right; width:524px;" >
 			<select id="orderOption" name="orderOption" onchange="submitFnc();"
-				style="width:120px; padding: 6px 22px; vertical-align: middle;
+				style="width:120px; padding: 6px 22px; vertical-align: middle; 
 					border: 1px solid #B9B9B9; 
 					font-size:14px; font-family: Segoe UI;
 					-webkit-appearance: none; /* 원본 select 버튼 감추기 */
@@ -168,47 +250,67 @@
 		</div>
 		
 	
-		<table style="">
+		<table style="margin:0px auto; margin-top:10px; margin-bottom:5px; width:1260px;">
 			<tr>
-				<th>선택</th>		
-				<th>글번호(정렬)</th>		
-				<th>제목</th>		
-				<th>작성자</th>		
-				<th>조회수(정렬)</th>		
-				<th>별점(정렬)</th>
-				<th>등록일(정렬)</th>
-				<th>댓글수(정렬)</th>
+				<th class="alignCenter tableLine" style="width:48px;">선택</th>		
+				<th class="alignCenter tableLine" style="width:60px;">글번호</th>		
+				<th class="alignCenter tableLine">제목</th>		
+				<th class="alignCenter tableLine" style="width:130px;">작성자</th>		
+				<th class="alignCenter tableLine" style="width:60px;">조회수</th>		
+				<th class="alignCenter tableLine" style="width:50px;">별점</th>
+				<th class="alignCenter tableLine" style="width:162px;">등록일</th>
+				<th class="alignCenter" style="width:60px;">댓글수</th>
 			</tr>		
-			<c:forEach var="reviewVo" items="${reviewList}">
-				<tr>
-					<td><input type="checkbox" name="checkIdx" value="${reviewVo.reviewIdx}"></td>		 
-					<td>${reviewVo.reviewIdx}</td>		
-					<td>${reviewVo.reviewTitle}</td>		
-					<td>${reviewVo.memberNickname}</td>
-					<td>${reviewVo.reviewReadCount}</td>		
-					<td>${reviewVo.reviewRating}</td>		
-	 				<td><fmt:formatDate value="${reviewVo.reviewCreDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td> 
-					<td>${reviewVo.commentCount}</td> 
+			<c:forEach var="reviewVo" items="${reviewList}" varStatus="index">
+				<tr id="tr${index.count}">
+					<td class="alignCenter tableLine">
+						<input type="checkbox" name="checkIdx" value="${reviewVo.reviewIdx}">
+					</td>		 
+					<td class="alignCenter tableLine">
+						${reviewVo.reviewIdx}
+					</td>		
+					<td id="title${index.count}" class="alignLeft tableLine"
+					 onclick="moveDetailFnc(${reviewVo.reviewIdx});">
+						${reviewVo.reviewTitle}
+					</td>		
+					<td class="alignCenter tableLine">
+						${reviewVo.memberNickname}
+					</td>
+					<td class="alignRight tableLine">
+						${reviewVo.reviewReadCount}
+					</td>		
+					<td class="alignRight tableLine">
+						${reviewVo.reviewRating}
+					</td>		
+	 				<td class="alignCenter tableLine">
+	 					<fmt:formatDate value="${reviewVo.reviewCreDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
+	 				</td> 
+					<td class="alignRight">
+						${reviewVo.commentCount}
+					</td> 
 				</tr>	
 			</c:forEach>
 		</table>
+
+		<input id="deleteBtn" type="button" onclick="deleteFnc();" value="삭제">
 	</form> 
 	
-	<input type="button" onclick="deleteFnc();" value="삭제">
 
+</div>
+	
 	<!-- 페이징 버튼 -->
 	<div style="width:1260px; height:205px; margin:0 auto; text-align: center; 
 		padding-top: 30px; box-sizing: border-box;">
 		<ul id="pagingGroup" style="width: 600px; display: inline-block; margin-left: 165px;">
 			<li class="pagingImg" onclick="goPageFnc(1);"
-				 style="cursor: pointer; width:40px; height:40px; display: inline-block; 
+				 style="cursor: pointer; width:35px; height:35px; display: inline-block; 
 				 background: #FFFFFF; border:1px solid #fff; vertical-align: middle;
 				 padding-top:7px; box-sizing: border-box;">
 				<img id="doubledLeftBtn" alt="doubledLeftBtn" src="/dolleProject/resources/images/doubleLeft.PNG" 
 					style="width: 55%;">
 			</li>
 			<li class="pagingImg" onclick="goPageFnc(${pagingMap.adminPaging.prevPage});"
-				 style="cursor: pointer; width:40px; height:40px; display: inline-block; 
+				 style="cursor: pointer; width:35px; height:35px; display: inline-block; 
 				 background: #FFFFFF; border:1px solid #fff; vertical-align: middle;
 				 padding-top:7px; box-sizing: border-box;">
 				<img id="doubledLeftBtn" alt="doubledLeftBtn" src="/dolleProject/resources/images/left.PNG" 
@@ -220,31 +322,31 @@
 				
 				<c:if test="${pagingMap.adminPaging.curPage eq num}">
 					<li class="pagingNum" onclick="goPageFnc(${num});"
-						style="cursor: pointer; width:40px; height:40px; display:inline-block; 
+						style="cursor: pointer; width:35px; height:35px; display:inline-block; 
 						background: #0D4371; color:#fff; border:1px solid #707070; vertical-align: middle; 
-						font-size: 20px; padding-top:8px; box-sizing: border-box;">
+						font-size: 20px; padding-top:6px; box-sizing: border-box;">
 						<c:out value="${num}"/>
 					</li>
 				</c:if>
 				<c:if test="${pagingMap.adminPaging.curPage ne num}">
 					<li class="pagingNum" onclick="goPageFnc(${num});"
-						 style="cursor: pointer; width:40px; height:40px; display: inline-block; 
+						 style="cursor: pointer; width:35px; height:35px; display: inline-block; 
 						 background: #FFFFFF; border:1px solid #707070; vertical-align: middle;
-						font-size: 20px; padding-top:8px; box-sizing: border-box;">
+						font-size: 20px; padding-top:6px; box-sizing: border-box;">
 						<c:out value="${num}"/>
 					</li>
 				</c:if>
 			</c:forEach>
 
 			<li class="pagingImg" onclick="goPageFnc(${pagingMap.adminPaging.nextPage});"
-			 style="cursor: pointer; width:40px; height:40px; display: inline-block; 
+			 style="cursor: pointer; width:35px; height:35px; display: inline-block; 
 			 background: #FFFFFF; border:1px solid #fff; vertical-align: middle;
 				 padding-top:7px; box-sizing: border-box;">
 				<img id="doubledLeftBtn" alt="doubledLeftBtn" src="/dolleProject/resources/images/right.PNG" 
 					style="width: 42%;">
 			</li>
 			<li class="pagingImg" onclick="goPageFnc(${pagingMap.adminPaging.totPage});"
-				 style="cursor: pointer; width:40px; height:40px; display: inline-block; 
+				 style="cursor: pointer; width:35px; height:35px; display: inline-block; 
 				 background: #FFFFFF; border:1px solid #fff; vertical-align: middle;
 				 padding-top:7px; box-sizing: border-box;">
 				<img id="doubledLeftBtn" alt="doubledLeftBtn" src="/dolleProject/resources/images/doubleRight.PNG" 
@@ -253,7 +355,7 @@
 		</ul>
 		<input id="reviewMemberIdx" type="hidden" value="${_memberVo_.no}">
 		<button onclick="pageMoveFnc();"
-			style="width:200px; height:45px; font:normal bold 18px Segoe UI; color:white; 
+			style="width:180px; height:40px; font:normal bold 18px Segoe UI; color:white; 
 			background-color: #0D4371; float:right; border:0px; margin-right: 20px;">
 			글쓰기
 		</button>
@@ -268,6 +370,8 @@
 				value="${searchOption}">	
 			<input type="hidden" id='pagingKeyword' name='keyword' 
 				value="${keyword}">
+			<input type="hidden" name='pageScale' 
+				value="${pageScale}">
 		</form>
 	</div>
 

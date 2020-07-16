@@ -11,8 +11,8 @@
 <style type="text/css">
 
 	.fixedBox{
-/* 		width:306px; height:114px; background-color: #fff; */
  		width:306px; height:114px; background-color: #E1E1E1; 
+   		background: url('/dolleProject/resources/images/reviewList/640기와3.jpg') no-repeat 53% 64% 
 	}
 	
 	.innerBox{
@@ -22,37 +22,7 @@
 	.innerBoxBG{
 		background-color:#000; opacity:0.3;
  	}  
-/* 	.innerTxtBoxBG{ */
-/* 		color:#fff; opacity: 1; */
-/* 	} */
 
-/* 	.photoBox{ */
-/* 		width:306px; height:342px; position: absolute; background-color: lightgray; */
-/* 	} */
-	
-/* 	.reviewPhoto{ */
-/* 		position: relative; height:100%; width:100%; */
-/* 	} */
-	
-/* 	.innerTitle{ */
-/* 	font: normal bold 22px Segoe UI; margin: 18px 20px 0px; display: block; */
-/* 	} */
-	
-/* 	.innerWriter{ */
-/* 	font: normal normal 14px Segoe UI; margin: 8px 20px; display: block; */
-/* 	} */
-	
-/* 	.innerRating{ */
-/* 	margin: 0px 20px; display: inline-block; width: 110px; vertical-align: middle; */
-/* 	} */
-	
-/* 	.innerLike{ */
-/* 	width:50px; display: inline-block; margin-left: 20px; */
-/* 	} */
-	
-/* 	.innerComment{ */
-/* 	width:50px; display: inline-block; margin-left: 10px; */
-/* 	} */
 	
 	/*  0 318 636 954 */
 	.firstCol{position: absolute;  left: 0px;}
@@ -81,10 +51,6 @@
 	}
 	
 	function submitFnc(){
-// 		$('#orderOption option:selected').each(function() {
-// 	        alert($(this).val());
-// 	   });
-		
 		var orderSearchForm = $('#orderSearchForm');
 		orderSearchForm.submit();
 	}
@@ -110,7 +76,7 @@
 
 <body>
 
-	<jsp:include page="/WEB-INF/views/AdminHeader.jsp" />
+	<jsp:include page="/WEB-INF/views/Header.jsp" />
 
 	<div style="width:1260px; height:130px; margin:0 auto;" >
 		<h1 style="font-size:30px; font-family: 대한민국정부상징체 ; margin: 55px 0px 20px 82px;">코스 후기 게시판</h1>
@@ -290,9 +256,9 @@
 					
 					<li class="reviewList_li" onclick="detailPageFnc(${reviewVo.reviewIdx});">
 						<div class="photo_Box"
-							style="width:306px; height:342px; position: absolute; top:${TopPosition1}px; left:${leftPosition}px;
+							style="overflow:hidden; width:306px; height:342px; position: absolute; top:${TopPosition1}px; left:${leftPosition}px;
 							background-color: lightgray;">
-							<img alt="review_photo" src="<c:url value='/img/${reviewVo.fileStoredName}'/>" style="position: relative; height:100%; width:100%;">
+							<img alt="review_photo" src="<c:url value='/img/${reviewVo.fileStoredName}'/>" style="position: relative; height:100%;">
 						</div>
 						<span class="innerBox" style="width:306px; height:114px; position: absolute; top:${TopPosition2}px; left:${leftPosition}px; 
 							background-color: #000; opacity: 0.3;">			
@@ -330,9 +296,6 @@
 						</span>
 					</li>
 				
-			
-<%-- 				</c:forEach> --%>
-<%-- 			</c:forEach> --%>
 			</c:forEach>
 		</ul>
 		
@@ -412,8 +375,6 @@
 				value="${keyword}">
 		</form>
 	</div>
-	
-	<a href="./adminList.do">관리자 test</a>
 	
 	<jsp:include page="/WEB-INF/views/Tail.jsp" />
 	

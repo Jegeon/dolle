@@ -20,30 +20,42 @@
 </script>
 <style type="text/css">
 .ahreum {
-	width: 220px;
-	height: 50px;
+	width: 200px;
+	height: 45px;
 	font: normal bold 18px Segoe UI;
 	color: white;
 	background-color: #0D4371;
 	border: 0px;
 	text-align: center;
+	vertical-align: middle;
 }
+td, tr {
+	border: 1px solid black;
+}
+.vMiddlePL20 {
+	padding-left: 20px;
+	vertical-align: middle;
+}
+.daehanFont {
+		font-size: 30px; 
+		font-family: 대한민국정부상징체 ; 
+	}
 </style>
 </head>
 
 <body>
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
-	<h1 style="text-align: center;">입금</h1>
+	<h1 class="daehanFont" style="margin: 10px 0px 10px 0px; text-align: center;">입금</h1>
 	<br />
 	<div
-		style="width: 740px; height: 640px; margin: auto;">
+		style="width: 740px; height: 500px; margin: auto;">
 		<div
-			style="width: 496px; height: 450px; border: 1px solid black; margin: auto;">
+			style="width: 496px; height: 300px; border: 1px solid black; margin: auto;">
 			<div>
-				<table style="width: 496px; height: 400px;">
+				<table style="width: 496px; height: 300px;">
 					<tr>
 						<td class="ahreum">입금 계좌</td>
-						<td>
+						<td class="vMiddlePL20">
 							${memberVo.tourAccountNum}
 						</td>
 					</tr>
@@ -51,7 +63,7 @@
 						<td class="ahreum">
 							내 계좌
 						</td>
-						<td>
+						<td class="vMiddlePL20">
 							<input type='text'>
 						</td>
 					</tr>
@@ -59,7 +71,7 @@
 						<td class="ahreum">
 							예금주
 						</td>
-						<td>
+						<td class="vMiddlePL20">
 							<input type='text'>
 						</td>
 					</tr>
@@ -67,16 +79,16 @@
 						<td class="ahreum">
 							인원 수
 						</td>
-						<td>
-							${memberVo.reserveApplyNum}
+						<td class="vMiddlePL20">
+							${memberVo.reserveApplyNum} 명
 						</td>
 					</tr>
 					<tr>
 						<td class="ahreum">
 							결제 가격
 						</td>
-						<td>
-							${memberVo.reservePrice}
+						<td class="vMiddlePL20">
+							<fmt:formatNumber value="${memberVo.reservePrice}" pattern="#,###" /> 원
 						</td>
 					</tr>
 				</table>
@@ -84,7 +96,6 @@
 		</div>
 		<div style="text-align: center;">
 			<div style="margin-top: 20px;">
-				테스트용3 ${reserveIdx}
 				<button class="ahreum" onclick="paymentFnc();">결제하기</button>
 				<button class="ahreum" onclick="">취소하기</button>
 			</div>

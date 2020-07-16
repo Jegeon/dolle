@@ -217,6 +217,9 @@
 	#tourName {
 		width: 368px;
 	}
+	.lTdPl20 {
+		padding-left: 20px;
+	}
 </style>
 </head>
 
@@ -226,26 +229,26 @@
 
 	<h1 class="daehanFont" style="margin: 10px 0px 10px 82px;">가이드 투어 예약페이지 추가</h1>
 	<br/>
-	<div style="width: 580px; height: 820px; margin: auto;">
+	<div style="width: 610px; height: 820px; margin: auto;">
 		<form id="addForm" action="./reservationPageAddCtr.do" method="post" enctype="multipart/form-data">
 			<div>
-				<table style="width: 580px; height: 740px;">
+				<table style="width: 610px; height: 740px;">
 					<tr>
 						<td class="ahreum">투어명</td>
-						<td>
+						<td class="lTdPl20">
 							<input type="text" id="tourName" name="tourName" value="" placeholder="투어 이름을 입력하세요">
 						</td>
 					</tr>
 					<tr>
 						<td class="ahreum">투어 이미지 파일</td>
-						<td>
+						<td class="lTdPl20">
 							<input id="fileBtn" type="file" name="file">
 							<img id="uploadImg">
 						</td>
 					</tr>
 					<tr>
 						<td class="ahreum">투어 시작일 및 종료일</td>
-						<td>
+						<td class="lTdPl20">
 							<input type="text"   
 							id="fromDt" size="8" title="시작일자" placeholder="투어 시작일" 
 							onchange="carryStartDateTextToDateFnc();"> ~
@@ -258,39 +261,39 @@
 					</tr>
 					<tr>
 						<td class="ahreum">출발시간 및 종료시간</td>
-						<td>
+						<td class="lTdPl20">
 							<input type="text" id="tourStartTime" name="tourStartTime" value="" placeholder="09:00"> ~
 							<input type="text" id="tourEndTime" name="tourEndTime" value="" placeholder="18:00">
 						</td>
 					</tr>
 					<tr>
 						<td class="ahreum">투어 최대 인원</td>
-						<td>
+						<td class="lTdPl20">
 							<input type="number" id="tourPeopleNum" name="tourPeopleNum" value="" placeholder="10 (숫자를 입력하세요)">
 						</td>
 					</tr>
 					<tr>
 						<td class="ahreum">투어 인당 가격</td>
-						<td>
+						<td class="lTdPl20">
 							<input type="number" id="tourPrice" name="tourPrice" value="" placeholder="9800 (숫자만 입력하세요)">
 						</td>
 					</tr>
 					<tr>
 						<td class="ahreum">투어 출발지</td>
-						<td>
+						<td class="lTdPl20">
 							<input type="text" id="tourStartingPoint" name="tourStartingPoint" value="" placeholder="출발지를 입력하세요">
 						</td>
 					</tr>
 					<tr>
 						<td class="ahreum">투어 내용</td>
-						<td>
+						<td class="lTdPl20">
 							<textarea id="tourContent" name="tourContent" rows="" cols="" placeholder="내용을 입력해주세요"
 							style="width:270px; height:200px; font-size:17px; box-sizing:border-box;"></textarea>
 						</td>
 					</tr>
 				</table>
 			</div>
-			<div style="width: 580px; padding-top: 20px; text-align: center;">
+			<div style="width: 610px; padding-top: 20px; text-align: center;">
 				<!-- <input type="hidden" name="tourNo" value=""> -->
 				<input type="button" onclick='addFormFnc();' class="ahreum" value="추가하기" style="cursor: pointer;">
 				<button class="ahreum" type="button" onclick="pageMoveListFnc();" style="cursor: pointer;">목록으로</button>

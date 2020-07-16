@@ -250,9 +250,9 @@
 					class='blackLink' href='#'>회원 관리</a>
 				</span> <span id="popManageUser"> <span id="popUser"
 					style="padding: 0px 7px 0px 7px;"> <a
-						class='blackLink detailLink' href='../member/list.do'>회원</a>
+						class='blackLink detailLink' href='<%=request.getContextPath()%>/member/list.do'>회원</a>
 				</span> <span id="popAdmin" style="padding: 0px 7px 0px 7px;"> <a
-						class='blackLink detailLink' href='../member/adminlist.do'>관리자</a>
+						class='blackLink detailLink' href='<%=request.getContextPath()%>/member/adminlist.do'>관리자</a>
 				</span>
 				</span>
 
@@ -349,7 +349,7 @@
 			<div
 				style="height: 40px; width: 210px; background-color: #EFEAE2; text-align: center; padding-top: 14px; box-sizing: border-box; margin-left: 630px;">
 				<span style="padding: 0px 7px 0px 7px;"> <a class='blackLink'
-					href='../reservation/list.do'>투어 예약</a>
+					href='<%=request.getContextPath()%>/reservation/list.do'>투어 예약</a>
 				</span>
 			</div>
 		</div>
@@ -360,7 +360,7 @@
 			<div
 				style="height: 40px; width: 210px; background-color: #EFEAE2; text-align: center; padding-top: 14px; box-sizing: border-box; margin-left: 840px;">
 				<span style="padding: 0px 7px 0px 7px;"> <a class='blackLink'
-					href='../courseReview/list.do'>코스 후기 게시판</a>
+					href='<%=request.getContextPath()%>/courseReview/list.do'>코스 후기 게시판</a>
 				</span>
 			</div>
 		</div>
@@ -371,7 +371,7 @@
 			<div
 				style="height: 40px; width: 210px; background-color: #EFEAE2; text-align: center; padding-top: 14px; box-sizing: border-box; margin-left: 1050px;">
 				<span style="padding: 0px 7px 0px 7px;"> <a class='blackLink'
-					href='../noticeBoard/list.do'>공지 사항</a>
+					href='<%=request.getContextPath()%>/noticeBoard/list.do'>공지 사항</a>
 				</span>
 			</div>
 		</div>

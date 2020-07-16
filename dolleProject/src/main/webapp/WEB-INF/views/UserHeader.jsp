@@ -244,7 +244,7 @@
 			<div style="width: 1260px; margin: 0px auto;">
 				<div
 					style="height: 40px; width: 252px; background-color: #EFEAE2; text-align: center; padding-top: 14px; box-sizing: border-box; margin-left: 504px;">
-					<span style="padding: 0px 7px 0px 7px;"> <a class='blackLink' href='../reservation/list.do'>투어 예약</a>
+					<span style="padding: 0px 7px 0px 7px;"> <a class='blackLink' href='<%=request.getContextPath()%>/reservation/list.do'>투어 예약</a>
 					</span>
 				</div>
 			</div>
@@ -254,7 +254,7 @@
 			<div style="width: 1260px; margin: 0px auto;">
 				<div
 					style="height: 40px; width: 252px; background-color: #EFEAE2; text-align: center; padding-top: 14px; box-sizing: border-box; margin-left: 756px;">
-					<span style="padding: 0px 7px 0px 7px;"> <a class='blackLink' href='../courseReview/list.do'>코스 후기 게시판</a>
+					<span style="padding: 0px 7px 0px 7px;"> <a class='blackLink' href='<%=request.getContextPath()%>/courseReview/list.do'>코스 후기 게시판</a>
 					</span>
 				</div>
 			</div>
@@ -264,7 +264,7 @@
 			<div style="width: 1260px; margin: 0px auto;">
 				<div
 					style="height: 40px; width: 252px; background-color: #EFEAE2; text-align: center; padding-top: 14px; box-sizing: border-box; margin-left: 1008px;">
-					<span style="padding: 0px 7px 0px 7px;"> <a class='blackLink' href='../noticeBoard/list.do'>공지 사항</a>
+					<span style="padding: 0px 7px 0px 7px;"> <a class='blackLink' href='<%=request.getContextPath()%>/noticeBoard/list.do'>공지 사항</a>
 					</span>
 				</div>
 			</div>

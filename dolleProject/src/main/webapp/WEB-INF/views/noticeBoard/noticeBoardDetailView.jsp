@@ -137,6 +137,14 @@ body {
 <script type="text/javascript" 
 	src="/dolleProject/resources/js/jquery-3.5.1.js"></script>
 <script type="text/javascript">
+window.onload = function () {
+	
+	var fileName = $('#fileStoredName').val();
+	alert(fileName);
+	
+	var refineExtension = fileName.split(".")[1];
+	alert(refineExtension);	
+}
 	function upFnc() {
 		$('#upForm').submit();
 	}
@@ -212,6 +220,8 @@ body {
 					</c:if>
 				</form>
 			</div>
+			
+			<input type="hidden" id='fileStoredName' value='${noticeVo.fileNoticeStoredName}'>
 			
 			<c:choose>
 				<c:when test="${empty noticeVo.fileNoticeStoredName}">

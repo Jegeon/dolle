@@ -189,6 +189,12 @@ public class CourseReviewDaoImpl implements CourseReviewDao{
 		return sqlSession.selectOne(namespace + "commentSelectTotalCount", reviewIdx);
 	}
 
+	@Override
+	public int commentDeleteTogether(int reviewIdx) {
+		// TODO Auto-generated method stub
+		return sqlSession.delete(namespace + "commentDeleteTogether", reviewIdx);
+	}
+
 	
 	
 	

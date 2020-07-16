@@ -56,7 +56,7 @@
 		color: #707070;
 		font:normal normal 14px Segoe UI;
 	}	
-	#commentContent{
+	.commentContent{
 		margin-top: 20px;
 	    widtH: 1060px;
 	    height: 100px;
@@ -93,7 +93,14 @@
 	.commentBox{
 		margin: 20px;
 	}
-	
+	.cmtBtn{
+		background-color: #fff;
+	    border: 1px solid #808080;
+	    border-radius: 4px;
+	    width: 57px;
+	    height: 27px;
+	    margin-left: 5px;
+	}
 	/* 댓글쓰기 */
 	#choiseEmoTitle{
 		font-weight: bold;
@@ -156,12 +163,14 @@
 		//reviewContent 길이 만큼 페이지 높이 증가
 		var incHeight = $("#reviewContentBox").css("height");
 		var incHeightVal = incHeight.substring(0, incHeight.length-2);
+		var bodyHeight = 1400 + Number(incHeightVal);	//댓글 없을 때 기본 높이
 
 		//댓글 개수에 따른 페이지 높이 지정
-		var commentCnt = $("#commentCnt").val(); 
-		var bodyHeight = 1400 + Number(incHeightVal);	//댓글 없을 때 기본 높이
-		for(var i=0; i<commentCnt; i++){
-			bodyHeight += 140;
+		var commentCnt = $("#commentCnt").val();
+		for(var i=1; i<= commentCnt; i++){
+			var cmtBox = $("#commentBox"+i).css("height");
+			var cmtBoxVal = cmtBox.substring(0, cmtBox.length-2);
+			bodyHeight = bodyHeight + Number(cmtBoxVal) + 40;	//마진값까지 더해주기
 		}
 		$("#bodyWrap").css("height", bodyHeight+"px");
 		
@@ -175,15 +184,22 @@
 			$("#rightBtn").remove();
 		}
 		
-		//댓글에서도 첫&마지막페이지에서 버튼 나타나지 않도록
-		var cmtCurrent = $("#cmtCurPage").val();
-		var lastCmtPage = $("#lastCmtPage").val();
-		if(cmtCurrent == 1){
-			$("#cmtLeftBtn").remove();
-		}else if(cmtCurrent == lastCmtPage){
-			$("#cmtRightBtn").remove();
+		//댓글이 존재하면 버튼이 나타나도록
+		if(commentCnt == 0){
+			$("#commentBtn").remove();
+		}else{	
+			//댓글에서도 첫&마지막페이지에서 버튼 나타나지 않도록
+			var cmtCurrent = $("#cmtCurPage").val();
+			var lastCmtPage = $("#lastCmtPage").val();
+			if(cmtCurrent == 1 && lastCmtPage == 1){
+				$("#cmtLeftBtn").remove();
+				$("#cmtRightBtn").remove();
+			}else if(cmtCurrent == 1 && lastCmtPage != 1){
+				$("#cmtLeftBtn").remove();
+			}else if(cmtCurrent != 1 && cmtCurrent == lastCmtPage){
+				$("#cmtRightBtn").remove();
+			}	
 		}
-		
 		
 		//유저 등급에 따라 목록으로 버튼 추가 및 수정
 		var grade = $("#memberGrade").val();
@@ -246,11 +262,51 @@
 			return false;
 		}
 		
-		if(){
+		//글자수 유효성
+		var commentContent = $("#commentContent").val();
+		content = commentContent.replace(/(?:\r\n|\r|\n)/g, '<br/>');		//엔터키 처리
+		if(content == null || content.trim() == "" || content.length == 0){
+			$("#reivewContent").css("border", "1px solid red");
+			$("#reivewContent").attr("class","validContent");
+			return false;
+		}else if(content.length > 1329){	//글자 수 제한
+			alert("더 이상 작성할 수 없습니다.");
+			var contentStr = content.substr(0, 1325);
+			var lastStr = contentStr.substr(contentStr.length-1, 1);
+			if(lastStr == '<'){
+				contentStr = contentStr + "br/>";
+			}else if(lastStr == 'b'){
+				contentStr = contentStr + "r/>";
+			}else if(lastStr == 'r'){
+				contentStr = contentStr + "/>";
+			}else if(lastStr == '/'){
+				contentStr = contentStr + ">";
+			}
+// 			alert(contentStr);
+			var replaceStr = contentStr.replace(/<br\s?\/?>/g,"\n");
+			$("#commentContent").val(contentStr);
 			
+			return false;
+		}else if(content.length <= 1329){	//글자 수 통과 
+// 			alert("글자수통과");
+			var lastStr = content.substr(content.length-1, 1);
+			if(lastStr == '<'){
+				content = content + "br/>";
+			}else if(lastStr == 'b'){
+				content = content + "r/>";
+			}else if(lastStr == 'r'){
+				content = content + "/>";
+			}else if(lastStr == '/'){
+				content = content + ">";
+			}
+// 			alert(content);
+			$("#commentContent").val(content);
+
+			return true;
 		}
 		
-		return true;
+		return false;
+// 		return true;
 		
 		
 	}
@@ -270,12 +326,22 @@
 	function makeUpdateBoxFnc(index){
 // 		alert($("#check"+index).text());
 		if($("#check"+index).text() == 0){
-			$("#commentBox"+index).append($("<textarea id='commentContent' name='commentContent'></textarea>"));		
+			$("#commentBox"+index).append($("<textarea id='commentContent' class='commentContent plusCmt' name='commentContent'></textarea>"));		
 			$("#check"+index).text(1);
 
 			var commentIdx = $("#commentIdx"+index).val();
 // 			alert("comIdx"+commentIdx);
 			$("#updateBtn"+index).attr("onClick","updateFnc("+commentIdx+")");
+			
+			
+			//댓글 수정시 나타나는 textarea개수에 따른 높이 추가 지정
+			var bodyHeight = $("#bodyWrap").css("height");
+			var bodyHeightVal = bodyHeight.substring(0, bodyHeight.length-2);
+			$(".plusCmt").each(function(){
+				bodyHeightVal = Number(bodyHeightVal) + 120;	
+			});
+			$("#bodyWrap").css("height", bodyHeightVal+"px");
+			
 		}else{
 			alert("이미 텍스트박스 있음");
 // 			$("#commentContent").remove();
@@ -398,7 +464,7 @@
 			<input id="cmtCurPage" name="cmtCurPage" type="hidden" value="${cmtCurPage}">
 			<input id="lastCmtPage" name="lastCmtPage" type="hidden" value="${lastCmtPage}">
 			<span class="commentHeader">댓글쓰기</span>
-			<span class="commentBtn">
+			<span id="commentBtn" class="commentBtn">
 				<span class="marginRight15">${cmtCurPage} / ${lastCmtPage}</span>
 				<button id="cmtLeftBtn" onclick="cmtLeftFnc(${reviewMCFVo.reviewIdx});" style="width:25px; height:25px;">&lt;</button>
 				<button id="cmtRightBtn" onclick="cmtRightFnc(${reviewMCFVo.reviewIdx});" style="width:25px; height:25px;">&gt;</button>
@@ -419,7 +485,7 @@
 						
 						<span><img id="commentImg${index.count}" alt="emoticon" style="width:35px;"></span>
 						<span style="margin-left:10px; font-size:14px;">${commentVo.memberNickname}</span>
-						<div style="margin:12px 0px;">${commentVo.commentContent}</div>
+						<div id="cmtContentBox" style="margin:12px 0px; line-height:21px;">${commentVo.commentContent}</div>
 						<span style="font-size:12px; color:gray;">
 							<fmt:formatDate value="${commentVo.creDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
 						</span>
@@ -430,8 +496,8 @@
 						
 						<c:if test="${_memberVo_.no eq commentVo.commentMemberIdx}">
 							<div style="float:right;">						
-								<button id="updateBtn${index.count}" type="button" onclick="makeUpdateBoxFnc(${index.count});">수정</button>
-								<button type="button" onclick="deleteCommnetFnc(${index.count});">삭제</button>
+								<button id="updateBtn${index.count}" class="cmtBtn" type="button" onclick="makeUpdateBoxFnc(${index.count});">수정</button>
+								<button class="cmtBtn" type="button" onclick="deleteCommnetFnc(${index.count});">삭제</button>
 							</div>
 						</c:if>
 					</div>
@@ -444,6 +510,7 @@
 		<div style="padding:0px 80px;">
 			<form id="commentForm" action="./addCommentCtr.do" method="post" onsubmit="return commentCheckFnc();">
 				<input id="commentReviewIdx" name="commentReviewIdx" type="hidden" value="${reviewMCFVo.reviewIdx}">
+				<input id="commentMemberIdx" name="commentMemberIdx" type="hidden" value="${_memberVo_.no}">
 				<input id="commentEmoticon" name="commentEmoticon" type="hidden" value="">
 				<div id="choiseEmo" style="float:right; margin-bottom:4px;">
 					<div id="choiseEmoTitle">이모티콘 선택</div>

@@ -160,6 +160,7 @@ public class CourseReviewServiceImpl implements CourseReviewService{
 	public void courseReviewDeleteOne(int reviewIdx) {
 		// TODO Auto-generated method stub
 		courseReviewDao.fileDeleteOne(reviewIdx);
+		courseReviewDao.commentDeleteTogether(reviewIdx);
 		courseReviewDao.courseReviewDeleteOne(reviewIdx);
 	}
 
@@ -227,6 +228,7 @@ public class CourseReviewServiceImpl implements CourseReviewService{
 		return courseReviewDao.commentSelectTotalCount(reviewIdx);
 	}
 
+	
 	
 	
 	

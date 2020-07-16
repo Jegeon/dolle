@@ -340,5 +340,11 @@
 		WHERE REVIEW_IDX = #{reviewIdx}
 	</select>
 	
+	<!-- 게시글 삭제시 함께 삭제  -->
+	<delete id="commentDeleteTogether" parameterType="int">
+		DELETE FROM REVIEW_COMMENT
+		WHERE REVIEW_IDX = #{reviewIdx}
+	</delete>
+	
 	
 </mapper>

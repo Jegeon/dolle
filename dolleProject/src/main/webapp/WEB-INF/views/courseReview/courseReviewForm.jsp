@@ -182,10 +182,8 @@
 			return false;
 		}else if(content.length > 1329){	//글자수 제한
 			alert("더 이상 작성할 수 없습니다.");
-// 			alert(content.length);
 			var contentStr = content.substr(0, 1325);
 			var lastStr = contentStr.substr(contentStr.length-1, 1);
-// 			alert(lastStr);
 			if(lastStr == '<'){
 				contentStr = contentStr + "br/>";
 			}else if(lastStr == 'b'){

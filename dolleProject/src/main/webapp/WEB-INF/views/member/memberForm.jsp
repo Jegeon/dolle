@@ -75,11 +75,6 @@
 		padding: 10px;
 	}
 	
-	a {
-		font-size: 5px;
-		text-decoration: none;
-	}
-	
 </style>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script type="text/javascript" src="\dolleProject\resources\js\jquery-3.5.1.js"></script>
@@ -397,11 +392,36 @@
 		
 	}
 	
-	function submitToWindowFnc() {
+	// 핸드폰 자동 하이픈
+	function inputPhoneNumber(obj) {
+
+	    var number = obj.value.replace(/[^0-9]/g, "");
+	    var phone = "";
+
+	    if(number.length < 4) {
+	        return number;
+	    } else if(number.length < 7) {
+	        phone += number.substr(0, 3);
+	        phone += "-";
+	        phone += number.substr(3);
+	    } else if(number.length < 11) {
+	        phone += number.substr(0, 3);
+	        phone += "-";
+	        phone += number.substr(3, 3);
+	        phone += "-";
+	        phone += number.substr(6);
+	    } else {
+	        phone += number.substr(0, 3);
+	        phone += "-";
+	        phone += number.substr(3, 4);
+	        phone += "-";
+	        phone += number.substr(7);
+	    }
+	    obj.value = phone;
 	}
 	
 	function pageMoveListFnc(){
-		location.href = "list.do";
+		location.href = "../auth/login.do";
 	}
 	
 </script>
@@ -409,7 +429,7 @@
 <body>
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
 	<div id='mainBorder'>
-		<div>
+		<div style='padding: 15px;'>
 			<span id='mainText'>회원가입</span>
 		</div>
 		
@@ -521,8 +541,8 @@
 								</tr>
 								<tr>
 									<td>
-										<input id='phonObj' type='text' name='phone'
-											placeholder='ex) 010-1234-5678, 01012345678' value=''>
+										<input id='phonObj' type='text' name='phone' onKeyup='inputPhoneNumber(this);'
+											placeholder='ex) 010-1234-5678' maxlength='13' value=''>
 									</td>
 								</tr>
 								<tr>
@@ -536,7 +556,7 @@
 								</tr>
 								<tr>
 									<td>
-										<input id='yearObj' type='text' name='year' placeholder='년(자)' size='4'
+										<input id='yearObj' type='text' name='year' placeholder='년(4자)' size='4'
 										 maxlength='4' value=''>
 										<select id='monthCheck' name='month'>
 											<option>1</option>
@@ -569,9 +589,9 @@
 								<tr>
 									<td>
 										내국인
-										<input type='radio' name='national' value='n'>
+										<input type='radio' name='national' value='domestic'>
 										외국인
-										<input type='radio' name='national' value='f'>
+										<input type='radio' name='national' value='foreign'>
 									</td>
 								</tr>
 								<tr>
@@ -614,7 +634,7 @@
 			</table>
 		</form>
 		</div>
-			<div>
+			<div style='padding: 15px;'>
 				<input class='btnCss' onclick='completedFnc();' type='button' value='가입완료'>
 				<input class='btnCss' onclick='pageMoveListFnc();' type='button' value='<-'>
 			</div>

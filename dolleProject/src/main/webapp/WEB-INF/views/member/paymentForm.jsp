@@ -17,6 +17,9 @@
    function paymentFnc() {
 	   location.href = "paymentCtr.do?reserveIdx=${reserveIdx}";
    }
+   function backListFnc() {
+	   location.href = "../member/listOne.do?no=${memberVo.no}"
+   }
 </script>
 <style type="text/css">
 .ahreum {
@@ -56,7 +59,8 @@ td, tr {
 					<tr>
 						<td class="ahreum">입금 계좌</td>
 						<td class="vMiddlePL20">
-							${memberVo.tourAccountNum}
+							${memberVo.tourAccountNum} ${memberVo.accBank} <br>
+         					예금주 : ${memberVo.accDepositor}
 						</td>
 					</tr>
 					<tr>
@@ -97,7 +101,7 @@ td, tr {
 		<div style="text-align: center;">
 			<div style="margin-top: 20px;">
 				<button class="ahreum" onclick="paymentFnc();">결제하기</button>
-				<button class="ahreum" onclick="">취소하기</button>
+				<button class="ahreum" onclick="backListFnc();">취소하기</button>
 			</div>
 		</div>
 	</div>

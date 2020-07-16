@@ -17,12 +17,40 @@
 	table {
 		border: 1px solid black;
 		border-collapse: collapse;
+		text-align: center;
+		margin: 0px auto;
+		width: 715px;
 	}
 	
 	th, td {
 		border: 1px solid black;
 		padding: 5px;
 	}
+	
+	.spanCss {
+		color: #0D4371;
+		font-size: 30px;
+		font-weight: bold;
+	}
+	
+	#searchForm {
+		text-align: center;
+	}
+	
+	.divCss {
+		text-align: center;
+		margin: auto;
+	}
+	
+	.btnCss {
+		background-color: #0D4371;
+		color: #FFFFFF;
+		border: 0px;
+		outline: 0px;
+		font-size: 5px;
+		padding: 10px;
+	}
+	
 </style>
 <script type="text/javascript" src="/dolleProject/resources/js/jquery-3.5.1.js"></script>
 <script type="text/javascript">
@@ -30,7 +58,11 @@
 		var checkNo = document.getElementsByName('checkNo');
 		for (var i = 0; i < checkNo.length; i++) {
 			if (checkNo[i].checked == true) {
-				location.href = '../member/deleteCtr.do?mno=' + checkNo[i].value;
+				if (confirm('정말 삭제하시겠습니까?') == true) {
+					location.href = '../member/deleteCtr.do?mno=' + checkNo[i].value;
+				} else {
+					return;
+				}
 			}
 		}
 	}
@@ -56,11 +88,11 @@
 <body>
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
 	<div id='mainDiv'>
-		<div style='padding: 10px;'>
-			<h1>회원목록</h1>
+		<div style='padding: 15px;'>
+			<span class='spanCss'>회원목록</span>
 		</div>
-			<form id='searchForm' action="./list.do" method="post">
-		<select id='searchOption' name='searchOption'>
+	<form id='searchForm' action="./list.do" method="post" style=' padding:10px 0px 10px;'>
+		<select id='searchOption' name='searchOption' style='margin-left: 385px;'>
 		<c:choose>
 			<c:when test="${searchMap.searchOption eq 'all'}">
 				<option value="all" selected="selected">이름+이메일</option>
@@ -87,10 +119,9 @@
 			name="keyword" value="${searchMap.keyword}"
 			placeholder="회원이름 or 이메일 검색">
 		<input type="submit" value="검색">
-		
 	</form>	
-		<form name='deletForm' action='../member/deleteCtr.do?mno='>
-		<div style='padding: 10px;'>
+	<form name='deletForm' action='../member/deleteCtr.do?mno='>
+		<div class='divCss' style='padding: 10px;'>
 			<table>
 				<tr>
 					<th>선택</th><th>이메일</th>
@@ -102,7 +133,7 @@
 				<c:when test="${empty memberList}">
 					<tr>
 						<td colspan="7" style="text-align: center;">
-							등록된 게시글이 없습니다.
+							등록된 회원이 없습니다.
 						</td>
 					</tr>
 				</c:when>
@@ -140,15 +171,13 @@
 			</c:choose>
 			</table>
 		</div>
-		</form>
+	</form>
 		<div>
-			<input type='button' onclick='memberDeletFnc();' value='삭제'>
-			<div style="display: none;">
-			</div>
+			<input class='btnCss' type='button' onclick='memberDeletFnc();' value='삭제'>
 		<!-- 	페이징 버튼 -->
-			<div style="width:1260px; height:205px; margin:0 auto; text-align: center; 
-				padding-top: 30px; box-sizing: border-box;">
-				<ul id="pagingGroup" style="width: 600px; display: inline-block; margin-left: 165px;">
+<!-- 			<div style="width:1260px; height:205px; margin:0 auto; text-align: center;  -->
+<!-- 				padding-top: 30px; box-sizing: border-box;"> -->
+				<ul id="pagingGroup" style="width: 600px; display: inline-block; padding: 0px 0px 10px;">
 					<li class="pagingImg" onclick="goPageFnc(1);"
 						 style="cursor: pointer; width:40px; height:40px; display: inline-block; 
 						 background: #FFFFFF; border:1px solid #fff; vertical-align: middle;
@@ -200,6 +229,7 @@
 							style="width: 55%;">
 					</li>
 				</ul>
+				<input class='btnCss' type='button' onclick='memberAddFnc();' value='회원 추가'>
 				
 				<!-- 페이징정보 전달 -->
 				<form action="./list.do" id='pagingForm' method="get">
@@ -211,9 +241,8 @@
 						value="${searchMap.keyword}">
 				</form>
 			</div>
-			<input type='button' onclick='memberAddFnc();' value='회원 추가'>
 		</div>
-	</div>
+<!-- 	</div> -->
 	<jsp:include page="/WEB-INF/views/Tail.jsp" />
 
 </body>

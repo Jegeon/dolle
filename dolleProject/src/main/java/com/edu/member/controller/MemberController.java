@@ -1,5 +1,6 @@
 package com.edu.member.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -113,9 +114,13 @@ public class MemberController {
 	public String memberListOne(int no, Model model) {
 		log.debug("Welcome memberListOne enter! - {}", no);
 		
+		int totalCnt = memberService.reservationTotalCount(no);
+		int reviewTotalCnt = memberService.reviewTotalCount(no);
 		MemberVo memberVo = memberService.memberSelectOne(no);
 		List<MemberVo> reservationList = memberService.memberReservationOne(no);
 		List<MemberVo> tourReviewList = memberService.memberTourOne(no);
+		model.addAttribute("totalCnt", totalCnt);
+		model.addAttribute("reviewTotalCnt", reviewTotalCnt);
 		model.addAttribute("memberVo", memberVo);
 		model.addAttribute("reservationList", reservationList);
 		model.addAttribute("tourReviewList", tourReviewList);
@@ -192,6 +197,7 @@ public class MemberController {
 	@RequestMapping(value="/auth/loginCtr.do", method=RequestMethod.POST)
 	public String loginCtr(String email, String password, Date createDate,
 			String nickname, String phone, Date birthdate, String grade,
+			String national,
 			HttpSession session, Model model) {
 		log.debug("Welcome MemberController loginCtr! " 
 			+ email + ", " + password);
@@ -204,6 +210,7 @@ public class MemberController {
 		paramMap.put("phone", phone);
 		paramMap.put("birthdate", birthdate);
 		paramMap.put("grade", grade);
+		paramMap.put("national", national);
 		
 		MemberVo memberVo = memberService.memberExist(paramMap);
 		
@@ -213,7 +220,7 @@ public class MemberController {
 			// 회원 전체 조회 페이지로 이동
 			session.setAttribute("_memberVo_", memberVo);
 			
-			viewUrl = "redirect:/member/list.do";
+			viewUrl = "redirect:..";
 		}else {
 			viewUrl = "redirect:/auth/login.do";
 		}
@@ -332,7 +339,6 @@ public class MemberController {
 		model.addAttribute("result",result);
 		model.addAttribute("nickname", nickname);
 		
-		
 		return "redirect:nick.do";
 	}
 	
@@ -399,16 +405,55 @@ public class MemberController {
 	
 	// 회원 삭제
 	@RequestMapping(value="/member/deleteCtr.do",
-			method=RequestMethod.GET)
+			method= {RequestMethod.GET, RequestMethod.POST})
 	public String memberDelete(@RequestParam(value="mno") int no
-			, Model model) {
+			,HttpSession session, MemberVo memberVo
+			,Model model) {
 		log.debug("Welcome MemberController memberDelete"
 				+ " 회원삭제 처리! - {}", no);
 		
 		memberService.memberDelete(no);
 		
+		MemberVo sessionMemberVo = 
+				(MemberVo)session.getAttribute("_memberVo_");
+		
+		if (sessionMemberVo != null) {
+			if (sessionMemberVo.getNo() == no) {
+				session.invalidate();
+				return "redirect:../";
+			}
+		}
+		
 		return "redirect:/member/list.do";
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/member/check.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public Object checkList(int no, int begin, int end, Model model) {
+		log.debug("checkList"
+				+ " test! - {}", begin);
+		
+		List<MemberVo> resList = memberService.reservationListOne(no, begin, end);
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("resList", resList);
+		
+		return map;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/member/revi.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public Object reviewList(int no, int begin, int end, Model model) {
+		log.debug("resList test! - {}");
+		
+		List<MemberVo> tourList = memberService.tourListOne(no, begin, end);
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("tourList", tourList);
+		
+		return map;
+	}
+	
 	
 	// mailSending 코드 (이메일 전송)
 	@ResponseBody

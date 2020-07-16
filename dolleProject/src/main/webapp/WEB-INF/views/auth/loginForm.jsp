@@ -111,7 +111,7 @@
 		}
 		
 		//비밀번호 유효성
-		if (pwdObj == "") {
+		if (pwdObj.value == "") {
 			pwdCheck.innerHTML = '비밀번호을 입력해주세요.';
 			pwdObj.style.outlineColor = '#FF0000';
 			pwdObj.focus();

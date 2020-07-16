@@ -108,8 +108,14 @@
 <script type="text/javascript">
 	
 	$(document).ready(function() {
-// 		alert($("#reviewRating").val());
+		//별점 가져오기 
 		ratingFnc($("#reviewRating").val());
+		
+		//내용의 br태그 사용자를 위한 enter값으로 바꿔주기
+		var contentStr = $("#reivewContent").val();
+		var replaceStr = contentStr.replace(/<br\s?\/?>/g,"\n");
+		$("#reivewContent").val(replaceStr);
+		
 	});
 	
 	//클릭시 input ratingNum의 값이 바뀜
@@ -156,13 +162,51 @@
 			$("#reviewTitle").css("border", "1px solid red");
 			$("#reviewTitle").attr("class","validTitle");
 			return false;
+		}else if(title.length > 50){	//글자수 제한
+			alert("제목은 50자까지 입력 가능합니다.");
+			var titleStr = title.substr(0, 50);
+			$("#reviewTitle").val(titleStr);
+			return false;
 		}
 		
-		var content  = $("#reivewContent").val();
+		var str  = $("#reivewContent").val();
+		content = str.replace(/(?:\r\n|\r|\n)/g, '<br/>');		//엔터키 처리
 		if(content == null || content.trim() == "" || content.length == 0){
 			$("#reivewContent").css("border", "1px solid red");
 			$("#reivewContent").attr("class","validContent");
 			return false;
+		}else if(content.length > 1329){	//글자수 제한
+			alert("더 이상 작성할 수 없습니다.");
+			var contentStr = content.substr(0, 1325);
+			var lastStr = contentStr.substr(contentStr.length-1, 1);
+			if(lastStr == '<'){
+				contentStr = contentStr + "br/>";
+			}else if(lastStr == 'b'){
+				contentStr = contentStr + "r/>";
+			}else if(lastStr == 'r'){
+				contentStr = contentStr + "/>";
+			}else if(lastStr == '/'){
+				contentStr = contentStr + ">";
+			}
+		
+			var replaceStr = contentStr.replace(/<br\s?\/?>/g,"\n");
+			$("#reivewContent").val(replaceStr);
+			return false;
+		
+		}else if(content.length <= 1329){	//글자수 통과 
+			var lastStr = content.substr(content.length-1, 1);
+			if(lastStr == '<'){
+				content = content + "br/>";
+			}else if(lastStr == 'b'){
+				content = content + "r/>";
+			}else if(lastStr == 'r'){
+				content = content + "/>";
+			}else if(lastStr == '/'){
+				content = content + ">";
+			}
+			
+			$("#reivewContent").val(content);
+			return true;
 		}
 		
 		return true;
@@ -358,7 +402,7 @@
 			
 			<div class="basicBox" style="text-align: center;">
 				<input class="inputBtn" type="button" onclick="movePageListFnc();" value="목록으로">
-				<input class="inputBtn" type="submit" value="수정">
+				<input class="inputBtn" type="button" onclick="updateFormFnc();" value="수정">
 				<input class="inputBtn" type="button" onclick="deleteFnc(${reviewMCFVo.reviewIdx});" value="삭제">
 				<input class="inputBtn" type="button" onclick="clearFnc();" value="다시 쓰기">	
 			</div>

@@ -258,7 +258,18 @@
 			</div>
 		</div>
 		
-	
+		<!-- 검색결과가 없는 경우 -->
+		<c:if test="${reviewList.size() == 0 }">
+			<div style="margin:0px auto; width:1245px; height:514px; border:2px solid #EBEBEB ; text-align: center;">
+				<div style="padding:130px 0px 26px; width:150px; height:150px; margin:0px auto;">
+					<img style="width:150px;" alt="error" src="/dolleProject/resources/images/error/close.png">
+				</div>
+				<h1 style="font: normal normal 28px 대한민국정부상징체;">검색된 결과가 없습니다.</h1>
+			</div>
+		</c:if>
+		
+		<!-- 검색결과가 있는 경우 -->
+		<c:if test="${reviewList.size() != 0 }">
 		<table style="margin:0px auto; margin-top:10px; margin-bottom:5px; width:1260px;">
 			<tr>
 				<th class="alignCenter tableLine" style="width:48px;">선택</th>		
@@ -269,7 +280,8 @@
 				<th class="alignCenter tableLine" style="width:50px;">별점</th>
 				<th class="alignCenter tableLine" style="width:162px;">등록일</th>
 				<th class="alignCenter" style="width:60px;">댓글수</th>
-			</tr>		
+			</tr>	
+			
 			<c:forEach var="reviewVo" items="${reviewList}" varStatus="index">
 				<tr id="tr${index.count}">
 					<td class="alignCenter tableLine">
@@ -300,7 +312,8 @@
 				</tr>	
 			</c:forEach>
 		</table>
-
+		</c:if>
+		
 		<input id="deleteBtn" type="button" onclick="deleteFnc();" value="삭제">
 	</form> 
 	

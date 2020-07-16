@@ -61,17 +61,26 @@
 	    font-weight: 600;
 	    color: #fff;
 	}
+	
+	.titleOverFlow{
+		white-space: nowrap;
+	    width: 680px;
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+    }
 </style>
 <script src="http://code.jquery.com/jquery-1.4.4.min.js"></script>
 <script type="text/javascript">
 	
 	$(document).ready(function() {
 		
-		for(var i=1; i<=30;i++){
+		var pageScale = $("#pageScale").val();
+		for(var i=1; i<=pageScale;i++){
 			$("#title"+i).attr("onmouseover","mouseOverFnc("+i+")");
 			$("#title"+i).attr("onmouseleave","mouseLeaveFnc("+i+")");
 			$("#title"+i).css("cursor","pointer");
 		}
+		
 		
 	});
 	
@@ -271,7 +280,7 @@
 					</td>		
 					<td id="title${index.count}" class="alignLeft tableLine"
 					 onclick="moveDetailFnc(${reviewVo.reviewIdx});">
-						${reviewVo.reviewTitle}
+						<p class="titleOverFlow">${reviewVo.reviewTitle}</p>
 					</td>		
 					<td class="alignCenter tableLine">
 						${reviewVo.memberNickname}

@@ -23,6 +23,13 @@
 		background-color:#000; opacity:0.3;
  	}  
 
+	.titleOverFlow{
+		overflow: hidden;
+	    text-overflow: ellipsis;
+	    white-space: nowrap;
+	    width: 264px;
+	    height: 28px;
+	}
 	
 	/*  0 318 636 954 */
 	.firstCol{position: absolute;  left: 0px;}
@@ -41,6 +48,18 @@
 </style>
 <script type="text/javascript" src="/dolleProject/resources/js/jquery-3.5.1.js"></script>
 <script type="text/javascript">
+	
+	$(document).ready(function() {
+		
+// 		var pageScale = $("#pageScale").val();
+// 		for(var i=1; i<=pageScale;i++){
+// 			$("#title"+i).attr("onmouseover","mouseOverFnc("+i+")");
+// 			$("#title"+i).attr("onmouseleave","mouseLeaveFnc("+i+")");
+// 			$("#title"+i).css("cursor","pointer");
+// 		}
+		
+		
+	});
 	
 	function goPageFnc(pageNum){
 		var curPage = $('#curPage');
@@ -263,11 +282,11 @@
 						<span class="innerBox" style="width:306px; height:114px; position: absolute; top:${TopPosition2}px; left:${leftPosition}px; 
 							background-color: #000; opacity: 0.3;">			
 						</span>
-						<span class="innerBox_txt" style="width:306px; height:114px; position: absolute; top:${TopPosition2}px; left:${leftPosition}px; 
+						<div class="innerBox_txt" style="width:306px; height:114px; position: absolute; top:${TopPosition2}px; left:${leftPosition}px; 
 							color:#fff; opacity: 1;">
-							<span style="font: normal bold 22px Segoe UI; margin: 18px 20px 0px; display: block;">
-								${reviewVo.reviewTitle}
-							</span>
+							<div style="font: normal bold 22px Segoe UI; margin: 18px 20px 0px; display: block;">
+								<p class="titleOverFlow">${reviewVo.reviewTitle}</p>
+							</div>
 							<span style="font: normal normal 14px Segoe UI; margin: 8px 20px; display: block;">
 								${reviewVo.memberNickname}
 							</span>
@@ -284,16 +303,16 @@
 								</c:if>
 							</span>
 							<span style="width:50px; display: inline-block; margin-left: 20px;">
-								<img alt="Icon_heart" src="/dolleProject/resources/images/IconHeart.png"
-									style="width: 16px; vertical-align: middle;">
-								<span style="font: normal bold 14px Segoe UI; vertical-align: middle;">${reviewVo.reviewLikeCount}</span>		
+								<img alt="Icon_eye" src="/dolleProject/resources/images/eye.png"
+									style="width:16px; height:18px; vertical-align:middle;">
+								<span style="font: normal bold 14px Segoe UI; vertical-align: middle;">${reviewVo.reviewReadCount}</span>		
 							</span>		
 							<span style="width:50px; display: inline-block; margin-left: 10px;">
 								<img alt="Icon_comment" src="/dolleProject/resources/images/IconComment.png"
 									style="width: 16px; vertical-align: middle;">
 								<span style="font: normal bold 14px Segoe UI; vertical-align: middle;">${reviewVo.commentCount}</span>	
 							</span>
-						</span>
+						</div>
 					</li>
 				
 			</c:forEach>

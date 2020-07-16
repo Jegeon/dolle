@@ -167,9 +167,9 @@
 			$("#reviewTitle").css("border", "1px solid red");
 			$("#reviewTitle").attr("class","validTitle");
 			return false;
-		}else if(title.length > 33){
-			alert("제목은 33자까지 입력 가능합니다.");
-			var titleStr = title.substr(0, 33);
+		}else if(title.length > 50){	//글자수 제한
+			alert("제목은 50자까지 입력 가능합니다.");
+			var titleStr = title.substr(0, 50);
 			$("#reviewTitle").val(titleStr);
 			return false;
 		}
@@ -180,9 +180,9 @@
 			$("#reivewContent").css("border", "1px solid red");
 			$("#reivewContent").attr("class","validContent");
 			return false;
-		}else if(content.length > 1329){
+		}else if(content.length > 1329){	//글자수 제한
 			alert("더 이상 작성할 수 없습니다.");
-			alert(content.length);
+// 			alert(content.length);
 			var contentStr = content.substr(0, 1325);
 			var lastStr = contentStr.substr(contentStr.length-1, 1);
 // 			alert(lastStr);
@@ -196,22 +196,15 @@
 				contentStr = contentStr + ">";
 			}
 		
-			alert(contentStr);
-// 			String text = str.replaceAll("\\r|\\n", "");
-// 			var originStr = contentStr.replaceAll("<br/>","\\r");
-// 			alert(originStr);
-// 			var countBr = contentStr.match(/"<br/>"/g); 
-// 			if(countBr !=null){			
-// 				alert(countBr+" : "+countBr);
-// 			}
-			$("#reivewContent").val(contentStr);
+			var replaceStr = contentStr.replace(/<br\s?\/?>/g,"\n");
+			$("#reivewContent").val(replaceStr);
 			return false;
 		
-		}else if(content.length <= 1329){
-			alert(content.length);
+		}else if(content.length <= 1329){	//글자수 통과 
+// 			alert(content.length);
 			//마지막 글자 contentStr.substr(contentStr.length-1, 1)
 			var lastStr = content.substr(content.length-1, 1);
-			alert(lastStr, " + ", content.length);
+// 			alert(lastStr, " + ", content.length);
 			if(lastStr == '<'){
 				content = content + "br/>";
 			}else if(lastStr == 'b'){
@@ -405,8 +398,7 @@
 					<span>제목</span>
 				</div>
 				<input id="reviewTitle" name="reviewTitle" type="text"  onchange="clearFnc(this.value);"
-					placeholder="제목을 입력해주세요." style="width:900px; height:45px; font-size:16px; 
-						padding:10px 50px; box-sizing:border-box;">
+					placeholder="제목을 입력해주세요." style="width:900px; height:45px; font-size:16px; padding:10px 48px; box-sizing:border-box;">
 			</div>
 			
 			<div class="basicBox" style="padding-bottom: 20px;">

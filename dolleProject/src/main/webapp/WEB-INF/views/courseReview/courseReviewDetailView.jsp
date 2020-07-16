@@ -190,14 +190,20 @@
 		if(grade == "admin"){
 			$("#userPageBtn").val("사용자 목록으로");
 			$("#adminPageBtn").val("관리자 목록으로");
-			$("#updateBtn").remove();
 		}else{
 			$("#userPageBtn").val("목록으로");
 			$("#adminPageBtn").remove();
 		}
 		
-		
-		
+		//로그인사용자에 따른 수정 버튼 추가 및 삭제
+		var memberIdx = $("#memberIdx").val();
+		var reviewMemberIdx = $("#reviewMemberIdx").val();
+		if((memberIdx != reviewMemberIdx) && grade == "user"){
+			$("#updateBtn").remove();
+			$("#btnBox").css("padding-left","878px");
+		}else if(memberIdx != reviewMemberIdx){
+			$("#updateBtn").remove();
+		}
 		
 	});
 
@@ -233,18 +239,25 @@
 	}
 	
 	function commentCheckFnc(){
-		var writerIdx = $("#commentMemberIdx").val();
+		var writerIdx = $("#memberIdx").val();
 		if( writerIdx == null || writerIdx.trim() == "" || writerIdx.length == 0){
 			alert("로그인 후 작성해주세요.");
 			location.href="<%=request.getContextPath()%>/auth/login.do";
 			return false;
 		}
+		
+		if(){
+			
+		}
+		
 		return true;
+		
+		
 	}
 	
 	function deleteCommnetFnc(index){
 		var reviewIdxVal = $("#commentReviewIdx").val();
-		var memberIdxVal = $("#commentMemberIdx").val();
+		var memberIdxVal = $("#memberIdx").val();
 		var commentIdxVal = $("#commentIdx"+index).val();
 
 		var checkDelete = confirm("정말 삭제하시겠습니까?");
@@ -310,6 +323,8 @@
 	<jsp:include page="/WEB-INF/views/Header.jsp"/>
 
 	<input id="memberGrade" type="hidden" value="${_memberVo_.grade}">
+	<input id="memberIdx" type="hidden" value="${_memberVo_.no}">
+	<input id="reviewMemberIdx" type="hidden" value="${reviewMCFVo.reviewMemberIdx}">
 
 	<div id="bodyWrap" style="width:1260px; margin:0px auto;">
 		
@@ -429,7 +444,6 @@
 		<div style="padding:0px 80px;">
 			<form id="commentForm" action="./addCommentCtr.do" method="post" onsubmit="return commentCheckFnc();">
 				<input id="commentReviewIdx" name="commentReviewIdx" type="hidden" value="${reviewMCFVo.reviewIdx}">
-				<input id="commentMemberIdx" name="commentMemberIdx" type="hidden" value="${_memberVo_.no}">
 				<input id="commentEmoticon" name="commentEmoticon" type="hidden" value="">
 				<div id="choiseEmo" style="float:right; margin-bottom:4px;">
 					<div id="choiseEmoTitle">이모티콘 선택</div>

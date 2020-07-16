@@ -139,11 +139,9 @@
 			if (sameNick.value == 0) {
 				alert('중복 없음');
 				$('#sameCheck').val(1);
-				alert($('#sameCheck').val());
 			} else {
 				alert('중복 있음');
 				$('#sameCheck').val(2);
-				alert($('#sameCheck').val());
 			}
 		}
 	}

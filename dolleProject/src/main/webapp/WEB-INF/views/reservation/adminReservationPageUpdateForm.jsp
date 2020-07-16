@@ -38,7 +38,11 @@
 	});
 	
 	function pageMoveDeleteFnc() {
-		location.href = "reservationPageDelete.do";
+		var confirmStr = "";
+		confirmStr = confirm("정말 삭제하시겠습니까?");
+		if(confirmStr) {
+			location.href = "reservationPageDelete.do?tourNo=${tourVo.tourNo}";	
+		}
 	}
 	function pageMoveListFnc() {
 		location.href = "reservationPage.do";
@@ -260,13 +264,13 @@
 					<tr>
 						<td class="ahreum">투어 최대 인원</td>
 						<td class="lTdPl20">
-							<input type="number" id="tourPeopleNum" name="tourPeopleNum" value="${tourVo.tourPeopleNum}">
+							<input type="number" id="tourPeopleNum" name="tourPeopleNum" min="1" value="${tourVo.tourPeopleNum}">
 						</td>
 					</tr>
 					<tr>
 						<td class="ahreum">투어 인당 가격</td>
 						<td class="lTdPl20">
-							<input type="number" id="tourPrice" name="tourPrice" value="${tourVo.tourPrice}">
+							<input type="number" id="tourPrice" name="tourPrice" min="0" value="${tourVo.tourPrice}">
 						</td>
 					</tr>
 					<tr>

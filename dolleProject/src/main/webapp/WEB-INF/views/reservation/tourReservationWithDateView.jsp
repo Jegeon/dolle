@@ -81,6 +81,14 @@
 		if (selectedTourPeopleNum == 0) {
 			alert("예약 인원수를 입력해주세요");
 			return false;
+		}else {
+			var confirmStr = "";
+			confirmStr = confirm("예약하시겠습니까?");
+			if(confirmStr) {
+				return true;	
+			}else {
+				return false;
+			}
 		}
 	}
 	function testFnc() {

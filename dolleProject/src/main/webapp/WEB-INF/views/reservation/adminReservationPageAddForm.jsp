@@ -269,13 +269,13 @@
 					<tr>
 						<td class="ahreum">투어 최대 인원</td>
 						<td class="lTdPl20">
-							<input type="number" id="tourPeopleNum" name="tourPeopleNum" value="" placeholder="10 (숫자를 입력하세요)">
+							<input type="number" id="tourPeopleNum" name="tourPeopleNum" value="" min="1" placeholder="10 (숫자를 입력하세요)">
 						</td>
 					</tr>
 					<tr>
 						<td class="ahreum">투어 인당 가격</td>
 						<td class="lTdPl20">
-							<input type="number" id="tourPrice" name="tourPrice" value="" placeholder="9800 (숫자만 입력하세요)">
+							<input type="number" id="tourPrice" name="tourPrice" value="" min="0" placeholder="9800 (숫자만 입력하세요)">
 						</td>
 					</tr>
 					<tr>

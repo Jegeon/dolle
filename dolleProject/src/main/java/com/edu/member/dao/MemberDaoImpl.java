@@ -65,7 +65,7 @@ public class MemberDaoImpl implements MemberDao{
 	@Override
 	public int memberDelete(int no) {
 		// TODO Auto-generated method stub
-		return sqlSession.delete(namespace + "memberDelete"
+		return sqlSession.update(namespace + "memberDelete"
 				, no);
 	}
 
@@ -163,6 +163,39 @@ public class MemberDaoImpl implements MemberDao{
 	public List<MemberVo> userList() {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList(namespace + "userList");
+	}
+
+	@Override
+	public List<MemberVo> reservationListOne(int no, int begin, int end) {
+		// TODO Auto-generated method stub
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("no", no);
+		paramMap.put("begin", begin);
+		paramMap.put("end", end);
+		return sqlSession.selectList(namespace + "reservationListOne", paramMap);
+	}
+
+	@Override
+	public int reservationTotalCount(int no) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace + "reservationTotalCount", no);
+	}
+
+	@Override
+	public List<MemberVo> tourListOne(int no, int begin, int end) {
+		// TODO Auto-generated method stub
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("no", no);
+		paramMap.put("begin", begin);
+		paramMap.put("end", end);
+		
+		return sqlSession.selectList(namespace + "tourListOne", paramMap);
+	}
+
+	@Override
+	public int reviewTotalCount(int no) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace + "reviewTotalCount", no);
 	}
 
 }

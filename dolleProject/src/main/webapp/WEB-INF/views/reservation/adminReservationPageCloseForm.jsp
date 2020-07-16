@@ -43,6 +43,7 @@
 	function validationFnc(){
 		var closedStartDateObjValue = document.getElementById("closedStartDate").value;
 		var closedEndDateObjValue = document.getElementById("closedEndDate").value;
+		var closedContentObjValue = document.getElementById("closedContent").value;
 		var errorStr = "수정이 불가능합니다";
 		var errorCode1 = "휴무일 시작 날짜 입력 필요";
 		var errorCode2 = "휴무일 종료 날짜 입력 필요";
@@ -54,6 +55,14 @@
 			alert(errorStr + " - " + errorCode2);
 			return false;
 		}
+		// 글자수 시작
+		if(closedContentObjValue.length > 166){	//글자수 제한
+			alert("내용은 166자까지 입력 가능합니다.");
+			var closedContentStr = closedContentObjValue.substr(0, 166);
+			$("#closedContent").val(closedContentStr);
+			return false;
+		}
+		// 글자수 끝
 	}
 	function carryStartDateTextToDateFnc() {
 		var fromDtObj = document.getElementById("fromDt");

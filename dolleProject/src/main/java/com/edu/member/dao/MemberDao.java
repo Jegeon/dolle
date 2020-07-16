@@ -16,7 +16,11 @@ public interface MemberDao {
 	public MemberVo memberSelectOne(int no);
 	public MemberVo adminSelectOne(int no);
 	public List<MemberVo> memberReservationOne(int no);
+	public List<MemberVo> reservationListOne(int no, int begin, int end);
+	public int reservationTotalCount(int no);
+	public int reviewTotalCount(int no);
 	public List<MemberVo> memberTourOne(int no);
+	public List<MemberVo> tourListOne(int no, int begin, int end);
 	public MemberVo memberEmailOne(Map<String, Object> paramMap);
 	public MemberVo memberPwdOne(Map<String, Object> paramMap);
 	public int memberNickNameList(String nickname);

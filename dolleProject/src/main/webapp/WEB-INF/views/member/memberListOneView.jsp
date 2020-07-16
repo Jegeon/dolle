@@ -30,9 +30,15 @@
 		padding: 10px;
 	}
 	
+	.formCss {
+		padding: 20px;
+	}
+	
 	.resCss {
 		border: 1px solid black;
-		font-size: 10px;
+		font-size: 20px;
+		padding: 5px;
+		text-align: center;
 	}
 	
 	.inputBtn {
@@ -73,24 +79,25 @@
 		margin: 10px;
 	}
 </style>
+<script type="text/javascript" src="/dolleProject/resources/js/jquery-3.5.1.js"></script>
 <script type="text/javascript">
 	var updateMove = '';
+	var reserve = '';
 	
 	var subInfo = '';
 	var reservation = '';
 	var myWriting = '';
-	var addBtn = '';
 	
 	var subTest = '';
-
+	
 	function updateMoveFnc() {
 		updateMove = document.updateMove;
 		
 		updateMove.submit();
 	}
-
+	
 	function pageMoveListFnc(){
-		location.href = "list.do";
+		location.href = "../";
 	}
 	
 	function subInfoFnc() {
@@ -99,12 +106,12 @@
 		subInfo = document.getElementById('subInfo');
 		reservation = document.getElementById('reservation');
 		myWriting = document.getElementById('myWriting');
-		addBtn = document.getElementById('addBtn');
 		
 		subInfo.style.display = 'table';
 		reservation.style.display = 'none';
 		myWriting.style.display = 'none';
-		addBtn.style.display = 'none';
+		$('#addBtn').attr('style', 'display:none');
+		$('#revBtn').attr('style', 'display:none');
 		
 	}
 	
@@ -114,44 +121,169 @@
 		subInfo = document.getElementById('subInfo');
 		reservation = document.getElementById('reservation');
 		myWriting = document.getElementById('myWriting');
-		addBtn = document.getElementById('addBtn');
 		
 		subInfo.style.display = 'none';
 		reservation.style.display = 'table';
 		myWriting.style.display = 'none';
-		addBtn.style.display = 'unset';
 		
+		if (parseInt($('#totalCnt').val()) > parseInt($('#endNum').val())) {
+			$('#addBtn').attr('style', 'display:unset');
+		}
+		$('#revBtn').attr('style', 'display:none');
 	}
 	
 	function myWritingFnc() {
 		subInfo = document.getElementById('subInfo');
 		reservation = document.getElementById('reservation');
 		myWriting = document.getElementById('myWriting');
-		addBtn = document.getElementById('addBtn');
 		
 		subInfo.style.display = 'none';
 		reservation.style.display = 'none';
 		myWriting.style.display = 'table';
-		addBtn.style.display = 'none';
+		
+		$('#addBtn').attr('style', 'display:none');
+		if (parseInt($('#reviewTotalCnt').val()) > parseInt($('#endCnt').val())) {
+			$('#revBtn').attr('style', 'display:unset');
+		}
 	}
 	
 	function testFnc(data) {
-		
 		location.href = './payment.do?reserveIdx=' + data;
 	}
 	
-	function addReserveFnc() {
-		var testObj = document.getElementById('here');
-		testObj.value = parseInt(testObj.value) + 5;
-	}
+	$(document).ready(function(){
+		
+		$('#deleteBtn').on('click', function() {
+			if (confirm('정말 탈퇴하시겠습니까?') == true) {
+				location.href = '../member/deleteCtr.do?mno=' + $('#memberNo').val();
+			} else {
+				return;
+			}
+		});
+		
+		
+		$('#addBtn').on('click', function() {
+			var form = {
+					no: $('#memberNo').val(),
+					begin: 1,
+					end: $('#endNum').val()
+			}
+			
+			for (var i = 0; i < (parseInt($('#endNum').val()) - 5); i++) {
+				if (parseInt($('#totalCnt').val()) > 5) {
+					$('#reservation tr:last').remove();
+				}
+			}
+			
+			$.ajax({
+				url : "../member/check.do",
+				type: "POST",
+				data: form,
+				success:function(data){
+					for (var i = 0; i < data.resList.length; i++) {
+						
+						if (data.resList[i].reserveDepositState == 'standby') {
+							reserve = "<button type='button' onclick='testFnc(${memberVo.reserveIdx});'>입금 하기</button>";
+						} else if (data.resList[i].reserveDepositState == 'paid') {
+							reserve = "승인 대기";
+						} else if (data.resList[i].reserveDepositState == 'active') {
+							reserve = "예약 완료";
+						} else if (data.resList[i].reserveDepositState == 'canceled') {
+							reserve = "예약 취소";
+						}
+						
+					var date = new Date(data.resList[i].reserveApplyDate);
+					var year = date.getFullYear();          //yyyy
+					var month = date.getMonth() + 1;          //M
+					    month = month >= 10 ? month : '0' + month;  //month 두자리로 저장
+					var day = date.getDate();                   //d
+					    day = day >= 10 ? day : '0' + day;          //day 두자리로 저장
+					var formatDate = year + '/' + month + '/' + day;       //'-' 추가하여 yyyy-mm-dd 형태 생성 가능
+					
+					$('#reservation tr:last').after("<tr class='resCss'>"
+							+ "<td class='resCss idxNum'>"+data.resList[i].reserveIdx+"</td>"
+							+ "<td class='resCss'>"+data.resList[i].tourName+"</td>"
+							+ "<td class='resCss'>"+formatDate+"</td>"
+							+ "<td class='resCss'>" + reserve
+							+ "</td></tr>")
+					}
+					if ($('#totalCnt').val() < (parseInt($('#endNum').val())) || $('#totalCnt').val() <= 5) {
+						$('#addBtn').attr('style', 'display:none');
+					}
+					
+					$('#endNum').val(parseInt($('#endNum').val()) + 5);
+					
+				},
+				error: function(){
+					alert("error");
+				}
+			});			
+			
+		});
+		
+		$('#revBtn').on('click', function() {
+			var form = {
+					no: $('#memberNo').val(),
+					begin: 1,
+					end: $('#endCnt').val()
+			}
+			
+			for (var i = 0; i < (parseInt($('#endCnt').val()) - 5); i++) {
+				if ($('#reviewTotalCnt').val() > 5) {
+					$('#myWriting tr:last').remove();
+				}
+			}
+			
+			$.ajax({
+				url : "../member/revi.do",
+				type: "POST",
+				data: form,
+				success:function(data){
+					for (var i = 0; i < data.tourList.length; i++) {
+						
+						var date = new Date(data.tourList[i].reviewCreDate);
+						var year = date.getFullYear();          //yyyy
+						var month = date.getMonth() + 1;          //M
+						    month = month >= 10 ? month : '0' + month;  //month 두자리로 저장
+						var day = date.getDate();                   //d
+						    day = day >= 10 ? day : '0' + day;          //day 두자리로 저장
+						var formatDate = year + '/' + month + '/' + day;       //'-' 추가하여 yyyy-mm-dd 형태 생성 가능
+						
+						$('#myWriting tr:last').after("<tr class='resCss'><th class='resCss'>"
+								+ data.tourList[i].reviewIdx + "</th><th class='resCss'>"
+								+ data.tourList[i].reviewTitle + "</th><th class='resCss'>"
+								+ data.tourList[i].nickname + "</th><th class='resCss'>"
+								+ formatDate + "</th><th><c:forEach begin='1' end='${memberVo.reviewRating}'>"
+								+ "<img alt='별_full' src='/dolleProject/resources/images/starSolid.png'	style='width:18px; height:16.5px;'>"
+								+ "</c:forEach><c:forEach begin='${memberVo.reviewRating}' end='4'>"
+								+ "<img alt='별_blank' src='/dolleProject/resources/images/starBlank.png' style='width:18px; height:16.5px; vertical-align: middle;'>"
+								+ "</c:forEach></th><th class='resCss'>" + data.tourList[i].reviewReadCount + "</th>"
+								+ "<th class='resCss'>" + data.tourList[i].reviewLikeCount + "</th></tr>")
+					}
+					if ($('#reviewTotalCnt').val() < parseInt($('#endCnt').val()) || $('#reviewTotalCnt').val() <= 5) {
+						$('#revBtn').attr('style', 'display:none');
+					}
+					
+					$('#endCnt').val(parseInt($('#endCnt').val()) + 5);
+					
+				},
+				error: function(){
+					alert("error");
+				}
+			});
+			
+		});
+	}); 
+	
 </script>
-
 </head>
 <body>
+
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
-	
+	<input type="hidden" id="begin" value="5">
+	<input type="hidden" id="end" value="10">
 	<div id='mainBorder'>
-		<div>
+		<div style='padding: 15px;'>
 			<span class='firstSpanCss'>내 정보</span>
 		</div>
 		<table>
@@ -172,8 +304,8 @@
 			</tr>
 		</table>
 		<div id='backBord'>
-			<form name='updateMove' action="./update.do" method="get">
-				<input type="hidden" name='no' value='${memberVo.no}'>
+			<form class='formCss' name='updateMove' action="./update.do" method="get">
+				<input id='memberNo' type="hidden" name='no' value='${memberVo.no}'>
 				<table id='subInfo' class='tableCenter'>
 					<tr>
 						<td>
@@ -217,12 +349,13 @@
 								onclick='updateMoveFnc();'>
 							<input class='btnCss' type="button" value="이전페이지" 
 								onclick='pageMoveListFnc();'>
+							<input id='deleteBtn' class='btnCss' type='button' value='회원탈퇴'>
 						</td>
 					</tr>
 				</table>
 				<table id='reservation' class='tableCenter'
 					style='display: none; border: 1px solid black; border-collapse: collapse;'>
-					<tr class='resCss'>
+					<tr id='testTr' class='resCss'>
 						<th class='resCss'>
 							예약신청번호
 						</th>
@@ -236,7 +369,16 @@
 							예약/입금
 						</th>
 					</tr>
-					<c:forEach var='memberVo' items='${reservationList}' begin='0' end='5' varStatus="status">
+				<c:choose>
+				<c:when test="${empty reservationList}">
+					<tr>
+						<td colspan="4" style="text-align: center;">
+							등록된 게시글이 없습니다.
+						</td>
+					</tr>
+				</c:when>
+				<c:otherwise>
+					<c:forEach var='memberVo' items='${reservationList}' begin='0' end='4' varStatus="status">
 						<tr class='resCss'>
 							<td class='resCss idxNum'>
 								${memberVo.reserveIdx}
@@ -249,7 +391,7 @@
 							</td>
 							<td class='resCss'>
 								<c:if test="${memberVo.reserveDepositState == 'standby'}">
-									<button type="button" onclick='testFnc(${memberVo.reserveIdx});'>입금 하기</button>
+									<button type='button' onclick='testFnc(${memberVo.reserveIdx});'>입금 하기</button>
 								</c:if>
 								<c:if test="${memberVo.reserveDepositState == 'paid'}">
 									승인 대기
@@ -262,11 +404,11 @@
 								</c:if>
 							</td>
 						</tr>
-						<input id='here' type='hidden' value='${status.end}'>
 					</c:forEach>
+				</c:otherwise>
+				</c:choose>
 				</table>
-				<input id='addBtn' style='display: none;' class='btnCss' type='button' value='더보기'
-					onclick='addReserveFnc();'> 
+				<input id='addBtn' style='display: none;' class='btnCss' type='button' value='더보기'> 
 				<table id='myWriting' class='tableCenter'
 					style='display: none; border: 1px solid black;
 					border-collapse: collapse;'>
@@ -293,44 +435,61 @@
 							댓글수
 						</th>
 					</tr>
-					<c:forEach var='memberVo' items='${tourReviewList}'>
-						<tr class='resCss'>
-							<th class='resCss'>
-								${memberVo.reviewIdx}
-							</th>
-							<th class='resCss'>
-								${memberVo.reviewTitle}
-							</th>
-							<th class='resCss'>
-								${memberVo.nickname}
-							</th>
-							<th class='resCss'>
-								<fmt:formatDate value="${memberVo.reviewCreDate}" pattern="yyyy-MM-dd" />
-							</th>
-							<th>
-								<c:forEach begin='1' end="${memberVo.reviewRating}">
-									<img alt="별_full" src="/dolleProject/resources/images/starSolid.png" 
-												style="width:18px; height:16.5px;">
-								</c:forEach>
-								<c:forEach begin="${memberVo.reviewRating}" end='4'>
-									<img alt="별_blank" src="/dolleProject/resources/images/starBlank.png"
-									 style="width:18px; height:16.5px; vertical-align: middle;">
-								</c:forEach>
-							</th>
-							<th class='resCss'>
-								${memberVo.reviewReadCount}
-							</th>
-							<th class='resCss'>
-								${memberVo.reviewLikeCount}
-							</th>
-						</tr>
-					</c:forEach>
+					<c:choose>
+						<c:when test="${empty tourReviewList}">
+							<tr>
+								<td colspan="7" style="text-align: center;">
+									등록된 게시글이 없습니다.
+								</td>
+							</tr>
+						</c:when>
+						<c:otherwise>
+							<c:forEach var='memberVo' items='${tourReviewList}' begin='0' end='4' varStatus="status">
+								<tr class='resCss'>
+									<th class='resCss'>
+										${memberVo.reviewIdx}
+									</th>
+									<th class='resCss'>
+										${memberVo.reviewTitle}
+									</th>
+									<th class='resCss'>
+										${memberVo.nickname}
+									</th>
+									<th class='resCss'>
+										<fmt:formatDate value="${memberVo.reviewCreDate}" pattern="yyyy-MM-dd" />
+									</th>
+									<th>
+										<c:forEach begin='1' end="${memberVo.reviewRating}">
+											<img alt="별_full" src="/dolleProject/resources/images/starSolid.png" 
+														style="width:18px; height:16.5px;">
+										</c:forEach>
+										<c:forEach begin="${memberVo.reviewRating}" end='4'>
+											<img alt="별_blank" src="/dolleProject/resources/images/starBlank.png"
+											 style="width:18px; height:16.5px; vertical-align: middle;">
+										</c:forEach>
+									</th>
+									<th class='resCss'>
+										${memberVo.reviewReadCount}
+									</th>
+									<th class='resCss'>
+										${memberVo.reviewLikeCount}
+									</th>
+								</tr>
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>
 				</table>
+				<input id='revBtn' style='display: none;' class='btnCss' type='button' value='더보기'> 
 			</form>
 		</div>
 	</div>
-
+	<input id='totalCnt' type='hidden' value='${totalCnt}'>
+	<input id='endNum' type='hidden' value='10'>
+	<input id='reviewTotalCnt' type='hidden' value='${reviewTotalCnt}'>
+	<input id='endCnt' type='hidden' value='10'>
 	<jsp:include page="/WEB-INF/views/Tail.jsp"/>
 
 </body>
+
+
 </html>

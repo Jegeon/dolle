@@ -79,7 +79,7 @@
 	function validationFnc(){
 		var selectedTourPeopleNum = document.getElementById("selectedTourPeopleNumInput").value;
 		if (selectedTourPeopleNum == 0) {
-			alert("예약이 불가능합니다");
+			alert("예약 인원수를 입력해주세요");
 			return false;
 		}
 	}
@@ -87,6 +87,10 @@
 		var hereInput = document.getElementById("selectedDateInput");
 		hereInput.value = $("#datepicker").val();
 		location.href = "reservationWithDate.do?tourNo=${tourVo.tourNo}&reserveTourDate=" + $("#datepicker").val();
+	}
+	function loveFnc() {
+		alert("선택한 날짜에 인원이 가득 차 예약할 수 없습니다 \n달력에서 다른 날짜를 선택해주세요");
+		return false;
 	}
 </script>
 <style type="text/css">
@@ -252,7 +256,10 @@
 								<input id="selectedTourPeopleNumInput" name="reserveApplyNum" type="number" min="1" max="${tourVo.tourPeopleNum}" value="" placeholder="${tourVo.tourPeopleNum}" onchange="calculateFnc();">
 							</c:when>
 							<c:when test="${tourVo.tourReservedNum eq tourVo.tourPeopleNum}">
-								<input id="selectedTourPeopleNumInput" name="reserveApplyNum" type="number" disabled="disabled" value="0" onchange="calculateFnc();">
+								<a style="color: red;">선택한 날짜에 인원이 가득 차 예약할 수 없습니다</a>
+							</c:when>
+							<c:when test="${tourVo.tourReservedNum gt tourVo.tourPeopleNum}">
+								<a style="color: red;">선택한 날짜에 인원이 가득 차 예약할 수 없습니다</a>
 							</c:when>
 							<c:otherwise>
 								<input id="selectedTourPeopleNumInput" name="reserveApplyNum" type="number" min="1" max="${tourVo.tourPossibleNum}" value="" placeholder="${tourVo.tourPossibleNum}" onchange="calculateFnc();">
@@ -297,7 +304,14 @@
 			<div style="margin-top: 10px; padding-bottom: 10px;">
 				<input type="hidden" name="tourNo" value="${tourVo.tourNo}">
 				<input type="hidden" name="memberNo" value="${sessionScope._memberVo_.no}">
-				<input type="submit" class="ahreum" value="예약 신청 하기">
+				<c:if test="${tourVo.tourReservedNum ge tourVo.tourPeopleNum}">
+					<span onclick="loveFnc();">
+						<input type="button" id="submitInput" class="ahreum" value="예약 신청 하기" readonly="readonly">
+					</span>
+				</c:if>
+				<c:if test="${tourVo.tourReservedNum lt tourVo.tourPeopleNum}">
+					<input type="submit" id="submitInput" class="ahreum" value="예약 신청 하기">
+				</c:if>
 				<button type="button"class="ahreum" onclick="pageMoveListOneFnc();">뒤로 가기</button>
 			</div>
 		</div>

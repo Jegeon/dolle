@@ -35,13 +35,15 @@ public class MemberVo {
 	private int reviewLikeCount;
 	private int reviewRating;
 	private String townName;
+	private String accBank;
+	private String accDepositor;
 	
 	public MemberVo(int no, String name, String email, String nickname, String password, String phone, Date birthdate,
 			String national, Date createDate, Date modifiedDate, String grade, String del, String tempPassword,
 			int tourIdx, String tourName, Date reserveApplyDate, Date reserveDepositDate, String reserveDepositState,
 			int reserveIdx, int reserveApplyNum, int reservePrice, String tourAccountNum, int reviewIdx,
 			String reviewTitle, String reviewContent, Date reviewCreDate, Date reviewModDate, int reviewReadCount,
-			int reviewLikeCount, int reviewRating, String townName) {
+			int reviewLikeCount, int reviewRating, String townName, String accBank, String accDepositor) {
 		super();
 		this.no = no;
 		this.name = name;
@@ -74,6 +76,8 @@ public class MemberVo {
 		this.reviewLikeCount = reviewLikeCount;
 		this.reviewRating = reviewRating;
 		this.townName = townName;
+		this.accBank = accBank;
+		this.accDepositor = accDepositor;
 	}
 	
 	public MemberVo() {
@@ -327,6 +331,22 @@ public class MemberVo {
 	public void setTownName(String townName) {
 		this.townName = townName;
 	}
+	
+	public String getAccBank() {
+		return accBank;
+	}
+
+	public void setAccBank(String accBank) {
+		this.accBank = accBank;
+	}
+
+	public String getAccDepositor() {
+		return accDepositor;
+	}
+
+	public void setAccDepositor(String accDepositor) {
+		this.accDepositor = accDepositor;
+	}
 
 	@Override
 	public String toString() {
@@ -340,7 +360,7 @@ public class MemberVo {
 				+ ", reviewIdx=" + reviewIdx + ", reviewTitle=" + reviewTitle + ", reviewContent=" + reviewContent
 				+ ", reviewCreDate=" + reviewCreDate + ", reviewModDate=" + reviewModDate + ", reviewReadCount="
 				+ reviewReadCount + ", reviewLikeCount=" + reviewLikeCount + ", reviewRating=" + reviewRating
-				+ ", townName=" + townName + "]";
+				+ ", townName=" + townName + ", accBank=" + accBank + ", accDepositor=" + accDepositor + "]";
 	}
 
 }

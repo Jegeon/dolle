@@ -24,6 +24,12 @@
 		text-align: left;
 		font-size: 5px;
 		padding: 3px;
+		width: 200px;
+	}
+	
+	form {
+		padding: 10px;
+		margin-top: 10px;
 	}
 	
 	input:focus {
@@ -38,10 +44,13 @@
 	
 	.textInput {
 		text-align: left;
+		width: 96%;
+		height: 22px;
+		
 	}
 	
 	.aCss {
-		font-size: 5px;
+		font-size: 12px;
 		text-decoration: none;
 	}
 	
@@ -54,7 +63,7 @@
 		color: #FFFFFF;
 		border : 0px;
 		outline: 0px;
-		height: 100%;
+		height: 25px;
 		width: 100%;
 	}
 	
@@ -128,7 +137,7 @@
 
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
 	<div id='mainBorder'>
-		<div>
+		<div style='padding: 15px;'>
 			<span class='spanCss'>로그인</span>
 		</div>
 		<div id='backBord'>

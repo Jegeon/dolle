@@ -68,10 +68,17 @@
 		
 		var errorCode10 = "파일 추가 필요";
 		
-		if (tourNameObjValue == null || tourNameObjValue == "" || tourNameObjValue.length == 0) {
+		// 글자수 시작
+		if(tourNameObjValue == null || tourNameObjValue.trim() == "" || tourNameObjValue.length == 0){
 			alert(errorStr + " - " + errorCode1);
 			return false;
+		}else if(tourNameObjValue.length > 33){	//글자수 제한
+			alert("제목은 33자까지 입력 가능합니다.");
+			var tourNameStr = tourNameObjValue.substr(0, 33);
+			$("#tourName").val(tourNameStr);
+			return false;
 		}
+		// 글자수 끝
 		if(fileObjValue == null || fileObjValue.trim() == "" || fileObjValue.length == 0){
 			alert(errorStr + " - " + errorCode10);
 			return false;
@@ -104,10 +111,17 @@
 			alert(errorStr + " - " + errorCode8);
 			return false;
 		}
-		if (!tourContentObjValue || tourContentObjValue=="") {
+		// 글자수 시작
+		if(tourContentObjValue == null || tourContentObjValue.trim() == "" || tourContentObjValue.length == 0){
 			alert(errorStr + " - " + errorCode9);
 			return false;
+		}else if(tourContentObjValue.length > 1329){	//글자수 제한
+			alert("내용은 1329자까지 입력 가능합니다.");
+			var tourContentStr = tourContentObjValue.substr(0, 1329);
+			$("#tourContent").val(tourContentStr);
+			return false;
 		}
+		// 글자수 끝
 		
 		return true;
 	}
@@ -139,6 +153,43 @@
 		hiddenTourEndDateObj.value = toDtObj.value;
 	}
 	
+	//input[type="file"] 미리보기 제공하기 
+	var sel_file;
+	var sel_files = [];
+	$(document).ready(function(){
+		$("#fileBtn").on("change", handleImgFileSelect);
+	});
+	
+	function handleImgFileSelect(e){
+		var files = e.target.files;
+		var filesArr = Array.prototype.slice.call(files);
+		
+		filesArr.forEach(function(f){
+			if(!f.type.match("image.*")){
+				alert(" 이미지만 올릴 수 있습니다.");
+
+				if (/(MSIE|Trident)/.test(navigator.userAgent)) { 
+					// ie 일때 input[type=file] init. 
+					$("#fileBtn").replaceWith( $("#fileBtn").clone(true) );
+				} else {
+					// other browser 일때 input[type=file] init. 
+					$("#fileBtn").val(""); 
+				}
+				return;
+			}
+			
+			sel_file = f;
+			
+			var reader = new FileReader();
+			reader.onload = function(e){
+				$("#uploadImg").attr("src", e.target.result);
+				$("#uploadImg").attr("style", "height:100px;");
+			}
+			reader.readAsDataURL(f);
+			
+		});
+	}
+	
 </script>
 <style type="text/css">
 	button {
@@ -163,6 +214,9 @@
 		text-align: center;
 		vertical-align: middle;
 	}
+	#tourName {
+		width: 368px;
+	}
 </style>
 </head>
 
@@ -186,6 +240,7 @@
 						<td class="ahreum">투어 이미지 파일</td>
 						<td>
 							<input id="fileBtn" type="file" name="file">
+							<img id="uploadImg">
 						</td>
 					</tr>
 					<tr>

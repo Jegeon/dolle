@@ -56,6 +56,7 @@
 	var saveNick = '';
 	
 	var checking = '';
+	var sameCheck = '';
 	
 	var pattern_num = /[0-9]/;	// 숫자 
 	var pattern_eng = /[a-zA-Z]/;	// 문자 
@@ -69,6 +70,7 @@
 		
 		nicknameObj = document.getElementById('nicknameObj');
 		nicknameCheck = document.getElementById('nicknameCheck');
+		sameCheck = document.getElementById('sameCheck');
 
 		
 		// 빈칸 체크
@@ -108,11 +110,18 @@
 	}
 	
 	function useNickFnc() {
-		checking = document.getElementById('checking');
-		opener.document.all.nickname.value = document.all.nickname.value;
-		checking.value = 'ok';
-		opener.document.all.overlap.value = document.all.overlap.value;
-		self.close();
+		
+		if ($('#sameCheck').val() == 1) {
+			checking = document.getElementById('checking');
+			opener.document.all.nickname.value = document.all.nickname.value;
+			checking.value = 'ok';
+			opener.document.all.overlap.value = document.all.overlap.value;
+			self.close();
+		} else if ($('#sameCheck').val() == 2){
+			alert('이미 사용중인 닉네임 입니다.');
+		} else {
+			alert('중복확인을 눌러주세요.')
+		}
 	}
 	
 	window.onload = function() {
@@ -129,8 +138,10 @@
 		if(saveNick.value != ""){
 			if (sameNick.value == 0) {
 				alert('중복 없음');
+				$('#sameCheck').val(1);
 			} else {
 				alert('중복 있음');
+				$('#sameCheck').val(2);
 			}
 		}
 	}
@@ -165,6 +176,7 @@
 	</form>
 	<form name='useNick' action='add.do' method='post'>
 		<input type='hidden' value='${nickname}'>
+		<input id='samCheck' type='hidden' value=''>
 		<input id='checking' type='hidden' name='overlap' value=''>
 		<input class='btnCss' type='button' value='사용하기' onclick='useNickFnc();'>
 		<input class='btnCss' type='button' value='취소' onclick='window.close();'>

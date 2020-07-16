@@ -125,4 +125,28 @@ public class MemberServiceImpl implements MemberService{
 		return memberDao.userList();
 	}
 
+	@Override
+	public List<MemberVo> reservationListOne(int no, int begin, int end) {
+		// TODO Auto-generated method stub
+		return memberDao.reservationListOne(no, begin, end);
+	}
+
+	@Override
+	public int reservationTotalCount(int no) {
+		// TODO Auto-generated method stub
+		return memberDao.reservationTotalCount(no);
+	}
+
+	@Override
+	public List<MemberVo> tourListOne(int no, int begin, int end) {
+		// TODO Auto-generated method stub
+		return memberDao.tourListOne(no, begin, end);
+	}
+
+	@Override
+	public int reviewTotalCount(int no) {
+		// TODO Auto-generated method stub
+		return memberDao.reviewTotalCount(no);
+	}
+
 }

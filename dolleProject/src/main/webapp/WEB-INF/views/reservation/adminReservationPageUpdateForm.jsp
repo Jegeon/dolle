@@ -45,11 +45,42 @@
 	}
 	
 	function validationFnc(){
+		// ObjValue 모음 시작
+		var tourNameObjValue = document.getElementById("tourName").value;
 		var tourStartDateObjValue = document.getElementById("tourStartDate").value;
 		var tourEndDateObjValue = document.getElementById("tourEndDate").value;
-		var errorStr = "수정이 불가능합니다";
-		var errorCode1 = "투어 시작 날짜 입력 필요";
-		var errorCode2 = "투어 종료 날짜 입력 필요";
+		var tourStartTimeObjValue = document.getElementById("tourStartTime").value;
+		var tourEndTimeObjValue = document.getElementById("tourEndTime").value;
+		var tourPeopleNumObjValue = document.getElementById("tourPeopleNum").value;
+		var tourPriceObjValue = document.getElementById("tourPrice").value;
+		var tourStartingPointObjValue = document.getElementById("tourStartingPoint").value;
+		var tourContentObjValue = document.getElementById("tourContent").value;
+		
+		var fileObjValue = $("#fileBtn").val();
+		// ObjValue 모음 끝
+		
+		var errorStr = "추가가 불가능합니다";
+		var errorCode1 = "투어 이름 입력 필요";
+		var errorCode2 = "투어 시작일 입력 필요";
+		var errorCode3 = "투어 종료일 입력 필요";
+		var errorCode4 = "투어 출발시간 입력 필요";
+		var errorCode5 = "투어 종료시간 입력 필요";
+		var errorCode6 = "투어 인원 입력 필요";
+		var errorCode7 = "투어 가격 입력 필요";
+		var errorCode8 = "투어 출발지 입력 필요";
+		var errorCode9 = "투어 내용 입력 필요";
+		
+		// 글자수 시작
+		if(tourNameObjValue == null || tourNameObjValue.trim() == "" || tourNameObjValue.length == 0){
+			alert(errorStr + " - " + errorCode1);
+			return false;
+		}else if(tourNameObjValue.length > 33){	//글자수 제한
+			alert("제목은 33자까지 입력 가능합니다.");
+			var tourNameStr = tourNameObjValue.substr(0, 33);
+			$("#tourName").val(tourNameStr);
+			return false;
+		}
+		// 글자수 끝
 		if (!tourStartDateObjValue) {
 			alert(errorStr + " - " + errorCode1);
 			return false;
@@ -58,6 +89,39 @@
 			alert(errorStr + " - " + errorCode2);
 			return false;
 		}
+		if (!tourStartTimeObjValue || tourStartTimeObjValue=="") {
+			alert(errorStr + " - " + errorCode4);
+			return false;
+		}
+		if (!tourEndTimeObjValue || tourEndTimeObjValue=="") {
+			alert(errorStr + " - " + errorCode5);
+			return false;
+		}
+		if (!tourPeopleNumObjValue || tourPeopleNumObjValue==0) {
+			alert(errorStr + " - " + errorCode6);
+			return false;
+		}
+		if (!tourPriceObjValue || tourPriceObjValue==0) {
+			alert(errorStr + " - " + errorCode7);
+			return false;
+		}
+		if (!tourStartingPointObjValue || tourStartingPointObjValue=="") {
+			alert(errorStr + " - " + errorCode8);
+			return false;
+		}
+		// 글자수 시작
+		if(tourContentObjValue == null || tourContentObjValue.trim() == "" || tourContentObjValue.length == 0){
+			alert(errorStr + " - " + errorCode9);
+			return false;
+		}else if(tourContentObjValue.length > 1329){	//글자수 제한
+			alert("내용은 1329자까지 입력 가능합니다.");
+			var tourContentStr = tourContentObjValue.substr(0, 1329);
+			$("#tourContent").val(tourContentStr);
+			return false;
+		}
+		// 글자수 끝
+		
+		return true;
 	}
 	function carryStartDateTextToDateFnc() {
 		var fromDtObj = document.getElementById("fromDt");
@@ -80,6 +144,43 @@
 	    alert(com_ymd1);
 		var hiddenTourEndDateObj = document.getElementById("tourEndDate");
 		hiddenTourEndDateObj.value = toDtObj.value;
+	}
+	
+	//input[type="file"] 미리보기 제공하기 
+	var sel_file;
+	var sel_files = [];
+	$(document).ready(function(){
+		$("#fileBtn").on("change", handleImgFileSelect);
+	});
+	
+	function handleImgFileSelect(e){
+		var files = e.target.files;
+		var filesArr = Array.prototype.slice.call(files);
+		
+		filesArr.forEach(function(f){
+			if(!f.type.match("image.*")){
+				alert(" 이미지만 올릴 수 있습니다.");
+
+				if (/(MSIE|Trident)/.test(navigator.userAgent)) { 
+					// ie 일때 input[type=file] init. 
+					$("#fileBtn").replaceWith( $("#fileBtn").clone(true) );
+				} else {
+					// other browser 일때 input[type=file] init. 
+					$("#fileBtn").val(""); 
+				}
+				return;
+			}
+			
+			sel_file = f;
+			
+			var reader = new FileReader();
+			reader.onload = function(e){
+				$("#uploadImg").attr("src", e.target.result);
+				$("#uploadImg").attr("style", "height:100px;");
+			}
+			reader.readAsDataURL(f);
+			
+		});
 	}
 </script>
 <style type="text/css">
@@ -106,6 +207,9 @@
 		vertical-align: middle;
 		cursor:pointer;
 	}
+	#tourName {
+		width: 368px;
+	}
 </style>
 </head>
 
@@ -122,13 +226,14 @@
 					<tr>
 						<td class="ahreum">투어명</td>
 						<td>
-							<input type="text" name="tourName" value="${tourVo.tourName}">
+							<input type="text" id="tourName" name="tourName" value="${tourVo.tourName}">
 						</td>
 					</tr>
 					<tr>
 						<td class="ahreum">투어 이미지 파일</td>
 						<td>
 							<input id="fileBtn" type="file" name="file">
+							<img id="uploadImg">
 						</td>
 					</tr>
 					<tr>
@@ -145,26 +250,26 @@
 					<tr>
 						<td class="ahreum">출발시간 및 종료시간</td>
 						<td>
-							<input type="text" name="tourStartTime" value="${tourVo.tourStartTime}"> ~
-							<input type="text" name="tourEndTime" value="${tourVo.tourEndTime}">
+							<input type="text" id="tourStartTime" name="tourStartTime" value="${tourVo.tourStartTime}"> ~
+							<input type="text" id="tourEndTime" name="tourEndTime" value="${tourVo.tourEndTime}">
 						</td>
 					</tr>
 					<tr>
 						<td class="ahreum">투어 최대 인원</td>
 						<td>
-							<input type="number" name="tourPeopleNum" value="${tourVo.tourPeopleNum}">
+							<input type="number" id="tourPeopleNum" name="tourPeopleNum" value="${tourVo.tourPeopleNum}">
 						</td>
 					</tr>
 					<tr>
 						<td class="ahreum">투어 인당 가격</td>
 						<td>
-							<input type="number" name="tourPrice" value="${tourVo.tourPrice}">
+							<input type="number" id="tourPrice" name="tourPrice" value="${tourVo.tourPrice}">
 						</td>
 					</tr>
 					<tr>
 						<td class="ahreum">투어 출발지</td>
 						<td>
-							<input type="text" name="tourStartingPoint" value="${tourVo.tourStartingPoint}">
+							<input type="text" id="tourStartingPoint" name="tourStartingPoint" value="${tourVo.tourStartingPoint}">
 						</td>
 					</tr>
 					<tr>

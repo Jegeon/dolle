@@ -45,6 +45,8 @@
 		<result column="RESERVE_APPLY_NUM" property="reserveApplyNum" />
 		<result column="RESERVE_PRICE" property="reservePrice" />
 		<result column="TOUR_ACCOUNT_NUM" property="tourAccountNum" />
+		<result column="ACC_BANK" property="accBank" />
+		<result column="ACC_DEPOSITOR" property="accDepositor" />
 		<result column="REVIEW_IDX" property="reviewIdx" />
 		<result column="REVIEW_TITLE" property="reviewTitle" />
 		<result column="REVIEW_CONTENT" property="reviewContent" />
@@ -57,7 +59,7 @@
 	</resultMap>
 	
 	<select id="userList" parameterType="map" resultMap="memberResultMap">
-		SELECT MEMBER_IDX, MEMBER_NAME, MEMBER_EMAIL, MEMBER_PHONE, MEMBER_BIRTHDATE, MEMBER_PASSWORD
+		SELECT MEMBER_IDX, MEMBER_NAME, MEMBER_EMAIL, MEMBER_PHONE, MEMBER_BIRTHDATE, MEMBER_PASSWORD, MEMBER_NATIONAL
 		FROM MEMBER
 	</select>
 
@@ -67,6 +69,7 @@
 			  FROM MEMBER
     		  <include refid="search"></include>
        		  AND MEMBER_GRADE = 'user'
+       		  AND MEMBER_DEL_YN = 'n'
         	  ORDER BY MEMBER_IDX DESC)
         WHERE RNUM BETWEEN #{start} AND #{end}
 	</select>
@@ -86,17 +89,53 @@
 		FROM RESERVE R, TOUR T
 		WHERE R.TOUR_IDX = T.TOUR_IDX
 		AND R.MEMBER_IDX = #{no}
+		ORDER BY R.RESERVE_IDX DESC
+	</select>
+	
+	<select id="reservationTotalCount" parameterType="map" resultType="Integer">
+		SELECT COUNT(*)
+		FROM RESERVE R, TOUR T
+		WHERE R.TOUR_IDX = T.TOUR_IDX
+		AND R.MEMBER_IDX = #{no}
+		ORDER BY R.RESERVE_IDX DESC
+	</select>
+	
+	<select id="reservationListOne" parameterType="map" resultMap="memberResultMap">
+		SELECT RESERVE_IDX, TOUR_NAME, RESERVE_APPLY_DATE, RESERVE_DEPOSIT_STATE
+		FROM (SELECT ROWNUM, R.RESERVE_IDX, T.TOUR_NAME, R.RESERVE_APPLY_DATE, R.RESERVE_DEPOSIT_STATE
+              FROM RESERVE R, TOUR T
+              WHERE R.TOUR_IDX = T.TOUR_IDX
+              AND R.MEMBER_IDX = #{no}
+              ORDER BY R.RESERVE_IDX DESC)
+      	WHERE ROWNUM BETWEEN #{begin} AND #{end}
 	</select>
 	
 	<select id="memberTourOne" parameterType="map" resultMap="memberResultMap">
 		SELECT R.REVIEW_IDX, R.REVIEW_TITLE, M.MEMBER_NICKNAME ,R.REVIEW_CONTENT, R.REVIEW_CRE_DATE, R.REVIEW_MOD_DATE, R.REVIEW_READ_COUNT, R.REVIEW_LIKE_COUNT, R.REVIEW_RATING
 		FROM MEMBER M, REVIEWBOARD R
 		WHERE M.MEMBER_IDX = #{no}
+		AND M.MEMBER_IDX = R.MEMBER_IDX
+		ORDER BY R.REVIEW_IDX DESC
+	</select>
+	
+	<select id="tourListOne" parameterType="map" resultMap="memberResultMap">
+		SELECT ROWNUM, R.REVIEW_IDX, R.REVIEW_TITLE, M.MEMBER_NICKNAME ,R.REVIEW_CONTENT, R.REVIEW_CRE_DATE, R.REVIEW_MOD_DATE, R.REVIEW_READ_COUNT, R.REVIEW_LIKE_COUNT, R.REVIEW_RATING
+		FROM MEMBER M, REVIEWBOARD R
+		WHERE M.MEMBER_IDX = #{no}
+		AND ROWNUM BETWEEN #{begin} AND #{end}
+		ORDER BY R.REVIEW_IDX DESC
+	</select>
+	
+	<select id="reviewTotalCount" parameterType="map" resultType="Integer">
+		SELECT COUNT(*)
+		FROM MEMBER M, REVIEWBOARD R
+		WHERE M.MEMBER_IDX = #{no}
+		ORDER BY R.REVIEW_IDX DESC
 	</select>
 
 	<select id="memberExist" parameterType="map"
 		resultMap="memberResultMap">
-		SELECT MEMBER_IDX, MEMBER_NAME, MEMBER_EMAIL, MEMBER_PHONE, MEMBER_BIRTHDATE, MEMBER_GRADE, MEMBER_NICKNAME
+		SELECT MEMBER_IDX, MEMBER_NAME, MEMBER_EMAIL, MEMBER_PHONE, MEMBER_BIRTHDATE, MEMBER_GRADE, MEMBER_NICKNAME, MEMBER_DEL_YN, MEMBER_NATIONAL
 		FROM MEMBER
 		WHERE MEMBER_EMAIL = #{email} AND MEMBER_PASSWORD = #{password}
 	</select>
@@ -165,14 +204,25 @@
 		WHERE M.MEMBER_IDX = #{no}
 	</select>
 	
-	<delete id="memberDelete" parameterType="int">
-		DELETE FROM MEMBER
+	<update id="memberDelete" parameterType="int">
+		UPDATE MEMBER
+		SET
+		MEMBER_NAME = ' ',
+		MEMBER_EMAIL = SEQ_MEMBER_DEL_NO.NEXTVAL,
+		MEMBER_NICKNAME = SEQ_MEMBER_DEL_NO.NEXTVAL,
+		MEMBER_PASSWORD = ' ',
+		MEMBER_PHONE = ' ',
+		MEMBER_NATIONAL = ' ',
+		MEMBER_MOD_DATE = SYSDATE,
+		MEMBER_GRADE = ' ',
+		MEMBER_DEL_YN = 'y',
+		MEMBER_TEMP_PWD = ' '
 		WHERE MEMBER_IDX = #{no}
-	</delete>
+	</update>
 
 	<select id="memberPaymentSelectOne" parameterType="int"
 		resultMap="memberResultMap">
-		SELECT R.RESERVE_APPLY_NUM, R.RESERVE_PRICE, A.ACC_ACCOUNT_NUM AS TOUR_ACCOUNT_NUM 
+		SELECT R.RESERVE_APPLY_NUM, R.RESERVE_PRICE, A.ACC_ACCOUNT_NUM AS TOUR_ACCOUNT_NUM, ACC_BANK, ACC_DEPOSITOR, R.MEMBER_IDX
 		FROM TOUR T, ACCOUNT_MANAGEMENT A, RESERVE R
 		WHERE T.TOWN_IDX = A.TOWN_IDX
 		AND T.TOUR_IDX = R.TOUR_IDX
@@ -197,8 +247,9 @@
 	
 	<update id="memberPaymentUpdateOne" parameterType="int">
 		UPDATE RESERVE
-		SET
-		RESERVE_DEPOSIT_STATE = 'paid'
-		WHERE RESERVE_IDX = #{reserveIdx}
+	    SET
+	    RESERVE_DEPOSIT_STATE = 'paid',
+	    RESERVE_DEPOSIT_DATE = SYSDATE
+	    WHERE RESERVE_IDX = #{reserveIdx}
 	</update>
 </mapper>

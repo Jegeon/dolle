@@ -212,13 +212,16 @@
 						투어 번호
 					</th>
 					<th style="width: 160px;">
-						예약한 투어 이름
+						예약 투어
 					</th>
 					<th style="width: 90px;">
 						예약 날짜
 					</th>
 					<th style="width: 90px;">
 						예약 인원
+					</th>
+					<th style="width: 90px;">
+						최대 인원
 					</th>
 					<th style="width: 90px;">
 						입금 여부
@@ -230,7 +233,7 @@
 				<!-- 검색결과가 없는 경우 -->
 				<c:if test="${empty tourReservationListPaid}">
 					<tr>
-						<td colspan="10">검색된 결과가 없습니다.</td>
+						<td colspan="11">검색된 결과가 없습니다.</td>
 					</tr>
 				</c:if>
 				<c:forEach var='reservationVo' items='${tourReservationListPaid}'>
@@ -260,6 +263,9 @@
 							${reservationVo.reserveApplyNum}
 						</td>
 						<td>
+							${reservationVo.reserveTourPeopleNum}
+						</td>
+						<td>
 							<c:if test="${reservationVo.reserveDepositState == 'standby'}">
 								미입금
 							</c:if>
@@ -284,7 +290,7 @@
 	
 	<div style="width:1260px; height:205px; margin:0 auto; text-align: center; 
 	padding-top: 30px; box-sizing: border-box;">
-		<ul id="pagingGroup" style="width: 600px; display: inline-block; margin-left: 165px;">
+		<ul id="pagingGroup" style="width: 600px; display: inline-block;">
 			<li class="pagingImg" onclick="goPageFnc(1);"
 				 style="cursor: pointer; width:40px; height:40px; display: inline-block; 
 				 background: #FFFFFF; border:1px solid #fff; vertical-align: middle;

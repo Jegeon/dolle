@@ -72,6 +72,15 @@
 		margin-right: 15px;
 	}
 	
+	.sideBtnSize{
+		width: 25px;
+	    height: 30px;
+	}
+	
+	#btnBox{
+		float:left; padding-left:656px; padding-bottom: 20px;
+	}
+	
 	/* 댓글 */
 	.commentHeader{
 		margin-left: 20px;
@@ -144,9 +153,13 @@
 		$("#smileEmo").css("border", "3px solid #FFCC00");
 		
 		
-		//댓글 개수에 따른 박스 높이 지정
+		//reviewContent 길이 만큼 페이지 높이 증가
+		var incHeight = $("#reviewContentBox").css("height");
+		var incHeightVal = incHeight.substring(0, incHeight.length-2);
+
+		//댓글 개수에 따른 페이지 높이 지정
 		var commentCnt = $("#commentCnt").val(); 
-		var bodyHeight = 1400;	//댓글 없을 때 기본 높이
+		var bodyHeight = 1400 + Number(incHeightVal);	//댓글 없을 때 기본 높이
 		for(var i=0; i<commentCnt; i++){
 			bodyHeight += 140;
 		}
@@ -171,11 +184,31 @@
 			$("#cmtRightBtn").remove();
 		}
 		
+		
+		//유저 등급에 따라 목록으로 버튼 추가 및 수정
+		var grade = $("#memberGrade").val();
+		if(grade == "admin"){
+			$("#userPageBtn").val("사용자 목록으로");
+			$("#adminPageBtn").val("관리자 목록으로");
+			$("#updateBtn").remove();
+		}else{
+			$("#userPageBtn").val("목록으로");
+			$("#adminPageBtn").remove();
+		}
+		
+		
+		
+		
 	});
 
-	function movePageListFnc(){
-		location.href="./list.do"
+	function moveUserPageListFnc(){
+		location.href="<%=request.getContextPath()%>/courseReview/list.do"
 	}
+	
+	function moveAdminPageListFnc(){
+		location.href="<%=request.getContextPath()%>/courseReview/adminList.do"
+	}
+	
 	
 	function movePageUpdateFnc(reviewIdx){
 		location.href="./update.do?reviewIdx="+reviewIdx;
@@ -276,6 +309,7 @@
 	
 	<jsp:include page="/WEB-INF/views/Header.jsp"/>
 
+	<input id="memberGrade" type="hidden" value="${_memberVo_.grade}">
 
 	<div id="bodyWrap" style="width:1260px; margin:0px auto;">
 		
@@ -283,7 +317,7 @@
 			<h1>혜화 명륜 마을</h1>
 		</div>
 		
-		<div id="uploadImageBox" class="basicBox" style="text-align: center;">	
+		<div id="uploadImageBox" class="basicBox" style="text-align: center; overflow: hidden;">	
 			<img id="uploadImg" alt="upload_image" src="<c:url value='/img/${reviewMCFVo.fileStoredName}'/>"
 				style="height:600px;">
 		</div>
@@ -300,10 +334,10 @@
 		<input id="rnum" name="rnum" type="hidden" value="${rnum}">
 		<input id="lastRowNum" name="lastRowNum" type="hidden" value="${lastRowNum}">
 		<div id="leftBtn" onclick="prePageFnc(${reviewMCFVo.reviewIdx});" style="float:left;">
-			<img alt="leftBtn" src="/dolleProject/resources/images/left.PNG">
+			<img class="sideBtnSize" alt="leftBtn" src="/dolleProject/resources/images/leftBtn.png">
 		</div>
 		<div id="rightBtn" onclick="nextPageFnc(${reviewMCFVo.reviewIdx});" style="float:right;">
-			<img alt="rightBtn" src="/dolleProject/resources/images/right.PNG">
+			<img class="sideBtnSize" alt="rightBtn" src="/dolleProject/resources/images/rightBtn.png">
 		</div>
 		
 		<div class="basicBox reviewTitle" style="padding-bottom: 20px;">
@@ -335,13 +369,14 @@
 			</div>
 		</div>		
 		
-		<div class="basicBox reviewContent" style="padding: 20px 0px 40px 0px; clear:both;">
+		<div id="reviewContentBox" class="basicBox reviewContent" style="padding: 20px 0px 40px 0px; clear:both;">
 			${reviewMCFVo.reviewContent}
 		</div>
 		
-		<div class="basicBox" style="float:left; padding-left:656px; padding-bottom: 20px;">
-			<input class="inputBtn" type="button" onclick="movePageListFnc();" value="목록으로">
-			<input class="inputBtn" type="button" onclick="movePageUpdateFnc(${reviewMCFVo.reviewIdx});" value="수정">
+		<div id="btnBox" class="basicBox">
+			<input id="adminPageBtn" class="inputBtn" type="button" onclick="moveAdminPageListFnc();">
+			<input id="userPageBtn" class="inputBtn" type="button" onclick="moveUserPageListFnc();">
+			<input id='updateBtn' class="inputBtn" type="button" onclick="movePageUpdateFnc(${reviewMCFVo.reviewIdx});" value="수정">
 		</div>
 		
 		<div id="commentWrap" style="width:1100px; margin:70px auto 20px;">	

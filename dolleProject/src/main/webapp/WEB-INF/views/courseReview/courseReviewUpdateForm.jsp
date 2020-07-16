@@ -241,7 +241,7 @@
 	
 	
 	
-	<div style="width:1260px; height:1600px; margin:0px auto; background:skyblue">
+	<div style="width:1260px; height:1600px; margin:0px auto;">
 		
 		<div id="townBox" class="basicBox titleFont" style="padding: 50px 0px 10px;">	
 			<h1>혜화 명륜 마을</h1>
@@ -250,7 +250,7 @@
 		<form id="updateForm" action="./updateCtr.do" method="post" enctype="multipart/form-data">
 			<input name="reviewIdx" type="hidden" value="${reviewMCFVo.reviewIdx}">
 			
-			<div id="uploadImageBox" class="basicBox" style="text-align: center;">	
+			<div id="uploadImageBox" class="basicBox" style="text-align: center; overflow: hidden;">	
 				<img id="uploadImg" alt="upload_image" src="<c:url value='/img/${reviewMCFVo.fileStoredName}'/>"
 					style="height:583px;">
 			</div>

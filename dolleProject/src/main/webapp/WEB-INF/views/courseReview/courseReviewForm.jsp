@@ -31,9 +31,12 @@
 	}
 	
 	#changePhotoBtn{
-		width: 150px; height: 30px; border: 1px solid #6B6B6B; font-size: 12px;
+		width: 130px; height: 24px; border: 1px solid #6B6B6B; font-size: 12px;
+		margin-right: 5px; vertical-align: top;
 	}
-	
+	#fileBtn{
+		width: 200px;
+	}
 	.inputBtn{
 		width:200px; height:40px; font:normal bold 16px Segoe UI; color:white; 
 		 border:0px; margin-right: 20px; background-color: #0D4371;
@@ -164,15 +167,64 @@
 			$("#reviewTitle").css("border", "1px solid red");
 			$("#reviewTitle").attr("class","validTitle");
 			return false;
+		}else if(title.length > 33){
+			alert("제목은 33자까지 입력 가능합니다.");
+			var titleStr = title.substr(0, 33);
+			$("#reviewTitle").val(titleStr);
+			return false;
 		}
 		
-		var content  = $("#reivewContent").val();
+		var str  = $("#reivewContent").val();
+		content = str.replace(/(?:\r\n|\r|\n)/g, '<br/>');		//엔터키 처리
 		if(content == null || content.trim() == "" || content.length == 0){
 			$("#reivewContent").css("border", "1px solid red");
 			$("#reivewContent").attr("class","validContent");
 			return false;
-		}
+		}else if(content.length > 1329){
+			alert("더 이상 작성할 수 없습니다.");
+			alert(content.length);
+			var contentStr = content.substr(0, 1325);
+			var lastStr = contentStr.substr(contentStr.length-1, 1);
+// 			alert(lastStr);
+			if(lastStr == '<'){
+				contentStr = contentStr + "br/>";
+			}else if(lastStr == 'b'){
+				contentStr = contentStr + "r/>";
+			}else if(lastStr == 'r'){
+				contentStr = contentStr + "/>";
+			}else if(lastStr == '/'){
+				contentStr = contentStr + ">";
+			}
 		
+			alert(contentStr);
+// 			String text = str.replaceAll("\\r|\\n", "");
+// 			var originStr = contentStr.replaceAll("<br/>","\\r");
+// 			alert(originStr);
+// 			var countBr = contentStr.match(/"<br/>"/g); 
+// 			if(countBr !=null){			
+// 				alert(countBr+" : "+countBr);
+// 			}
+			$("#reivewContent").val(contentStr);
+			return false;
+		
+		}else if(content.length <= 1329){
+			alert(content.length);
+			//마지막 글자 contentStr.substr(contentStr.length-1, 1)
+			var lastStr = content.substr(content.length-1, 1);
+			alert(lastStr, " + ", content.length);
+			if(lastStr == '<'){
+				content = content + "br/>";
+			}else if(lastStr == 'b'){
+				content = content + "r/>";
+			}else if(lastStr == 'r'){
+				content = content + "/>";
+			}else if(lastStr == '/'){
+				content = content + ">";
+			}
+			
+			$("#reivewContent").val(content);
+			return true;
+		}
 		
 		return true;
 	}
@@ -180,7 +232,7 @@
 	
 	function changeBasicPhotoFnc(){
 		alert("기본사진으로 변경");
-		$("#uploadImg").attr("src", "/dolleProject/resources/images/test.jpg
+		$("#uploadImg").attr("src", "/dolleProject/resources/images/test.jpg");
 	}
 	
 	//input[type="file"] 미리보기 제공하기 
@@ -230,7 +282,16 @@
 	}
 	
 	function movePageListFnc(){
-		location.href="./list.do"
+		var grade = $("#memberGrade").val();
+		if(grade == null || grade.trim() == "" || grade.length == 0){
+			alert("로그인 후 작성해주세요.");
+			location.href="<%=request.getContextPath()%>/auth/login.do" 
+		}else if(grade == "user"){
+			alert("접근불가능한 권한입니다.");
+			location.href="<%=request.getContextPath()%>"
+		}else if(grade == "admin"){
+			location.href="<%=request.getContextPath()%>/courseReview/adminList.do"
+		}
 	}
 
 	
@@ -242,20 +303,21 @@
 	<jsp:include page="/WEB-INF/views/Header.jsp"/>
 	
 	
+	<input id="memberGrade" type="hidden" value="${_memberVo_.grade}">
 	
-	<div style="width:1260px; height:1600px; margin:0px auto; background:skyblue">
+	<div style="width:1260px; height:1600px; margin:0px auto;">
 		
-		<div id="townBox" class="basicBox titleFont" style="padding: 50px 0px 10px;">	
+		<div id="townBox" class="basicBox titleFont" style="padding: 50px 0px 25px;">	
 			<h1>혜화 명륜 마을</h1>
 		</div>
 		
 		<form id="addForm" action="./addCtr.do" method="post" enctype="multipart/form-data">
-			<div id="uploadImageBox" class="basicBox" style="text-align: center;">	
+			<div id="uploadImageBox" class="basicBox" style="text-align: center; overflow: hidden;">	
 				<img id="uploadImg" alt="upload_image" src="/dolleProject/resources/images/test.jpg"
 					style="width:100%;">
 			</div>
 			
-			<div class="floatRight" style="margin: 10px 190px 40px;">
+			<div class="floatRight" style="margin: 10px 180px 40px;">
 <!-- 				<span style="margin-right:10px; font-size:12px;">기본 사진으로 변경</span> -->
 				<input id="changePhotoBtn" type="button" onclick="changeBasicPhotoFnc();" value="기본 사진으로 변경">
 				<input id="fileBtn" type="file" name="file">
@@ -351,9 +413,10 @@
 				<div class="inputTitle" style="padding-bottom:5px;">
 					<span>내용</span>
 				</div>
-				<textarea id="reivewContent" name="reviewContent" rows="" cols="" placeholder="내용을 입력해주세요." style="width:900px; height:470px; font-size:17px; padding:50px; box-sizing:border-box;"></textarea>
+				<textarea id="reivewContent" name="reviewContent" placeholder="내용을 입력해주세요." style="width:900px; height:470px; font-size:17px; padding:50px; box-sizing:border-box;"></textarea>
 			</div>
 			
+				
 			<div class="basicBox" style="text-align: center;">
 				<input class="inputBtn" type="button" onclick="movePageListFnc();" value="목록으로">
 				<input class="inputBtn" type="button" onclick="addFormFnc();" value="등록">

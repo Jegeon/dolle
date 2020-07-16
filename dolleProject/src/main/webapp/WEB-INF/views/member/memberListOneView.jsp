@@ -28,10 +28,15 @@
 		text-align: left;
 		font-size: 5px;
 		padding: 10px;
+		background-color: #FFFFFF;
 	}
 	
 	.formCss {
 		padding: 20px;
+	}
+	
+	.thCss {
+		background-color: #F8F4ED;
 	}
 	
 	.resCss {
@@ -77,6 +82,10 @@
 		border : 0px;
 		outline: 0px;
 		margin: 10px;
+	}
+	
+	.tdCss {
+		background-color: #EBEBEB;
 	}
 </style>
 <script type="text/javascript" src="/dolleProject/resources/js/jquery-3.5.1.js"></script>
@@ -126,7 +135,7 @@
 		reservation.style.display = 'table';
 		myWriting.style.display = 'none';
 		
-		if (parseInt($('#totalCnt').val()) > parseInt($('#endNum').val())) {
+		if (parseInt($('#totalCnt').val()) > (parseInt($('#endNum').val()) - 5)) {
 			$('#addBtn').attr('style', 'display:unset');
 		}
 		$('#revBtn').attr('style', 'display:none');
@@ -142,7 +151,7 @@
 		myWriting.style.display = 'table';
 		
 		$('#addBtn').attr('style', 'display:none');
-		if (parseInt($('#reviewTotalCnt').val()) > parseInt($('#endCnt').val())) {
+		if (parseInt($('#reviewTotalCnt').val()) > (parseInt($('#endCnt').val()) - 5)) {
 			$('#revBtn').attr('style', 'display:unset');
 		}
 	}
@@ -201,7 +210,7 @@
 					var formatDate = year + '/' + month + '/' + day;       //'-' 추가하여 yyyy-mm-dd 형태 생성 가능
 					
 					$('#reservation tr:last').after("<tr class='resCss'>"
-							+ "<td class='resCss idxNum'>"+data.resList[i].reserveIdx+"</td>"
+							+ "<td class='resCss idxNum tdCss'>"+data.resList[i].reserveIdx+"</td>"
 							+ "<td class='resCss'>"+data.resList[i].tourName+"</td>"
 							+ "<td class='resCss'>"+formatDate+"</td>"
 							+ "<td class='resCss'>" + reserve
@@ -240,7 +249,6 @@
 				data: form,
 				success:function(data){
 					for (var i = 0; i < data.tourList.length; i++) {
-						
 						var date = new Date(data.tourList[i].reviewCreDate);
 						var year = date.getFullYear();          //yyyy
 						var month = date.getMonth() + 1;          //M
@@ -249,16 +257,23 @@
 						    day = day >= 10 ? day : '0' + day;          //day 두자리로 저장
 						var formatDate = year + '/' + month + '/' + day;       //'-' 추가하여 yyyy-mm-dd 형태 생성 가능
 						
-						$('#myWriting tr:last').after("<tr class='resCss'><th class='resCss'>"
-								+ data.tourList[i].reviewIdx + "</th><th class='resCss'>"
-								+ data.tourList[i].reviewTitle + "</th><th class='resCss'>"
-								+ data.tourList[i].nickname + "</th><th class='resCss'>"
-								+ formatDate + "</th><th><c:forEach begin='1' end='${memberVo.reviewRating}'>"
-								+ "<img alt='별_full' src='/dolleProject/resources/images/starSolid.png'	style='width:18px; height:16.5px;'>"
-								+ "</c:forEach><c:forEach begin='${memberVo.reviewRating}' end='4'>"
-								+ "<img alt='별_blank' src='/dolleProject/resources/images/starBlank.png' style='width:18px; height:16.5px; vertical-align: middle;'>"
-								+ "</c:forEach></th><th class='resCss'>" + data.tourList[i].reviewReadCount + "</th>"
-								+ "<th class='resCss'>" + data.tourList[i].reviewLikeCount + "</th></tr>")
+						var starList = new Array();
+						for (var n = 0; n < data.tourList[i].reviewRating; n++) {
+							starList[n] = $('#fullStar').val();
+						}
+						
+						for (var m = 5; m >= data.tourList[i].reviewRating; m--) {
+							starList[m] = $('#blankStar').val();
+						}
+						
+						$('#myWriting tr:last').after("<tr class='resCss'><td class='resCss'>"
+								+ data.tourList[i].reviewIdx + "</td><td class='resCss'>"
+								+ data.tourList[i].reviewTitle + "</td><td class='resCss'>"
+								+ data.tourList[i].nickname + "</td><td class='resCss'>"
+								+ formatDate + "</td><td>"
+								+ starList[0] + starList[1] + starList[2] + starList[3] + starList[4]
+								+ "</td><td class='resCss'>" + data.tourList[i].reviewReadCount + "</td>"
+								+ "<td class='resCss'>" + data.tourList[i].reviewLikeCount + "</td></tr>")
 					}
 					if ($('#reviewTotalCnt').val() < parseInt($('#endCnt').val()) || $('#reviewTotalCnt').val() <= 5) {
 						$('#revBtn').attr('style', 'display:none');
@@ -308,43 +323,43 @@
 				<input id='memberNo' type="hidden" name='no' value='${memberVo.no}'>
 				<table id='subInfo' class='tableCenter'>
 					<tr>
-						<td>
+						<td class='tdCss'>
 							<span class='secondSpanCss'>이름</span> 
 						</td>
-						<td>
+						<td class='tdCss'>
 							<input class='inputCss' type="text" name='name'
 							 id='memberName' value='${memberVo.name}' readonly="readonly">
 						</td>
 					</tr>
 					<tr>
-						<td>
+						<td class='tdCss'>
 							<span class='secondSpanCss'>닉네임</span>
 						</td>
-						<td>
+						<td class='tdCss'>
 							<input class='inputCss' type='text' name='nickname'
 								value='${memberVo.nickname}' readonly='readonly'>
 						</td>
 					</tr>
 					<tr>
-						<td>
+						<td class='tdCss'>
 							<span class='secondSpanCss'>이메일</span>
 						</td>
-						<td>
+						<td class='tdCss'>
 							<input class='inputCss' type="text" name="email" 
 								value='${memberVo.email}' readonly="readonly">
 						</td>
 					</tr>
 					<tr>
-						<td>
+						<td class='tdCss'>
 							<span class='secondSpanCss'>연락처</span>
 						</td>
-						<td>
+						<td class='tdCss'>
 							<input class='inputCss' type='text' name='phone'
 							 	value='${memberVo.phone}' readonly='readonly'>
 						</td>
 					</tr>
 					<tr>
-						<td colspan='2'>
+						<td colspan='2' class='tdCss'>
 							<input class='btnCss' type="button" value="수정하기"
 								onclick='updateMoveFnc();'>
 							<input class='btnCss' type="button" value="이전페이지" 
@@ -355,7 +370,7 @@
 				</table>
 				<table id='reservation' class='tableCenter'
 					style='display: none; border: 1px solid black; border-collapse: collapse;'>
-					<tr id='testTr' class='resCss'>
+					<tr id='testTr' class='resCss thCss'>
 						<th class='resCss'>
 							예약신청번호
 						</th>
@@ -412,7 +427,7 @@
 				<table id='myWriting' class='tableCenter'
 					style='display: none; border: 1px solid black;
 					border-collapse: collapse;'>
-					<tr class='resCss'>
+					<tr class='resCss thCss'>
 						<th class='resCss'>
 							번호
 						</th>
@@ -446,34 +461,34 @@
 						<c:otherwise>
 							<c:forEach var='memberVo' items='${tourReviewList}' begin='0' end='4' varStatus="status">
 								<tr class='resCss'>
-									<th class='resCss'>
+									<td class='resCss'>
 										${memberVo.reviewIdx}
-									</th>
-									<th class='resCss'>
+									</td>
+									<td class='resCss'>
 										${memberVo.reviewTitle}
-									</th>
-									<th class='resCss'>
+									</td>
+									<td class='resCss'>
 										${memberVo.nickname}
-									</th>
-									<th class='resCss'>
+									</td>
+									<td class='resCss'>
 										<fmt:formatDate value="${memberVo.reviewCreDate}" pattern="yyyy-MM-dd" />
-									</th>
-									<th>
+									</td>
+									<td>
 										<c:forEach begin='1' end="${memberVo.reviewRating}">
 											<img alt="별_full" src="/dolleProject/resources/images/starSolid.png" 
 														style="width:18px; height:16.5px;">
 										</c:forEach>
 										<c:forEach begin="${memberVo.reviewRating}" end='4'>
 											<img alt="별_blank" src="/dolleProject/resources/images/starBlank.png"
-											 style="width:18px; height:16.5px; vertical-align: middle;">
+											 style="width:18px; height:16.5px;">
 										</c:forEach>
-									</th>
-									<th class='resCss'>
+									</td>
+									<td class='resCss'>
 										${memberVo.reviewReadCount}
-									</th>
-									<th class='resCss'>
+									</td>
+									<td class='resCss'>
 										${memberVo.reviewLikeCount}
-									</th>
+									</td>
 								</tr>
 							</c:forEach>
 						</c:otherwise>
@@ -487,6 +502,9 @@
 	<input id='endNum' type='hidden' value='10'>
 	<input id='reviewTotalCnt' type='hidden' value='${reviewTotalCnt}'>
 	<input id='endCnt' type='hidden' value='10'>
+	<input id='reviewRating' type='hidden' value='${memberVo.reviewRating}'>
+	<input id='fullStar' type='hidden' value="<img alt='별_full' src='/dolleProject/resources/images/starSolid.png'	style='width:18px; height:16.5px;'>">
+	<input id='blankStar' type='hidden' value="<img alt='별_blank' src='/dolleProject/resources/images/starBlank.png' style='width:18px; height:16.5px;'>">
 	<jsp:include page="/WEB-INF/views/Tail.jsp"/>
 
 </body>

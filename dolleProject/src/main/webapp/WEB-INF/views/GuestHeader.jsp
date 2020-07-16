@@ -150,7 +150,7 @@
 				<div
 					style="height: 40px; width: 450px; background-color: #EFEAE2; text-align: center; padding-top: 14px; box-sizing: border-box; margin-left: 252px;">
 					<span style="padding: 0px 7px 0px 7px;"> 
-						<a class='blackLink' href='#'>
+						<a class='blackLink' href='<%=request.getContextPath()%>/town/castleTownInfo.do'>
 							성곽마을이란?
 						</a>
 					</span> 
@@ -160,7 +160,7 @@
 						</a>
 					</span> 
 					<span style="padding: 0px 7px 0px 7px;"> 
-						<a class='blackLink' href='#'>
+						<a class='blackLink' href='<%=request.getContextPath()%>/town/nineInfoDetail.do'>
 							혜화명륜
 						</a>
 					</span>

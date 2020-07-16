@@ -35,4 +35,11 @@ public class TownController {
 		return "town/nineTownInfoDetailView";
 	}
 	
+	@RequestMapping(value="/town/castleTownInfo.do", method = RequestMethod.GET)
+	public String castleTownInfoView(Model model) {
+		
+		
+		return "town/castleTownInfoView";
+	}
+	
 }

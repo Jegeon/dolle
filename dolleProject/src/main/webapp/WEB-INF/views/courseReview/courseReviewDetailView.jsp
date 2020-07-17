@@ -539,7 +539,6 @@
 					</span>
 
 
-	
 					<c:if test="${_memberVo_.no eq commentVo.commentMemberIdx}">
 						<div style="float:right;">						
 							<button id="updateBtn${index.count}" class="cmtBtn" type="button" onclick="makeUpdateBoxFnc(${index.count});">수정</button>

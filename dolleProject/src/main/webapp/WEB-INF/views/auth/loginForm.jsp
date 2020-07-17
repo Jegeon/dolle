@@ -12,8 +12,6 @@
 	#mainBorder {
 		text-align: center;
 		margin: auto;
-		height: 465px;
-		margin-top: 100px;
 	}
 	
 	table {
@@ -113,7 +111,7 @@
 		}
 		
 		//비밀번호 유효성
-		if (pwdObj.value == "") {
+		if (pwdObj == "") {
 			pwdCheck.innerHTML = '비밀번호을 입력해주세요.';
 			pwdObj.style.outlineColor = '#FF0000';
 			pwdObj.focus();

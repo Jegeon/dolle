@@ -93,13 +93,11 @@
 					</tr>
 					<tr>
 						<td class="uzin">투어 예약 인원</td>
-						<td class="tdRightPadding">${reservationVo.reserveApplyNum} 명</td>
+						<td class="tdRightPadding">${reservationVo.reserveApplyNum}</td>
 					</tr>
 					<tr>
 						<td class="uzin">결제 가격</td>
-						<td class="tdRightPadding">
-							<fmt:formatNumber value="${tourVo.tourPrice * reservationVo.reserveApplyNum}" pattern="#,###" /> 원
-						</td>
+						<td class="tdRightPadding">${tourVo.tourPrice * reservationVo.reserveApplyNum}</td>
 					</tr>
 					<tr>
 						<td class="uzin">결제 방법</td>

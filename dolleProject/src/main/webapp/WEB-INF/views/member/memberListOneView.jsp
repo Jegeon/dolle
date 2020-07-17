@@ -87,10 +87,6 @@
 	.tdCss {
 		background-color: #EBEBEB;
 	}
-	
-	.aCss {
-		text-decoration: none;
-	}
 </style>
 <script type="text/javascript" src="/dolleProject/resources/js/jquery-3.5.1.js"></script>
 <script type="text/javascript">
@@ -214,9 +210,8 @@
 					var formatDate = year + '/' + month + '/' + day;       //'-' 추가하여 yyyy-mm-dd 형태 생성 가능
 					
 					$('#reservation tr:last').after("<tr class='resCss'>"
-							+ "<td class='resCss idxNum'>"+data.resList[i].reserveIdx+"</td>"
-							+ "<td class='resCss'><a class='aCss' href='../reservation/listOne.do?tourNo=" + data.resList[i].tourIdx + "'>"
-							+ data.resList[i].tourName + "</a></td>"
+							+ "<td class='resCss idxNum tdCss'>"+data.resList[i].reserveIdx+"</td>"
+							+ "<td class='resCss'>"+data.resList[i].tourName+"</td>"
 							+ "<td class='resCss'>"+formatDate+"</td>"
 							+ "<td class='resCss'>" + reserve
 							+ "</td></tr>")
@@ -273,8 +268,7 @@
 						
 						$('#myWriting tr:last').after("<tr class='resCss'><td class='resCss'>"
 								+ data.tourList[i].reviewIdx + "</td><td class='resCss'>"
-								+ "<a class='aCss' href='../courseReview/detail.do?reviewIdx='" + data.tourList[i].reviewIdx + "'>"
-								+ data.tourList[i].reviewTitle + "</a></td><td class='resCss'>"
+								+ data.tourList[i].reviewTitle + "</td><td class='resCss'>"
 								+ data.tourList[i].nickname + "</td><td class='resCss'>"
 								+ formatDate + "</td><td>"
 								+ starList[0] + starList[1] + starList[2] + starList[3] + starList[4]
@@ -405,7 +399,7 @@
 								${memberVo.reserveIdx}
 							</td>
 							<td class='resCss'>
-								<a class='aCss' href='../reservation/listOne.do?tourNo=${memberVo.tourIdx}'>${memberVo.tourName}</a>
+								${memberVo.tourName}
 							</td>
 							<td class='resCss'>
 								<fmt:formatDate value="${memberVo.reserveApplyDate}" pattern="yyyy-MM-dd" />
@@ -471,7 +465,7 @@
 										${memberVo.reviewIdx}
 									</td>
 									<td class='resCss'>
-										<a class='aCss' href='../courseReview/detail.do?reviewIdx=${memberVo.reviewIdx}'>${memberVo.reviewTitle}</a>
+										${memberVo.reviewTitle}
 									</td>
 									<td class='resCss'>
 										${memberVo.nickname}

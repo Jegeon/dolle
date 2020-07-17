@@ -47,6 +47,10 @@
 	p {
 		font-weight: bold;
 	}
+	
+	#monthCheck {
+		height: 35px;
+	}
 
 	#mainText {
 		color: #0D4371;
@@ -142,7 +146,7 @@
 		cerObj = document.getElementById('cerObj');
 		passObj = document.getElementById('passObj');
 		passCheckObj = document.getElementById('passCheckObj');
-		agreeObj = document.getElementsByName('grade');
+		agreeObj = document.getElementsByName('agree');
 		
 		nameCheck = document.getElementById('nameCheck');
 		phonCheck = document.getElementById('phonCheck');
@@ -384,6 +388,7 @@
 			data: "tomail=" + emailObj.value,
 			success:function(data){
 				$('#cerNum').val(data);
+				alert('해당 이메일로 인증번호가 발송 되었습니다.');
 			},
 			error: function(){
 				alert("error");
@@ -620,7 +625,7 @@
 								<tr>
 									<td style='font-size: 12px;'>
 										(필수)위의 내용을 읽었으며 동의합니다.
-										<input id='agreeObj' type='checkBox' name='grade'>동의
+										<input id='agreeObj' type='checkBox' name='agree'>동의
 									</td>
 								</tr>
 								<tr>

@@ -10,6 +10,8 @@
 	#mainBorder {
 		text-align: center;
 		margin: auto;
+		height: 465px;
+		margin-top: 100px;
 	}
 	
 	table {

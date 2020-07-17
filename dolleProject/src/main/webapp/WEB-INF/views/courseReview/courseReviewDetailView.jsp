@@ -500,104 +500,104 @@
 			<input id='updateBtn' class="inputBtn" type="button" onclick="movePageUpdateFnc(${reviewMCFVo.reviewIdx});" value="수정">
 		</div>
 
-	</div>
 	
-	<div id="commentWrap" style="width:1100px; margin:70px auto 20px;">	
-		<input id="cmtCurPage" name="cmtCurPage" type="hidden" value="${cmtCurPage}">
-		<input id="lastCmtPage" name="lastCmtPage" type="hidden" value="${lastCmtPage}">
-		<span class="commentHeader">댓글쓰기</span>
-		<span id="commentBtn" class="commentBtn">
-			<span class="marginRight15">${cmtCurPage} / ${lastCmtPage}</span>
-			<button id="cmtLeftBtn" class="cmtPageBtn" onclick="cmtLeftFnc(${reviewMCFVo.reviewIdx});">&lt;</button>
-			<button id="cmtRightBtn" class="cmtPageBtn" onclick="cmtRightFnc(${reviewMCFVo.reviewIdx});">&gt;</button>
-		</span>
-		<hr>
-		
-		<form id="updateCommentForm" action="./updateCommentCtr.do" method="post">
-			<input id="commentReviewIdx" name="commentReviewIdx" type="hidden" value="${reviewMCFVo.reviewIdx}">
-			<input id="commentIdx" name="commentIdx" type="hidden" value="">
-			<input id="commentCnt" type="hidden" value="${commentCnt}">
+	
+		<div id="commentWrap" style="width:1100px; margin:70px auto 20px;">	
+			<input id="cmtCurPage" name="cmtCurPage" type="hidden" value="${cmtCurPage}">
+			<input id="lastCmtPage" name="lastCmtPage" type="hidden" value="${lastCmtPage}">
+			<span class="commentHeader">댓글쓰기</span>
+			<span id="commentBtn" class="commentBtn">
+				<span class="marginRight15">${cmtCurPage} / ${lastCmtPage}</span>
+				<button id="cmtLeftBtn" class="cmtPageBtn" onclick="cmtLeftFnc(${reviewMCFVo.reviewIdx});">&lt;</button>
+				<button id="cmtRightBtn" class="cmtPageBtn" onclick="cmtRightFnc(${reviewMCFVo.reviewIdx});">&gt;</button>
+			</span>
+			<hr>
 			
-			<c:forEach var="commentVo" items="${commentList}" varStatus="index">
-				<input id="commentIdx${index.count}" type="hidden" value="${commentVo.commentIdx}">
-				<div id="commentBox${index.count}" class="commentBox">
-					<input id="check${index.count}" type="hidden" value="0">
-					<input id="commentEmoticon${index.count}" type="hidden" value="${commentVo.commentEmoticon}">
-					
-					<span>
-						<img id="commentImg${index.count}" alt="emoticon" style="width:35px;">
-					</span>
-					<span style="margin-left:10px; font-size:14px;">${commentVo.memberNickname}</span>
-					<div id="cmtContentBox" style="margin:12px 0px; line-height:21px;">${commentVo.commentContent}</div>
-					<span class="dateText" style="margin-right: 3px;">등록일</span>
-					<span class="dateText" style="margin-right: 10px;">
-						<fmt:formatDate value="${commentVo.creDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
-					</span>
-					<span class="dateText" style="margin-right: 3px;">수정일</span>
-					<span class="dateText">
-						<fmt:formatDate value="${commentVo.modDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
-					</span>
-
-
-					<c:if test="${_memberVo_.no eq commentVo.commentMemberIdx}">
-						<div style="float:right;">						
-							<button id="updateBtn${index.count}" class="cmtBtn" type="button" onclick="makeUpdateBoxFnc(${index.count});">수정</button>
-							<button class="cmtBtn" type="button" onclick="deleteCommnetFnc(${index.count});">삭제</button>
-						</div>
-					</c:if>
-
-				</div>
-				<hr>
-			</c:forEach>
-		</form>
-	</div>
+			<form id="updateCommentForm" action="./updateCommentCtr.do" method="post">
+				<input id="commentReviewIdx" name="commentReviewIdx" type="hidden" value="${reviewMCFVo.reviewIdx}">
+				<input id="commentIdx" name="commentIdx" type="hidden" value="">
+				<input id="commentCnt" type="hidden" value="${commentCnt}">
+				
+				<c:forEach var="commentVo" items="${commentList}" varStatus="index">
+					<input id="commentIdx${index.count}" type="hidden" value="${commentVo.commentIdx}">
+					<div id="commentBox${index.count}" class="commentBox">
+						<input id="check${index.count}" type="hidden" value="0">
+						<input id="commentEmoticon${index.count}" type="hidden" value="${commentVo.commentEmoticon}">
+						
+						<span>
+							<img id="commentImg${index.count}" alt="emoticon" style="width:35px;">
+						</span>
+						<span style="margin-left:10px; font-size:14px;">${commentVo.memberNickname}</span>
+						<div id="cmtContentBox" style="margin:12px 0px; line-height:21px;">${commentVo.commentContent}</div>
+						<span class="dateText" style="margin-right: 3px;">등록일</span>
+						<span class="dateText" style="margin-right: 10px;">
+							<fmt:formatDate value="${commentVo.creDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
+						</span>
+						<span class="dateText" style="margin-right: 3px;">수정일</span>
+						<span class="dateText">
+							<fmt:formatDate value="${commentVo.modDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
+						</span>
 	
-	<!-- 댓글쓰기 -->
-	<div style="padding:0px 80px;">
-		<form id="commentForm" action="./addCommentCtr.do" method="post" onsubmit="return commentCheckFnc();">
-			<input id="commentReviewIdx" name="commentReviewIdx" type="hidden" value="${reviewMCFVo.reviewIdx}">
-			<input id="commentMemberIdx" name="commentMemberIdx" type="hidden" value="${_memberVo_.no}">
-			<input id="commentEmoticon" name="commentEmoticon" type="hidden" value="">
-			<div id="choiseEmo" style="float:right; margin-bottom:4px;">
-				<div id="choiseEmoTitle">이모티콘 선택</div>
-				<ul id="EmoList" style="display:inline-block; margin-right:10px;">
-					<li id="smileEmo" class="EmoLi" onclick="changeBorderFnc(this);">
-						<img alt="smile" style="margin-top: 4px; "
-						 src="/dolleProject/resources/images/smile.png">
-					</li>
-					<li id="bigSmileEmo" class="EmoLi" onclick="changeBorderFnc(this);">
-						<img alt="bigSmile" style="margin-top: 4px;"
-						 src="/dolleProject/resources/images/bigSmile.png">
-					</li>
-					<li id="sadEmo" class="EmoLi" onclick="changeBorderFnc(this);">
-						<img alt="sad" style="margin-top: 4px;"
-						 src="/dolleProject/resources/images/sad.png">
-					</li>
-					<li id="likeEmo" class="EmoLi" onclick="changeBorderFnc(this);">
-						<img alt="like" style="margin-top: 2px;"
-						 src="/dolleProject/resources/images/like.png">
-					</li>
-					<li id="interviewEmo" class="EmoLi" onclick="changeBorderFnc(this);">
-						<img alt="interview" style="margin-top: 6px;"
-						 src="/dolleProject/resources/images/interview.png">
-					</li>
-					<li id="starEmo" class="EmoLi" onclick="changeBorderFnc(this);">
-						<img alt="star" style="margin-top: 6px;"
-						 src="/dolleProject/resources/images/star.png">
-					</li>
-					<li id="heartEmo" class="EmoLi" onclick="changeBorderFnc(this);">
-						<img alt="heart" style="margin-top: 6px;"
-						 src="/dolleProject/resources/images/heart.png">
-					</li>
-				</ul> 
-			</div>
+	
+						<c:if test="${_memberVo_.no eq commentVo.commentMemberIdx}">
+							<div style="float:right;">						
+								<button id="updateBtn${index.count}" class="cmtBtn" type="button" onclick="makeUpdateBoxFnc(${index.count});">수정</button>
+								<button class="cmtBtn" type="button" onclick="deleteCommnetFnc(${index.count});">삭제</button>
+							</div>
+						</c:if>
+	
+					</div>
+					<hr>
+				</c:forEach>
+			</form>
+			<!-- 댓글쓰기 -->
 			<div>
-				<textarea id="commentContent" class="commentContent" name="commentContent" 
-					placeholder="댓글을 작성해주세요." style="margin:20px; font-size:16px;"></textarea>
+				<form id="commentForm" action="./addCommentCtr.do" method="post" onsubmit="return commentCheckFnc();">
+					<input id="commentReviewIdx" name="commentReviewIdx" type="hidden" value="${reviewMCFVo.reviewIdx}">
+					<input id="commentMemberIdx" name="commentMemberIdx" type="hidden" value="${_memberVo_.no}">
+					<input id="commentEmoticon" name="commentEmoticon" type="hidden" value="">
+					<div id="choiseEmo" style="float:right; margin-bottom:4px;">
+						<div id="choiseEmoTitle">이모티콘 선택</div>
+						<ul id="EmoList" style="display:inline-block; margin-right:10px;">
+							<li id="smileEmo" class="EmoLi" onclick="changeBorderFnc(this);">
+								<img alt="smile" style="margin-top: 4px; "
+								 src="/dolleProject/resources/images/smile.png">
+							</li>
+							<li id="bigSmileEmo" class="EmoLi" onclick="changeBorderFnc(this);">
+								<img alt="bigSmile" style="margin-top: 4px;"
+								 src="/dolleProject/resources/images/bigSmile.png">
+							</li>
+							<li id="sadEmo" class="EmoLi" onclick="changeBorderFnc(this);">
+								<img alt="sad" style="margin-top: 4px;"
+								 src="/dolleProject/resources/images/sad.png">
+							</li>
+							<li id="likeEmo" class="EmoLi" onclick="changeBorderFnc(this);">
+								<img alt="like" style="margin-top: 2px;"
+								 src="/dolleProject/resources/images/like.png">
+							</li>
+							<li id="interviewEmo" class="EmoLi" onclick="changeBorderFnc(this);">
+								<img alt="interview" style="margin-top: 6px;"
+								 src="/dolleProject/resources/images/interview.png">
+							</li>
+							<li id="starEmo" class="EmoLi" onclick="changeBorderFnc(this);">
+								<img alt="star" style="margin-top: 6px;"
+								 src="/dolleProject/resources/images/star.png">
+							</li>
+							<li id="heartEmo" class="EmoLi" onclick="changeBorderFnc(this);">
+								<img alt="heart" style="margin-top: 6px;"
+								 src="/dolleProject/resources/images/heart.png">
+							</li>
+						</ul> 
+					</div>
+					<div>
+						<textarea id="commentContent" class="commentContent" name="commentContent" 
+							placeholder="댓글을 작성해주세요." style="margin:20px; font-size:16px;"></textarea>
+					</div>
+					<input id="writeCommentBtn" type="submit" value="댓글 작성"></input>
+				</form>
 			</div>
-			<input id="writeCommentBtn" type="submit" value="댓글 작성"></input>
-		</form>
-	</div>
+		</div>	<!-- commentWrap end -->
+	</div>	<!-- bodyWrap end -->
 
 	<jsp:include page="/WEB-INF/views/Tail.jsp"/>
 	

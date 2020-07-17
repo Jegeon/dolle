@@ -387,26 +387,22 @@
 				end="${pagingMap.reviewPaging.blockEnd}">
 				
 				<c:if test="${pagingMap.reviewPaging.curPage eq num}">
-					<li class="pagingNum" onclick="goPageFnc(${num});"
-						style="background: #0D4371; color:#fff; border:1px solid #707070;">
+					<li class="pagingNum" onclick="goPageFnc(${num});" style="background: #0D4371; color:#fff; border:1px solid #707070;">
 						<c:out value="${num}"/>
 					</li>
 				</c:if>
 				<c:if test="${pagingMap.reviewPaging.curPage ne num}">
-					<li class="pagingNum" onclick="goPageFnc(${num});"
-						 style="background: #FFFFFF; border:1px solid #707070;">
+					<li class="pagingNum" onclick="goPageFnc(${num});" style="background: #FFFFFF; border:1px solid #707070;">
 						<c:out value="${num}"/>
 					</li>
 				</c:if>
 			</c:forEach>
 
 			<li class="pagingImg" onclick="goPageFnc(${pagingMap.reviewPaging.nextPage});">
-				<img id="doubledLeftBtn" alt="doubledLeftBtn" src="/dolleProject/resources/images/right.PNG" 
-					style="width:42%;">
+				<img id="doubledLeftBtn" alt="doubledLeftBtn" src="/dolleProject/resources/images/right.PNG" style="width:42%;">
 			</li>
 			<li class="pagingImg" onclick="goPageFnc(${pagingMap.reviewPaging.totPage});">
-				<img id="doubledLeftBtn" alt="doubledLeftBtn" src="/dolleProject/resources/images/doubleRight.PNG" 
-					style="width:55%;">
+				<img id="doubledLeftBtn" alt="doubledLeftBtn" src="/dolleProject/resources/images/doubleRight.PNG" style="width:55%;">
 			</li>
 		</ul>
 		<input id="reviewMemberIdx" type="hidden" value="${_memberVo_.no}">

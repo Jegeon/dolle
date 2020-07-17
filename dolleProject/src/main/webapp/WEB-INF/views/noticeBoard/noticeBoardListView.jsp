@@ -173,10 +173,116 @@ td {
 .btnPointer {
 	cursor: pointer;
 }
+
+#pagingBox{
+	width:1260px; 
+	height:205px; 
+	margin:0 auto; 
+	text-align: center; 
+	padding-top: 30px; 
+	box-sizing: border-box;
+}
+
+#pagingGroup {
+	width: 600px; 
+	display: inline-block; 
+	margin-left: 165px;
+}
+
+#firstPageBtn {
+	cursor: pointer; 
+	width:40px; 
+	height:40px; 
+	display: inline-block; 
+	background: #FFFFFF; 
+	border:1px solid #fff; 
+	vertical-align: middle;
+ 	padding-top:7px; 
+ 	box-sizing: border-box;
+}
+
+#doubledLeftBtn {
+	width: 55%;
+}
+
+#prePageBtn {
+	cursor: pointer; 
+	width:40px; 
+	height:40px; 
+	display: inline-block; 
+ 	background: #FFFFFF; 
+ 	border:1px solid #fff; 
+ 	vertical-align: middle;
+ 	padding-top:7px; 
+ 	box-sizing: border-box;
+}
+
+#doubledLeftBtn {
+	width: 40%;
+}
+
+.pagingNum {
+	cursor: pointer; 
+	width:40px; 
+	height:40px; 
+	display:inline-block; 
+	border:1px solid #707070; 
+	vertical-align: middle; 
+	font-size: 20px; 
+	padding-top:8px; 
+	box-sizing: border-box;
+}
+
+#nextPageBtn {
+	cursor: pointer; 
+	width:40px; 
+	height:40px; 
+	display: inline-block; 
+	background: #FFFFFF; 
+	border:1px solid #fff; 
+	vertical-align: middle;
+	padding-top:7px; 
+	box-sizing: border-box;
+}
+
+#doubledLeftBtn {
+	width: 42%;
+}
+
+#lastPageBtn {
+	cursor: pointer; 
+	width:40px; 
+	height:40px; 
+	display: inline-block; 
+	background: #FFFFFF; 
+	border:1px solid #fff; 
+	vertical-align: middle;
+	padding-top:7px; 
+	box-sizing: border-box;
+}
+
+#doubledLeftBtn{
+	width: 55%;
+}
 </style>
 <script type="text/javascript" 
 	src="/dolleProject/resources/js/jquery-3.5.1.js"></script>
 <script type="text/javascript">
+window.onload = function() {
+	//첫페이지 마지막페이지일때 다음버튼 없애기
+    var curPage = $("#curPage").val();
+    var totPage = $("#totPage").val();
+    if(curPage == 1){
+       $("#firstPageBtn").remove();
+       $("#prePageBtn").remove();
+    }
+    if(curPage == totPage){
+       $("#lastPageBtn").remove();
+       $("#nextPageBtn").remove();
+    }
+	
+}
+
 	function pageMoveNoticeAdd() {
 		
 		location.href = './adminNoticeAdd.do';
@@ -279,22 +385,16 @@ td {
 		
 	</div>
 	
-	<div style="width:1260px; height:205px; margin:0 auto; text-align: center; 
-	padding-top: 30px; box-sizing: border-box;">
-		<ul id="pagingGroup" style="width: 600px; display: inline-block; margin-left: 165px;">
-			<li class="pagingImg" onclick="goPageFnc(1);"
-				 style="cursor: pointer; width:40px; height:40px; display: inline-block; 
-				 background: #FFFFFF; border:1px solid #fff; vertical-align: middle;
-				 padding-top:7px; box-sizing: border-box;">
-				<img id="doubledLeftBtn" alt="doubledLeftBtn" src="/dolleProject/resources/images/doubleLeft.PNG" 
-					style="width: 55%;">
+	<div id='pagingBox'>
+		<input id='totPage' type="hidden" value="${pagingMap.paging.totPage}">
+		<ul id="pagingGroup">
+			<li id='firstPageBtn' class="pagingImg" onclick="goPageFnc(1);">
+				<img id="doubledLeftBtn" alt="doubledLeftBtn" 
+					src="/dolleProject/resources/images/doubleLeft.PNG">
 			</li>
-			<li class="pagingImg" onclick="goPageFnc(${pagingMap.paging.prevPage});"
-				 style="cursor: pointer; width:40px; height:40px; display: inline-block; 
-				 background: #FFFFFF; border:1px solid #fff; vertical-align: middle;
-				 padding-top:7px; box-sizing: border-box;">
-				<img id="doubledLeftBtn" alt="doubledLeftBtn" src="/dolleProject/resources/images/left.PNG" 
-					style="width: 40%;">
+			<li id='prePageBtn' class="pagingImg" onclick="goPageFnc(${pagingMap.paging.prevPage});">
+				<img id="doubledLeftBtn" alt="doubledLeftBtn" 
+					src="/dolleProject/resources/images/left.PNG">
 			</li>
 			<c:forEach var="num" 
 				begin="${pagingMap.paging.blockBegin}" 
@@ -302,35 +402,25 @@ td {
 				
 				<c:if test="${pagingMap.paging.curPage eq num}">
 					<li class="pagingNum" onclick="goPageFnc(${num});"
-						style="cursor: pointer; width:40px; height:40px; display:inline-block; 
-						background: #0D4371; color:#fff; border:1px solid #707070; vertical-align: middle; 
-						font-size: 20px; padding-top:8px; box-sizing: border-box;">
+						style="background: #0D4371; color:#fff;">
 						<c:out value="${num}"/>
 					</li>
 				</c:if>
 				<c:if test="${pagingMap.paging.curPage ne num}">
 					<li class="pagingNum" onclick="goPageFnc(${num});"
-						 style="cursor: pointer; width:40px; height:40px; display: inline-block; 
-						 background: #FFFFFF; border:1px solid #707070; vertical-align: middle;
-						font-size: 20px; padding-top:8px; box-sizing: border-box;">
+						 style="background: #FFFFFF;">
 						<c:out value="${num}"/>
 					</li>
 				</c:if>
 			</c:forEach>
 
-			<li class="pagingImg" onclick="goPageFnc(${pagingMap.paging.nextPage});"
-			 style="cursor: pointer; width:40px; height:40px; display: inline-block; 
-			 background: #FFFFFF; border:1px solid #fff; vertical-align: middle;
-				 padding-top:7px; box-sizing: border-box;">
-				<img id="doubledLeftBtn" alt="doubledLeftBtn" src="/dolleProject/resources/images/right.PNG" 
-					style="width: 42%;">
+			<li id='nextPageBtn' class="pagingImg" onclick="goPageFnc(${pagingMap.paging.nextPage});">
+				<img id="doubledLeftBtn" alt="doubledLeftBtn" 
+					src="/dolleProject/resources/images/right.PNG">
 			</li>
-			<li class="pagingImg" onclick="goPageFnc(${pagingMap.paging.totPage});"
-				 style="cursor: pointer; width:40px; height:40px; display: inline-block; 
-				 background: #FFFFFF; border:1px solid #fff; vertical-align: middle;
-				 padding-top:7px; box-sizing: border-box;">
-				<img id="doubledLeftBtn" alt="doubledLeftBtn" src="/dolleProject/resources/images/doubleRight.PNG" 
-					style="width: 55%;">
+			<li id='lastPageBtn' class="pagingImg" onclick="goPageFnc(${pagingMap.paging.totPage});">
+				<img id="doubledLeftBtn" alt="doubledLeftBtn" 
+					src="/dolleProject/resources/images/doubleRight.PNG">
 			</li>
 		</ul>	
 		<c:if test="${_memberVo_.grade == 'admin'}">

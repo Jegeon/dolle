@@ -124,6 +124,7 @@
 
 #contentTextArea {
 	padding: 10px 10px 10px 10px;
+	resize: none;
 }
 
 </style>

@@ -170,6 +170,25 @@
 			}
 		});
 		
+		
+		//가져올 결과가 없으면 페이지 버튼 지우기 
+		var listSize = $("#listSize").val();
+		if(listSize == 0){
+			$("#pagingGroup").remove();
+		}
+		//첫페이지 마지막페이지일때 다음버튼 없애기
+		var curPage = $("#curPage").val();
+		var totPage = $("#totPage").val();
+		if(curPage == 1){
+			$("#firstPageBtn").remove();
+			$("#prePageBtn").remove();
+		}
+		if(curPage == totPage){
+			$("#lastPageBtn").remove();
+			$("#nextPageBtn").remove();
+		}
+		
+		
 	});
 	
 	function goPageFnc(pageNum){
@@ -371,15 +390,18 @@
 		
 	</div>
 	
+	
+	
 	<!-- 페이징 버튼 -->
 	<div id="pagingBox">
+		<input id="totPage" type="hidden" value="${pagingMap.reviewPaging.totPage}">
 		<ul id="pagingGroup">
-			<li class="pagingImg" onclick="goPageFnc(1);">
+			<li id="firstPageBtn" class="pagingImg" onclick="goPageFnc(1);">
 				<img id="doubledLeftBtn" alt="doubledLeftBtn" src="/dolleProject/resources/images/doubleLeft.PNG" 
 					style="width: 55%;">
 			</li>
-			<li class="pagingImg" onclick="goPageFnc(${pagingMap.reviewPaging.prevPage});">
-				<img id="doubledLeftBtn" alt="doubledLeftBtn" src="/dolleProject/resources/images/left.PNG" 
+			<li id="prePageBtn" class="pagingImg" onclick="goPageFnc(${pagingMap.reviewPaging.prevPage});">
+				<img id="leftBtn" alt="leftBtn" src="/dolleProject/resources/images/left.PNG" 
 					style="width:40%;">
 			</li>
 			<c:forEach var="num" 
@@ -398,11 +420,11 @@
 				</c:if>
 			</c:forEach>
 
-			<li class="pagingImg" onclick="goPageFnc(${pagingMap.reviewPaging.nextPage});">
-				<img id="doubledLeftBtn" alt="doubledLeftBtn" src="/dolleProject/resources/images/right.PNG" style="width:42%;">
+			<li id="nextPageBtn" class="pagingImg" onclick="goPageFnc(${pagingMap.reviewPaging.nextPage});">
+				<img id="doubledRightBtn" alt="doubledRightBtn" src="/dolleProject/resources/images/right.PNG" style="width:42%;">
 			</li>
-			<li class="pagingImg" onclick="goPageFnc(${pagingMap.reviewPaging.totPage});">
-				<img id="doubledLeftBtn" alt="doubledLeftBtn" src="/dolleProject/resources/images/doubleRight.PNG" style="width:55%;">
+			<li id="lastPageBtn" class="pagingImg" onclick="goPageFnc(${pagingMap.reviewPaging.totPage});">
+				<img id="rightBtn" alt="rightBtn" src="/dolleProject/resources/images/doubleRight.PNG" style="width:55%;">
 			</li>
 		</ul>
 		<input id="reviewMemberIdx" type="hidden" value="${_memberVo_.no}">
@@ -424,6 +446,7 @@
 				value="${keyword}">
 		</form>
 	</div>
+
 	
 	<jsp:include page="/WEB-INF/views/Tail.jsp" />
 	

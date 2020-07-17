@@ -212,14 +212,16 @@ public class CourseReviewController {
 	}
 	
 	@RequestMapping(value="/courseReview/updateCommentCtr.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String commentUpdate(CommentVo commentVo, Model model) {
+	public String commentUpdate(CommentVo commentVo
+			, @RequestParam(defaultValue = "1") int cmtCurPage 
+			, Model model) {
 		log.debug(" **** Welcome commentUpdate POST****");
 		
 		courseReviewService.commentUpdateOne(commentVo);
 		
 		int reviewIdx = commentVo.getCommentReviewIdx();
-		System.out.println("reviewIdx : "+ reviewIdx);
 		model.addAttribute("reviewIdx", reviewIdx);
+		model.addAttribute("cmtCurPage", cmtCurPage);
 		
 		return "redirect:/courseReview/detail.do";
 	}

@@ -180,6 +180,24 @@
 			$("#searchOption").val("writer").prop("selected", true);
 		}
 		
+		
+		//가져올 결과가 없으면 페이지 버튼 지우기 
+		var listSize = $("#listSize").val();
+		if(listSize == 0){
+			$("#pagingGroup").remove();
+		}
+		//첫페이지 마지막페이지일때 다음버튼 없애기
+		var curPage = $("#curPage").val();
+		var totPage = $("#totPage").val();
+		if(curPage == 1){
+			$("#firstPageBtn").remove();
+			$("#prePageBtn").remove();
+		}
+		if(curPage == totPage){
+			$("#lastPageBtn").remove();
+			$("#nextPageBtn").remove();
+		}
+		
 	});
 	
 	//제목에 마우스 올렸을시 이벤트
@@ -286,6 +304,7 @@
 				</div>
 			</div>
 			
+			<input id="listSize" type="hidden" value="${reviewList.size()}">
 			<!-- 검색결과가 없는 경우 -->
 			<c:if test="${reviewList.size() == 0 }">
 				<div id="noSearchBox">
@@ -350,6 +369,7 @@
 	
 	<!-- 페이징 버튼 -->
 	<div id="pagingBox">
+		<input id="totPage" type="hidden" value="${pagingMap.adminPaging.totPage}">
 		<ul id="pagingGroup">
 			<li id="firstPageBtn" class="pagingImg" onclick="goPageFnc(1);">
 				<img id="doubledLeftBtn" alt="doubledLeftBtn" src="/dolleProject/resources/images/doubleLeft.PNG" 

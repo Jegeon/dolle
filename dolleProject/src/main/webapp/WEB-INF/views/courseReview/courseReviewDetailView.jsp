@@ -59,14 +59,7 @@
 		color: #707070;
 		font:normal normal 14px Segoe UI;
 	}	
-	.commentContent{
-		margin-top: 20px;
-	    widtH: 1060px;
-	    height: 100px;
-	    font-size: 14px;
-	    padding: 12px 20px;
-	    box-sizing: border-box;
-	}
+	
 	
 	.marginRight5{
 		margin-right: 5px;
@@ -112,6 +105,15 @@
 	.commentHeader{
 		margin-left: 20px;
 		font: normal bold 16px Segoe UI;		
+	}
+	.commentContent{
+		margin-top: 20px;
+	    widtH: 1060px;
+	    height: 100px;
+	    font-size: 14px;
+	    padding: 12px 20px;
+	    box-sizing: border-box;
+	    resize: none;
 	}
 	.cmtPageBtn{
 		width:25px; height:25px;
@@ -264,9 +266,6 @@
 		}
 		
 		
-		
-		
-		
 	});
 
 	function moveUserPageListFnc(){
@@ -300,7 +299,7 @@
 		}
 	}
 	
-	function commentCheckFnc(){
+	function commentCheckFnc(index){
 		var writerIdx = $("#memberIdx").val();
 		if( writerIdx == null || writerIdx.trim() == "" || writerIdx.length == 0){
 			alert("로그인 후 작성해주세요.");
@@ -309,11 +308,11 @@
 		}
 		
 		//글자수 유효성
-		var commentContent = $("#commentContent").val();
+		var commentContent = $("#commentContent"+index).val();
 		content = commentContent.replace(/(?:\r\n|\r|\n)/g, '<br/>');		//엔터키 처리
 		if(content == null || content.trim() == "" || content.length == 0){
-			$("#reivewContent").css("border", "1px solid red");
-			$("#reivewContent").attr("class","validContent");
+			$("#commentContent"+index).focus();
+			alert("수정 내용을 작성해주세요");
 			return false;
 		}else if(content.length > 1329){	//글자 수 제한
 			alert("더 이상 작성할 수 없습니다.");
@@ -330,7 +329,7 @@
 			}
 // 			alert(contentStr);
 			var replaceStr = contentStr.replace(/<br\s?\/?>/g,"\n");
-			$("#commentContent").val(contentStr);
+			$("#commentContent"+index).val(contentStr);
 			
 			return false;
 		}else if(content.length <= 1329){	//글자 수 통과 
@@ -346,7 +345,7 @@
 				content = content + ">";
 			}
 // 			alert(content);
-			$("#commentContent").val(content);
+			$("#commentContent"+index).val(content);
 
 			return true;
 		}
@@ -370,40 +369,56 @@
 	
 	//수정버튼 클릭시 
 	function makeUpdateBoxFnc(index){
-// 		alert($("#check"+index).text());
+
 		if($("#check"+index).text() == 0){
-			$("#commentBox"+index).append($("<textarea id='commentContent' class='commentContent plusCmt' name='commentContent'></textarea>"));		
+			$("#commentBox"+index).append($("<textarea id='commentContent"+index+"' class='commentContent'></textarea>"));		
 			$("#check"+index).text(1);
 
 			var commentIdx = $("#commentIdx"+index).val();
-// 			alert("comIdx"+commentIdx);
-			$("#updateBtn"+index).attr("onClick","updateFnc("+commentIdx+")");
+			$("#updateBtn"+index).attr("onClick","updateFnc("+commentIdx+","+index+")");
+			$("#commentContent"+index).focus();
 			
+			//다시 수정 textarea를 닫기 위한 버튼
+			var closeBtn = $("<button id='closeBtn"+index+"' class='cmtBtn' type='button' onclick='closeCommentFnc("+index+");'>닫기</button>")
+			$("#cmtBtnBox"+index).prepend(closeBtn);
 			
 			//댓글 수정시 나타나는 textarea개수에 따른 높이 추가 지정
 			var bodyHeight = $("#bodyWrap").css("height");
 			var bodyHeightVal = bodyHeight.substring(0, bodyHeight.length-2);
-			$(".plusCmt").each(function(){
-				bodyHeightVal = Number(bodyHeightVal) + 120;	
-			});
+			bodyHeightVal = Number(bodyHeightVal) + 133;
 			$("#bodyWrap").css("height", bodyHeightVal+"px");
 			
 		}else{
 			alert("이미 텍스트박스 있음");
-// 			$("#commentContent").remove();
-// 			$("#check"+index).text(0);
 		}
 	}
 	
-	function updateFnc(commentIdx){
-// 		alert(commentIdx);
+	function closeCommentFnc(index){
+		$("#commentContent"+index).remove();
+		$("#closeBtn"+index).remove();
+		$("#check"+index).text(0);
+		$("#updateBtn"+index).attr("onClick", "makeUpdateBoxFnc("+index+")");
+		
+		//댓글 수정시 나타나는 textarea개수에 따른 높이 감소 지정
+		var bodyHeight = $("#bodyWrap").css("height");
+		var bodyHeightVal = bodyHeight.substring(0, bodyHeight.length-2);
+		bodyHeightVal = Number(bodyHeightVal) - 133;
+		$("#bodyWrap").css("height", bodyHeightVal+"px");
+	}
+	
+	function updateFnc(commentIdx, index){
 		var checkUpdate = confirm("이대로 수정하시겠습니까?");
 		if(checkUpdate == true){
-			$("#commentIdx").val(commentIdx);
-			var formObj = $("#updateCommentForm");
-			formObj.submit();
+			if(commentCheckFnc(index) == true){	//유효성
+				$("#commentIdx").val(commentIdx);
+				$("#commentContent"+index).attr("name", "commentContent");
+				var formObj = $("#updateCommentForm");
+				formObj.submit();
+			}else{
+				$("#commentContent"+index).attr("class","commentContent");
+			}
 		}else{
-// 			$("#commentContent").remove();
+			//수정하지 않으면 입력박스 지울까? 냅둘까? 
 		}
 	}
 	
@@ -503,7 +518,6 @@
 	
 	
 		<div id="commentWrap" style="width:1100px; margin:70px auto 20px;">	
-			<input id="cmtCurPage" name="cmtCurPage" type="hidden" value="${cmtCurPage}">
 			<input id="lastCmtPage" name="lastCmtPage" type="hidden" value="${lastCmtPage}">
 			<span class="commentHeader">댓글쓰기</span>
 			<span id="commentBtn" class="commentBtn">
@@ -514,6 +528,7 @@
 			<hr>
 			
 			<form id="updateCommentForm" action="./updateCommentCtr.do" method="post">
+				<input id="cmtCurPage" name="cmtCurPage" type="hidden" value="${cmtCurPage}">
 				<input id="commentReviewIdx" name="commentReviewIdx" type="hidden" value="${reviewMCFVo.reviewIdx}">
 				<input id="commentIdx" name="commentIdx" type="hidden" value="">
 				<input id="commentCnt" type="hidden" value="${commentCnt}">
@@ -540,7 +555,7 @@
 	
 	
 						<c:if test="${_memberVo_.no eq commentVo.commentMemberIdx}">
-							<div style="float:right;">						
+							<div id="cmtBtnBox${index.count}" style="float:right;">						
 								<button id="updateBtn${index.count}" class="cmtBtn" type="button" onclick="makeUpdateBoxFnc(${index.count});">수정</button>
 								<button class="cmtBtn" type="button" onclick="deleteCommnetFnc(${index.count});">삭제</button>
 							</div>
@@ -552,7 +567,7 @@
 			</form>
 			<!-- 댓글쓰기 -->
 			<div>
-				<form id="commentForm" action="./addCommentCtr.do" method="post" onsubmit="return commentCheckFnc();">
+				<form id="commentForm" action="./addCommentCtr.do" method="post" onsubmit="return commentCheckFnc(0);">
 					<input id="commentReviewIdx" name="commentReviewIdx" type="hidden" value="${reviewMCFVo.reviewIdx}">
 					<input id="commentMemberIdx" name="commentMemberIdx" type="hidden" value="${_memberVo_.no}">
 					<input id="commentEmoticon" name="commentEmoticon" type="hidden" value="">
@@ -590,7 +605,7 @@
 						</ul> 
 					</div>
 					<div>
-						<textarea id="commentContent" class="commentContent" name="commentContent" 
+						<textarea id="commentContent0" class="commentContent" name="commentContent" 
 							placeholder="댓글을 작성해주세요." style="margin:20px; font-size:16px;"></textarea>
 					</div>
 					<input id="writeCommentBtn" type="submit" value="댓글 작성"></input>

@@ -158,10 +158,10 @@
 		parameterType="com.edu.member.vo.MemberVo">
 		INSERT INTO MEMBER (MEMBER_IDX, MEMBER_NAME, MEMBER_PHONE
 			, MEMBER_NICKNAME, MEMBER_BIRTHDATE, MEMBER_EMAIL, MEMBER_NATIONAL
-			, MEMBER_PASSWORD, MEMBER_CRE_DATE, MEMBER_MOD_DATE, MEMBER_GRADE)
+			, MEMBER_PASSWORD, MEMBER_CRE_DATE, MEMBER_MOD_DATE, MEMBER_TEMP_PWD)
 		VALUES (SEQ_MEMBER_NO.NEXTVAL, #{name}, #{phone}
 			, #{nickname}, #{birthdate}, #{email}, #{national}
-			, #{password}, SYSDATE, SYSDATE, #{grade})
+			, #{password}, SYSDATE, SYSDATE, #{tempPassword})
 	</insert>
 	
 	<select id="memberEmailOne" parameterType="map"

@@ -499,7 +499,7 @@
 			<input id="userPageBtn" class="inputBtn" type="button" onclick="moveUserPageListFnc();">
 			<input id='updateBtn' class="inputBtn" type="button" onclick="movePageUpdateFnc(${reviewMCFVo.reviewIdx});" value="수정">
 		</div>
-			
+
 	</div>
 	
 	<div id="commentWrap" style="width:1100px; margin:70px auto 20px;">	
@@ -538,13 +538,15 @@
 						<fmt:formatDate value="${commentVo.modDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
 					</span>
 
-					
+
+	
 					<c:if test="${_memberVo_.no eq commentVo.commentMemberIdx}">
 						<div style="float:right;">						
 							<button id="updateBtn${index.count}" class="cmtBtn" type="button" onclick="makeUpdateBoxFnc(${index.count});">수정</button>
 							<button class="cmtBtn" type="button" onclick="deleteCommnetFnc(${index.count});">삭제</button>
 						</div>
 					</c:if>
+
 				</div>
 				<hr>
 			</c:forEach>

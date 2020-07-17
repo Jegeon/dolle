@@ -265,6 +265,7 @@
 		<c:if test="${listSize == 0 }">
 			<div id="noSearchBox">
 				<div id="noSearch">
+
 					<img style="width:150px;" alt="error" src="/dolleProject/resources/images/error/close.png">
 				</div>
 				<h1 style="font: normal normal 28px 대한민국정부상징체;">검색된 결과가 없습니다.</h1>

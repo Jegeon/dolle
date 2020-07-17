@@ -146,7 +146,7 @@
 	<div style="width: 840px; height: 410px; border-top: 2px solid #707070; margin: auto;">
 		<div style="width: 840px; height: 360px; margin-top: 50px;">
 			<div style="width: 300px; height: 360px; float: left;">
-				<div>
+				<div style="width: 300px; height: 260px;">
 					<img alt="review_photo" src="<c:url value='/img/${tourVo.fileStoredName}'/>" style="position: relative; height:100%; width:100%;">
 				</div>
 			</div>

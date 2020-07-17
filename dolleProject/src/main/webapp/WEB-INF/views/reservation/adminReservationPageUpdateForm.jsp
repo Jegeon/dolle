@@ -38,7 +38,11 @@
 	});
 	
 	function pageMoveDeleteFnc() {
-		location.href = "reservationPageDelete.do";
+		var confirmStr = "";
+		confirmStr = confirm("정말 삭제하시겠습니까?");
+		if(confirmStr) {
+			location.href = "reservationPageDelete.do?tourNo=${tourVo.tourNo}";	
+		}
 	}
 	function pageMoveListFnc() {
 		location.href = "reservationPage.do";
@@ -210,6 +214,9 @@
 	#tourName {
 		width: 368px;
 	}
+	.lTdPl20 {
+		padding-left: 20px;
+	}
 </style>
 </head>
 
@@ -219,26 +226,26 @@
 
 	<h1 class="daehanFont" style="margin: 10px 0px 10px 82px;">가이드 투어 예약페이지 수정</h1>
 	<br/>
-	<div style="width: 620px; height: 820px; margin: auto;">
+	<div style="width: 610px; height: 820px; margin: auto;">
 		<form action="./reservationPageUpdateCtr.do" method="post" onsubmit='return validationFnc();' enctype="multipart/form-data">
 			<div>
 				<table style="width: 610px; height: 740px;">
 					<tr>
 						<td class="ahreum">투어명</td>
-						<td>
+						<td class="lTdPl20">
 							<input type="text" id="tourName" name="tourName" value="${tourVo.tourName}">
 						</td>
 					</tr>
 					<tr>
 						<td class="ahreum">투어 이미지 파일</td>
-						<td>
+						<td class="lTdPl20">
 							<input id="fileBtn" type="file" name="file">
 							<img id="uploadImg">
 						</td>
 					</tr>
 					<tr>
 						<td class="ahreum">투어 시작일 및 종료일</td>
-						<td>
+						<td class="lTdPl20">
 							<input type="text"   
 							id="fromDt" size="8" title="시작일자" onchange="carryStartDateTextToDateFnc();"> ~
 							<input type="text" 
@@ -249,32 +256,32 @@
 					</tr>
 					<tr>
 						<td class="ahreum">출발시간 및 종료시간</td>
-						<td>
+						<td class="lTdPl20">
 							<input type="text" id="tourStartTime" name="tourStartTime" value="${tourVo.tourStartTime}"> ~
 							<input type="text" id="tourEndTime" name="tourEndTime" value="${tourVo.tourEndTime}">
 						</td>
 					</tr>
 					<tr>
 						<td class="ahreum">투어 최대 인원</td>
-						<td>
-							<input type="number" id="tourPeopleNum" name="tourPeopleNum" value="${tourVo.tourPeopleNum}">
+						<td class="lTdPl20">
+							<input type="number" id="tourPeopleNum" name="tourPeopleNum" min="1" value="${tourVo.tourPeopleNum}">
 						</td>
 					</tr>
 					<tr>
 						<td class="ahreum">투어 인당 가격</td>
-						<td>
-							<input type="number" id="tourPrice" name="tourPrice" value="${tourVo.tourPrice}">
+						<td class="lTdPl20">
+							<input type="number" id="tourPrice" name="tourPrice" min="0" value="${tourVo.tourPrice}">
 						</td>
 					</tr>
 					<tr>
 						<td class="ahreum">투어 출발지</td>
-						<td>
+						<td class="lTdPl20">
 							<input type="text" id="tourStartingPoint" name="tourStartingPoint" value="${tourVo.tourStartingPoint}">
 						</td>
 					</tr>
 					<tr>
 						<td class="ahreum">투어 내용</td>
-						<td>
+						<td class="lTdPl20">
 							<textarea id="tourContent" name="tourContent" rows="" cols="" placeholder="내용을 입력해주세요."
 						 	style="width:270px; height:200px; font-size:17px; box-sizing:border-box;">
 						 		${tourVo.tourContent}

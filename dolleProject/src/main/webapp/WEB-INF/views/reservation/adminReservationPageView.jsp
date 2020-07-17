@@ -64,7 +64,7 @@
 		<div style="width: 840px; height: 360px; border-top: 2px solid #707070; margin: auto; cursor:pointer;" onclick="location.href='../reservation/reservationPageDetail.do?tourNo=${tourVo.tourNo}'">
 			<div style="width: 840px; height: 260px; margin-top: 50px;">
 				<div style="width: 300px; height: 260px; float: left;">
-					<div>
+					<div style="width: 300px; height: 260px;">
 						<img alt="review_photo" src="<c:url value='/img/${tourVo.fileStoredName}'/>" style="position: relative; height:100%; width:100%;">
 					</div>
 				</div>

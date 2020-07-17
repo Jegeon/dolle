@@ -273,7 +273,7 @@
 						
 						$('#myWriting tr:last').after("<tr class='resCss'><td class='resCss'>"
 								+ data.tourList[i].reviewIdx + "</td><td class='resCss'>"
-								+ "<a class='aCss' href='../courseReview/detail.do?reviewIdx='" + data.tourList[i].reviewIdx + "'>"
+								+ "<a class='aCss' href='../courseReview/detail.do?reviewIdx=" + data.tourList[i].reviewIdx + "'>"
 								+ data.tourList[i].reviewTitle + "</a></td><td class='resCss'>"
 								+ data.tourList[i].nickname + "</td><td class='resCss'>"
 								+ formatDate + "</td><td>"

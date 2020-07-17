@@ -36,7 +36,6 @@ body {
 
 #smallContentWrap {
 	width: 1160px; 
-	height: 1500px; 
 	margin: auto;
 }
 
@@ -84,6 +83,8 @@ body {
 }
 
 #previewDiv {
+	box-sizing:border-box;
+	padding: 30px;
 	width: 1160px; 
 	height: 765px;
 }
@@ -101,12 +102,20 @@ body {
 	padding-top: 10px;
 }
 
-#noticeTextarea {
-	width:1160px; 
-	height: 470px; 
-	box-sizing: border-box; 
-	padding:50px; 
+/* #noticeTextarea { */
+/* 	width:1160px;  */
+/* 	height: 470px;  */
+/* 	box-sizing: border-box;  */
+/* 	padding:50px;  */
+/* 	font-size: 17px; */
+/* } */
+
+#noticeDiv {
+	width: 1160px;
+	box-sizing: border-box;
+	padding: 50px;
 	font-size: 17px;
+	line-height: 25px;
 }
 
 #listBtnDiv {
@@ -131,6 +140,10 @@ body {
 	cursor: pointer;
 }
 
+#fileZone {
+	padding-bottom: 30px;
+}
+
 
 </style>
 
@@ -140,10 +153,27 @@ body {
 window.onload = function () {
 	
 	var fileName = $('#fileStoredName').val();
-	alert(fileName);
 	
 	var refineExtension = fileName.split(".")[1];
-	alert(refineExtension);	
+	
+	fileZoneDiv = $('#fileZone');
+	
+	if (refineExtension == 'jpg' || refineExtension == 'JPG' 
+			|| refineExtension == 'png' || refineExtension == 'PNG'
+			|| refineExtension == 'jpeg' || refineExtension == 'JPEG') {
+		
+		content = '<div id="previewDiv">';
+		content	+= '<img id="previewImg" alt="" src=';
+		content	+= "<c:url value='/img/${noticeVo.fileNoticeStoredName}'/>";
+		content	+= '>';
+		content	+= '</div>';
+		
+		
+		fileZoneDiv.html(content);
+	}
+	
+	
+	
 }
 	function upFnc() {
 		$('#upForm').submit();
@@ -188,7 +218,7 @@ window.onload = function () {
 						작성자: ${noticeVo.memberNickname}
 					</span>
 					
-					<c:if test="${noticeVo.rNum ne 1}">
+					<c:if test="${rNum ne 1}">
 						
 						<span class='updownSpan' id='upSpan'>
 							윗 글
@@ -208,7 +238,7 @@ window.onload = function () {
 						작성일: <fmt:formatDate value="${noticeVo.noticeCreDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
 					</span>
 					
-					<c:if test="${noticeVo.rNum ne maxRnum}">
+					<c:if test="${rNum ne maxRnum}">
 						<span class='updownSpan' id='downSpan'>
 							아랫 글
 						</span>
@@ -223,31 +253,14 @@ window.onload = function () {
 			
 			<input type="hidden" id='fileStoredName' value='${noticeVo.fileNoticeStoredName}'>
 			
-			<c:choose>
-				<c:when test="${empty noticeVo.fileNoticeStoredName}">
-					
-				</c:when>
-				<c:otherwise>
-					<div id='previewDiv'>
-						<img id='previewImg' alt='' 
-							src="<c:url value='/img/${noticeVo.fileNoticeStoredName}'/>">
-					</div>
-				</c:otherwise>
-			</c:choose>
+			<div id='fileZone'>
 			
-<%-- 			<c:choose> --%>
-<%-- 				<c:when test="${empty noticeVo.fileNoticeStoredName}"> --%>
-				
-<%-- 				</c:when> --%>
-<%-- 				<c:otherwise> --%>
-<!-- 					<a id='downloadLink' href='#'> -->
-<!-- 						파일첨부 -->
-<!-- 					</a> -->
-<%-- 				</c:otherwise> --%>
-<%-- 			</c:choose> --%>
+			</div>
 			
-			
-			<textarea id='noticeTextarea' rows="25" cols="160" readonly="readonly">${noticeVo.noticeContent}</textarea>
+<%-- 			<textarea id='noticeTextarea' rows="25" cols="160" readonly="readonly">${noticeVo.noticeContent}</textarea> --%>
+			<div id='noticeDiv'>
+				${noticeVo.noticeContent}
+			</div>
 			
 			<div id='listBtnDiv'>
 				<input id='listBtnInput' class='btnPointer' value='목록으로'

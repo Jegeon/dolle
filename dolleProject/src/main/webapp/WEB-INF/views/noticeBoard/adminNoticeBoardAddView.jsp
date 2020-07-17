@@ -131,7 +131,7 @@
 <script type="text/javascript">
 
 	function pageMoveAdminListFnc() {
-		location.href='./adminList.do';
+		location.href='./list.do';
 	}
 	
 	function noticeBoardValidationFnc() {
@@ -141,24 +141,73 @@
 		var contentTextArea = $('#contentTextArea');
 		var contentVal = contentTextArea.val();
 		
-		if(titleVal == '' && contentVal == ''){
+		if((titleVal.length == 0 || titleVal.trim() == "") 
+				&& (contentVal.length == 0 || contentVal.trim() == "")){
 			titleInput.css("border", "1px solid red");
 			contentTextArea.css("border", "1px solid red");
 			titleInput.attr("class", "validTitle");
 			contentTextArea.attr("class", "validContent");
 			return false;
 		}
-		if (titleVal == '') {
+		if (titleVal.length == 0 || titleVal.trim() == "") {
 			titleInput.css("border", "1px solid red");
 			titleInput.attr("class", "validTitle");
 			return false;
 		}
 		
-		if (contentVal == '') {
+		if (contentVal.length == 0 || contentVal.trim() == "") {
 			contentTextArea.css("border", "1px solid red");
 			contentTextArea.attr("class", "validContent");
 			return false;
 		}
+		
+		if(titleVal.length > 30){
+			alert("제목은 30자까지 입력 가능합니다.");
+			var titleStr = titleVal.substr(0,30);
+			$("#titleInput").val(titleStr);
+			return false;
+		}
+		
+		content = contentVal.replace(/(?:\r\n|\r|\n)/g, '<br/>'); //엔터키 처리
+		
+		if(content.length > 1329){	//글자수 제한
+			alert("더 이상 작성할 수 없습니다.");
+			
+			var contentStr = content.substr(0, 1325);
+			var lastStr = contentStr.substr(contentStr.length - 1, 1);
+			
+			if(lastStr == '<'){
+				contentStr = contentStr + "br/>";
+			}else if(lastStr == 'b'){
+				contentStr = contentStr + "r/>";
+			}else if(lastStr == 'r'){
+				contentStr = contentStr + "/>";
+			}else if(lastStr == '/'){
+				contentStr = contentStr + ">";
+			}
+			
+			var replaceStr = contentStr.replace(/<br\s?\/?>/g,"\n");
+			$("#contentTextArea").val(replaceStr);
+			return false;
+			
+		}else if(content.length <= 1329){
+			
+			var lastStr = content.substr(content.length-1, 1);
+			
+			if(lastStr =='<'){
+				content = content + "br/>";
+			}else if(lastStr == 'b'){
+				content = content + "r/>";
+			}else if(lastStr == 'r'){
+				content = content + "/>";
+			}else if(lastStr == '/'){
+				content = content + ">";
+			}
+			
+			$("#contentTextArea").val(content);
+			inputForm.submit();
+		}
+		
 		
 		inputForm.submit();
 		

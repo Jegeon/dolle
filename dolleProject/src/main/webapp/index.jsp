@@ -32,8 +32,11 @@
 
 .titleFont {
 	font-family: "대한민국정부상징체", sans-serif;
-	font-weight: bold;
-	font-size: 54px;
+	font-weight: 300;
+	font-size: 50px;
+}
+
+#togetherTitle {
 	padding-right: 40px;
 }
 
@@ -260,7 +263,7 @@
 
 	<div id="firstContext">
 		<div style="margin: 10px 0px 23px 100px;">
-			<span class="titleFont">함께 돌래?</span>
+			<span id='togetherTitle' class="titleFont">함께 돌래?</span>
 			<span class="subTitleFont">성곽마을에서 다양한 볼거리, 먹거리들을 즐겨보세요</span>
 		</div>
 		<div style="margin-bottom: 28px;">

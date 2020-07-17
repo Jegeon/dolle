@@ -7,7 +7,7 @@
 <head>
 
 <meta charset="UTF-8">
-<title>가이드 투어 예약페이지 관리(투어관리)</title>
+<title>가이드 투어 휴무일 변경</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
 <!-- 달력관련 다운로드 시작-->
 <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
@@ -27,7 +27,7 @@
 			changeYear : true, //년변경가능
 			showMonthAfterYear : true, //년 뒤에 월 표시
 			buttonImageOnly : true, //이미지표시
-			buttonImage : '/dolleProject/resources/images/starSolid.png', //이미지주소
+			buttonImage : '/dolleProject/resources/images/calendar.png', //이미지주소
 			showOn : "both", //엘리먼트와 이미지 동시 사용(both,button)
 			minDate: 1,
 		};
@@ -109,6 +109,10 @@
 		vertical-align: middle;
 		cursor:pointer;
 	}
+	input {
+		height: 30px;
+		font-size: 17px;
+	}
 </style>
 </head>
 
@@ -116,9 +120,10 @@
 
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
 
-	<h1 class="daehanFont" style="margin: 10px 0px 10px 82px;">가이드 투어 휴무일 변경</h1>
-	<br/>
-	<div style="width: 600px; height: 700px; margin: auto;">
+	<div style="width:1260px; height:55px; margin:0 auto; text-align: center;" >
+		<h1 class="daehanFont" style="margin: 10px 0px 10px;">가이드 투어 휴무일 변경</h1>
+	</div>
+	<div style="width: 600px; height: 560px; margin: auto;">
 		<form action="./reservationPageCloseCtr.do" method="post" onsubmit='return validationFnc();'>
 			<input type="hidden" name="closedNo" value="${closedDayVo.closedNo}" disabled="disabled">
 			<input type="hidden" name="tourNo" value="${closedDayVo.tourNo}" disabled="disabled">
@@ -143,9 +148,8 @@
 						<td class="ahreum">휴무 내용</td>
 						<td style="padding-left: 20px;">
 							<textarea id="closedContent" name="closedContent" rows="" cols="" placeholder="내용을 입력해주세요."
-						 	style="width:300px; height:100px; font-size:17px; box-sizing:border-box;">
-						 		${closedDayVo.closedContent}
-				 			</textarea>
+						 	style="width:300px; height:100px; font-size:17px; box-sizing:border-box;
+						 	resize:none; font-family: arial;">${closedDayVo.closedContent}</textarea>
 						</td>
 					</tr>
 				</table>

@@ -27,7 +27,7 @@
 			changeYear : true, //년변경가능
 			showMonthAfterYear : true, //년 뒤에 월 표시
 			buttonImageOnly : true, //이미지표시
-			buttonImage : '/dolleProject/resources/images/starSolid.png', //이미지주소
+			buttonImage : '/dolleProject/resources/images/calendar.png', //이미지주소
 			showOn : "both", //엘리먼트와 이미지 동시 사용(both,button)
 			minDate: 2,
 		};
@@ -216,6 +216,14 @@
 	}
 	.lTdPl20 {
 		padding-left: 20px;
+		padding-right: 20px;
+	}
+	input {
+		height: 30px;
+		font-size: 17px;
+	}
+	.input110 {
+		width: 110px;
 	}
 </style>
 </head>
@@ -224,8 +232,9 @@
 
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
 
-	<h1 class="daehanFont" style="margin: 10px 0px 10px 82px;">가이드 투어 예약페이지 수정</h1>
-	<br/>
+	<div style="width:1260px; height:55px; margin:0 auto; text-align: center;" >
+		<h1 class="daehanFont" style="margin: 10px 0px 10px;">가이드 투어 예약페이지 수정</h1>
+	</div>
 	<div style="width: 610px; height: 820px; margin: auto;">
 		<form action="./reservationPageUpdateCtr.do" method="post" onsubmit='return validationFnc();' enctype="multipart/form-data">
 			<div>
@@ -246,10 +255,10 @@
 					<tr>
 						<td class="ahreum">투어 시작일 및 종료일</td>
 						<td class="lTdPl20">
-							<input type="text"   
-							id="fromDt" size="8" title="시작일자" onchange="carryStartDateTextToDateFnc();"> ~
-							<input type="text" 
-							id="toDt" size="8" title="종료일자" onchange="carryEndDateTextToDateFnc();">  
+							<input type="text" class="input110"  
+							id="fromDt" title="시작일자" onchange="carryStartDateTextToDateFnc();"> ~
+							<input type="text" class="input110"
+							id="toDt" title="종료일자" onchange="carryEndDateTextToDateFnc();">  
 							<input type="hidden" id="tourStartDate" name="tourStartDate" value="">
 							<input type="hidden" id="tourEndDate" name="tourEndDate" value="">
 						</td>
@@ -257,35 +266,35 @@
 					<tr>
 						<td class="ahreum">출발시간 및 종료시간</td>
 						<td class="lTdPl20">
-							<input type="text" id="tourStartTime" name="tourStartTime" value="${tourVo.tourStartTime}"> ~
-							<input type="text" id="tourEndTime" name="tourEndTime" value="${tourVo.tourEndTime}">
+							<input type="text" class="input110" id="tourStartTime" name="tourStartTime" value="${tourVo.tourStartTime}">
+							<span style="margin: 0px 20px;"> ~ </span>
+							<input type="text" class="input110" id="tourEndTime" name="tourEndTime" value="${tourVo.tourEndTime}">
 						</td>
 					</tr>
 					<tr>
 						<td class="ahreum">투어 최대 인원</td>
 						<td class="lTdPl20">
-							<input type="number" id="tourPeopleNum" name="tourPeopleNum" min="1" value="${tourVo.tourPeopleNum}">
+							<input type="number" class="input110" id="tourPeopleNum" name="tourPeopleNum" min="1" value="${tourVo.tourPeopleNum}">
 						</td>
 					</tr>
 					<tr>
 						<td class="ahreum">투어 인당 가격</td>
 						<td class="lTdPl20">
-							<input type="number" id="tourPrice" name="tourPrice" min="0" value="${tourVo.tourPrice}">
+							<input type="number" class="input110" id="tourPrice" name="tourPrice" min="0" value="${tourVo.tourPrice}">
 						</td>
 					</tr>
 					<tr>
 						<td class="ahreum">투어 출발지</td>
 						<td class="lTdPl20">
-							<input type="text" id="tourStartingPoint" name="tourStartingPoint" value="${tourVo.tourStartingPoint}">
+							<input type="text" style="width: 368px;" id="tourStartingPoint" name="tourStartingPoint" value="${tourVo.tourStartingPoint}">
 						</td>
 					</tr>
 					<tr>
 						<td class="ahreum">투어 내용</td>
 						<td class="lTdPl20">
 							<textarea id="tourContent" name="tourContent" rows="" cols="" placeholder="내용을 입력해주세요."
-						 	style="width:270px; height:200px; font-size:17px; box-sizing:border-box;">
-						 		${tourVo.tourContent}
-				 			</textarea>
+						 	style="width:375px; height:200px; font-size:17px; box-sizing:border-box;
+						 	resize:none; font-family: arial;">${tourVo.tourContent}</textarea>
 						</td>
 					</tr>
 				</table>

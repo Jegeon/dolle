@@ -173,6 +173,16 @@ public class ReservationServiceImpl implements ReservationService{
 	public int reservationSelectTotalCount(String searchOption, String keyword) {
 		return reservationDao.reservationSelectTotalCount(searchOption, keyword);
 	}
+	
+	@Override
+	public int reservationSelectTotalCountPaid(String searchOption, String keyword) {
+		return reservationDao.reservationSelectTotalCountPaid(searchOption, keyword);
+	}
+	
+	@Override
+	public int reservationSelectTotalCountCanceled(String searchOption, String keyword) {
+		return reservationDao.reservationSelectTotalCountCanceled(searchOption, keyword);
+	}
 
 	// 다중 시작
 	@Override

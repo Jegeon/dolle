@@ -111,6 +111,24 @@ public class ReservationDaoImpl implements ReservationDao{
 		
 		return sqlSession.selectOne(namespace + "reservationSelectTotalCount", paramMap);
 	}
+	
+	@Override
+	public int reservationSelectTotalCountPaid(String searchOption, String keyword) {
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("searchOption", searchOption);
+		paramMap.put("keyword", keyword);
+		
+		return sqlSession.selectOne(namespace + "reservationSelectTotalCountPaid", paramMap);
+	}
+	
+	@Override
+	public int reservationSelectTotalCountCanceled(String searchOption, String keyword) {
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("searchOption", searchOption);
+		paramMap.put("keyword", keyword);
+		
+		return sqlSession.selectOne(namespace + "reservationSelectTotalCountCanceled", paramMap);
+	}
 
 	@Override
 	public int reservationConfirmList(List<String> checkIdxList) {

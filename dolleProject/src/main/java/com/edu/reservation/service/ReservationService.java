@@ -30,6 +30,8 @@ public interface ReservationService {
 	
 	// 아름누나 페이징
 	public int reservationSelectTotalCount(String searchOption, String keyword);
+	public int reservationSelectTotalCountPaid(String searchOption, String keyword);
+	public int reservationSelectTotalCountCanceled(String searchOption, String keyword);
 	
 	// 다중
 	public int reservationConfirmList(List<String> checkIdxList);

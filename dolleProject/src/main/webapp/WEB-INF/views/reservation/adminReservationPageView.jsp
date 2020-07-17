@@ -58,11 +58,12 @@
 
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
 
-	<h1 class="daehanFont" style="margin: 10px 0px 10px 82px;">가이드 투어 예약페이지 관리(투어관리, 추가, 수정, 삭제 등 가능)</h1>
-	<br/>
+	<div style="width:1260px; height:55px; margin:0 auto;" >
+		<h1 class="daehanFont" style="margin: 10px 0px 10px 129px;">가이드 투어 예약페이지 관리</h1>
+	</div>
 	<c:forEach var="tourVo" items="${tourList}">
-		<div style="width: 840px; height: 360px; border-top: 2px solid #707070; margin: auto; cursor:pointer;" onclick="location.href='../reservation/reservationPageDetail.do?tourNo=${tourVo.tourNo}'">
-			<div style="width: 840px; height: 260px; margin-top: 50px;">
+		<div style="width: 1000px; height: 360px; border-top: 2px solid #707070; margin: auto; cursor:pointer;" onclick="location.href='../reservation/reservationPageDetail.do?tourNo=${tourVo.tourNo}'">
+			<div style="width: 840px; height: 260px; margin:0px auto; margin-top: 50px;">
 				<div style="width: 300px; height: 260px; float: left;">
 					<div style="width: 300px; height: 260px;">
 						<img alt="review_photo" src="<c:url value='/img/${tourVo.fileStoredName}'/>" style="position: relative; height:100%; width:100%;">
@@ -102,7 +103,7 @@
 			</div>
 		</div>
 	</c:forEach>
-	<div style="width: 840px; height: 10px; border-top: 2px solid #707070; margin: auto;"></div>
+	<div style="width: 1000px; height: 10px; border-top: 2px solid #707070; margin: auto;"></div>
 	
 	<div style="text-align: center; margin: 20px 0px;">
 		<div>

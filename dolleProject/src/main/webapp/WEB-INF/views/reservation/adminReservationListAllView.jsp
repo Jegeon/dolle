@@ -147,13 +147,14 @@
 
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
 	
-	<h1 class="daehanFont" style="margin: 10px 0px 10px 82px;">가이드 투어 예약자 관리 - 예약 현황(전체)</h1>
-	
+	<div style="width:1260px; height:55px; margin:0 auto;" >
+		<h1 class="daehanFont" style="margin: 10px 0px 10px 10px;">가이드 투어 예약자 관리 - 예약 현황(전체)</h1>
+	</div>
 	<%-- 가져오는 데이터 확인 ${tourReservationListAll} --%>
 	<%-- 가져오는 데이터 확인 ${pagingMap} --%>
 	<%-- 가져오는 데이터 확인${pagingMap.reservationPaging.curPage} --%>
 	<!-- 검색 시작 -->
-	<div style="float:right; height:50px; width:530px; padding-top:10px;">
+	<div style="float:right; height:50px; width:530px; padding-top:10px; margin-right: 190px;">
 		<form id='searchForm' action="./reservationListAll.do" method="post">
 			<select id="searchOption" name="searchOption"  
 				style="width:140px; padding: 6px 22px; vertical-align: middle;

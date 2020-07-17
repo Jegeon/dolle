@@ -27,7 +27,7 @@
 						팀 공존 <br>
 					</span>
 					<br>
-					<span id="aim" style="font-size: 20px; font-family: 대한민국정부상징체;">
+					<span style="font-size: 20px; font-family: 대한민국정부상징체;">
 						공존 [공ː존] <br><br>
 						1. [명사] 두 가지 이상의 사물이나 현상이 함께 존재함. <br>
 						2. [명사] 서로 도와서 함께 존재함. <br>
@@ -44,7 +44,7 @@
 		<!-- 1 번째 div -->
 		
 		<!-- 2 번째 div -->
-		<div style="width: 1260px; background-color: lightgrey; margin: auto;">
+		<div id="aim" style="width: 1260px; background-color: lightgrey; margin: auto;">
 			<div style="width: 1160px; height: 200px; margin-left: 50px;">
 				<div style="text-align: center; padding-top: 50px;">
 					<span style="font-family: 대한민국정부상징체 ; font-size:40px; line-height: 200%;">
@@ -52,7 +52,7 @@
 					</span>
 				</div> 
 			</div>
-			<div style="width: 960px; height: 250px; margin-left: 50px; padding-left: 100px; padding-right: 100px;">
+			<div style="width: 960px; height: 400px; margin-left: 50px; padding-left: 100px; padding-right: 100px;">
 				<span style="font-size: 20px; font-family: 대한민국정부상징체; ">
 				공존은 성곽마을의 가치를 공유하여 성곽마을의 지속가능한 발전을 꿈꿉니다. 
 				<br>

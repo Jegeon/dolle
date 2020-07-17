@@ -159,11 +159,12 @@
 <body>
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
 		
-	<h1 class="daehanFont" style="margin: 10px 0px 10px 82px;">가이드 투어 예약 상세 날짜 선택</h1>
-	<br/>
+	<div style="width:1260px; height:55px; margin:0 auto;" >
+		<h1 class="daehanFont" style="margin: 10px 0px 10px 129px;">가이드 투어 예약 상세 날짜 선택</h1>
+	</div>
 	<!-- 여기 div 는 투어 상세 정보가 뜨는 곳 시작 -->
-	<div style="width: 840px; height: 410px; border-top: 2px solid #707070; margin: auto;">
-		<div style="width: 840px; height: 360px; margin-top: 50px;">
+	<div style="width: 1000px; height: 410px; border-top: 2px solid #707070; margin: auto;">
+		<div style="width: 840px; height: 360px; margin:0px auto; margin-top: 50px;">
 			<div style="width: 300px; height: 360px; float: left;">
 				<div style="width: 300px; height: 260px;">
 					<img alt="review_photo" src="<c:url value='/img/${tourVo.fileStoredName}'/>" style="position: relative; height:100%; width:100%;">
@@ -217,7 +218,7 @@
 	</div>	
 	<!-- 여기 div 는 투어 상세 정보가 뜨는 곳 끝 -->
 	
-	<div style="width: 840px; height: 10px; border-top: 2px solid #707070; margin: 20px auto;"></div>
+	<div style="width: 1000px; height: 10px; border-top: 2px solid #707070; margin: 20px auto;"></div>
 	
 	<form action="./reservationForm.do" method="post" onsubmit='return validationFnc();'>
 		<!-- 여기 div 는 사용자 입력 (날짜, 투어 인원)을 받는 부분 시작 -->
@@ -305,7 +306,7 @@
 		</div>
 		<!-- 여기 div 는 사용자 입력 (날짜, 투어 인원)을 받는 부분 끝 -->
 		
-		<div style="width: 840px; height: 1px; border-top: 2px solid #707070; margin: 20px auto;"></div>
+		<div style="width: 1000px; height: 1px; border-top: 2px solid #707070; margin: 20px auto;"></div>
 		
 		<!-- 여기 div 는 form의 submit이 있는 부분 시작 -->
 		<div style="text-align: center;">

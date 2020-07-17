@@ -376,6 +376,26 @@
 		<include refid="search"></include>
 	</select>
 	
+	<select id="reservationSelectTotalCountPaid" parameterType="map" resultType="int">
+		SELECT COUNT(*)
+		FROM RESERVE R, MEMBER M, TOUR T
+		WHERE R.MEMBER_IDX = M.MEMBER_IDX
+        AND T.TOUR_IDX = R.TOUR_IDX
+        AND R.RESERVE_DEPOSIT_STATE = 'paid'
+		<!-- 검색 -->
+		<include refid="search"></include>
+	</select>
+	
+	<select id="reservationSelectTotalCountCanceled" parameterType="map" resultType="int">
+		SELECT COUNT(*)
+		FROM RESERVE R, MEMBER M, TOUR T
+		WHERE R.MEMBER_IDX = M.MEMBER_IDX
+        AND T.TOUR_IDX = R.TOUR_IDX
+        AND R.RESERVE_DEPOSIT_STATE = 'canceled'
+		<!-- 검색 -->
+		<include refid="search"></include>
+	</select>
+	
 	<!-- 관리자용 다중승인 -->
 	<delete id="reservationConfirmList" parameterType="java.util.List">
 		<if test="list.size != 0">

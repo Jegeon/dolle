@@ -223,7 +223,7 @@ public class ReservationController {
 			,@RequestParam(defaultValue = "") String keyword) {
 		
 		log.debug("Welcome reservation tourReservationListPaid" + curPage + searchOption);
-		int totalCount = reservationService.reservationSelectTotalCount(searchOption, keyword);
+		int totalCount = reservationService.reservationSelectTotalCountPaid(searchOption, keyword);
 		
 		ReservationPaging reservationPaging = new ReservationPaging(totalCount, curPage);
 		int start = reservationPaging.getPageBegin();
@@ -258,7 +258,7 @@ public class ReservationController {
 			,@RequestParam(defaultValue = "") String keyword) {
 		
 		log.debug("Welcome reservation tourReservationListCanceled" + curPage + searchOption);
-		int totalCount = reservationService.reservationSelectTotalCount(searchOption, keyword);
+		int totalCount = reservationService.reservationSelectTotalCountCanceled(searchOption, keyword);
 		
 		ReservationPaging reservationPaging = new ReservationPaging(totalCount, curPage);
 		int start = reservationPaging.getPageBegin();

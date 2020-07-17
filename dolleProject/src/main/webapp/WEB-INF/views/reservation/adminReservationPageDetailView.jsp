@@ -90,9 +90,10 @@
 	<input type="hidden" id="hiddenMemberGradeInput" value="${sessionScope._memberVo_.grade}">
 	<!-- 관리자 체크 hidden input 끝 -->
 	
-	<h1 class="daehanFont" style="margin: 10px 0px 10px 82px;">가이드 투어 예약페이지 관리 상세(투어관리)</h1>
-	<br/>
-	<div style="width: 840px; height: 560px; border-top: 2px solid #707070; margin: auto;">
+	<div style="width:1260px; height:55px; margin:0 auto;" >
+		<h1 class="daehanFont" style="margin: 10px 0px 10px 129px;">가이드 투어 예약페이지 관리 상세</h1>
+	</div>
+	<div style="width: 1000px; height: 560px; border-top: 2px solid #707070; margin: auto;">
 		<div style="width: 840px; height: 360px; margin-top: 50px;">
 			<div style="width: 300px; height: 260px; float: left;">
 				<div>
@@ -141,7 +142,7 @@
 			</div>
 		</div>
 		
-		<div style="width: 840px; height: 10px; border-top: 2px solid #707070; margin: 20px auto;"></div>
+		<div style="width: 1000px; height: 10px; border-top: 2px solid #707070; margin: 20px auto;"></div>
 		
 		<div style="margin: auto; clear:both; width: 840px; text-align: center;">
 			<button class="ahreum" onclick="pageMoveUpdateFnc();">수정하기</button>

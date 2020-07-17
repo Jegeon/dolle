@@ -78,10 +78,11 @@
 	<input type="hidden" id="hiddenMemberNoInput" value="${sessionScope._memberVo_.no}">
 	<!-- 로그인 체크 hidden input 끝 -->
 	
-	<h1 class="daehanFont" style="margin: 10px 0px 10px 82px;">가이드 투어 예약 상세</h1>
-	<br/>
-	<div style="width: 840px; height: 560px; border-top: 2px solid #707070; margin: auto;">
-		<div style="width: 840px; height: 360px; margin-top: 50px;">
+	<div style="width:1260px; height:55px; margin:0 auto;" >
+		<h1 class="daehanFont" style="margin: 10px 0px 10px 129px;">가이드 투어 예약 상세</h1>
+	</div>	
+	<div style="width: 1000px; height: 560px; border-top: 2px solid #707070; margin: auto;">
+		<div style="width: 840px; height: 360px; margin:0px auto; margin-top: 50px;">
 			<div style="width: 300px; height: 360px; float: left;">
 				<div style="width: 300px; height: 260px;">
 					<img alt="review_photo" src="<c:url value='/img/${tourVo.fileStoredName}'/>" style="position: relative; height:100%; width:100%;">
@@ -129,7 +130,7 @@
 			</div>
 		</div>
 		
-		<div style="width: 840px; height: 10px; border-top: 2px solid #707070; margin: 20px auto;"></div>
+		<div style="width: 1000px; height: 10px; border-top: 2px solid #707070; margin: 20px auto;"></div>
 		
 		<div style="margin: auto; clear:both; width: 496px; text-align: center;">
 			<button class="ahreum" onclick="pageMoveListFnc();">목록으로</button>

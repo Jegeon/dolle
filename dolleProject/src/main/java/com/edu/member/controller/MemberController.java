@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.edu.member.service.MemberService;
 import com.edu.member.vo.MemberVo;
 import com.edu.util.memberPaging;
+import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
 
 @Controller
 public class MemberController {
@@ -111,7 +112,8 @@ public class MemberController {
 	
 	// 마이 페이지 이동
 	@RequestMapping(value="/member/listOne.do" , method = {RequestMethod.GET, RequestMethod.POST})
-	public String memberListOne(int no, Model model) {
+	public String memberListOne(int no
+			, @RequestParam(defaultValue = "1") int reviewIdx, Model model) {
 		log.debug("Welcome memberListOne enter! - {}", no);
 		
 		int totalCnt = memberService.reservationTotalCount(no);

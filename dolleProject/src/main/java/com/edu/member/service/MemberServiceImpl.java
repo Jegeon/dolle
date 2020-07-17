@@ -149,4 +149,10 @@ public class MemberServiceImpl implements MemberService{
 		return memberDao.reviewTotalCount(no);
 	}
 
+	@Override
+	public List<MemberVo> commentTotalCount(int no, int reviewIdx) {
+		// TODO Auto-generated method stub
+		return memberDao.commentTotalCount(no, reviewIdx);
+	}
+
 }

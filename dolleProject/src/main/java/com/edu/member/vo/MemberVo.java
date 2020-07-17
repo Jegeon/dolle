@@ -37,13 +37,14 @@ public class MemberVo {
 	private String townName;
 	private String accBank;
 	private String accDepositor;
+	private int commentCount;
 	
 	public MemberVo(int no, String name, String email, String nickname, String password, String phone, Date birthdate,
 			String national, Date createDate, Date modifiedDate, String grade, String del, String tempPassword,
 			int tourIdx, String tourName, Date reserveApplyDate, Date reserveDepositDate, String reserveDepositState,
 			int reserveIdx, int reserveApplyNum, int reservePrice, String tourAccountNum, int reviewIdx,
 			String reviewTitle, String reviewContent, Date reviewCreDate, Date reviewModDate, int reviewReadCount,
-			int reviewLikeCount, int reviewRating, String townName, String accBank, String accDepositor) {
+			int reviewLikeCount, int reviewRating, String townName, String accBank, String accDepositor, int commentCount) {
 		super();
 		this.no = no;
 		this.name = name;
@@ -78,6 +79,7 @@ public class MemberVo {
 		this.townName = townName;
 		this.accBank = accBank;
 		this.accDepositor = accDepositor;
+		this.commentCount = commentCount;
 	}
 	
 	public MemberVo() {
@@ -347,6 +349,14 @@ public class MemberVo {
 	public void setAccDepositor(String accDepositor) {
 		this.accDepositor = accDepositor;
 	}
+	
+	public int getCommentCount() {
+		return commentCount;
+	}
+
+	public void setCommentCount(int commentCount) {
+		this.commentCount = commentCount;
+	}
 
 	@Override
 	public String toString() {
@@ -360,7 +370,8 @@ public class MemberVo {
 				+ ", reviewIdx=" + reviewIdx + ", reviewTitle=" + reviewTitle + ", reviewContent=" + reviewContent
 				+ ", reviewCreDate=" + reviewCreDate + ", reviewModDate=" + reviewModDate + ", reviewReadCount="
 				+ reviewReadCount + ", reviewLikeCount=" + reviewLikeCount + ", reviewRating=" + reviewRating
-				+ ", townName=" + townName + ", accBank=" + accBank + ", accDepositor=" + accDepositor + "]";
+				+ ", townName=" + townName + ", accBank=" + accBank + ", accDepositor=" + accDepositor
+				+ ", commentCount=" + commentCount + "]";
 	}
 
 }

@@ -56,6 +56,7 @@
 		<result column="REVIEW_LIKE_COUNT" property="reviewLikeCount" />
 		<result column="REVIEW_RATING" property="reviewRating" />
 		<result column="TOWN_NAME" property="townName" />
+		<result column="COMMENT_COUNT" property="commentCount" />
 	</resultMap>
 	
 	<select id="userList" parameterType="map" resultMap="memberResultMap">
@@ -111,19 +112,30 @@
 	</select>
 	
 	<select id="memberTourOne" parameterType="map" resultMap="memberResultMap">
-		SELECT R.REVIEW_IDX, R.REVIEW_TITLE, M.MEMBER_NICKNAME ,R.REVIEW_CONTENT, R.REVIEW_CRE_DATE, R.REVIEW_MOD_DATE, R.REVIEW_READ_COUNT, R.REVIEW_LIKE_COUNT, R.REVIEW_RATING
-		FROM MEMBER M, REVIEWBOARD R
-		WHERE M.MEMBER_IDX = #{no}
-		AND M.MEMBER_IDX = R.MEMBER_IDX
-		ORDER BY R.REVIEW_IDX DESC
+		SELECT * 
+     	FROM (SELECT RBMCF.*
+        	  FROM( SELECT RB.REVIEW_IDX, REVIEW_TITLE, M.MEMBER_NICKNAME, REVIEW_CRE_DATE, REVIEW_RATING, REVIEW_READ_COUNT, C.COMMENT_COUNT
+                 	FROM REVIEWBOARD RB, MEMBER M
+                      ,(SELECT REVIEW_IDX, COUNT(*) AS COMMENT_COUNT FROM REVIEW_COMMENT GROUP BY REVIEW_IDX) C
+                  	WHERE RB.MEMBER_IDX = M.MEMBER_IDX
+                 	AND RB.REVIEW_IDX = C.REVIEW_IDX(+)
+               	   	AND RB.MEMBER_IDX = #{no}
+      ) RBMCF )
+      ORDER BY REVIEW_IDX DESC
 	</select>
 	
 	<select id="tourListOne" parameterType="map" resultMap="memberResultMap">
-		SELECT ROWNUM, R.REVIEW_IDX, R.REVIEW_TITLE, M.MEMBER_NICKNAME ,R.REVIEW_CONTENT, R.REVIEW_CRE_DATE, R.REVIEW_MOD_DATE, R.REVIEW_READ_COUNT, R.REVIEW_LIKE_COUNT, R.REVIEW_RATING
-		FROM MEMBER M, REVIEWBOARD R
-		WHERE M.MEMBER_IDX = #{no}
-		AND ROWNUM BETWEEN #{begin} AND #{end}
-		ORDER BY R.REVIEW_IDX DESC
+		SELECT * 
+     	FROM (SELECT ROWNUM RNUM, RBMCF.*
+        	  FROM( SELECT RB.REVIEW_IDX, REVIEW_TITLE, M.MEMBER_NICKNAME, REVIEW_CRE_DATE, REVIEW_RATING, REVIEW_READ_COUNT, C.COMMENT_COUNT
+                 	FROM REVIEWBOARD RB, MEMBER M
+                      ,(SELECT REVIEW_IDX, COUNT(*) AS COMMENT_COUNT FROM REVIEW_COMMENT GROUP BY REVIEW_IDX) C
+                	WHERE RB.MEMBER_IDX = M.MEMBER_IDX
+                 	AND RB.REVIEW_IDX = C.REVIEW_IDX(+)
+               	   	AND RB.MEMBER_IDX = #{no}
+                    ORDER BY REVIEW_IDX DESC
+    	) RBMCF ) RBMCFR
+    	WHERE RBMCFR.RNUM between #{begin} and #{end}
 	</select>
 	
 	<select id="reviewTotalCount" parameterType="map" resultType="Integer">
@@ -182,7 +194,7 @@
 	</select>
 	
 	<select id="memberNickNameList" parameterType="map" resultType="Integer">
-		SELECT count(*)
+		SELECT COUNT(*)
 		FROM MEMBER
 		WHERE MEMBER_NICKNAME = #{nickname}
 	</select>
@@ -235,6 +247,17 @@
 		FROM MEMBER
 		<include refid="search"></include>
 		AND MEMBER_GRADE = 'user'
+	</select>
+	
+	<select id="commentTotalCount" parameterType="map" resultMap="memberResultMap">
+		SELECT (SELECT COUNT(*)
+                FROM REVIEW_COMMENT
+                GROUP BY REVIEW_IDX
+                HAVING REVIEW_IDX = #{reviewIdx}) AS LOVE
+		FROM MEMBER M, REVIEWBOARD R
+		WHERE M.MEMBER_IDX = R.MEMBER_IDX
+		AND M.MEMBER_IDX = #{no}
+		AND R.REVIEW_IDX = #{reviewIdx}
 	</select>
 	
 	<select id="memberSelectCurPage" parameterType="map"

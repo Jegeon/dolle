@@ -19,6 +19,7 @@ public interface MemberDao {
 	public List<MemberVo> reservationListOne(int no, int begin, int end);
 	public int reservationTotalCount(int no);
 	public int reviewTotalCount(int no);
+	public List<MemberVo> commentTotalCount(int no, int reviewIdx);
 	public List<MemberVo> memberTourOne(int no);
 	public List<MemberVo> tourListOne(int no, int begin, int end);
 	public MemberVo memberEmailOne(Map<String, Object> paramMap);

@@ -403,7 +403,8 @@
 				<div class="inputTitle" style="padding-bottom:5px;">
 					<span>내용</span>
 				</div>
-				<textarea id="reivewContent" name="reviewContent" placeholder="내용을 입력해주세요." style="width:900px; height:470px; font-size:17px; padding:50px; box-sizing:border-box;"></textarea>
+				<textarea id="reivewContent" name="reviewContent" placeholder="내용을 입력해주세요." 
+					style="width:900px; height:470px; font-size:17px; padding:50px; box-sizing:border-box; resize: none;"></textarea>
 			</div>
 			
 				

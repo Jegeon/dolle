@@ -198,4 +198,14 @@ public class MemberDaoImpl implements MemberDao{
 		return sqlSession.selectOne(namespace + "reviewTotalCount", no);
 	}
 
+	@Override
+	public List<MemberVo> commentTotalCount(int no, int reviewIdx) {
+		// TODO Auto-generated method stub
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("no", no);
+		paramMap.put("reviewIdx", reviewIdx);
+		
+		return sqlSession.selectList(namespace + "commentTotalCount", paramMap);
+	}
+
 }

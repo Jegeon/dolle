@@ -139,13 +139,13 @@
 		}
 		
 		// 닉네임 중복확인 여부
-		if ($('#checking').val() != 'ok') {
-			nickNameCheck.innerHTML = '중복 확인 버튼을 눌러주세요.';
+		if ($('#checking').val() == 'ok' || $('#sameCheck').val() == $('#memberNickName').val()) {
+			nicknameObj.setAttribute('readonly', 'readonly');
+			nicknameCheck.innerHTML='';
+		} else if ($('#checking').val() != 'ok'){
+			nicknameCheck.innerHTML = '중복 확인 버튼을 눌러주세요.';
 			overlap.focus();
 			return false;
-		} else if ($('#checking').val() == 'ok' || $('#sameCheck').val() == $('#memberNickName').val()){
-			nickNameObj.setAttribute('readonly', 'readonly');
-			nickNameCheck.innerHTML='';
 		}
 		
 		// 핸드폰 형식 유효성

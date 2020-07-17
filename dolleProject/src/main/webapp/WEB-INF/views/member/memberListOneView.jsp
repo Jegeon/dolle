@@ -279,7 +279,7 @@
 								+ formatDate + "</td><td>"
 								+ starList[0] + starList[1] + starList[2] + starList[3] + starList[4]
 								+ "</td><td class='resCss'>" + data.tourList[i].reviewReadCount + "</td>"
-								+ "<td class='resCss'>" + data.tourList[i].reviewLikeCount + "</td></tr>")
+								+ "<td class='resCss'>" + data.tourList[i].commentCount + "</td></tr>")
 					}
 					if ($('#reviewTotalCnt').val() < parseInt($('#endCnt').val()) || $('#reviewTotalCnt').val() <= 5) {
 						$('#revBtn').attr('style', 'display:none');
@@ -493,7 +493,7 @@
 										${memberVo.reviewReadCount}
 									</td>
 									<td class='resCss'>
-										${memberVo.reviewLikeCount}
+										${memberVo.commentCount}
 									</td>
 								</tr>
 							</c:forEach>

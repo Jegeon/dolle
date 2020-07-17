@@ -396,7 +396,7 @@
 					<span>내용</span>
 				</div>
 				<textarea id="reivewContent" name="reviewContent" rows="" cols="" placeholder="내용을 입력해주세요."
-				 style="width:900px; height:470px; font-size:17px; padding:50px;
+				 style="width:900px; height:470px; font-size:17px; padding:50px; resize: none;
 				 box-sizing:border-box;">${reviewMCFVo.reviewContent}</textarea>
 			</div>
 			

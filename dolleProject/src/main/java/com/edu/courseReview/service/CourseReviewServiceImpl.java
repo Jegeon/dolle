@@ -228,6 +228,12 @@ public class CourseReviewServiceImpl implements CourseReviewService{
 		return courseReviewDao.commentSelectTotalCount(reviewIdx);
 	}
 
+	@Override
+	public List<Integer> reviewFindReadCount(List<Integer> reviewIdxList) {
+		// TODO Auto-generated method stub
+		return courseReviewDao.reviewFindReadCount(reviewIdxList);
+	}
+
 	
 	
 	

@@ -122,19 +122,57 @@
 	.fifthRow{top: 1272px;}
 	
 	
+	/*  */
+	.height100percent{
+		position: relative;
+		height: 342px;
+/* 		transition-property: position; */
+/* 		transition-duration: 10s; */
+	}
+	.width100percent{
+		position: relative;
+		width: 306px;
+/* 		transition: position 10s; */
+	}
+/* 	.height100percent:hover{ */
+/* 		right: 306px; */
+/* 	} */
+/* 	.width100percent:hover{ */
+/* 		bottom: 342px; */
+/* 	} */
+	
 </style>
 <script type="text/javascript" src="/dolleProject/resources/js/jquery-3.5.1.js"></script>
 <script type="text/javascript">
 	
 	$(document).ready(function() {
 		
-// 		var pageScale = $("#pageScale").val();
-// 		for(var i=1; i<=pageScale;i++){
-// 			$("#title"+i).attr("onmouseover","mouseOverFnc("+i+")");
-// 			$("#title"+i).attr("onmouseleave","mouseLeaveFnc("+i+")");
-// 			$("#title"+i).css("cursor","pointer");
-// 		}
+// 		var nickObj = $('#member_nick').val();
 
+		var reviewIdxList = [];
+		//뒤로가기의 경우, 데이터를 가져오게 하기 위해 사용
+		$(".reviewIdxList").each(function(index){
+			alert($(this).val() + ": "+ index);
+			
+			var reviewIdxVal = $(this).val();
+			reviewIdxList.push(reviewIdxVal);
+		});	
+		
+		$.ajax({
+			url: './checkReadCount.do', 
+			type:"POST",
+			data : 'reviewIdxList='+reviewIdxList,
+			success: function(data){
+				alert("성공" + data.readCount.get(0));
+// 				$("#readCount"+index).html(data.readCount);
+			},
+			error : function(){
+				alert("실패");
+			}
+		});
+			
+		
+		
 		//정렬옵션 select 태그 생성 
 		var orderOptionVal = $("#orderOptionVal").val();
 		if(orderOptionVal == "newest"){
@@ -186,6 +224,22 @@
 		if(curPage == totPage){
 			$("#lastPageBtn").remove();
 			$("#nextPageBtn").remove();
+		}
+		
+		
+		//출력 이미지가 가로가 더 긴 이미지면 세로 100%기준으로 맞춘다.
+		//출력 이미지가 세로가 더 긴 이미지면 가로 100%기준으로 맞춘다.
+		for(var i=1; i<=20; i++){
+			var width = $("#photoImg"+i).css("width");
+			var widthVal = Number(width.substr(0, width.length-2));
+			var height = $("#photoImg"+i).css("height");
+			var heightVal = Number(height.substr(0, height.length-2));
+// 			alert(i+" : "+widthVal+" : "+heightVal);
+			if(widthVal >= heightVal){
+				$("#photoImg"+i).attr("class", "height100percent");
+			}else{
+				$("#photoImg"+i).attr("class", "width100percent");
+			}
 		}
 		
 		
@@ -312,6 +366,7 @@
 			
 			
 			<c:forEach var="reviewVo" items="${reviewList}" varStatus="listIndex">
+				<input class="reviewIdxList" type="hidden" value="${reviewVo.reviewIdx}">
 			<!-- 상세 게시글  -->
 			<!-- 행렬 개수 -->
 					<c:if test="${listIndex.count >= 1 and listIndex.count <= 4}">
@@ -356,7 +411,7 @@
 						<div class="photo_Box"
 							style="overflow:hidden; width:306px; height:342px; position: absolute; top:${TopPosition1}px; left:${leftPosition}px;
 							background-color: lightgray;">
-							<img alt="review_photo" src="<c:url value='/img/${reviewVo.fileStoredName}'/>" style="position: relative; height:100%;">
+							<img id="photoImg${listIndex.count}" alt="review_photo" src="<c:url value='/img/${reviewVo.fileStoredName}'/>">
 						</div>
 						<span class="innerBox" style="width:306px; height:114px; position: absolute; top:${TopPosition2}px; left:${leftPosition}px; 
 							background-color: #000; opacity: 0.3;">			
@@ -375,7 +430,7 @@
 							<span style="width:50px; display: inline-block; margin-left: 20px;">
 								<img alt="Icon_eye" src="/dolleProject/resources/images/eye.png"
 									style="width:16px; height:18px; vertical-align:middle;">
-								<span style="font: normal bold 14px Segoe UI; vertical-align: middle;">${reviewVo.reviewReadCount}</span>		
+								<span id="readCount${listIndex.index}" style="font: normal bold 14px Segoe UI; vertical-align: middle;">${reviewVo.reviewReadCount}</span>		
 							</span>		
 							<span style="width:50px; display: inline-block; margin-left: 10px;">
 								<img alt="Icon_comment" src="/dolleProject/resources/images/IconComment.png"

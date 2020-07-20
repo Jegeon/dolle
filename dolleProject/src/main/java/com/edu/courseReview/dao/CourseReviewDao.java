@@ -17,6 +17,7 @@ public interface CourseReviewDao {
 	public int reviewMovePageOne(int rnum, int channel);
 	public int reviewFindRNum(int reviewIdx);
 	public int reviewFindLastRowNum();
+	public List<Integer> reviewFindReadCount(List<Integer> reviewIdxList);
 	
 	public int courseReviewInsertOne(CourseReviewVo reviewVo);
 	public int fileInsertOne(Map<String, Object> map);

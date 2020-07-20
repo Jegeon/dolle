@@ -195,6 +195,12 @@ public class CourseReviewDaoImpl implements CourseReviewDao{
 		return sqlSession.delete(namespace + "commentDeleteTogether", reviewIdx);
 	}
 
+	@Override
+	public List<Integer> reviewFindReadCount(List<Integer> reviewIdxList) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace + "reviewFindReadCount", reviewIdxList);
+	}
+
 	
 	
 	

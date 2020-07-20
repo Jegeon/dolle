@@ -1,5 +1,6 @@
 package com.edu.courseReview.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.edu.courseReview.service.CourseReviewService;
@@ -19,6 +21,7 @@ import com.edu.courseReview.util.ReviewPaging;
 import com.edu.courseReview.vo.CommentVo;
 import com.edu.courseReview.vo.CourseReviewMemberCommentFileVo;
 import com.edu.courseReview.vo.CourseReviewVo;
+import com.edu.member.vo.MemberVo;
 import com.edu.util.Paging;
 
 @Controller
@@ -72,6 +75,23 @@ public class CourseReviewController {
 		return "courseReview/courseReviewListView";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/courseReview/checkReadCount.do", method = {RequestMethod.GET, RequestMethod.POST})
+//	public Object checkReadCount(int readcount, int cmtCount, int imgWidth, int imgHeight, Model model) {
+	public Object checkReadCount(List<Integer> reviewIdxList, Model model) {
+		log.debug("checkReadCount test! - {}", reviewIdxList);
+		
+		List<Integer> readCount = new ArrayList<Integer>();
+		readCount = courseReviewService.reviewFindReadCount(reviewIdxList);
+		System.out.println(readCount);
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("readCount", readCount);
+//		map.put("cmtCount", cmtCount);
+//		map.put("imgWidth", imgWidth);
+//		map.put("imgHeight", imgHeight);
+		
+		return map;
+	}
 	
 	@RequestMapping(value="/courseReview/add.do", method = RequestMethod.GET)
 	public String courseReviewAdd(Model model) {

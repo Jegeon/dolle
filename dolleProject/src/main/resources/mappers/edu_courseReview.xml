@@ -220,6 +220,18 @@
 	</select>
 	
 	
+	<select id="reviewFindReadCount" parameterType="java.util.List" resultType="java.util.List">
+		<if test="list.size != 0">
+		SELECT REVIEW_READ_COUNT, REVIEW_IDX
+		FROM REVIEWBOARD
+		WHERE REVIEW_IDX IN 
+				<foreach collection="list" item="item" 
+	 				open="(" close=")" separator=","> 
+	 				#{item} 
+	 			</foreach>
+		ORDER BY REVIEW_IDX DESC
+		</if>
+	</select>
 	
 	
 	<update id="increaseReadCount" parameterType="int">
@@ -312,13 +324,7 @@
 				ORDER BY COMMENT_IDX DESC) RCM)
 		WHERE RNUM BETWEEN #{start} AND #{end}		
 	</select>	
-<!-- 	<select id="commentSelectList" parameterType="int" resultMap="commentMap"> -->
-<!-- 		SELECT COMMENT_IDX, RC.MEMBER_IDX, M.MEMBER_NICKNAME, COMMENT_CONTENT, COMMENT_EMOTICON, COMMENT_CRE_DATE, COMMENT_MOD_DATE -->
-<!-- 		FROM REVIEW_COMMENT RC, MEMBER M -->
-<!-- 		WHERE REVIEW_IDX = #{commentReviewIdx} -->
-<!--         AND RC.MEMBER_IDX = M.MEMBER_IDX -->
-<!-- 		ORDER BY COMMENT_IDX DESC -->
-<!-- 	</select> -->
+
 
 	<!-- 사용자용 삭제 -->
 	<delete id="commentDeleteOne" parameterType="map">

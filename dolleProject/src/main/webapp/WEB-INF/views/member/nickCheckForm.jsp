@@ -110,17 +110,20 @@
 	}
 	
 	function useNickFnc() {
-		
-		if ($('#sameCheck').val() == '1') {
-			checking = document.getElementById('checking');
-			opener.document.all.nickname.value = document.all.nickname.value;
-			checking.value = 'ok';
-			opener.document.all.overlap.value = document.all.overlap.value;
-			self.close();
-		} else if ($('#sameCheck').val() == '2'){
-			alert('이미 사용중인 닉네임 입니다.');
-		} else {
+		if ($('#nicknameObj').val() != $('#saveNick').val()) {
 			alert('중복확인을 눌러주세요.');
+		} else {
+			if ($('#sameCheck').val() == '1') {
+				checking = document.getElementById('checking');
+				opener.document.all.nickname.value = document.all.nickname.value;
+				checking.value = 'ok';
+				opener.document.all.overlap.value = document.all.overlap.value;
+				self.close();
+			} else if ($('#sameCheck').val() == '2'){
+				alert('이미 사용중인 닉네임 입니다.');
+			} else {
+				alert('중복확인을 눌러주세요.');
+			}
 		}
 	}
 	

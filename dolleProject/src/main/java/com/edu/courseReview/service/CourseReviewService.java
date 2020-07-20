@@ -19,6 +19,7 @@ public interface CourseReviewService {
 	public int reviewMovePageOne(int rnum, int channel);
 	public int reviewFindRNum(int reviewIdx);
 	public int reviewFindLastRowNum();
+	public List<Integer> reviewFindReadCount(List<Integer> reviewIdxList);
 	
 	public void courseReviewInsertOne(CourseReviewVo reviewVo
 			, MultipartHttpServletRequest mulRequest);

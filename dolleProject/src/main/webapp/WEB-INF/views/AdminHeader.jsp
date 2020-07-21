@@ -47,22 +47,34 @@
 </style>
 <script type="text/javascript">
 	$(document).ready(function() {
-
+		
+		$('#adminMenu').hide();
+		$('#adminNavbar').css('cursor', 'pointer');
+		
+		$('#adminNavbar').click(function(){
+			$('#adminMenu').toggle(400);
+			$('#introduceMenu').hide();
+			$('#townIntroduceMenu').hide();
+			$('#reservationMenu').hide();
+			$('#supportMenu').hide();
+			$('#boardMenu').hide();
+		});
+		
 		//관리자
-		$("#adminNavbar").mouseover(function() {
-			$("#adminMenu").css("display", "block")
-		});
-		$("#adminMenu").mouseover(function() {
-			$("#adminMenu").css("display", "block")
-			$("#adminNavbar").css("backgroundColor", "#EFEAE2")
-		});
-		$("#adminNavbar").mouseleave(function() {
-			$("#adminMenu").css("display", "none")
-		});
-		$("#adminMenu").mouseleave(function() {
-			$("#adminMenu").css("display", "none")
-			$("#adminNavbar").css("backgroundColor", "")
-		});
+// 		$("#adminNavbar").mouseover(function() {
+// 			$("#adminMenu").css("display", "block")
+// 		});
+// 		$("#adminMenu").mouseover(function() {
+// 			$("#adminMenu").css("display", "block")
+// 			$("#adminNavbar").css("backgroundColor", "#EFEAE2")
+// 		});
+// 		$("#adminNavbar").mouseleave(function() {
+// 			$("#adminMenu").css("display", "none")
+// 		});
+// 		$("#adminMenu").mouseleave(function() {
+// 			$("#adminMenu").css("display", "none")
+// 			$("#adminNavbar").css("backgroundColor", "")
+// 		});
 		
 		
 		///////////////////관리자 세부 메뉴///////////////////
@@ -87,112 +99,74 @@
 			$("#popSupportUser").toggle(400);
 		});
 
-		/////////////////////////////////////
-
+		
 		//소개
-		$("#introduceNavbar").mouseover(function() {
-			$("#introduceMenu").css("display", "block")
-
+		$('#introduceMenu').hide();
+		$('#introduceNavbar').css('cursor', 'pointer');
+		
+		$('#introduceNavbar').click(function(){
+			$('#introduceMenu').toggle(400);
+			$('#adminMenu').hide();
+			$('#townIntroduceMenu').hide();
+			$('#reservationMenu').hide();
+			$('#supportMenu').hide();
+			$('#boardMenu').hide();
 		});
-		$("#introduceMenu").mouseover(function() {
-			$("#introduceMenu").css("display", "block")
-			$("#introduceNavbar").css("backgroundColor", "#EFEAE2")
-
-		});
-
-		$("#introduceNavbar").mouseleave(function() {
-			$("#introduceMenu").css("display", "none")
-
-		});
-		$("#introduceMenu").mouseleave(function() {
-			$("#introduceMenu").css("display", "none")
-			$("#introduceNavbar").css("backgroundColor", "")
-
-		});
-
+		
+		
 		//마을소개
-		$("#townIntroduceNavbar").mouseover(function() {
-			$("#townIntroduceMenu").css("display", "block")
-
+		$('#townIntroduceMenu').hide();
+		$('#townIntroduceNavbar').css('cursor', 'pointer');
+		
+		$('#townIntroduceNavbar').click(function(){
+			$('#townIntroduceMenu').toggle(400);
+			$('#adminMenu').hide();
+			$('#introduceMenu').hide();
+			$('#reservationMenu').hide();
+			$('#supportMenu').hide();
+			$('#boardMenu').hide();
 		});
-		$("#townIntroduceMenu").mouseover(function() {
-			$("#townIntroduceMenu").css("display", "block")
-			$("#townIntroduceNavbar").css("backgroundColor", "#EFEAE2")
-
-		});
-
-		$("#townIntroduceNavbar").mouseleave(function() {
-			$("#townIntroduceMenu").css("display", "none")
-
-		});
-		$("#townIntroduceMenu").mouseleave(function() {
-			$("#townIntroduceMenu").css("display", "none")
-			$("#townIntroduceNavbar").css("backgroundColor", "")
-
-		});
-
+		
 		//예약
-		$("#reservationNavbar").mouseover(function() {
-			$("#reservationMenu").css("display", "block")
-
-		});
-		$("#reservationMenu").mouseover(function() {
-			$("#reservationMenu").css("display", "block")
-			$("#reservationNavbar").css("backgroundColor", "#EFEAE2")
-
-		});
-
-		$("#reservationNavbar").mouseleave(function() {
-			$("#reservationMenu").css("display", "none")
-
-		});
-		$("#reservationMenu").mouseleave(function() {
-			$("#reservationMenu").css("display", "none")
-			$("#reservationNavbar").css("backgroundColor", "")
-
+		$('#reservationMenu').hide();
+		$('#reservationNavbar').css('cursor', 'pointer');
+		
+		$('#reservationNavbar').click(function(){
+			$('#reservationMenu').toggle(400);
+			$('#adminMenu').hide();
+			$('#introduceMenu').hide();
+			$('#townIntroduceMenu').hide();
+			$('#supportMenu').hide();
+			$('#boardMenu').hide();
 		});
 
 		//게시판
-		$("#boardNavbar").mouseover(function() {
-			$("#boardMenu").css("display", "block")
-
+		$('#boardMenu').hide();
+		$('#boardNavbar').css('cursor', 'pointer');
+		
+		$('#boardNavbar').click(function() {
+			$('#boardMenu').toggle(400);
+			$('#adminMenu').hide();
+			$('#introduceMenu').hide();
+			$('#townIntroduceMenu').hide();
+			$('#supportMenu').hide();
+			$('#reservationMenu').hide();
 		});
-		$("#boardMenu").mouseover(function() {
-			$("#boardMenu").css("display", "block")
-			$("#boardNavbar").css("backgroundColor", "#EFEAE2")
-
-		});
-
-		$("#boardNavbar").mouseleave(function() {
-			$("#boardMenu").css("display", "none")
-
-		});
-		$("#boardMenu").mouseleave(function() {
-			$("#boardMenu").css("display", "none")
-			$("#boardNavbar").css("backgroundColor", "")
-
-		});
-
+		
 		//고객지원
-		$("#supportNavbar").mouseover(function() {
-			$("#supportMenu").css("display", "block")
-
+		$('#supportMenu').hide();
+		$('#supportNavbar').css('cursor', 'pointer');
+		
+		$('#supportNavbar').click(function() {
+			$('#supportMenu').toggle(400);
+			$('#adminMenu').hide();
+			$('#introduceMenu').hide();
+			$('#townIntroduceMenu').hide();
+			$('#reservationMenu').hide();
+			$('#boardMenu').hide();
 		});
-		$("#supportMenu").mouseover(function() {
-			$("#supportMenu").css("display", "block")
-			$("#supportNavbar").css("backgroundColor", "#EFEAE2")
-
-		});
-
-		$("#supportNavbar").mouseleave(function() {
-			$("#supportMenu").css("display", "none")
-
-		});
-		$("#supportMenu").mouseleave(function() {
-			$("#supportMenu").css("display", "none")
-			$("#supportNavbar").css("backgroundColor", "")
-
-		});
+		
+		
 
 	});
 </script>

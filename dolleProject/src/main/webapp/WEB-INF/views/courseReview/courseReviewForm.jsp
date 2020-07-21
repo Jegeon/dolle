@@ -278,13 +278,17 @@
 			alert("로그인 후 작성해주세요.");
 			location.href="<%=request.getContextPath()%>/auth/login.do" 
 		}else if(grade == "user"){
-			alert("접근불가능한 권한입니다.");
-			location.href="<%=request.getContextPath()%>"
+			location.href="<%=request.getContextPath()%>/courseReview/list.do"
 		}else if(grade == "admin"){
 			location.href="<%=request.getContextPath()%>/courseReview/adminList.do"
 		}
 	}
 
+	//다시 쓰기
+	function clearFnc(){
+		$("#reviewTitle").val("");
+		$("#reivewContent").val("");
+	}
 	
 </script>
 </head>
@@ -411,7 +415,7 @@
 			<div class="basicBox" style="text-align: center;">
 				<input class="inputBtn" type="button" onclick="movePageListFnc();" value="목록으로">
 				<input class="inputBtn" type="button" onclick="addFormFnc();" value="등록">
-				<input class="inputBtn" type="button" value="다시 쓰기">	
+				<input class="inputBtn" type="button" onclick="clearFnc();" value="다시 쓰기">	
 			</div>
 			
 		</form>

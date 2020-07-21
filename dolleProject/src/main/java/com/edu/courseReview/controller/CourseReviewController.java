@@ -1,5 +1,6 @@
 package com.edu.courseReview.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,6 +25,10 @@ import com.edu.courseReview.vo.CourseReviewMemberCommentFileVo;
 import com.edu.courseReview.vo.CourseReviewVo;
 import com.edu.member.vo.MemberVo;
 import com.edu.util.Paging;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 public class CourseReviewController {
@@ -76,19 +82,24 @@ public class CourseReviewController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/courseReview/checkReadCount.do", method = {RequestMethod.GET, RequestMethod.POST})
-//	public Object checkReadCount(int readcount, int cmtCount, int imgWidth, int imgHeight, Model model) {
-	public Object checkReadCount(List<Integer> reviewIdxList, Model model) {
-		log.debug("checkReadCount test! - {}", reviewIdxList);
+	@RequestMapping(value = "/courseReview/checkList.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public Object checkList(String[] reviewIdxArr, Model model) throws JsonParseException, JsonMappingException, IOException {
+		log.debug("checkList test! ");
+
+		List<String> reviewIdxList = new ArrayList<String>();
+		for(int i=0; i<reviewIdxArr.length; i++) {			
+			reviewIdxList.add(reviewIdxArr[i]);
+		}
+
+		List<String> readCountList = new ArrayList<String>();
+		readCountList = courseReviewService.reviewFindReadCount(reviewIdxList);
 		
-		List<Integer> readCount = new ArrayList<Integer>();
-		readCount = courseReviewService.reviewFindReadCount(reviewIdxList);
-		System.out.println(readCount);
+		List<String> cmtCountList = new ArrayList<String>();
+		cmtCountList = courseReviewService.reviewFindCmtNum(reviewIdxList);
+
 		HashMap<String, Object> map = new HashMap<>();
-		map.put("readCount", readCount);
-//		map.put("cmtCount", cmtCount);
-//		map.put("imgWidth", imgWidth);
-//		map.put("imgHeight", imgHeight);
+		map.put("readCountList", readCountList);
+		map.put("cmtCountList", cmtCountList);
 		
 		return map;
 	}

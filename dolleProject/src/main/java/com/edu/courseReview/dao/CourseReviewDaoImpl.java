@@ -196,9 +196,15 @@ public class CourseReviewDaoImpl implements CourseReviewDao{
 	}
 
 	@Override
-	public List<Integer> reviewFindReadCount(List<Integer> reviewIdxList) {
+	public List<String> reviewFindReadCount(List<String> reviewIdxList) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList(namespace + "reviewFindReadCount", reviewIdxList);
+		return  sqlSession.selectList(namespace + "reviewFindReadCount", reviewIdxList);
+	}
+
+	@Override
+	public List<String> reviewFindCmtNum(List<String> reviewIdxList) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace + "reviewFindCmtNum", reviewIdxList);
 	}
 
 	

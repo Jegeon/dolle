@@ -220,9 +220,9 @@
 	</select>
 	
 	
-	<select id="reviewFindReadCount" parameterType="java.util.List" resultType="java.util.List">
+	<select id="reviewFindReadCount" parameterType="java.util.List" resultType="java.util.HashMap">
 		<if test="list.size != 0">
-		SELECT REVIEW_READ_COUNT, REVIEW_IDX
+		SELECT REVIEW_READ_COUNT
 		FROM REVIEWBOARD
 		WHERE REVIEW_IDX IN 
 				<foreach collection="list" item="item" 
@@ -230,6 +230,21 @@
 	 				#{item} 
 	 			</foreach>
 		ORDER BY REVIEW_IDX DESC
+		</if>
+	</select>
+	
+	<select id="reviewFindCmtNum" parameterType="java.util.List" resultType="java.util.HashMap">
+		<if test="list.size != 0">
+		SELECT NVL(C.COMMENT_COUNT,0) AS COMMENT_COUNT
+		FROM REVIEWBOARD RB
+		    ,(SELECT REVIEW_IDX, COUNT(*) AS COMMENT_COUNT FROM REVIEW_COMMENT GROUP BY REVIEW_IDX) C
+		WHERE RB.REVIEW_IDX = C.REVIEW_IDX(+)
+		AND RB.REVIEW_IDX IN 
+					<foreach collection="list" item="item" 
+		 				open="(" close=")" separator=","> 
+		 				#{item} 
+		 			</foreach>
+		ORDER BY RB.REVIEW_IDX DESC
 		</if>
 	</select>
 	

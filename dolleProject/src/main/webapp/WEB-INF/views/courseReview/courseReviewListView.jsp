@@ -40,6 +40,18 @@
 	    height: 28px;
 	}
 	
+	/* 이미지박스 리스트 */
+	.photo_Box{
+		cursor:pointer;
+		background-color: lightgray;
+		overflow:hidden; 
+		width:306px; height:342px; 
+		position: absolute; 
+	}
+	.innerBox_txt{
+		color:#fff; opacity:1; width:306px; height:114px; position: absolute; cursor:pointer;
+	}
+	
 	/* 정렬 */
 	#orderOption{
 		width:120px; padding: 6px 22px; vertical-align: middle;
@@ -122,24 +134,21 @@
 	.fifthRow{top: 1272px;}
 	
 	
-	/*  */
+	/* 이미지 세로 가로 길이가 넓은 것에 따라 가변 */
 	.height100percent{
 		position: relative;
 		height: 342px;
-/* 		transition-property: position; */
-/* 		transition-duration: 10s; */
 	}
 	.width100percent{
 		position: relative;
 		width: 306px;
-/* 		transition: position 10s; */
 	}
-/* 	.height100percent:hover{ */
-/* 		right: 306px; */
-/* 	} */
-/* 	.width100percent:hover{ */
-/* 		bottom: 342px; */
-/* 	} */
+	
+	/* 글쓰기 버튼 */
+	#writeBtn{
+		width:200px; height:45px; font:normal bold 18px Segoe UI; color:white; 
+		background-color: #0D4371; float:right; border:0px; margin-right: 20px;
+	}
 	
 </style>
 <script type="text/javascript" src="/dolleProject/resources/js/jquery-3.5.1.js"></script>
@@ -147,27 +156,63 @@
 	
 	$(document).ready(function() {
 		
-// 		var nickObj = $('#member_nick').val();
-
-		var reviewIdxList = [];
-		//뒤로가기의 경우, 데이터를 가져오게 하기 위해 사용
+		var reviewIdxArr = new Array();
 		$(".reviewIdxList").each(function(index){
-			alert($(this).val() + ": "+ index);
-			
 			var reviewIdxVal = $(this).val();
-			reviewIdxList.push(reviewIdxVal);
+			reviewIdxArr[index] = reviewIdxVal;
 		});	
 		
+		//뒤로가기의 경우, 데이터를 가져오게 하기 위해 사용
 		$.ajax({
-			url: './checkReadCount.do', 
 			type:"POST",
-			data : 'reviewIdxList='+reviewIdxList,
+			data : 'reviewIdxArr=' + reviewIdxArr,
+			url: './checkList.do', 
 			success: function(data){
-				alert("성공" + data.readCount.get(0));
-// 				$("#readCount"+index).html(data.readCount);
+// 				alert("성공");
+// 				alert(data.readCountList[0]s.REVIEW_READ_COUNT);
+				for (var i = 0; i < data.readCountList.length; i++) {				
+					var readCount = data.readCountList[i].REVIEW_READ_COUNT;
+					$("#readCount"+i).html(readCount);
+				}
+				
+				for (var i = 0; i < data.cmtCountList.length; i++) {				
+					var cmtCount = data.cmtCountList[i].COMMENT_COUNT;
+					$("#cmtCount"+i).html(cmtCount);
+				}
+				
+				//출력 이미지가 가로가 더 긴 이미지면 세로 100%기준으로 맞춘다.
+				//출력 이미지가 세로가 더 긴 이미지면 가로 100%기준으로 맞춘다.
+				for(var i=1; i<=20; i++){
+					var width = $("#photoImg"+i).css("width");
+					var widthVal = Number(width.substr(0, width.length-2));
+					var height = $("#photoImg"+i).css("height");
+					var heightVal = Number(height.substr(0, height.length-2));
+//		 			alert(i+" : "+widthVal+" : "+heightVal);
+					if(widthVal >= heightVal){
+						$("#photoImg"+i).attr("class", "height100percent");
+					}else{
+						$("#photoImg"+i).attr("class", "width100percent");
+					}
+				}
+				
 			},
 			error : function(){
-				alert("실패");
+// 				alert("실패");
+				//검색 결과가 없는 경우 
+				var html = "";
+				html += "<div id='noSearchBox'>";
+				html += "<div id='noSearch'>";
+				html += "<img style='width:150px;' alt='error' src='/dolleProject/resources/images/error/close.png'>";
+				html += "</div>";
+				html += "<h1 style='font: normal normal 28px 대한민국정부상징체;'>검색된 결과가 없습니다.</h1>";
+				html += "</div>";
+				
+				var reviewList = $("#reviewList"); 
+				reviewList.before($(html));
+				
+				//글쓰기버튼 이전 위치에 초기검색 리스트로 돌아가는 버튼 추가
+				var listBackBtn = $("<button id='writeBtn' onclick='listBackFnc();'>목록으로</button>"); 
+				listBackBtn.insertAfter($("#writeBtn"));
 			}
 		});
 			
@@ -227,22 +272,6 @@
 		}
 		
 		
-		//출력 이미지가 가로가 더 긴 이미지면 세로 100%기준으로 맞춘다.
-		//출력 이미지가 세로가 더 긴 이미지면 가로 100%기준으로 맞춘다.
-		for(var i=1; i<=20; i++){
-			var width = $("#photoImg"+i).css("width");
-			var widthVal = Number(width.substr(0, width.length-2));
-			var height = $("#photoImg"+i).css("height");
-			var heightVal = Number(height.substr(0, height.length-2));
-// 			alert(i+" : "+widthVal+" : "+heightVal);
-			if(widthVal >= heightVal){
-				$("#photoImg"+i).attr("class", "height100percent");
-			}else{
-				$("#photoImg"+i).attr("class", "width100percent");
-			}
-		}
-		
-		
 	});
 	
 	function goPageFnc(pageNum){
@@ -267,6 +296,10 @@
 		}else{
 			location.href="./add.do";
 		}
+	}
+	
+	function listBackFnc(){
+		location.href="<%=request.getContextPath()%>/courseReview/list.do" 
 	}
 	
 	function detailPageFnc(reviewIdx){
@@ -333,18 +366,7 @@
 	</c:if>
 	
 	<div style="width:1260px; height:${listHeight}px; margin:0 auto;">
-		
-		<!-- 검색결과가 없는 경우 -->
-		<c:if test="${listSize == 0 }">
-			<div id="noSearchBox">
-				<div id="noSearch">
-
-					<img style="width:150px;" alt="error" src="/dolleProject/resources/images/error/close.png">
-				</div>
-				<h1 style="font: normal normal 28px 대한민국정부상징체;">검색된 결과가 없습니다.</h1>
-			</div>
-		</c:if>
-		
+	
 		<ul id="reviewList" style="position: relative;">
 			<!-- 고정 박스  -->
 			<c:if test="${listSize >= 1}">
@@ -409,15 +431,13 @@
 					
 					<li class="reviewList_li" onclick="detailPageFnc(${reviewVo.reviewIdx});">
 						<div class="photo_Box"
-							style="overflow:hidden; width:306px; height:342px; position: absolute; top:${TopPosition1}px; left:${leftPosition}px;
-							background-color: lightgray;">
+							style="top:${TopPosition1}px; left:${leftPosition}px;">
 							<img id="photoImg${listIndex.count}" alt="review_photo" src="<c:url value='/img/${reviewVo.fileStoredName}'/>">
 						</div>
 						<span class="innerBox" style="width:306px; height:114px; position: absolute; top:${TopPosition2}px; left:${leftPosition}px; 
 							background-color: #000; opacity: 0.3;">			
 						</span>
-						<div class="innerBox_txt" style="width:306px; height:114px; position: absolute; top:${TopPosition2}px; left:${leftPosition}px; 
-							color:#fff; opacity: 1;">
+						<div class="innerBox_txt" style="top:${TopPosition2}px; left:${leftPosition}px;">
 							<div style="font: normal bold 22px Segoe UI; margin: 18px 20px 0px; display: block;">
 								<p class="titleOverFlow">${reviewVo.reviewTitle}</p>
 							</div>
@@ -435,7 +455,7 @@
 							<span style="width:50px; display: inline-block; margin-left: 10px;">
 								<img alt="Icon_comment" src="/dolleProject/resources/images/IconComment.png"
 									style="width: 16px; vertical-align: middle;">
-								<span style="font: normal bold 14px Segoe UI; vertical-align: middle;">${reviewVo.commentCount}</span>	
+								<span id="cmtCount${listIndex.index}" style="font: normal bold 14px Segoe UI; vertical-align: middle;">${reviewVo.commentCount}</span>	
 							</span>
 						</div>
 					</li>
@@ -483,9 +503,7 @@
 			</li>
 		</ul>
 		<input id="reviewMemberIdx" type="hidden" value="${_memberVo_.no}">
-		<button onclick="pageMoveFnc();"
-			style="width:200px; height:45px; font:normal bold 18px Segoe UI; color:white; 
-			background-color: #0D4371; float:right; border:0px; margin-right: 20px;">
+		<button id="writeBtn" onclick="pageMoveFnc();">
 			글쓰기
 		</button>
 		

@@ -1,6 +1,7 @@
 package com.edu.courseReview.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -229,9 +230,15 @@ public class CourseReviewServiceImpl implements CourseReviewService{
 	}
 
 	@Override
-	public List<Integer> reviewFindReadCount(List<Integer> reviewIdxList) {
+	public List<String> reviewFindReadCount(List<String> reviewIdxList) {
 		// TODO Auto-generated method stub
 		return courseReviewDao.reviewFindReadCount(reviewIdxList);
+	}
+
+	@Override
+	public List<String> reviewFindCmtNum(List<String> reviewIdxList) {
+		// TODO Auto-generated method stub
+		return courseReviewDao.reviewFindCmtNum(reviewIdxList);
 	}
 
 	

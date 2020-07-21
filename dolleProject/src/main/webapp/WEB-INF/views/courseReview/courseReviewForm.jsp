@@ -285,7 +285,7 @@
 	}
 
 	//다시 쓰기
-	function clearFnc(){
+	function clearTxtFnc(){
 		$("#reviewTitle").val("");
 		$("#reivewContent").val("");
 	}
@@ -415,7 +415,7 @@
 			<div class="basicBox" style="text-align: center;">
 				<input class="inputBtn" type="button" onclick="movePageListFnc();" value="목록으로">
 				<input class="inputBtn" type="button" onclick="addFormFnc();" value="등록">
-				<input class="inputBtn" type="button" onclick="clearFnc();" value="다시 쓰기">	
+				<input class="inputBtn" type="button" onclick="clearTxtFnc();" value="다시 쓰기">	
 			</div>
 			
 		</form>

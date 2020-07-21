@@ -141,7 +141,8 @@
 	<select id="reviewTotalCount" parameterType="map" resultType="Integer">
 		SELECT COUNT(*)
 		FROM MEMBER M, REVIEWBOARD R
-		WHERE M.MEMBER_IDX = #{no}
+		WHERE M.MEMBER_IDX = #{NO}
+        AND R.MEMBER_IDX = M.MEMBER_IDX
 		ORDER BY R.REVIEW_IDX DESC
 	</select>
 

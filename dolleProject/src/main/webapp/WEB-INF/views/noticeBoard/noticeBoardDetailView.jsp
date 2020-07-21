@@ -120,7 +120,6 @@ body {
 
 #listBtnDiv {
 	margin: auto; 
-	width: 480px; 
 	padding-top: 40px;
 }
 
@@ -128,7 +127,7 @@ body {
 	width: 230px; 
 	height: 40px; 
 	background-color: #0D4371; 
-	text-align: center; 
+	text-align: center;
 	vertical-align: middle; 
 	color: white; 
 	font-weight: bold; 

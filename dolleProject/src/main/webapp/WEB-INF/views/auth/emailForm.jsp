@@ -169,8 +169,7 @@
 		
 		// 월에 따른 일 체크
 		monthArray = ['30','28','31','30','31','30','31','31','30','31','30','31'];
-		
-		if (!(dayObj.value >= 1 && dayObj.value <= monthArray[(monthCheck.value) - 1])) {
+		if (!(dayObj.value >= 1 || dayObj.value <= monthArray[(monthCheck.value) - 1])) {
 			birthCheck.innerHTML =
 				monthCheck.value + '월은 1~' + monthArray[(monthCheck.value) - 1] + '일 까지입니다.' ;
 			dayObj.style.outlineColor = '#FF0000';

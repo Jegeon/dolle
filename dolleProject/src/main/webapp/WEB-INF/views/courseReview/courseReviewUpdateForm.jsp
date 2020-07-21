@@ -244,7 +244,7 @@
 	
 	
 	function changeBasicFnc(){
-		$("#uploadImg").attr("src", "<c:url value='/img/test.jpg'/>");
+		$("#uploadImg").attr("src", "<c:url value='/img/reviewDefaultImg.jpg'/>");
 // 		$("#fileBtn").file = '/img/test.jpg';
 			
 // 		$('input[type=file]')[0].files[0].name            
@@ -300,8 +300,7 @@
 			</div>
 			
 			<div class="floatRight" style="margin: 10px 190px 40px;">
-				<span style="margin-right:10px; font-size:12px;" onclick="changeBasicFnc();">기본 사진으로 변경</span>
-<!-- 				<button id="changePhotoBtn" onclick="">사진 변경하기</button> -->
+<!-- 				<span style="margin-right:10px; font-size:12px;" onclick="changeBasicFnc();">기본 사진으로 변경</span> -->
 				<input id="fileBtn" type="file" name="file" >
 			</div>
 			

@@ -281,6 +281,20 @@
 			emailCheck.innerHTML = '';
 		}
 		
+		var emailList = document.getElementsByName('emailList');
+		// 이메일 중복 확인
+		for (var i = 0; i < emailList.length; i++) {
+			if (emailObj.value == emailList[i].value) {
+				emailCheck.innerHTML = '이미 존재하는 이메일입니다.';
+				emailObj.style.outlineColor = '#FF0000';
+				emailObj.focus();
+				return false;
+			} else {
+				emailObj.style.outlineColor = '#0D4371';
+				emailCheck.innerHTML = '';
+			}
+		}
+		
 		// 인증번호 검증
 		
 		// 비밀번호 자리수 유효성
@@ -653,6 +667,10 @@
 				</c:if>
 			</div>
 	</div>
+	
+	<c:forEach var='memberVo' items='${userList}'>
+		<input name='emailList' type='hidden' value='${memberVo.email}'>
+	</c:forEach>
 
 	<jsp:include page="/WEB-INF/views/Tail.jsp"/>
 

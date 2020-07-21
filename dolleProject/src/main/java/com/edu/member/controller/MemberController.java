@@ -308,6 +308,10 @@ public class MemberController {
 	public String memberAdd(Model model) {
 		log.debug("Welcome MemberController memberAdd 페이지 이동! ");
 		
+		List<MemberVo> userList = memberService.userList();
+		
+		model.addAttribute("userList", userList);
+		
 		return "member/memberForm";
 	}
 

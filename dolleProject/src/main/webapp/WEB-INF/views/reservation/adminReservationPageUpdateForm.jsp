@@ -246,9 +246,6 @@
 	<div style="width:1260px; height:55px; margin:0 auto; text-align: center;" >
 		<h1 class="daehanFont" style="margin: 10px 0px 10px;">가이드 투어 예약페이지 수정</h1>
 	</div>
-	<div>
-		<button onclick="loveFnc();">용훈</button>
-	</div>
 	<div style="width: 610px; height: 820px; margin: auto;">
 		<form action="./reservationPageUpdateCtr.do" method="post" onsubmit='return validationFnc();' enctype="multipart/form-data">
 			<div>

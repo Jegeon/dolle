@@ -65,6 +65,11 @@
 				return [false];
 			}
 		}
+		
+		var love = document.getElementById("tourStartDateStr").childNodes[0].nodeValue;
+	    if (date < new Date(love)){ // 이전일
+	        return [false];
+	    }
 		// 해당하지 않는 날짜는 표시한다.
 	    return [true];
 	}
@@ -72,6 +77,7 @@
     
     function calculateFnc() {
     	document.getElementById("predictedTotal").value = document.getElementById("selectedTourPeopleNumInput").value * ${tourVo.tourPrice};
+    	document.getElementById("selectedTourPeopleNumInput").value = parseInt(document.getElementById("selectedTourPeopleNumInput").value);
     }
 	function pageMoveListOneFnc(){
 		location.href = "listOne.do?tourNo=${tourVo.tourNo}";
@@ -181,7 +187,7 @@
 						<tr>
 							<td class="uzin">기간</td>
 							<td>
-							<a>
+							<a id="tourStartDateStr">
 								<fmt:formatDate value="${tourVo.tourStartDate}" pattern="yyyy-MM-dd" />
 							</a>
 							~

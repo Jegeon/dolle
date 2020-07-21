@@ -14,6 +14,7 @@
 <script>
     $(function () {
     	var date = new Date(); 
+		
 		var dateRawStr = document.getElementById("tourEndDateStr").childNodes[0].nodeValue;
 		var dateStr = dateRawStr.replace(/(\s*)/g, "");
 		var endYear = dateStr.substring(0, 4);
@@ -61,6 +62,11 @@
 				return [false];
 			}
 		}
+	    
+	    var love = document.getElementById("tourStartDateStr").childNodes[0].nodeValue;
+	    if (date < new Date(love)){ // 이전일
+	        return [false];
+	    }
 		// 해당하지 않는 날짜는 표시한다.
 	    return [true];
 	}
@@ -162,7 +168,7 @@
 						<tr>
 							<td class="uzin">기간</td>
 							<td>
-							<a>
+							<a id="tourStartDateStr">
 								<fmt:formatDate value="${tourVo.tourStartDate}" pattern="yyyy-MM-dd" />
 							</a>
 							~

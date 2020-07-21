@@ -50,15 +50,15 @@
 	
 	function validationFnc(){
 		// ObjValue 모음 시작
-		var tourNameObjValue = document.getElementById("tourName").value;
-		var tourStartDateObjValue = document.getElementById("tourStartDate").value;
-		var tourEndDateObjValue = document.getElementById("tourEndDate").value;
-		var tourStartTimeObjValue = document.getElementById("tourStartTime").value;
-		var tourEndTimeObjValue = document.getElementById("tourEndTime").value;
-		var tourPeopleNumObjValue = document.getElementById("tourPeopleNum").value;
-		var tourPriceObjValue = document.getElementById("tourPrice").value;
-		var tourStartingPointObjValue = document.getElementById("tourStartingPoint").value;
-		var tourContentObjValue = document.getElementById("tourContent").value;
+		var tourNameObjValue = $("#tourName").val();
+		var tourStartDateObjValue = $("#tourStartDate").val();
+		var tourEndDateObjValue = $("#tourEndDate").val();
+		var tourStartTimeObjValue = $("#tourStartTime").val();
+		var tourEndTimeObjValue = $("#tourEndTime").val();
+		var tourPeopleNumObjValue = $("#tourPeopleNum").val();
+		var tourPriceObjValue = $("#tourPrice").val();
+		var tourStartingPointObjValue = $("#tourStartingPoint").val();
+		var tourContentObjValue = $("#tourContent").val();
 		
 		var fileObjValue = $("#fileBtn").val();
 		// ObjValue 모음 끝
@@ -74,6 +74,8 @@
 		var errorCode8 = "투어 출발지 입력 필요";
 		var errorCode9 = "투어 내용 입력 필요";
 		
+		var errorCode10 = "파일 추가 필요";
+		
 		// 글자수 시작
 		if(tourNameObjValue == null || tourNameObjValue.trim() == "" || tourNameObjValue.length == 0){
 			alert(errorStr + " - " + errorCode1);
@@ -85,14 +87,24 @@
 			return false;
 		}
 		// 글자수 끝
-		if (!tourStartDateObjValue) {
-			alert(errorStr + " - " + errorCode1);
+		if(fileObjValue == null || fileObjValue.trim() == "" || fileObjValue.length == 0){
+			alert(errorStr + " - " + errorCode10);
 			return false;
 		}
-		if (!tourEndDateObjValue) {
+		if (tourStartDateObjValue == null || tourStartDateObjValue == "" || tourStartDateObjValue.length == 0) {
 			alert(errorStr + " - " + errorCode2);
 			return false;
 		}
+		if (!tourEndDateObjValue || tourEndDateObjValue=="") {
+			alert(errorStr + " - " + errorCode3);
+			return false;
+		}
+		// 시작일 < 종료일 문자열로 해결 시작
+		if(Number(tourStartDateObjValue.replace(/-/gi,"")) > Number(tourEndDateObjValue.replace(/-/gi,"")) ){
+		   alert("종료일은 시작일 이후여야 합니다.");
+		   return false;
+		} 
+		// 시작일 < 종료일 문자열로 해결 종료
 		if (!tourStartTimeObjValue || tourStartTimeObjValue=="") {
 			alert(errorStr + " - " + errorCode4);
 			return false;
@@ -134,7 +146,6 @@
 	    var mm = end_ymd.substr(5,2);
 	    var dd = end_ymd.substr(8,2);                        
 	    var com_ymd = new Date(yyyy, mm-1, dd);
-	    alert(com_ymd);
 		var hiddenTourStartDateObj = document.getElementById("tourStartDate");
 		hiddenTourStartDateObj.value = fromDtObj.value;
 	}
@@ -145,7 +156,6 @@
 	    var mm1 = end_ymd1.substr(5,2);
 	    var dd1 = end_ymd1.substr(8,2);                        
 	    var com_ymd1 = new Date(yyyy1, mm1-1, dd1);
-	    alert(com_ymd1);
 		var hiddenTourEndDateObj = document.getElementById("tourEndDate");
 		hiddenTourEndDateObj.value = toDtObj.value;
 	}
@@ -186,6 +196,7 @@
 			
 		});
 	}
+	
 </script>
 <style type="text/css">
 	button {
@@ -234,6 +245,9 @@
 
 	<div style="width:1260px; height:55px; margin:0 auto; text-align: center;" >
 		<h1 class="daehanFont" style="margin: 10px 0px 10px;">가이드 투어 예약페이지 수정</h1>
+	</div>
+	<div>
+		<button onclick="loveFnc();">용훈</button>
 	</div>
 	<div style="width: 610px; height: 820px; margin: auto;">
 		<form action="./reservationPageUpdateCtr.do" method="post" onsubmit='return validationFnc();' enctype="multipart/form-data">

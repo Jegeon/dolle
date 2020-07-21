@@ -91,6 +91,12 @@
 			alert(errorStr + " - " + errorCode3);
 			return false;
 		}
+		// 시작일 < 종료일 문자열로 해결 시작
+		if(Number(tourStartDateObjValue.replace(/-/gi,"")) > Number(tourEndDateObjValue.replace(/-/gi,"")) ){
+		   alert("종료일은 시작일 이후여야 합니다.");
+		   return false;
+		} 
+		// 시작일 < 종료일 문자열로 해결 종료
 		if (!tourStartTimeObjValue || tourStartTimeObjValue=="") {
 			alert(errorStr + " - " + errorCode4);
 			return false;

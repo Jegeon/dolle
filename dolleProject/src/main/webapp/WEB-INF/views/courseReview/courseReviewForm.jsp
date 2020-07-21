@@ -307,13 +307,12 @@
 		
 		<form id="addForm" action="./addCtr.do" method="post" enctype="multipart/form-data" onsubmit="return addFormFnc();">
 			<div id="uploadImageBox" class="basicBox" style="text-align: center; overflow: hidden;">	
-				<img id="uploadImg" alt="upload_image" src="/dolleProject/resources/images/test.jpg"
+				<img id="uploadImg" alt="upload_image" src="/dolleProject/resources/images/reviewDefaultImg.jpg"
 					style="width:100%;">
 			</div>
 			
 			<div class="floatRight" style="margin: 10px 180px 40px;">
-<!-- 				<span style="margin-right:10px; font-size:12px;">기본 사진으로 변경</span> -->
-				<input id="changePhotoBtn" type="button" onclick="changeBasicPhotoFnc();" value="기본 사진으로 변경">
+<!-- 				<input id="changePhotoBtn" type="button" onclick="changeBasicPhotoFnc();" value="기본 사진으로 변경"> -->
 				<input id="fileBtn" type="file" name="file">
 			</div>
 			

@@ -151,7 +151,7 @@ public class NoticeController {
 	
 	@RequestMapping(value= "/noticeBoard/noticeDownPage.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String noticeDownPage(Model model, int rNum) {
-		log.debug("●▅▇█▇▅▄▄▌           Welcome noticeDownPage!!!!!!!     ●▅▇█▇▅▄▄▌");
+		log.debug("●▅▇█▇▅▄▄▌           Welcome noticeDownPage!!!!!!!     ●▅▇█▇▅▄▄▌"+rNum);
 		
 		NoticeMemberFileVo noticeVo = noticeService.downWriteNotice(rNum);
 		System.out.println("notice rnum : " + rNum);

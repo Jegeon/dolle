@@ -42,115 +42,68 @@
 <script type="text/javascript">
    $(document).ready(function() {
    		
-	   //소개
-       $("#introduceNavbar").mouseover(function() {
-          $("#introduceMenu").css("display", "block")
-   
-       });
-       $("#introduceMenu").mouseover(function() {
-          $("#introduceMenu").css("display", "block")
-          $("#introduceNavbar").css("backgroundColor", "#EFEAE2")
-   
-       });
-       
-       $("#introduceNavbar").mouseleave(function() {
-          $("#introduceMenu").css("display", "none")
-   
-       });
-       $("#introduceMenu").mouseleave(function() {
-          $("#introduceMenu").css("display", "none")
-          $("#introduceNavbar").css("backgroundColor", "")
-   
-       });
-       
-       //마을소개
-       $("#townIntroduceNavbar").mouseover(function() {
-          $("#townIntroduceMenu").css("display", "block")
-   
-       });
-       $("#townIntroduceMenu").mouseover(function() {
-          $("#townIntroduceMenu").css("display", "block")
-          $("#townIntroduceNavbar").css("backgroundColor", "#EFEAE2")
-   
-       });
-       
-       $("#townIntroduceNavbar").mouseleave(function() {
-          $("#townIntroduceMenu").css("display", "none")
-   
-       });
-       $("#townIntroduceMenu").mouseleave(function() {
-          $("#townIntroduceMenu").css("display", "none")
-          $("#townIntroduceNavbar").css("backgroundColor", "")
-   
-       });
-       
-       //예약
-       $("#reservationNavbar").mouseover(function() {
-          $("#reservationMenu").css("display", "block")
-   
-       });
-       $("#reservationMenu").mouseover(function() {
-          $("#reservationMenu").css("display", "block")
-          $("#reservationNavbar").css("backgroundColor", "#EFEAE2")
-   
-       });
-       
-       $("#reservationNavbar").mouseleave(function() {
-          $("#reservationMenu").css("display", "none")
-   
-       });
-       $("#reservationMenu").mouseleave(function() {
-          $("#reservationMenu").css("display", "none")
-          $("#reservationNavbar").css("backgroundColor", "")
-   
-       });
-       
-       //게시판
-       $("#boardNavbar").mouseover(function() {
-          $("#boardMenu").css("display", "block")
-   
-       });
-       $("#boardMenu").mouseover(function() {
-          $("#boardMenu").css("display", "block")
-          $("#boardNavbar").css("backgroundColor", "#EFEAE2")
-   
-       });
-       
-       $("#boardNavbar").mouseleave(function() {
-          $("#boardMenu").css("display", "none")
-   
-       });
-       $("#boardMenu").mouseleave(function() {
-          $("#boardMenu").css("display", "none")
-          $("#boardNavbar").css("backgroundColor", "")
-   
-       });
-       
-       //고객지원
-       $("#supportNavbar").mouseover(function() {
-          $("#supportMenu").css("display", "block")
-   
-       });
-       $("#supportMenu").mouseover(function() {
-          $("#supportMenu").css("display", "block")
-          $("#supportNavbar").css("backgroundColor", "#EFEAE2")
-   
-       });
-       
-       $("#supportNavbar").mouseleave(function() {
-          $("#supportMenu").css("display", "none")
-   
-       });
-       $("#supportMenu").mouseleave(function() {
-          $("#supportMenu").css("display", "none")
-          $("#supportNavbar").css("backgroundColor", "")
-   
-       });
-   
-    });
-   
-   
+	 
+		//소개
+		$('#introduceMenu').hide();
+		$('#introduceNavbar').css('cursor', 'pointer');
 
+		$('#introduceNavbar').click(function() {
+			$('#introduceMenu').toggle(400);
+			$('#townIntroduceMenu').hide();
+			$('#reservationMenu').hide();
+			$('#supportMenu').hide();
+			$('#boardMenu').hide();
+		});
+
+		//마을소개
+		$('#townIntroduceMenu').hide();
+		$('#townIntroduceNavbar').css('cursor', 'pointer');
+		
+		$('#townIntroduceNavbar').click(function(){
+			$('#townIntroduceMenu').toggle(400);
+			$('#introduceMenu').hide();
+			$('#reservationMenu').hide();
+			$('#supportMenu').hide();
+			$('#boardMenu').hide();
+		});
+
+		//예약
+		$('#reservationMenu').hide();
+		$('#reservationNavbar').css('cursor', 'pointer');
+		
+		$('#reservationNavbar').click(function(){
+			$('#reservationMenu').toggle(400);
+			$('#introduceMenu').hide();
+			$('#townIntroduceMenu').hide();
+			$('#supportMenu').hide();
+			$('#boardMenu').hide();
+		});
+
+		//게시판
+		$('#boardMenu').hide();
+		$('#boardNavbar').css('cursor', 'pointer');
+		
+		$('#boardNavbar').click(function() {
+			$('#boardMenu').toggle(400);
+			$('#introduceMenu').hide();
+			$('#townIntroduceMenu').hide();
+			$('#supportMenu').hide();
+			$('#reservationMenu').hide();
+		});
+
+		//고객지원
+		$('#supportMenu').hide();
+		$('#supportNavbar').css('cursor', 'pointer');
+		
+		$('#supportNavbar').click(function() {
+			$('#supportMenu').toggle(400);
+			$('#introduceMenu').hide();
+			$('#townIntroduceMenu').hide();
+			$('#reservationMenu').hide();
+			$('#boardMenu').hide();
+		});
+
+	});
 </script>
 
 
@@ -171,7 +124,9 @@
 		<div style="border-bottom: 1px solid #A5A5A5;">
 			<div
 				style="text-align: center; padding: 30px 0px 10px 0px; box-sizing: border-box;">
-				<div style="font-size: 50px;">돌레길</div>
+				<div style="font-size: 50px;">
+					<a class='blackLink' href='<%=request.getContextPath()%>'>돌레길</a>
+				</div>
 				<div style="padding-bottom: 15px;">
 					<div style="float: right;">
 						<a class='blackLink' href='<%=request.getContextPath()%>/member/listOne.do?no=${_memberVo_.no}'>

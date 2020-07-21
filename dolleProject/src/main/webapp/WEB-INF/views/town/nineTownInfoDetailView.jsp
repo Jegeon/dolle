@@ -201,7 +201,7 @@
 		$('#townPlayDiv').css("backgroundColor", "#ffffff");
 		$('#townPlayDiv').css("color", "#000000");
 		
-		$('#leftImg').attr("src", "/dolleProject/resources/images/townIntroduce/recommendCourseImg.jpg");
+		$('#leftImg').attr("src", "/dolleProject/resources/images/townIntroduce/recommendCourseImg.png");
 		$('#imgWrap').css("paddingTop", "0px");
 	}
 		
@@ -292,8 +292,7 @@
 					
 					<div class='contentSpan'>
 						<span class='spanHeight'>
-							별점
-							<br>성균관대학교-와룡공원-이루재
+							성균관대학교-와룡공원-이루재
 							<br>-성곽공원길-우암송시열집터
 							<br>-한무숙문학관-장면총리가옥-혜화동로터리
 						</span>

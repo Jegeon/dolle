@@ -42,54 +42,25 @@
 <script type="text/javascript">
    $(document).ready(function() {
    		
-	   //소개
-       $("#introduceNavbar").mouseover(function() {
-          $("#introduceMenu").css("display", "block")
-   
-       });
-       $("#introduceMenu").mouseover(function() {
-          $("#introduceMenu").css("display", "block")
-          $("#introduceNavbar").css("backgroundColor", "#EFEAE2")
-   
-       });
-       
-       $("#introduceNavbar").mouseleave(function() {
-          $("#introduceMenu").css("display", "none")
-   
-       });
-       $("#introduceMenu").mouseleave(function() {
-          $("#introduceMenu").css("display", "none")
-          $("#introduceNavbar").css("backgroundColor", "")
-   
-       });
-       
-       //마을소개
-       $("#townIntroduceNavbar").mouseover(function() {
-          $("#townIntroduceMenu").css("display", "block")
-   
-       });
-       $("#townIntroduceMenu").mouseover(function() {
-          $("#townIntroduceMenu").css("display", "block")
-          $("#townIntroduceNavbar").css("backgroundColor", "#EFEAE2")
-   
-       });
-       
-       $("#townIntroduceNavbar").mouseleave(function() {
-          $("#townIntroduceMenu").css("display", "none")
-   
-       });
-       $("#townIntroduceMenu").mouseleave(function() {
-          $("#townIntroduceMenu").css("display", "none")
-          $("#townIntroduceNavbar").css("backgroundColor", "")
-   
-       });
-       
-       
-   
-    });
-   
-   
+	  	//소개
+		$('#introduceMenu').hide();
+		$('#introduceNavbar').css('cursor', 'pointer');
 
+		$('#introduceNavbar').click(function() {
+			$('#introduceMenu').toggle(400);
+			$('#townIntroduceMenu').hide();
+		});
+
+		//마을소개
+		$('#townIntroduceMenu').hide();
+		$('#townIntroduceNavbar').css('cursor', 'pointer');
+		
+		$('#townIntroduceNavbar').click(function(){
+			$('#townIntroduceMenu').toggle(400);
+			$('#introduceMenu').hide();
+		});
+		
+	});
 </script>
 
 

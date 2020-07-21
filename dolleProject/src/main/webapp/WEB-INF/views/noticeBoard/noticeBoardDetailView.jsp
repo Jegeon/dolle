@@ -182,7 +182,7 @@ window.onload = function () {
 	function downFnc() {
 
 		$('#downForm').submit();
-		
+// 		location.href = "./noticeUpPage.do?rNum="+rNum;
 		
 	}
 	
@@ -237,7 +237,6 @@ window.onload = function () {
 					<span class='contentInfoSpan'>
 						작성일: <fmt:formatDate value="${noticeVo.noticeCreDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
 					</span>
-					
 					<c:if test="${rNum ne maxRnum}">
 						<span class='updownSpan' id='downSpan'>
 							아랫 글

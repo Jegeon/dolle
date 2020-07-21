@@ -366,8 +366,6 @@ public class MemberController {
 		
 		int resultNum = memberService.memberUpdateOne(memberVo);
 		
-//		System.out.println("?????????   " + resultNum);
-		
 		// 데이터베이스에서 회원정보가 수정이 됬는지 여부
 		if(resultNum > 0) {
 			
@@ -381,10 +379,6 @@ public class MemberController {
 				// 1111				2222
 				if(sessionMemberVo.getNo() == memberVo.getNo()) {
 					MemberVo newMemberVo = new MemberVo();
-					
-//					sessionMemberVo.setNo(memberVo.getNo());
-//					sessionMemberVo.setEmail(memberVo.getEmail());
-//					sessionMemberVo.setName(memberVo.getName());
 					
 					newMemberVo.setNo(memberVo.getNo());
 					newMemberVo.setEmail(memberVo.getEmail());
@@ -402,7 +396,7 @@ public class MemberController {
 			}
 		}
 		
-		return "member/memberListOneView";
+		return "redirect:../auth/login.do";
 	}
 	
 	// 회원 삭제

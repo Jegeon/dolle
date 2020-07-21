@@ -368,7 +368,7 @@
 						<td colspan='2' class='tdCss'>
 							<input class='btnCss' type="button" value="수정하기"
 								onclick='updateMoveFnc();'>
-							<input class='btnCss' type="button" value="이전페이지" 
+							<input class='btnCss' type="button" value="메인페이지" 
 								onclick='pageMoveListFnc();'>
 							<input id='deleteBtn' class='btnCss' type='button' value='회원탈퇴'>
 						</td>

@@ -205,7 +205,7 @@
 		} else {
 			nationalCheck.innerHTML = '';
 		}
-		
+		alert('회원정보가 변경되었습니다. 다시 로그인해주세요.');
 		updateForm.submit();
 		
 	}

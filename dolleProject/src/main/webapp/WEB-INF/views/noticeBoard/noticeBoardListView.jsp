@@ -102,6 +102,22 @@ td {
 	float:left;
 }
 
+#doubledLeftBtn{
+	width: 55%;
+}
+
+#leftBtn{
+	width: 40%;
+}
+
+#rightBtn {
+	width: 42%;
+}
+
+#doubledRightBtn {
+	width: 55%;
+}
+
 #searchInput {
 	width: 190px;
 	height: 22px;
@@ -201,9 +217,6 @@ td {
  	box-sizing: border-box;
 }
 
-#doubledLeftBtn {
-	width: 55%;
-}
 
 #prePageBtn {
 	cursor: pointer; 
@@ -217,9 +230,6 @@ td {
  	box-sizing: border-box;
 }
 
-#doubledLeftBtn {
-	width: 40%;
-}
 
 .pagingNum {
 	cursor: pointer; 
@@ -245,9 +255,6 @@ td {
 	box-sizing: border-box;
 }
 
-#doubledLeftBtn {
-	width: 42%;
-}
 
 #lastPageBtn {
 	cursor: pointer; 
@@ -261,9 +268,6 @@ td {
 	box-sizing: border-box;
 }
 
-#doubledLeftBtn{
-	width: 55%;
-}
 
 .noticeTitleSkip {
 	overflow: hidden;
@@ -399,7 +403,7 @@ window.onload = function() {
 					src="/dolleProject/resources/images/doubleLeft.PNG">
 			</li>
 			<li id='prePageBtn' class="pagingImg" onclick="goPageFnc(${pagingMap.paging.prevPage});">
-				<img id="doubledLeftBtn" alt="doubledLeftBtn" 
+				<img id="leftBtn" alt="leftBtn" 
 					src="/dolleProject/resources/images/left.PNG">
 			</li>
 			<c:forEach var="num" 
@@ -421,11 +425,10 @@ window.onload = function() {
 			</c:forEach>
 
 			<li id='nextPageBtn' class="pagingImg" onclick="goPageFnc(${pagingMap.paging.nextPage});">
-				<img id="doubledLeftBtn" alt="doubledLeftBtn" 
-					src="/dolleProject/resources/images/right.PNG">
+				<img id="rightBtn" alt="rightBtn" src="/dolleProject/resources/images/right.PNG">
 			</li>
 			<li id='lastPageBtn' class="pagingImg" onclick="goPageFnc(${pagingMap.paging.totPage});">
-				<img id="doubledLeftBtn" alt="doubledLeftBtn" 
+				<img id="doubledRightBtn" alt="doubledRightBtn" 
 					src="/dolleProject/resources/images/doubleRight.PNG">
 			</li>
 		</ul>	

@@ -52,6 +52,14 @@
 		outline: 0px;
 	}
 	
+	.btnCss {
+		background-color: #0D4371;
+		color: #FFFFFF;
+		border : 0px;
+		outline: 0px;
+		margin: 10px;
+	}
+	
 </style>
 <script type="text/javascript">
 	function pageMoveListFnc() {
@@ -60,22 +68,13 @@
 		location.href = '../member/adminlist.do?no=' + noObj.value;
 	}
 	
-	function updateMoveFnc() {
-		
-	}
-	
-	function deleteMoveFnc() {
-		var noObj = document.getElementById('noObj');
-		
-		location.href = '..//member/deleteCtr.do?mno=' + noObj.value;
-	}
 </script>
 </head>
 
 <body>
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
 	<div id='mainBorder'>
-	<div>
+	<div style='padding: 15px'>
 		<span class='firstSpanCss'>관리자 정보</span>
 	</div>
 		<div id='backBord'>
@@ -130,7 +129,9 @@
 						<span class='secondSpanCss'>생년월일</span>
 					</td>
 					<td>
-						<fmt:formatDate value="${memberVo.birthdate}" pattern="yyyy-MM-dd" />
+						<input class='inputCss' type='text' name='birthdate'
+						 	value='<fmt:formatDate value="${memberVo.birthdate}" pattern="yyyy-MM-dd" />'
+						 	readonly='readonly'>
 					</td>
 				</tr>
 				<tr>
@@ -138,17 +139,16 @@
 						<span class='secondSpanCss'>가입일</span>
 					</td>
 					<td>
-						<fmt:formatDate value="${memberVo.createDate}" pattern="yyyy-MM-dd" />
+						<input class='inputCss' type='text' name='createDate'
+						 	value='<fmt:formatDate value="${memberVo.createDate}" pattern="yyyy-MM-dd" />'
+						 	readonly='readonly'>
+						
 					</td>
 				</tr>
 				<tr>
-					<td colspan='2'>
+					<td>
 						<input class='btnCss' type="button" value="목록으로" 
 							onclick='pageMoveListFnc();'>
-						<input class='btnCss' type="button" value="수정하기"
-							onclick='updateMoveFnc();'>
-						<input class='btnCss' type='button' value='삭제하기'
-							onclick='deleteMoveFnc();'>
 					</td>
 				</tr>
 			</table>

@@ -42,14 +42,6 @@
 	}
 </style>
 <script type="text/javascript">
-	function memberDeletFnc() {
-		var checkNo = document.getElementsByName('checkNo');
-		for (var i = 0; i < checkNo.length; i++) {
-			if (checkNo[i].checked == true) {
-				location.href = '../member/deleteCtr.do?mno=' + checkNo[i].value;
-			}
-		}
-	}
 
 	function memberAddFnc() {
 		location.href = '../member/add.do';
@@ -101,9 +93,6 @@
 				</c:if>
 				</c:forEach>
 			</table>
-		</div>
-		<div style='padding: 15px; margin-left: 580px;'>
-			<input class='btnCss' type='button' onclick='memberDeletFnc();' value='삭제'>
 		</div>
 		</form>
 	</div>

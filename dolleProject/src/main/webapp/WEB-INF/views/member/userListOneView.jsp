@@ -64,16 +64,20 @@
 		outline: 0px;
 	}
 	
+	.btnCss {
+		background-color: #0D4371;
+		color: #FFFFFF;
+		border : 0px;
+		outline: 0px;
+		margin: 10px;
+	}
+	
 </style>
 <script type="text/javascript">
 	function pageMoveListFnc() {
 		var noObj = document.getElementById('noObj');
 		
 		location.href = '../member/list.do?curPage=1';
-	}
-	
-	function updateMoveFnc() {
-		
 	}
 	
 	function deleteMoveFnc() {
@@ -87,7 +91,7 @@
 <body>
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
 	<div id='mainBorder'>
-	<div>
+	<div style='padding: 15px;'>
 		<span class='firstSpanCss'>회원 상세 정보</span>
 	</div>
 		<div id='backBord'>
@@ -150,8 +154,6 @@
 					<td colspan='2'>
 						<input class='btnCss' type="button" value="목록으로" 
 							onclick='pageMoveListFnc();'>
-						<input class='btnCss' type="button" value="수정하기"
-							onclick='updateMoveFnc();'>
 						<input class='btnCss' type='button' value='삭제하기'
 							onclick='deleteMoveFnc();'>
 					</td>

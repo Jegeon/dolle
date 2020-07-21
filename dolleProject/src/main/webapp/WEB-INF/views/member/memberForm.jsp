@@ -425,6 +425,10 @@
 	    obj.value = phone;
 	}
 	
+	function listPageMoveFnc() {
+		location.href = "../member/list.do";
+	}
+	
 	function pageMoveListFnc(){
 		location.href = "../auth/login.do";
 	}
@@ -641,7 +645,12 @@
 		</div>
 			<div style='padding: 15px;'>
 				<input class='btnCss' onclick='completedFnc();' type='button' value='가입완료'>
-				<input class='btnCss' onclick='pageMoveListFnc();' type='button' value='<-'>
+				<c:if test="${_memberVo_.grade == 'admin'}">
+					<input class='btnCss' onclick='listPageMoveFnc();' type='button' value='<-'>
+				</c:if>
+				<c:if test="${_memberVo_.grade != 'admin'}">
+					<input class='btnCss' onclick='pageMoveListFnc();' type='button' value='<-'>
+				</c:if>
 			</div>
 	</div>
 

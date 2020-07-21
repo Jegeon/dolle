@@ -116,6 +116,10 @@
 		margin-bottom: 10px;
 		cursor:pointer;
 	}
+	
+	.noPointer {
+		cursor:auto;
+	}
 	.uzin {
 		border: 1px solid #A5A5A5;
 		border-radius: 4px;
@@ -210,7 +214,7 @@
 		<table style="width: 500px; margin: auto;">
 			<tr>
 				<td>
-					<button class="ahreum">투어 날짜
+					<button class="ahreum noPointer">투어 날짜
 					</button>
 				</td>
 				<td class="rightTdleftPadding">
@@ -233,14 +237,14 @@
 			</tr>
 			<tr>
 				<td>
-					<button class="ahreum">예약 현황
+					<button class="ahreum noPointer">예약 현황
 					</button>
 				</td>
 				<td class="tdBottomPadding">달력에서 날짜를 선택해주세요</td>
 			</tr>
 			<tr>
 				<td>
-					<button class="ahreum">투어 인원
+					<button class="ahreum noPointer">투어 인원
 					</button>
 				</td>
 				<td class="tdBottomPadding">
@@ -249,14 +253,14 @@
 			</tr>
 			<tr>
 				<td>
-					<button class="ahreum">결제 방법
+					<button class="ahreum noPointer">결제 방법
 					</button>
 				</td>
 				<td class="tdBottomPadding">계좌이체</td>
 			</tr>
 			<tr>
 				<td>
-					<button class="ahreum">결제 예상 금액
+					<button class="ahreum noPointer">결제 예상 금액
 					</button>
 				</td>
 				<td id="test" class="tdBottomPadding">
@@ -265,7 +269,7 @@
 			</tr>
 			<tr>
 				<td>
-					<button class="ahreum">결제 계좌
+					<button class="ahreum noPointer">결제 계좌
 					</button>
 				</td>
 				<td class="tdBottomPadding">

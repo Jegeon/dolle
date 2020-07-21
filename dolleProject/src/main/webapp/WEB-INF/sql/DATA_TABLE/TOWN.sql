@@ -1,0 +1,3 @@
+REM INSERTING into GZONE.TOWN
+SET DEFINE OFF;
+Insert into GZONE.TOWN (TOWN_IDX,TOWN_NAME,TOWN_ADDRESS,TOWN_DEL_YN) values (1,'혜화명륜권','경기도 이천시 향교로','n');

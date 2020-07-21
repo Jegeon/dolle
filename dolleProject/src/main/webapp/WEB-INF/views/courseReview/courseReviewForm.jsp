@@ -264,11 +264,9 @@
 	}
 	
 	
-	
-	
 	function addFormFnc(){
-		if(validCheckFnc() == true){
-			$("#addForm").submit();
+		if(validCheckFnc() == false){
+			return false;
 		}
 	}
 	
@@ -290,6 +288,7 @@
 		$("#reivewContent").val("");
 	}
 	
+
 </script>
 </head>
 
@@ -306,7 +305,7 @@
 			<h1>혜화 명륜 마을</h1>
 		</div>
 		
-		<form id="addForm" action="./addCtr.do" method="post" enctype="multipart/form-data">
+		<form id="addForm" action="./addCtr.do" method="post" enctype="multipart/form-data" onsubmit="return addFormFnc();">
 			<div id="uploadImageBox" class="basicBox" style="text-align: center; overflow: hidden;">	
 				<img id="uploadImg" alt="upload_image" src="/dolleProject/resources/images/test.jpg"
 					style="width:100%;">
@@ -414,7 +413,7 @@
 				
 			<div class="basicBox" style="text-align: center;">
 				<input class="inputBtn" type="button" onclick="movePageListFnc();" value="목록으로">
-				<input class="inputBtn" type="button" onclick="addFormFnc();" value="등록">
+				<input class="inputBtn" type="submit" value="등록">
 				<input class="inputBtn" type="button" onclick="clearTxtFnc();" value="다시 쓰기">	
 			</div>
 			

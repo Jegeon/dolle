@@ -264,6 +264,12 @@ td {
 #doubledLeftBtn{
 	width: 55%;
 }
+
+.noticeTitleSkip {
+	overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 </style>
 <script type="text/javascript" 
 	src="/dolleProject/resources/js/jquery-3.5.1.js"></script>
@@ -352,7 +358,7 @@ window.onload = function() {
 								공지
 							</td>
 							<td class='tableLine alignPaddingLeft boldTitle'>
-								<a class='blackLink' style="color: #0D4371;" href='./detail.do?noticeIdx=${noticeMemberFileVo.noticeIdx}'>${noticeMemberFileVo.noticeTitle}
+								<a class='blackLink noticeTitleSkip' style="color: #0D4371;" href='./detail.do?noticeIdx=${noticeMemberFileVo.noticeIdx}'>${noticeMemberFileVo.noticeTitle}
 									<c:if test="${noticeMemberFileVo.fileExist eq 1}">
 										<img id='clipSize' alt='clip' src='/dolleProject/resources/images/fileClip.png'>
 									</c:if>
@@ -370,7 +376,7 @@ window.onload = function() {
 					<tr>
 						<td class='tableLine noneColorNotice'>${noticeMemberFileVo.noticeIdx}</td>
 						<td class='tableLine alignPaddingLeft'>
-							<a class='blackLink' href='./detail.do?noticeIdx=${noticeMemberFileVo.noticeIdx}'>${noticeMemberFileVo.noticeTitle}
+							<a class='blackLink noticeTitleSkip' href='./detail.do?noticeIdx=${noticeMemberFileVo.noticeIdx}'>${noticeMemberFileVo.noticeTitle}
 								<c:if test="${noticeMemberFileVo.fileExist eq 1}">
 									<img id='clipSize' alt='clip' src='/dolleProject/resources/images/fileClip.png'>
 								</c:if>

@@ -233,11 +233,8 @@
 				<!-- 예약 관리 -->
 				<span id="manageReserve" style="padding: 0px 7px 0px 7px;"> <a
 					class='blackLink' href='#'>예약 관리</a>
-				</span> <span id="popManageReserve"> <span id="popReserveDate"
-					style="padding: 0px 7px 0px 7px;"> <a
-						class='blackLink detailLink'
-						href='<%=request.getContextPath()%>/reservation/reservationSchedule.do'>예약일정</a>
-				</span> <span id="popReserveAll" style="padding: 0px 7px 0px 7px;">
+				</span> 
+				<span id="popReserveAll" style="padding: 0px 7px 0px 7px;">
 						<a class='blackLink detailLink'
 						href='<%=request.getContextPath()%>/reservation/reservationListAll.do'>예약현황(전체)</a>
 				</span> <span id="popReserveNoPay" style="padding: 0px 7px 0px 7px;">

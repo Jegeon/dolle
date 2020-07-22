@@ -222,10 +222,12 @@
 				<!-- 회원 관리 -->
 				<span id="manageUser" style="padding: 0px 7px 0px 7px;"> <a
 					class='blackLink' href='#'>회원 관리</a>
-				</span> <span id="popManageUser"> <span id="popUser"
+				</span> 
+				<span id="popManageUser"> <span id="popUser"
 					style="padding: 0px 7px 0px 7px;"> <a
 						class='blackLink detailLink' href='<%=request.getContextPath()%>/member/list.do'>회원</a>
-				</span> <span id="popAdmin" style="padding: 0px 7px 0px 7px;"> <a
+				</span> 
+				<span id="popAdmin" style="padding: 0px 7px 0px 7px;"> <a
 						class='blackLink detailLink' href='<%=request.getContextPath()%>/member/adminlist.do'>관리자</a>
 				</span>
 				</span>
@@ -234,21 +236,23 @@
 				<span id="manageReserve" style="padding: 0px 7px 0px 7px;"> <a
 					class='blackLink' href='#'>예약 관리</a>
 				</span> 
-				<span id="popReserveAll" style="padding: 0px 7px 0px 7px;">
-						<a class='blackLink detailLink'
-						href='<%=request.getContextPath()%>/reservation/reservationListAll.do'>예약현황(전체)</a>
-				</span> <span id="popReserveNoPay" style="padding: 0px 7px 0px 7px;">
-						<a class='blackLink detailLink'
-						href='<%=request.getContextPath()%>/reservation/reservationListPaid.do'>예약현황(승인대기)</a>
-				</span> <span id="popReserveCancel" style="padding: 0px 7px 0px 7px;">
-						<a class='blackLink detailLink'
-						href='<%=request.getContextPath()%>/reservation/reservationListCanceled.do'>예약현황(취소자)</a>
-				</span> <span id="popManageReserve" style="padding: 0px 7px 0px 7px;">
-						<a class='blackLink detailLink'
-						href='<%=request.getContextPath()%>/reservation/reservationPage.do'>예약페이지
-							관리</a>
-				</span>
-				</span>
+				<span id="popManageReserve">
+					<span id="popReserveAll" style="padding: 0px 7px 0px 7px;">
+							<a class='blackLink detailLink'
+							href='<%=request.getContextPath()%>/reservation/reservationListAll.do'>예약현황(전체)</a>
+					</span> <span id="popReserveNoPay" style="padding: 0px 7px 0px 7px;">
+							<a class='blackLink detailLink'
+							href='<%=request.getContextPath()%>/reservation/reservationListPaid.do'>예약현황(승인대기)</a>
+					</span> <span id="popReserveCancel" style="padding: 0px 7px 0px 7px;">
+							<a class='blackLink detailLink'
+							href='<%=request.getContextPath()%>/reservation/reservationListCanceled.do'>예약현황(취소자)</a>
+					</span> 
+					<span id="popManageReservation" style="padding: 0px 7px 0px 7px;">
+							<a class='blackLink detailLink'
+							href='<%=request.getContextPath()%>/reservation/reservationPage.do'>예약페이지
+								관리</a>
+					</span>
+				</span>				
 
 				<!-- 게시판 관리 -->
 				<span id="manageBoard" style="padding: 0px 7px 0px 7px;"> <a

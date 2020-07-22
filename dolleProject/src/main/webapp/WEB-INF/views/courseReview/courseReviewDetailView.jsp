@@ -312,7 +312,7 @@
 		content = commentContent.replace(/(?:\r\n|\r|\n)/g, '<br/>');		//엔터키 처리
 		if(content == null || content.trim() == "" || content.length == 0){
 			$("#commentContent"+index).focus();
-			alert("수정 내용을 작성해주세요");
+			alert("내용을 작성해주세요");
 			return false;
 		}else if(content.length > 1329){	//글자 수 제한
 			alert("더 이상 작성할 수 없습니다.");
@@ -489,8 +489,6 @@
 			<div class="basicBox reviewSide" style="padding-bottom: 10px;">
 				<span class="marginRight5">조회수</span>
 				<span class="marginRight15">${reviewMCFVo.reviewReadCount}</span> 
-				<span class="marginRight5">좋아요</span>
-				<span>${reviewMCFVo.reviewLikeCount}</span>
 			</div>
 			
 			<div class="basicBox reviewSide" style="padding-bottom: 10px;">

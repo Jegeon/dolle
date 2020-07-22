@@ -271,9 +271,12 @@
 	}
 	
 	//다시 쓰기
-	function clearFnc(){
-		$("#reviewTitle").val("");
-		$("#reivewContent").val("");
+	function clearTxtFnc(){
+		var check = confirm("정말 다시 쓰시겠습니까?");
+		if(check == true){
+			$("#reviewTitle").val("");
+			$("#reivewContent").val("");
+		}
 	}
 	
 </script>
@@ -403,7 +406,7 @@
 				<input class="inputBtn" type="button" onclick="movePageListFnc();" value="목록으로">
 				<input class="inputBtn" type="button" onclick="updateFormFnc();" value="수정">
 				<input class="inputBtn" type="button" onclick="deleteFnc(${reviewMCFVo.reviewIdx});" value="삭제">
-				<input class="inputBtn" type="button" onclick="clearFnc();" value="다시 쓰기">	
+				<input class="inputBtn" type="button" onclick="clearTxtFnc();" value="다시 쓰기">	
 			</div>
 			
 		</form>

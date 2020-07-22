@@ -284,8 +284,11 @@
 
 	//다시 쓰기
 	function clearTxtFnc(){
-		$("#reviewTitle").val("");
-		$("#reivewContent").val("");
+		var check = confirm("정말 다시 쓰시겠습니까?");
+		if(check == true){
+			$("#reviewTitle").val("");
+			$("#reivewContent").val("");
+		}
 	}
 	
 

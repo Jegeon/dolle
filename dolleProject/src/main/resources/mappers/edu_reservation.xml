@@ -277,6 +277,7 @@
 		WHERE R.MEMBER_IDX = M.MEMBER_IDX
         AND R.TOUR_IDX = T.TOUR_IDX
         AND T.TOUR_DEL_YN = 'n'
+        AND M.MEMBER_DEL_YN = 'n'
 		<!-- 검색 -->
 		<include refid="search"></include>
 		ORDER BY R.RESERVE_IDX DESC
@@ -303,6 +304,7 @@
 		WHERE R.MEMBER_IDX = M.MEMBER_IDX
         AND R.TOUR_IDX = T.TOUR_IDX
         AND T.TOUR_DEL_YN = 'n'
+        AND M.MEMBER_DEL_YN = 'n'
         AND R.RESERVE_DEPOSIT_STATE = 'paid'
         <!-- 검색 -->
 		<include refid="search"></include>
@@ -330,6 +332,7 @@
 		WHERE R.MEMBER_IDX = M.MEMBER_IDX
         AND R.TOUR_IDX = T.TOUR_IDX
         AND T.TOUR_DEL_YN = 'n'
+        AND M.MEMBER_DEL_YN = 'n'
         AND R.RESERVE_DEPOSIT_STATE = 'canceled'
         <!-- 검색 -->
 		<include refid="search"></include>

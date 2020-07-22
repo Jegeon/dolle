@@ -496,10 +496,10 @@
 			</c:forEach>
 
 			<li id="nextPageBtn" class="pagingImg" onclick="goPageFnc(${pagingMap.reviewPaging.nextPage});">
-				<img id="doubledRightBtn" alt="doubledRightBtn" src="/dolleProject/resources/images/right.PNG" style="width:42%;">
+				<img id="rightBtn" alt="rightBtn" src="/dolleProject/resources/images/right.PNG" style="width:42%;">
 			</li>
 			<li id="lastPageBtn" class="pagingImg" onclick="goPageFnc(${pagingMap.reviewPaging.totPage});">
-				<img id="rightBtn" alt="rightBtn" src="/dolleProject/resources/images/doubleRight.PNG" style="width:55%;">
+				<img id="doubledRightBtn" alt="doubledRightBtn" src="/dolleProject/resources/images/doubleRight.PNG" style="width:55%;">
 			</li>
 		</ul>
 		<input id="reviewMemberIdx" type="hidden" value="${_memberVo_.no}">
